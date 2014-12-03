@@ -1,0 +1,6 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "freeze": true,
+    "unused": true
+}
