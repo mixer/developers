@@ -4,9 +4,8 @@
   "description": "The developers server for Beam.",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
-    "test": "node node_modules/jasmine-node/bin/jasmine-node spec --forceexit",
-    "posttest": "node node_modules/jshint/bin/jshint --reporter node_modules/jshint-stylish/stylish.js lib spec"
+    "start": "node ./bin/www serve",
+    "test": "node node_modules/jshint/bin/jshint lib"
   },
   "repository": {
     "type": "git",
@@ -21,15 +20,26 @@
   "dependencies": {
     "bunyan": "^1.2.3",
     "bunyan-raven": "^0.2.2",
+    "commander": "^2.5.0",
+    "definitely-marked": "0.0.2",
     "express": "^4.10.4",
+    "glob": "^4.3.5",
+    "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^2.0.0",
+    "gulp-browserify": "^0.5.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.1.0",
+    "gulp-less": "^2.0.1",
+    "gulp-load-plugins": "^0.7.1",
+    "gulp-minify-css": "^0.3.13",
+    "gulp-uglify": "^1.1.0",
+    "jade": "^1.9.1",
     "knex": "^0.7.3",
     "lodash": "^2.4.1",
+    "marked": "^0.3.3",
     "raven": "^0.7.2"
   },
   "devDependencies": {
-    "jasmine": "^2.0.1",
-    "jasmine-node": "^1.14.5",
-    "jshint": "^2.5.4",
-    "jshint-stylish": "^0.4.0"
+    "jshint": "^2.5.4"
   }
 }

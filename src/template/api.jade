@@ -1,0 +1,17 @@
+extends layout/master.jade
+include mixins/api
+
+block content
+    .page-heading
+        .container
+            .col-sm-3: h1 API Reference
+            .col-sm-9
+                p Here you can find documentation and resources for interacting with Beam.
+
+    .container
+        p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, sed aperiam deserunt error, quidem, consequatur consequuntur culpa quisquam cum iste dignissimos facere veritatis provident reprehenderit alias dolores ipsum voluptates accusamus!
+
+        each endpoint in endpoints
+            .col-sm-4
+                h3: +endpointText(endpoint)
+                p= endpoint.description

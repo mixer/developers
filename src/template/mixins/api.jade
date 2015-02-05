@@ -1,0 +1,3 @@
+mixin endpointText(endpoint)
+    span= endpoint.method.toUpperCase()
+    | /api/v#{endpoint.version}#{endpoint.endpoint}
