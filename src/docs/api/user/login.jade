@@ -1,0 +1,87 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/login
+=description Updates the session to be in the context of a user.
+
+p Hitting this endpoint causes the user's credentials to be authenticated and, if successful, their session is persisted via cookie.
+p Use of this endpoint is very specific. If you're looking for a way to authenticate users on your application, you should use our #[a OAuth API].
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name username
+        td.description The username to authenticate with.
+    tr
+        td.name password
+        td.password The password to attempt to authenticate with.
+
+h3 Possible Results
+
+.endpoint-result
+    h4 Successful Result #[b 200 OK]
+
+    pre: code.endpoint-response.language-javascript.
+        {
+            "avatars": [],
+            "channel": {
+                "allow_costream": null,
+                "audience": "G",
+                "banner": null,
+                "body": "<p>Hello world!</p>",
+                "cover": 23,
+                "createdAt": "2014-11-20T00:47:58.000Z",
+                "featured": null,
+                "followers": 0,
+                "follows": null,
+                "hidden": false,
+                "id": 2,
+                "name": "Lalalal fdsffasdsad ddddddd",
+                "online": false,
+                "partnered": null,
+                "subscribers": 1,
+                "thumbnail": 23,
+                "token": "connor4312",
+                "type": "port",
+                "updatedAt": "2015-02-02T23:00:22.000Z",
+                "user": 2,
+                "viewers_total": 1
+            },
+            "createdAt": "2014-11-20T00:47:58.000Z",
+            "display_name": "Bruce",
+            "email": "foo@bar.com",
+            "follows": [
+                {
+                    "channel": 2,
+                    "createdAt": "2015-01-04T22:34:05.000Z",
+                    "id": 1,
+                    "updatedAt": "2015-01-04T22:34:05.000Z",
+                    "user": 2
+                }
+            ],
+            "id": 2,
+            "notifications": null,
+            "points": 9,
+            "reset_time": null,
+            "social_facebook": "connor.peet",
+            "social_twitter": "ConnorPeet",
+            "social_youtube": "connorpeet",
+            "updatedAt": "2015-02-02T23:00:22.000Z",
+            "username": "connor4312",
+            "verified": true
+        }
+
+.endpoint-result
+    h4 Errorful Result #[b 401 Unauthorized]
+    p If the username or password is invalid.
+
+    pre: code.endpoint-response.language-javascript.
+        "Invalid username or password."
+
+.endpoint-result
+    h4 Errorful Result #[b 492 Rate Limited]
+    p If too many attempts have been made in too short an interval.
+
+    pre: code.endpoint-response.language-javascript.
+        "Too many invalid login attempts. Please wait a few minutes."

@@ -1,0 +1,16 @@
+extends layout/master.jade
+include mixins/api
+
+block content
+    .page-heading.compact
+        .container
+            .col-sm-3: h1 API:#{article.resource}
+            .col-sm-9
+                p= article.description
+
+    .container
+        .col-sm-3
+            +endpointList(resources, article)
+        .col-sm-9
+            h1.endpoint-title: +endpointText(article)
+            .article!= article.content

@@ -21,7 +21,6 @@
     "bunyan": "^1.2.3",
     "bunyan-raven": "^0.2.2",
     "commander": "^2.5.0",
-    "definitely-marked": "0.0.2",
     "express": "^4.10.4",
     "glob": "^4.3.5",
     "gulp": "^3.8.10",
@@ -36,7 +35,6 @@
     "jade": "^1.9.1",
     "knex": "^0.7.3",
     "lodash": "^2.4.1",
-    "marked": "^0.3.3",
     "raven": "^0.7.2"
   },
   "devDependencies": {

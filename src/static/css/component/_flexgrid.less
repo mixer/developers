@@ -1,0 +1,34 @@
+.flexgrid {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.flex-xs-4 { flex: 0 0 (1 / 4 * 100%); }
+.flex-xs-3 { flex: 0 0 (1 / 3 * 100%); }
+.flex-xs-2 { flex: 0 0 (1 / 2 * 100%); }
+
+@media (min-width: @screen-sm-min) {
+    .flex-sm-4 { flex: 0 0 (1 / 4 * 100%); }
+    .flex-sm-3 { flex: 0 0 (1 / 3 * 100%); }
+    .flex-sm-2 { flex: 0 0 (1 / 2 * 100%); }
+}
+@media (min-width: @screen-md-min) {
+    .flex-md-4 { flex: 0 0 (1 / 4 * 100%); }
+    .flex-md-3 { flex: 0 0 (1 / 3 * 100%); }
+    .flex-md-2 { flex: 0 0 (1 / 2 * 100%); }
+}
+@media (min-width: @screen-lg-min) {
+    .flex-lg-4 { flex: 0 0 (1 / 4 * 100%); }
+    .flex-lg-3 { flex: 0 0 (1 / 3 * 100%); }
+    .flex-lg-2 { flex: 0 0 (1 / 2 * 100%); }
+}
+
+.flex-fill {
+    display: flex;
+    flex-direction: column;
+    padding: @grid-gutter-width / 2;
+
+    > div {
+        flex: 1;
+    }
+}

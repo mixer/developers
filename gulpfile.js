@@ -17,7 +17,7 @@ gulp.task('css', function() {
         .pipe(gulp.dest('static/css'));
 });
 gulp.task('js', function () {
-    gulp.src('src/static/developers.js')
+    gulp.src('src/static/js/developers.js')
         .pipe($.browserify({
             insertGlobals : true,
             debug : !isProduction,
@@ -25,6 +25,10 @@ gulp.task('js', function () {
         }))
         .pipe($.if(isProduction, $.uglify()))
         .pipe(gulp.dest('static/js'));
+
+    gulp.src([
+        'src/static/js/prism.js',
+    ]).pipe(gulp.dest('static/js'));
 });
 gulp.task('images', function() {
     gulp.src(globs.images)

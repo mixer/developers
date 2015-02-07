@@ -1,3 +1,20 @@
 mixin endpointText(endpoint)
     span= endpoint.method.toUpperCase()
     | /api/v#{endpoint.version}#{endpoint.endpoint}
+
+mixin endpointBox(endpoint)
+    .endpoint-box(onclick="window.location.pathname='/#{endpoint.dbpath}';")
+        h3.endpoint-title: +endpointText(endpoint)
+        p= endpoint.description
+
+mixin endpointList(resources, current)
+    .endpoint-list
+        each endpoints, resource in resources
+            h3= resource
+            ul
+                each endpoint in endpoints
+                    li
+                        if endpoint === current
+                            a.disabled: +endpointText(endpoint)
+                        else
+                            a(href="/#{endpoint.dbpath}"): +endpointText(endpoint)
