@@ -81,6 +81,25 @@
     .name {
         font-size: 1.3em;
         font-family: @font-family-monospace;
+
+        span {
+            display: block;
+            font-family: @font-family-sans-serif;
+            font-size: 0.8em;
+            opacity: 0.5;
+        }
+    }
+
+    .default {
+        font-family: @font-family-monospace;
+        margin-top: 5px;
+        font-size: 0.9em;
+        opacity: 0.5;
+
+        &:before {
+            font-family: @font-family-sans-serif;
+            content: 'Default: ';
+        }
     }
 }
 

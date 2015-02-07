@@ -1,0 +1,34 @@
+=version 1
+=resource User
+=method get
+=endpoint /users/current
+=description Retrieves the currently authenticated user.
+
+include ../../_mixins.jade
+
+p Returns the user associated with the current auth session (when using cookie-base session) or auth token (when using OAuth). This may be used as a means to check whether the user is logged in.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "avatars": [ /* array of Resources */ ],
+        "channel": { /* Channel object */ },
+        "createdAt": "2014-11-20T00:47:58.000Z",
+        "display_name": "ConnorPeet",
+        "email": "connor@example.com",
+        "follows": [ /* array of Follows */ ],
+        "id": 2,
+        "notifications": null,
+        "points": 9,
+        "reset_time": null,
+        "social_facebook": "connor.peet",
+        "social_twitter": "ConnorPeet",
+        "social_youtube": "connorpeet",
+        "updatedAt": "2015-02-02T23:00:22.000Z",
+        "username": "connor4312",
+        "verified": true
+    }
+
++result("Errorful", "400 Bad Request").
+    "User not logged in."

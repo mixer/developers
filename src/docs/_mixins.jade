@@ -1,0 +1,9 @@
+mixin result(outcome, status, comment)
+    .endpoint-result
+        h4 #{outcome} Result #[b= status]
+
+        if comment
+            p!= comment
+
+        pre: code.endpoint-response.language-javascript
+            block

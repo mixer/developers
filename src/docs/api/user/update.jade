@@ -1,0 +1,69 @@
+=version 1
+=resource User
+=method put
+=endpoint /users/:id
+=description Updates a user profile.
+
+include ../../_mixins.jade
+
+p Updates user profile information.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name display_name #[span optional]
+        td.description
+            | User's publicly displayed name.
+            .default undefined
+    tr
+        td.name email #[span optional]
+        td.description
+            | Email connected to the user account.
+            .default undefined
+    tr
+        td.name password #[span optional]
+        td.description
+            | The user's password.
+            .default undefined
+    tr
+        td.name social_twitter #[span optional]
+        td.description
+            | User's handle on twitter.
+            .default undefined
+    tr
+        td.name social_facebook #[span optional]
+        td.description
+            | Username on Facebook.
+            .default undefined
+    tr
+        td.name social_youtube #[span optional]
+        td.description
+            | Channel name on YouTube.
+            .default undefined
+
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "avatars": [ /* array of Resources */ ],
+        "channel": { /* Channel object */ },
+        "createdAt": "2014-11-20T00:47:58.000Z",
+        "display_name": "ConnorPeet",
+        "email": "connor@example.com",
+        "follows": [ /* array of Follows */ ],
+        "id": 2,
+        "notifications": null,
+        "points": 9,
+        "reset_time": null,
+        "social_facebook": "connor.peet",
+        "social_twitter": "ConnorPeet",
+        "social_youtube": "connorpeet",
+        "updatedAt": "2015-02-02T23:00:22.000Z",
+        "username": "connor4312",
+        "verified": true
+    }
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
