@@ -15,6 +15,6 @@ mixin endpointList(resources, current)
                 each endpoint in endpoints
                     li
                         if endpoint === current
-                            a.disabled: +endpointText(endpoint)
+                            a.endpoint-title.disabled: +endpointText(endpoint)
                         else
-                            a(href="/#{endpoint.dbpath}"): +endpointText(endpoint)
+                            a.endpoint-title(href="/#{endpoint.dbpath}"): +endpointText(endpoint)
