@@ -1,6 +1,7 @@
 mixin endpointText(endpoint)
     span= endpoint.method.toUpperCase()
-    | /api/v#{endpoint.version}#{endpoint.endpoint}
+    | /api/v#{endpoint.version}
+    != endpoint.endpoint.replace(/(\:[a-z]+)/, '<em>$1</em>')
 
 mixin endpointBox(endpoint)
     .endpoint-box(onclick="window.location.pathname='/#{endpoint.dbpath}';")

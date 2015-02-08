@@ -1,19 +1,19 @@
 =version 1
 =resource User
-=method get
-=endpoint /users/:id
-=description Retrieves information about a user.
+=method patch
+=endpoint /users/confirm
+=description Verifies a user based on a code emailed to them.
 
 include ../../_mixins.jade
 
-p Looks up information about a user.
+p This verifies a new user's account from the code sent to their inbox on registration. This step is necessary before they will be able to log in.
 
-h3 Parameters
+p If they verify successfully, they will be logged into their account via session cookie.
 
 table.endpoint-param-table
     tr
-        td.name :id
-        td.description The numeric user ID.
+        td.name code
+        td.description Alphanumeric confirmation code.
 
 h3 Possible Results
 
@@ -38,4 +38,4 @@ h3 Possible Results
     }
 
 +result("Errorful", "404 Not Found").
-    "User not found"
+    "User not found, did you already verify your account?"

@@ -24,6 +24,11 @@
         opacity: 0.5;
         margin-right: 0.25em;
     }
+
+    em {
+        font-style: normal;
+        opacity: 0.5;
+    }
 }
 
 .endpoint-list {
@@ -54,10 +59,15 @@
         &.disabled {
             color: @gray-light;
 
-            &:hover {
-                background: transparent;
+            &, &:hover {
+                background: #f6f6f6;
             }
         }
+    }
+
+    .endpoint-title span {
+        width: 4em;
+        display: inline-block;
     }
 }
 
@@ -122,5 +132,9 @@
             border-radius: 3px;
             transform: translateY(-2px);
         }
+    }
+
+    &:last-child {
+        border-bottom: none;
     }
 }

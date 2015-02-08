@@ -11,6 +11,8 @@ block content
     .container
         p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, sed aperiam deserunt error, quidem, consequatur consequuntur culpa quisquam cum iste dignissimos facere veritatis provident reprehenderit alias dolores ipsum voluptates accusamus!
 
-        .flexgrid
-            each endpoint in endpoints
-                .flex-xs-3.flex-fill: +endpointBox(endpoint)
+        each endpoints, resource in resources
+            h3= resource
+            .flexgrid
+                each endpoint in endpoints
+                    .flex-xs-3.flex-fill: +endpointBox(endpoint)

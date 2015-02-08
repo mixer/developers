@@ -1,0 +1,27 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/reset
+=description Sends a reset password request to a user by email.
+
+include ../../_mixins.jade
+
+p This is the "lost password" functionality. Hitting this endpoint causes a password reset request to be sent to the user via email.
+
+p That email contains a code which they can use to complete the reset request.
+
+table.endpoint-param-table
+    tr
+        td.name email
+        td.description User's email address.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "Successfully sent password reset email"
+
++result("Errorful", "404 Not Found").
+    "User not found."
+
++result("Errorful", "492 Rate Limit").
+    "Too many reset requests. Please wait a few minutes, or check your spambox."
