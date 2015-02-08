@@ -1,0 +1,105 @@
+=version 1
+=resource Channel
+=method put
+=endpoint /channels/:id
+=description Updates a channel's properties.
+
+include ../../_mixins.jade
+
+p This endpoint updates the a channel's details.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description
+            | Numeric ID of the channel to update.
+    tr
+        td.name name #[span optional]
+        td.description
+            | The channel name (channel title).
+            .default undefined
+    tr
+        td.name allow_costream #[span optional]
+        td.description
+            p Whether costreaming requests are permitted on the channel. It may be one of:
+            table
+                tr
+                    td: code all
+                    td To allow all costreaming requests to be sent.
+                tr
+                    td: code following
+                    td To allow costreaming requests only from channels the owner is following.
+                tr
+                    td: code none
+                    td To disallow all costreaming requests.
+
+            .default undefined
+    tr
+        td.name audience #[span optional]
+        td.description
+            p The audience target of the channel, or rating. Possible values are:
+            ul
+                li G
+                li PG
+                li PG13
+                li R
+            .default undefined
+    tr
+        td.name type #[span optional]
+        td.description
+            | The channel category this should be listed under.
+            .default undefined
+    tr
+        td.name banner #[span optional]
+        td.description
+            | The numeric resource ID of the stream banner to use for this channel.
+            .default undefined
+    tr
+        td.name cover #[span optional]
+        td.description
+            | The numeric resource ID of the stream cover to use for this channel. It will be displayed as the channel's page background.
+            .default undefined
+    tr
+        td.name thumbnail #[span optional]
+        td.description
+            | The numeric resource ID of the stream thumbnail to use for this channel. It will be displayed on listing or "browse" pages.
+            .default undefined
+    tr
+        td.name body #[span optional]
+        td.description
+            | The channel description to be displayed. HTML is allowed, but it will be sanitized.
+            .default undefined
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "allow_costream": "all",
+        "audience": "G",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor delectus dolorum sequi, esse atque enim perspiciatis neque aliquid! Possimus officia id quasi veritatis nemo aliquam omnis sequi libero eum beatae.",
+        "createdAt": "2014-11-20T00:48:01.000Z",
+        "featured": false,
+        "followers": 10,
+        "hidden": false,
+        "id": 20,
+        "name": "Minecraft Rox",
+        "online": true,
+        "partnered": false,
+        "subscribers": 2,
+        "thumbnail": 2,
+        "token": "connor4312",
+        "type": "minecraft",
+        "updatedAt": "2014-11-20T00:48:01.000Z",
+        "user": 2,
+        "viewers_total": 127
+    }
+
++result("Errorful", "403 Forbidden").
+    "Access denied."
+
++result("Errorful", "404 Not Found").
+    "Channel not found."
+
++result("Errorful", "400 Bad Request", "Standard Invalid response.")

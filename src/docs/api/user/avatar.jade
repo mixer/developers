@@ -1,0 +1,52 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/:id/changeAvatar
+=description Creates and sets a user avatar.
+
+include ../../_mixins.jade
+
+p This endpoint is used for uploading and setting a new user profile image.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric ID of the user to update.
+    tr
+        td.name @avatar
+        td.description
+            p An image file, sent as multipart form data, to use as the channel thumbnail. Files will be processed, resized, and converted to JPEG images, so it is not possible to upload animated gifs at this time.
+            p The maximum upload size is 10 megabytes. Valid formats include png, jpg, and gif images. Files that do not fit these rules will cause a #[code 400 Bad Request] to be returned.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "avatars": [ /* array of Resources */ ],
+        "channel": { /* Channel object */ },
+        "createdAt": "2014-11-20T00:47:58.000Z",
+        "display_name": "ConnorPeet",
+        "email": "connor@example.com",
+        "follows": [ /* array of Follows */ ],
+        "id": 2,
+        "notifications": null,
+        "points": 9,
+        "reset_time": null,
+        "social_facebook": "connor.peet",
+        "social_twitter": "ConnorPeet",
+        "social_youtube": "connorpeet",
+        "updatedAt": "2015-02-02T23:00:22.000Z",
+        "username": "connor4312",
+        "verified": true
+    }
+
++result("Errorful", "403 Forbidden").
+    "Access denied."
+
++result("Errorful", "404 Not Found").
+    "Channel not found."
+
++result("Errorful", "400 Bad Request").
+    "Invalid file."

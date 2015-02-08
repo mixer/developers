@@ -1,19 +1,16 @@
 =version 1
-=resource Channel Types
+=resource Channel
 =method get
-=endpoint /types/:slug/channels
-=description Lists channels in a particular type.
+=endpoint /channels
+=description Lists channels on Beam.
 
 include ../../_mixins.jade
 
-p Lists channels in a particular category. It returns an array of channel resources with their "thumbnail" attribute populated.
+p This endpoint lists users' channels.
 
 h3 Parameters
 
 table.endpoint-param-table
-    tr
-        td.name :slug
-        td.description Slug of the category to search in.
     tr
         td.name order #[span optional]
         td.description
@@ -58,7 +55,7 @@ h3 Possible Results
             "online": true,
             "partnered": false,
             "subscribers": 2,
-            "thumbnail": { /* Resource object */ }
+            "thumbnail": { /* Resource object */ },
             "token": "connor4312",
             "type": "minecraft",
             "updatedAt": "2014-11-20T00:48:01.000Z",

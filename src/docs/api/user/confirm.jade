@@ -1,7 +1,7 @@
 =version 1
 =resource User
 =method patch
-=endpoint /users/confirm
+=endpoint /users/:id/confirm
 =description Verifies a user based on a code emailed to them.
 
 include ../../_mixins.jade
@@ -11,6 +11,9 @@ p This verifies a new user's account from the code sent to their inbox on regist
 p If they verify successfully, they will be logged into their account via session cookie.
 
 table.endpoint-param-table
+    tr
+        td.name :id
+        td.description User ID to confirm.
     tr
         td.name code
         td.description Alphanumeric confirmation code.

@@ -1,0 +1,46 @@
+=version 1
+=resource Channel
+=method get
+=endpoint /channels/:id
+=description Gets information about a single channel.
+
+include ../../_mixins.jade
+
+p This endpoint retrieves a single fully-populated channel by its ID or token.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel numeric id #[em or] token of the channel to retrieve.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "allow_costream": "all",
+        "audience": "G",
+        "banner": { /* Resource object */ },
+        "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor delectus dolorum sequi, esse atque enim perspiciatis neque aliquid! Possimus officia id quasi veritatis nemo aliquam omnis sequi libero eum beatae.",
+        "cache": [ /* array of ChatMessage objects */ ],
+        "cover": { /* Resource object */ },
+        "createdAt": "2014-11-20T00:48:01.000Z",
+        "featured": false,
+        "followers": 10,
+        "hidden": false,
+        "id": 20,
+        "name": "Minecraft Rox",
+        "online": true,
+        "partnered": false,
+        "subscribers": 2,
+        "thumbnail": { /* Resource object */ },
+        "token": "connor4312",
+        "type": "minecraft",
+        "updatedAt": "2014-11-20T00:48:01.000Z",
+        "user": { /* User object */ },
+        "viewers_total": 127
+    }
+
++result("Errorful", "404 Not Found").
+    "Channel not found."

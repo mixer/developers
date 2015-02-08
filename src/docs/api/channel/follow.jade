@@ -1,0 +1,33 @@
+=version 1
+=resource Channel
+=method put
+=endpoint /channels/:id/follow
+=description Follows a channel.
+
+include ../../_mixins.jade
+
+p Follows a channel for the given user.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel ID you wish to follow.
+    tr
+        td.name user
+        td.description The user ID who wants to follow the channel.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "You are now following this channel."
+
++result("Errorful", "400 Bad Request").
+    "You're already following that channel!"
+
++result("Errorful", "403 Forbidden", "This will occur if you don't have permission on the requested user <i>or</i> the user attempts to follow its own channel.").
+    "You are not permitted to perform that action."
+
++result("Errorful", "404 Not Found").
+    "Channel not found."
