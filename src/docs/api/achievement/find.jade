@@ -1,0 +1,45 @@
+=version 1
+=resource Achievement
+=method get
+=endpoint /achievements
+=description Lists all achievements which may be earned.
+
+include ../../_mixins.jade
+
+p This lists all achievements that are possible to earn.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID to get the achievements for.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+            "earned": false,
+            "id": 1,
+            "name": "StalkerPro",
+            "progress": 0.12,
+            "slug": "stalker-pro",
+            "updatedAt": "2015-02-03T15:44:02.000Z",
+            "user": 2
+        },
+        {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+            "earned": true,
+            "id": 2,
+            "name": "Stalker",
+            "progress": 1,
+            "slug": "stalker",
+            "updatedAt": "2015-02-03T15:44:02.000Z",
+            "user": 2
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

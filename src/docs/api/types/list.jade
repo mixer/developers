@@ -1,0 +1,29 @@
+=version 1
+=resource Channel Types
+=method get
+=endpoint /types
+=description Lists channel types (categories).
+
+include ../../_mixins.jade
+
+p Channels may belong to a single category (currently). This endpoint lists the categories that they may belong to.
+
+p The #[code slug] is the identifying property used in other endpoints for this resource.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "cover": { /* Resource object */ },
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+            "name": "Minecraft",
+            "slug": "minecraft"
+        },
+        {
+            "cover": { /* Resource object */ },
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+            "name": "Battlefield Hardline",
+            "slug": "battlefield-hardline"
+        }
+    ]

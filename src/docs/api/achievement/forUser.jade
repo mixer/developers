@@ -1,0 +1,49 @@
+=version 1
+=resource Achievement
+=method get
+=endpoint /users/:id/achievements
+=description Lists a user's progress on achievements.
+
+include ../../_mixins.jade
+
+p This lists all achievements and the user's progress on those achievements.
+
+p Achievements are a resource in themselves, then the user can gain #[i Achievement Earnings], which record the user's progress and earned status on each achievement. Note that an Earning record will not exist if the user has not made progress on an achievement.
+
+p In this endpoint, the difference is not apparent, but for other endpoints this is something you'll need to keep in mind.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID to get the achievements for.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+            "earned": false,
+            "id": 1,
+            "name": "StalkerPro",
+            "progress": 0.12,
+            "slug": "stalker-pro",
+            "updatedAt": "2015-02-03T15:44:02.000Z",
+            "user": 2
+        },
+        {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+            "earned": true,
+            "id": 2,
+            "name": "Stalker",
+            "progress": 1,
+            "slug": "stalker",
+            "updatedAt": "2015-02-03T15:44:02.000Z",
+            "user": 2
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
