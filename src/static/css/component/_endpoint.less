@@ -48,13 +48,34 @@
     }
 
     a {
-        display: block;
+        display: inline-block;
         padding: 5px 15px;
         white-space: nowrap;
+        min-width: 100%;
+        max-width: 100%;
+        transition: 0.3s max-width;
+        overflow: hidden;
+        position: relative;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 10%;
+            opacity: 1;
+            background: linear-gradient(90deg, fade(@body-bg, 0%), @body-bg);
+        }
 
         &:hover {
             background: @brand-primary;
             color: #fff;
+            max-width: 150%;
+
+            &:before {
+                opacity: 0;
+            }
         }
 
         &.disabled {
