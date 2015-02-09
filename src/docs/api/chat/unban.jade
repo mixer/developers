@@ -1,0 +1,30 @@
+=version 1
+=resource Chat
+=method delete
+=endpoint /chats/:id/ban/:username
+=description Unbans a user from the chat.
+
+include ../../_mixins.jade
+
+p Removes a previously placed ban on a user.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel numeric id of the channel.
+    tr
+        td.name :username
+        td.description The username of the user to unban.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "User has been unbanned."
+
++result("Errorful", "403 Forbidden").
+    "Access denied"
+
++result("Errorful", "404 Not Found").
+    "Channel not found."

@@ -1,0 +1,32 @@
+=version 1
+=resource Chat
+=method delete
+=endpoint /chats/:id/message/:message
+=description Removes a chat message.
+
+include ../../_mixins.jade
+
+p Hitting this endpoint removes a chat message from the channel's chat. The message will be removed from the chat log and an event will go out to chat servers, which in turn send events to connected users instructings the clients to hide the message.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel numeric id of the channel that the message is in.
+    tr
+        td.name :message
+        td.description The uuid of the chat message you want to remove.
+
+h3 Possible Results
+
+p Note: due to the evented nature of this endpoint, a Not Found response will not be sent if the message doesn't exist.
+
++result("Successful", "200 OK").
+    "Message deleted."
+
++result("Errorful", "403 Forbidden").
+    "Access denied"
+
++result("Errorful", "404 Not Found").
+    "Channel not found."

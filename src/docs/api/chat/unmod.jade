@@ -1,0 +1,30 @@
+=version 1
+=resource Chat
+=method delete
+=endpoint /chats/:id/mod/:username
+=description Removes moderator permissions from a user.
+
+include ../../_mixins.jade
+
+p Sets a user's role in the chat to User.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel numeric id of the channel.
+    tr
+        td.name :username
+        td.description The username of the user to unmod.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "User has been demoted."
+
++result("Errorful", "403 Forbidden").
+    "Access denied"
+
++result("Errorful", "404 Not Found").
+    "Channel not found."

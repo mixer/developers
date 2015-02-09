@@ -1,0 +1,30 @@
+=version 1
+=resource Chat
+=method put
+=endpoint /chats/:id/mod/:username
+=description Sets a user to be moderator in a chat.
+
+include ../../_mixins.jade
+
+p Sets a user's role in the chat to Moderator.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The channel numeric id of the channel.
+    tr
+        td.name :username
+        td.description The username of the user to mod.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "User is now a mod."
+
++result("Errorful", "403 Forbidden").
+    "Access denied"
+
++result("Errorful", "404 Not Found").
+    "Channel not found."
