@@ -6,5 +6,9 @@ mixin result(outcome, status, comment)
             p!= comment
 
         if block
-            pre: code.endpoint-response.language-javascript
+            +jsonblock()
                 block
+
+mixin jsonblock()
+        pre: code.endpoint-response.language-javascript
+            block

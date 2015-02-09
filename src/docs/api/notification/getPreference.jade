@@ -1,0 +1,30 @@
+=version 1
+=resource Notification
+=method get
+=endpoint /users/:id/notifications/preferences
+=description Gets notification preferences for a user.
+
+include ../../_mixins.jade
+
+p Retrieves a user's notification preferences.
+
+p It returns a map of transport names to notification type preferences. See #[a(href='/api/notification/setPreference') Set Preferences] for information on what these mean.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID to get the notifications preferences for.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "redis": [
+            "channel:follow"
+        ]
+    }
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

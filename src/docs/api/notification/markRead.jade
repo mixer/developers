@@ -1,0 +1,42 @@
+=version 1
+=resource Notification
+=method post
+=endpoint /users/:user/notifications/read
+=description Marks notifications as being read.
+
+include ../../_mixins.jade
+
+p Hitting this endpoint sets the #[code readAt] time on notifications where they previously were null.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID to get the achievements for.
+    tr
+        td.name since #[span optional]
+        td.description
+            | The lower bound of time to mark the notifications as being read at. This should be the time of the earliest unread notification.
+            .default 1970-01-01T00:00:00.000Z
+    tr
+        td.name before #[span optional]
+        td.description
+            | The upper bound of time to mark notifications as being read.
+            .default NOW()
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "createdAt": "2015-01-23T16:44:13.246Z",
+            "data": { "user": "2" },
+            "readAt": "2015-01-23T21:23:27.377Z",
+            "type": "channel:follow",
+            "user": 2
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

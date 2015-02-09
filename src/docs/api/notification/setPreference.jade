@@ -1,0 +1,38 @@
+=version 1
+=resource Notification
+=method post
+=endpoint /users/:id/notifications/preferences
+=description Updates notification preferences for a user.
+
+include ../../_mixins.jade
+
+p Sets a user's notification preferences.
+
+p It returns a map of transport names to notification type preferences. See #[a(href='/api/notification/setPreference') Set Preferences] for information on what these mean.
+
+h3 Parameters
+
+p Updating preferences takes a request body with keys being the transports and values being an array of strings of notification types that should be dispatched over them. For example,
+
++jsonblock().
+    {
+        "redis": ["channel:follow"]
+    }
+
+p ...would dispatch notifications over Redis (internal transport, which is actually force to be on for all types) for notifications with the type #[code channel:follow].
+
+p Currently the only valid, and somewhat useless, transport is #[code redis]. However, in the future we expect to add support for transports such as email and SMS.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "redis": [
+            "channel:follow"
+        ]
+    }
+
++result("Errorful", "400 Bad Request")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
