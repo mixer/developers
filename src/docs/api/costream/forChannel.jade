@@ -1,0 +1,32 @@
+=version 1
+=resource Costream Request
+=method get
+=endpoint /channels/:id/costreams
+=description Get the costream requests for a channel.
+
+include ../../_mixins.jade
+
+p This lists retrieves all costream requests on a channel. Costream requests expire after 7 days and will no longer be retrievable after that time.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric channel ID to get the requests for.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "created": "2015-02-09T16:29:05.397Z",
+            "id": "27ed9948-f9cb-4945-8e5a-d1585989d177",
+            "requester": 3,
+            "status": "pending",
+            "target": 2
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
