@@ -1,0 +1,17 @@
+=version 1
+=resource LiveLoading
+=method get
+=endpoint /live
+=description Lists events the socket is subscribed to.
+
+include ../../_mixins.jade
+include _llnotice.jade
+
+p Returns a listing of all interfaces that the requesting socket is subscribed to.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        "channel:2:status"
+    ]
