@@ -1,0 +1,70 @@
+=version 1
+=resource Transactions
+=method any
+=endpoint /transactions/:id/authorize
+=description Attempts to authorize payment for a transaction.
+
+include ../../_mixins.jade
+
+p This serves as a single endpoint for handling transaction authorization.
+
+p On initial request it's usually desired to set the gateway to use.
+
+
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID of the transaction to authorize.
+    tr
+        td.name gateway #[span optional]
+        td.description
+            p Gateway to use to run the transaction. Available gateways:
+
+            table
+                tr
+                    td: code internal
+                    td Default gateway. Processes points payments, but will not process monetary transactions. No additional parameters are required.
+                tr
+                    td: code paypal
+                    td PayPal Express Checkout gateway. No additional parameters are required.
+
+            .default internal
+    tr
+        td.name * #[span optional]
+        td.description Additional parameters can be passed as required per gateway (see above).
+
+h3 Possible Results
+
+p Due to the dispatchment process, this gateway behaves a bit different from the others.
+
+.endpoint-result
+    h4 Payment Complete
+
+    +jsonblock().
+        {
+            "status": "success"
+        }
+
+.endpoint-result
+    h4 Payment Needs External Authorization
+
+    +jsonblock().
+        {
+            "status": "redirect",
+            "url": "https://paypal.com/complete-this-transaction"
+        }
+
+.endpoint-result
+    h4 Payment Failed
+
+    p #[code retry] will be true if this is an error that the client can remedy by attempting the authorization again. For example, if payment details are incorrect.
+
+    +jsonblock().
+        {
+            "status": "error",
+            "message": "Invalid credit card number.",
+            "retry": true
+        }

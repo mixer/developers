@@ -1,0 +1,48 @@
+=version 1
+=resource Transactions
+=method get
+=endpoint /users/:id/transactions
+=description Retrieves transactions for a single user.
+
+include ../../_mixins.jade
+
+p Hitting this endpoint displays a user's transactions, regardless of status. Transactions will be displayed in descending order by date.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric user ID to look up transactions for.
+    tr
+        td.name page #[span optional]
+        td.description
+            | Page of results to get.
+            .default 0
+    tr
+        td.name limit #[span optional]
+        td.description
+            | Number of results per page to retrieve.
+            .default 50
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "createdAt": "2015-01-18T14:21:29.000Z",
+            "currency_delta": -7.99,
+            "gateway": "internal",
+            "id": 9,
+            "note": "Purchase of the Premium role.",
+            "points_delta": 0,
+            "promotion": null,
+            "reference": "",
+            "short_name": "Beam Subscription",
+            "status": "pending",
+            "user": 2
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

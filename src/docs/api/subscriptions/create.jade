@@ -1,0 +1,62 @@
+=version 1
+=resource Subscriptions
+=method post
+=endpoint /subscriptions
+=description Creates a new subscription or premium transaction.
+
+include ../../_mixins.jade
+
+p Hitting this endpoint creates and returns an unfulfilled transaction which, when completed, causes the user to be subscribed.
+
+p When this endpoint is hit we #[i do] create the subscription record, but set its #[code expiresAt] attribute to be the current date. When the transaction is paid, thirty days is added to the subscription (from the payment date).
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name user
+        td.description Numeric user ID to create the subscription for.
+    tr
+        td.name group
+        td.description
+            p The subscription group. It may be one of the following:
+            table
+                tr
+                    td: code Premium
+                    td A site-wide, Beam Pro subscription
+                tr
+                    td: code Subscriber
+                    td A subscription to a single channel. When selecting this group, you must also pass a numeric #[code channel] attribute indicating the channel ID to subscribe to.
+
+    tr
+        td.name terms #[span optional]
+        td.description
+            | Number of months to purchase the subscription for.
+            .default 1
+    tr
+        td.name *
+        td.description Additional parameters can be passed as required per group (see above).
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "createdAt": "2015-02-10T15:12:03.018Z",
+        "currency_delta": -7.99,
+        "gateway": "internal",
+        "id": 12,
+        "note": "Purchase of the Premium role.",
+        "points_delta": 0,
+        "promotion": null,
+        "short_name": "Beam Subscription",
+        "status": "pending",
+        "user": 2
+    }
+
++result("Errorful", "400 Bad Request", "Standard Invalid response.")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
+
++result("Errorful", "404 Not Found", "When creating a Subscriber for a particular channel.").
+    "Channel not found."
