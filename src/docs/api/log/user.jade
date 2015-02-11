@@ -1,0 +1,37 @@
+=version 1
+=resource Log
+=method get
+=endpoint /users/:id/log
+=description Retrieves a log relative to the user.
+
+include ../../_mixins.jade
+
+p This endpoint lists logs relative to a user. See the bottom of this page for a detailed explaination of how logging works, and the reasoning behind the system based on Beam's stack.
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description User ID to retrieve the log for.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "data": {
+                "channel": "2",
+                "role": "Mod"
+            },
+            "ip": "127.0.0.1",
+            "originating": true,
+            "source": 2,
+            "target": 1,
+            "time": "2015-01-17T02:44:23.788Z",
+            "type": "chat:role:user"
+        }
+    ]
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
+
+include _details.jade

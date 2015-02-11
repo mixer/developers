@@ -1,0 +1,21 @@
+=version 1
+=resource Shop
+=method get
+=endpoint /shop/categories
+=description Lists shop item categories.
+
+include ../../_mixins.jade
+
+p Items in the shop may belong to one or more categories. This endpoint lists the categories that are available.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "color": "red",
+            "description": "Unlock epic emoticon packs!",
+            "id": 1,
+            "title": "Emoticons"
+        }
+    ]

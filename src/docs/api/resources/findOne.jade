@@ -1,0 +1,35 @@
+=version 1
+=resource Resource
+=method get
+=endpoint /resources/:id
+=description Lists items a user has access to.
+
+include ../../_mixins.jade
+
+p Looks up a single resource.
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Resource ID to look up.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "createdAt": "2015-02-02T00:31:31.000Z",
+        "id": 36,
+        "meta": {},
+        "relid": 0,
+        "remote_path": "img/covers/wow-cover.jpg",
+        "store": "nil",
+        "type": "type:cover",
+        "updatedAt": "2015-02-02T00:31:31.000Z",
+        "url": "https://lab.beam.pro/img/covers/wow-cover.jpg"
+    }
+
++result("Errorful", "403 Forbidden").
+    "Access denied."
+
++result("Errorful", "404 Not Found").
+    "Resource not found.

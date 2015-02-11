@@ -1,0 +1,38 @@
+=version 1
+=resource Resource
+=method get
+=endpoint /users/:id/resources
+=description Lists items a user has access to.
+
+include ../../_mixins.jade
+
+p This shows resources that the user has access to. Access is granted both through the user's group, for shared resources (like default channel covers), and through the user directly (like user avatar and channel thumbnails).
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description User ID to look up.
+    tr
+        td.name type #[span optional]
+        td.description
+            | If passed, filter the results to the given type.
+            .default undefined
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "createdAt": "2015-02-02T00:31:31.000Z",
+            "id": 36,
+            "meta": {},
+            "relid": 0,
+            "remote_path": "img/covers/wow-cover.jpg",
+            "store": "nil",
+            "type": "type:cover",
+            "updatedAt": "2015-02-02T00:31:31.000Z",
+            "url": "https://lab.beam.pro/img/covers/wow-cover.jpg"
+        }
+    ]
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

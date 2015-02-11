@@ -1,0 +1,48 @@
+h3 Explaination on Logs #[small From our internal docs]
+
+p Logging things is good. We're going to try to log anything that has a lasting impact on the user state via this module (where they aren't logged in another way, e.g. transactions are recorded in the transactions SQL table).
+
+p We have a Cassandra table that looks like this:
+
+pre: code.endpoint-response.language-sql.
+
+  CREATE TABLE user_log (
+      source int,
+      time timestamp,
+      data map<text, text>,
+      ip text,
+      originating boolean,
+      target int,
+      type text,
+      PRIMARY KEY ((source), time)
+  );
+
+p It's important to keep in mind Cassandra's behaviour for this - don't get tricked by thinking it looks like SQL! Essentially we're restricted to running a WHERE on the source, and within the source we can query for time. We can also do a restricted set of queries on the type.
+
+p For example, when we log an admin moderating another user, we create three log records:
+
+pre: code.endpoint-response.language-javascript.
+  // Create from admin -> target
+  first_record = { source: admin.id, target: user.id, type: "chat:role:user", originating: true, ... };
+
+  // Then create from the user -> admin with originating set to false
+  // so that we know it's a complement record.
+  second_record = { source: user.id, target: admin.id, type: "chat:role:user", originating: false, ... };
+
+  // We also want to be able to monitor actions relative to the channel.
+  // Originating will not be set here and will default to null
+  third_record = { source: channel.id, target: admin.id, type: "chat:role:channel", ... };
+
+p After this, our table looks like:
+
+pre: code.
+  source  | time        | data                                      | ip        | originating | target | type
+  --------+-------------+-------------------------------------------+-----------+-------------+--------+-------------------
+  // first_record.  User 2 gets modded by User 1 to role "mod" on Channel 3.
+        2 | <timestamp> |           {'channel': '3', 'role': 'Mod'} | 127.0.0.1 |        True |      1 |    chat:role:user
+  //second_record. User 2 sets User 1's role to "Mod" on channel 1.
+        1 | <timestamp> |           {'channel': '3', 'role': 'Mod'} | 127.0.0.1 |       False |      2 |    chat:role:user
+  // third record. Channel 3 has a User 1 set to role Mod by User 2.
+        3 | <timestamp> | {'by': '2', 'role': 'Mod', 'target': '1'} |      null |        null |   null | chat:role:channel
+
+p As you can see, the meaning of log records is highly contextual, and should be inferred based on the the type and originating boolean. It should be noted that the "time" is locked on grouped sets and complementary sets of records, so using one record you can retrieve trace to the others.

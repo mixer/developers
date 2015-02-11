@@ -1,0 +1,27 @@
+=version 1
+=resource Resource
+=method delete
+=endpoint /resources/:id
+=description Deletes a resource.
+
+include ../../_mixins.jade
+
+p This endpoint deletes a given resource.
+
+p For default users, they are only permitted to delete resources that they alone have access to. If the resource can be accessed by a group or another user, they will not be permitted to delete it.
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Resource ID to delete.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "Resource deleted"
+
++result("Errorful", "403 Forbidden").
+    "Access denied."
+
++result("Errorful", "404 Not Found").
+    "Resource not found.

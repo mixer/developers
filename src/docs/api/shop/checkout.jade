@@ -1,0 +1,46 @@
+=version 1
+=resource Shop
+=method post
+=endpoint /shop/checkout
+=description Creates a new transaction to purchase selected items.
+
+include ../../_mixins.jade
+
+p This endpoints takes items and quantities that you want to purchase and returns a transcation that, when paid, will fulfill the order.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name items
+        td.description
+            p Items should be an array of objects in the following format, using the items ids you want to purchase:
+
+            +jsonblock().
+                [
+                    { "id": 1, "quantity": 3},
+                    { "id": 2, "quantity": 1},
+                ]
+
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "createdAt": "2015-02-10T15:12:03.018Z",
+        "currency_delta": -7.99,
+        "gateway": "internal",
+        "id": 12,
+        "note": "Purchase of items from the beam shop.",
+        "points_delta": 0,
+        "promotion": null,
+        "short_name": "Beam Shop Items",
+        "status": "pending",
+        "user": 2
+    }
+
+
++result("Errorful", "400 Bad Request", "Standard Invalid response.")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
