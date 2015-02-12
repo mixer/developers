@@ -8,6 +8,8 @@ include ../../_mixins.jade
 
 p This endpoint retrieves a single fully-populated channel by its ID or token.
 
+p If the user is authenticated, we add a #[code status] to the output, indicating if the user is following and/or subscribed to the channel.
+
 h3 Parameters
 
 table.endpoint-param-table
@@ -34,6 +36,10 @@ h3 Possible Results
         "online": true,
         "partnered": false,
         "subscribers": 2,
+        "status": {
+            "following": false,
+            "subscribed": false
+        },
         "thumbnail": { /* Resource object */ },
         "token": "connor4312",
         "type": "minecraft",
