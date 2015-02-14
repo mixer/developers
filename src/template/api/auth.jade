@@ -1,0 +1,164 @@
+extends ../layout/master.jade
+include ../mixins/api
+
+block content
+    .page-heading.compact
+        .container
+            .col-sm-3: h1 Auth
+            .col-sm-9
+                p #[b DRAFT] RFC6749 OAuth implementation for Beam
+
+    .container
+        br
+        .alert.alert-info This is a working draft and may not be fully implemented in production.
+
+        h2 Consumer Libraries
+
+        p We intend to make available several client libraries in Node.js, Go, PHP, Ruby, etc. When created they will be listed here, and we will also take pull requests for addition of third-party libraries on #[a(href='')= "this site's repository"].
+
+        h2 Client Registration
+
+        p Developers will register client applications (hereafter, "clients") on this website. The following information will be requested.
+
+        table.endpoint-param-table
+            tr
+                td.name name
+                td.description
+                    p Name of the application.
+            tr
+                td.name website #[span optional]
+                td.description
+                    p Application's main website.
+            tr
+                td.name confidential
+                td.description
+                    p Whether the client is capable of maintaining confidential credentials.
+                    sup: a(href='http://tools.ietf.org/html/rfc6749#section-2.1') [See Section 2.1]
+            tr
+                td.name hosts
+                td.description
+                    p A list of hostsnames that clients will be permitted to be redirected to after authentication.
+
+
+        p Upon registration, the client is provided with an #[code client_id] and, if confidential, a #[code client_secret], to be used later...
+
+        h2 Implementation
+
+        p For a general overview of the authorization process, see #[a(href='http://tools.ietf.org/html/rfc6749#section-1.5') RFC6749 Section 1.5]. There are
+
+        h3 1. Authorization Request
+
+        p When you want to authenticate a user and obtain permission, you must first redirect the user to the url #[code= "https://beam.pro/oauth/authorize"]. It takes the following query parameters:
+
+        table.endpoint-param-table
+            tr
+                td.name client_id
+                td.description
+                    p The client ID of your application as given during registration.
+            tr
+                td.name redirect_uri
+                td.description
+                    p The URL to redirect the client to after authentication completes or fails. If the URL's hostname is not one of the ones provided upon registration, an error will occur.
+                    p Note that if it is not served over TLS, a warning will be shown to clients after they authorize, before being redirected to your site.
+            tr
+                td.name scope
+                td.description
+                    p The scope is a space-delimited list of permissions your application requests. For a list of permissions, see #[a.endpoint-title(href='/api/permissions/list') #[span GET] /api/v1/permissions].
+            tr
+                td.name response_type
+                td.description
+                    p Must be set to be #[code code].
+            tr
+                td.name state #[span optional]
+                td.description
+                    p An optiona state parameter. It's not used internally, and will be passed back to the client site upon authorization. May be used to prevent request forgery.
+
+        h3 2. Authorization Response
+
+        h4 Success
+
+        p After authentication the client will be redirected back to the #[code redirect_uri]. Appended to the query string will be the #[code state], if given in the authorization request, and a #[code code].
+
+        p The code should be traded for an access token (see Section 3), and will expire after five minutes. If a code is attempted to be used more than once, the request will be denied and all previously issued authorizations using that code will be revoked.
+
+        h4 Error
+
+        p If an error occurs during authorization, the client will be redirected back with an #[code error] in the query string as defined in #[a(href='http://tools.ietf.org/html/rfc6749#section-4.1.2') RFC6794 Section 4.1.2.1], as well as the originally given #[code state].
+
+        h3 3. Access Token Request
+
+        p
+            | After obtaining an authorization code, the client must trade that for an access token. The client should send a GET request to the url
+            code https://beam.pro/api/v1/oauth/token
+            | with the following query string parameters:
+
+        table.endpoint-param-table
+            tr
+                td.name grant_type
+                td.description Must be set to #[code authorization_code].
+            tr
+                td.name code
+                td.description The authorization code obtained previously.
+            tr
+                td.name redirect_uri
+                td.description The redirect uri that was given in the authorization request.
+            tr
+                td.name client_id
+                td.description Your application client ID.
+            tr
+                td.name client_secret #[code optional]
+                td.description If your application was registered as being Confidential, then this is required and must match the #[code client_secret] at the time of the granting.
+
+        h4 Possible Responses
+
+            .endpoint-result
+                h4 Successful Result #[b 200 OK]
+
+                pre: code.endpoint-response.language-javascript.
+                    {
+                        // Used to authenticate requests in the future:
+                        "access_token": "72HglTG5tJshVb...",
+                        // Used to obtain a new access code after the current one expires:
+                        "refresh_token": "1t3hKouYXAgoe...",
+                        // Duration in seconds until the access token expires:
+                        "expires_in": 3600,
+                        // Authorization type (always the same):
+                        "token_type": "Bearer"
+                    }
+
+                h4 Errorful Result #[b 400 Bad Request]
+
+                p The error will be as defined in #[a(href='http://tools.ietf.org/html/rfc6749#section-5.2') RFC6794 Section 5.2]
+
+                pre: code.endpoint-response.language-javascript.
+                    {
+                        "error": "invalid_request"
+                    }
+        h3 4. Refreshing the Access Token
+
+        p
+            | To refresh an access token, the client should send a GET request to the same url
+            code https://beam.pro/api/v1/oauth/token
+            | with the following parameters:
+
+        table.endpoint-param-table
+            tr
+                td.name grant_type
+                td.description Must be set to #[code refresh_token].
+            tr
+                td.name refresh_token
+                td.description The refresh token obtained previously.
+            tr
+                td.name client_secret #[code optional]
+                td.description If your application was registered as being Confidential, then this is required and must match the #[code client_secret] at the time of the granting.
+
+        p Results are identical to those defined above in Section 3.
+
+        h3 5. Using the Access Token
+
+        p The access token may be used to establish a user context when accessing any endpoint in the Beam API. To do so, simply include an authorization header in your request. For example:
+
+        pre: code.endpoint-response.
+            GET /users/2/resources HTTP/1.1
+            Host: beam.pro
+            Authorization: Bearer AccessTokenHere
