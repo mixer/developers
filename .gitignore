@@ -29,3 +29,5 @@ bower_components
 
 # Compiled assets
 /static
+
+/config/config.json
