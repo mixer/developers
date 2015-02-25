@@ -8,11 +8,28 @@ block content
             .col-sm-9
                 p Here you can find documentation and resources for interacting with Beam.
 
-    .container
-        p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, sed aperiam deserunt error, quidem, consequatur consequuntur culpa quisquam cum iste dignissimos facere veritatis provident reprehenderit alias dolores ipsum voluptates accusamus!
+    .container.paragraph-content
+        p The Beam API can be divided into several distinct parts.
 
-        each endpoints, resource in resources
-            h3= resource
-            .flexgrid
-                each endpoint in endpoints
-                    .flex-xs-3.flex-fill: +endpointBox(endpoint)
+        .row
+            .col-sm-6
+                h2 REST API
+
+                p Our REST API is versioned and can be accessed on #[code= 'https://beam.pro/api/v1']. All responses are JSON-based.
+
+                p Authentication is done via a standard OAuth 2.0 protocol. You can see implementation details #[a(href='/api/oauth') by clicking here]. Endpoints are purposely not contextual to the session (we generally explicitly require the user to act on), but you will get Access Denied responses to some endpoints if you are not authenticated.
+
+                p Client libraries are not currently available, but we plan to develop several in the future and we're always open to community contributions.
+
+                a.btn.btn-outlined(href='/api/endpoints') View Endpoints
+
+            .col-sm-6
+                h2 Chat Server
+
+                p The chat server uses a websocket-based protcol, and is used (almost) exclusively for the sending and recieving of chat messages within a channel. Chat actions which require stronger authentication and resultant events are part of the http API.
+
+                p In order to authenticate to the chat server, one must first obtain an authkey from #[a(href='/api/chat/join') an HTTP endpoint], which also lists the addresses of available chat servers to connect to. For more information, read the Chat Server Protocol document below.
+
+                p We have a simple example chat bot written in python available on our Github as #[a(href='https://github.com/MCProHosting/beam-chatty') mcprohosting/beam-chatty].
+
+                a.btn.btn-outlined(href='/api/chatproto') Chat Server Protocol

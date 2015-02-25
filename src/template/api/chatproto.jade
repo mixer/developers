@@ -1,0 +1,171 @@
+extends ../layout/master.jade
+include ../mixins/api
+
+block content
+    .page-heading
+        .container
+            .col-sm-3: h1 Chat protcol
+            .col-sm-9
+                p Information for connecting to, interacting with, and decoding chat server information,
+
+    .container
+        h2 Connection
+
+        p To connect to the chat server, first retrieve details from #[a(href='/api/chat/join') GET /chats/join]. If you are authenticated in the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated, but you will not be able to participate in chat.
+
+        p To connect to a chat, you should randomly chose an address from the #[code endpoints] array. If you lose connection to a server, you should re-connect to a different server (this can be chosen randomly or via round-robining).
+
+        p After connecting to a server, if you are a user you need to authenticate. The details for that are decribed below.
+
+        h2 Chat Protcol
+
+        p Our chat servers user a standard secure websocket protocol (wss) as defined in RFC6455. We do not use Socket.io or other "wrapper" systems due to unnecessary overhead.
+
+        p The client and server send JSON "packets" back and forth. There are three types of packets.
+
+        h3 Method
+
+        p The following properties must be set on the packet:
+
+        table.endpoint-param-table
+            tr
+                td.name type
+                td.description Should be set to #[code method].
+            tr
+                td.name method
+                td.description The method name to execute.
+            tr
+                td.name arguments
+                td.description An array of arguments, specific per method type.
+            tr
+                td.name id
+                td.description Should be a unique numeric ID. If the method you sent requires a reply, the numeric ID will be sent back down in the Reply packet.
+
+        h3 Event
+
+        p The following properties must be set on the packet:
+
+        table.endpoint-param-table
+            tr
+                td.name type
+                td.description Should be set to #[code event].
+            tr
+                td.name event
+                td.description The event name.
+            tr
+                td.name data
+                td.description Associated event data - may be of any type, specific to the event.
+
+        h2 Client Actions
+
+        h3 Authenticate
+
+        p The "auth" packet can be sent to the server in order to identify the client connection as being a particular user. Successful authentication is required in order to chat. The client should send an auth method packet with the following parameters:
+
+        ul
+            li #[code method] should be set to #[code auth]
+            li #[code arguments] should be an array of, in order, the channel ID, your user ID, and the authkey.
+            .endpoint-result
+
+        pre: code.endpoint-response.language-javascript.
+            // Client packet:
+            {"type":"method","method":"auth","arguments":[2,2,"174d77b785221a570773511799271d59"],"id":1}
+            // Server Response:
+            {"type":"reply","error":null,"id":1,"data":{"authenticated":true,"role":"Owner"}}
+
+        h3 Send Chat
+
+        p Send a chat message! This is a method packet. No reply will be recieved.
+
+        pre: code.endpoint-response.language-javascript.
+            // Client packet:
+            {"type":"method","method":"msg","arguments":["Hello World!"],"id":2}
+            // No server reply should be expected.
+
+        h3 Vote in Poll
+
+        p This is a method packet that adds a user vote to a poll selection, by the option index in the #[code answers] array that the server initially sent down.
+
+        pre: code.endpoint-response.language-javascript.
+            // Client packet:
+            {"type":"method","method":"vote","arguments":[0],"id":3}
+            // Server response:
+            {"type":"reply","error":null,"id":3,"data":true}
+
+        h2 Server Actions
+
+        h3 Incoming Chat Message
+
+        p An event packet is recieved on the client, with the event name of #[code ChatMessage]. It has the following structure:
+
+        pre: code.endpoint-response.language-javascript.
+            {
+                "type":"event",
+                "event":"ChatMessage",
+                "data":{
+                    // Channel ID it was sent on
+                    "channel":2,
+                    // Unique message ID
+                    "id":"db10fc70-bc95-11e4-8ddb-9f6d8dc74385",
+                    // Information about the sender
+                    "user_name":"connor4312",
+                    "user_id":2,
+                    "user_role":"Owner",
+                    "message":[
+                        { "type":"text", "data":"hello " },
+                        { "type": 'emoticon', "text": ':)', "path": 'default/1F604' }
+                    ]
+                }
+            }
+
+        p It's fairly straightforward, except for the #[code message] property of the data. This is an array of components that tell the client how the message should be rendered, dictated by the component #[code type]. The following components are currently in place:
+
+        table.endpoint-param-table
+            tr
+                td.name text
+                td.description
+                    p Contains only a #[code data] with plain text. The text is not HTML escaped - you should escape this if you're displaying in-browser to prevent XSS.
+            tr
+                td.name link
+                td.description
+                    p Indicated a clickable link. Contains a #[code url] to direct to and the #[code text] which should be linked.
+            tr
+                td.name emoticon
+                td.description
+                    p Contains the #[code path] of the emoticon on #[a(href='https://github.com/MCProHosting/beam-emoticons') mcprohosting/beam-emoticons] and the original #[code text] typed to create the emoticon.
+
+        h3 Start of a Poll
+
+        p This is triggered when a new poll is started on the channel. It's an event packet in the format
+
+        pre: code.endpoint-response.language-javascript.
+            {
+                "type":"event",
+                "event":"PollStart",
+                "data":{
+                    // Question to display to users.
+                    "q":"Should I go left or right?",
+                    // JSON encoded string of results
+                    "answers":"[\"left\",\"right\"]",
+                    // Duration of the poll in seconds and the unix time it ends.
+                    "duration":30,
+                    "endsAt":1424832044051
+                }
+            }
+
+        h3 End of a Poll
+
+        p This is an event packet sent when a poll ends and may be used to display results to a user.
+
+        pre: code.endpoint-response.language-javascript.
+            {
+                "type":"event",
+                "event":"PollEnd",
+                "data":{
+                    "voters":"1",
+                    "responses":{
+                        "right":"2",
+                        "left":"5"
+                    }
+                }
+            }
