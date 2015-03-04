@@ -5,7 +5,14 @@ var gulp         = require('gulp'),
 var globs = {
     css: 'src/static/css/**/*.less',
     js: 'src/static/js/**/*.js',
-    images: 'src/static/img/**/*.{gif,jpg,jpeg,png,svg}',
+    images: [
+        'src/static/img/**/*.{gif,jpg,jpeg,png,svg}',
+        'bower_components/master/icons/php/php-*.svg',
+        'bower_components/master/icons/python/python-*.svg',
+        'bower_components/master/icons/java/java-*.svg',
+        'bower_components/master/icons/nodejs/nodejs-*.svg',
+        'bower_components/master/icons/ruby/ruby-*.svg'
+    ],
     misc: 'src/static/**/*.{ico,eot,woff,ttf,php}'
 };
 

@@ -1,0 +1,14 @@
+extends ../layout/master.jade
+include ../mixins/api
+
+block content
+    .page-heading.compact
+        .container
+            .col-sm-5
+                h1= changelog.title
+            .col-sm-7
+                p!= changelog.summary
+
+
+    .container.paragraph-content
+        != changelog.content

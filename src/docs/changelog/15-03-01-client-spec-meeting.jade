@@ -1,0 +1,73 @@
+=title 15.03.01 Client Specification Meeting
+=date 1425229200000
+=summary This changelog includes results of a meeting with Beam developers and the community. Prior to this point, we had begun several client libraries, but each with entirely different APIs. We created a general specification which official client libraries should follow.
+
+p The results of the meeting are shown below.
+
+h1 Beam API Client Spec
+
+h2 REST APIs
+
+p This specification is a general outline for how client libraries for accessing the [Beam API](https://developer.beam.pro/api) work. Requests made in the Beam client may be made synchronously or asynchronously, depending on the implementation.
+
+p Examples in this documentation will use a Java-like syntax to make types clear. This will be similar to but may not be the same as our Java client.
+
+h3 Authentication
+
+p The authentication state is stored on the "Client" instance. In order to authenticate initially, you should call:
+
+ul
+ li #[code .auth(new PasswordAuth(String username, String password))] Uses HTTP sessions for authentication.
+ li #[code .auth(new TokenAuth(String token))] Uses a token obtained via OAuth. It's up to you to decide how to obtain this token - OAuth client libraries are available for most mediums. See [our documentation](https://developer.beam.pro/api/oauth) for implementation details.
+
+h3 Making Requests
+
+p Requests are made by passing a "service" to the client. The service is responsible for negotiation with the API. Requests will return a result object (or equivalent). For example:
+
+pre: code.endpoint-response.language-javascript.
+    // Java, returns a Future. onSuccess is called on success, onFailure called on failure
+    beam.use(UsersService.class).search("tta");
+    // Javascript, returns a promise. Resolved on success, reject on failure.
+    beam.use(new UsersService()).search("tta");
+
+h2 Chat Protocol
+
+p Chat occurs over a plain wss (secure websocket) protocol. For implementation details, see [our docs](https://developer.beam.pro/api/chatproto), but hopefully our client libraries will alleviate the need for such low-level work :)
+
+p Chat client objects are made independently of the main Beam client, as the authentication is different (using authkeys) and the request/response cycle is obviously completely separate. Creating the conneciton is simple:
+
+
+pre: code.endpoint-response.language-javascript.
+    ChatConnection connection = new ChatConnection();
+
+p On the connection, you can then send packet objects. You can send "method" and "event" packet types. For example, in order to authenticate you'll send an AuthenticatePacket (a method), after which you can listen for a response.
+
+pre: code.endpoint-response.language-javascript.
+    // Send a method packet. The authkey may be obtained from a prior
+    // GET /api/v1/chats/:id. See https://developer.beam.pro/api/chatproto
+    // for more info
+    connection.send(
+        new AuthenticatePacket(int channel, int user, String authkey),
+        new ResponseHandler<AuthenticateReply>() {
+            // ...
+        })
+    );
+
+p Not all packets will have replies. For example, firing off a chat message does not need a reply:
+
+pre: code.endpoint-response.language-javascript.
+    // Send a chat message
+    connection.send(new ChatMessage(String text));
+
+p You can also listen for other events that happen on the socket.
+
+pre: code.endpoint-response.language-javascript.
+    // Listen for an incoming chat message.
+    connection.on(IncomingChatMessage.class, new EventHandler({
+        // ...
+    });
+    // Listen for a socket closing.
+    connection.on(CloseEvent.class, new ErrorHandler({
+        // ...
+    });
+    ```

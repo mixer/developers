@@ -17,11 +17,21 @@ h3 Available Interfaces
 
 table.endpoint-param-table
     tr
-        td.name channel:update:[:id]
-        td.description  You'll get an event sent down that matches the slug, containing the new channel body.
+        td.name channel:[:id]:update
+        td.description  You'll get an event sent down that matches the slug, containing changes on the channel body. The event may not necessarily include the entire channel resource. For example, when a channel goes online an event with the body #[code { online: true }] is sent.
     tr
         td.name channel:[:id]:status
         td.description  Subscribes to the online status of a channel. You'll get events sent down named #[code chat:[id]:StartStreaming] and  #[code chat:[id]:StopStreaming]
+    tr
+        td.name user:[:id]:followed
+        td.description  Sent when the user follows a new channel. The channel body will contain:
+
+            ul
+                li An attribute #[code following] - the total number of channels the user follows,
+                li and #[code channel] - the channel object the user just followed.
+    tr
+        td.name user:[:id]:achievement
+        td.description Sent when a user achievement earning is updated. The body is simply an "earning" record as returned in the #[a(href='/api/achievement/forUser') achievement user listing] endpoint.
 
 h3 Parameters
 
