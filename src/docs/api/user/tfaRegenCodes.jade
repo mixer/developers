@@ -1,0 +1,43 @@
+=version 1
+=resource User
+=method deletes
+=endpoint /users/:id/2fa/codes
+=description Invalidates user recovery codes and creates a new set.
+
+include ../../_mixins.jade
+
+p This endpoint removes old two-factor recovery codes and returns a new set.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The numeric user ID.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        "85b2eaf17a95",
+        "3af4acda01e7",
+        "cca4d37d1ef7",
+        "f2d6e2849cf3",
+        "e6125522460a",
+        "203f7bd4a4e0",
+        "b0dfec5fd085",
+        "2a9582be1587",
+        "1d0310d6359a",
+        "28d5968184bc",
+        "5b8b2e6bbd6e",
+        "9f96ed35ba9d",
+        "54649ba2701c",
+        "e53ce7f984e7",
+        "c1d2af29fbe7",
+        "4d9b1dbf8e1b"
+    ]
+
++result("Errorful", "404 Not Found", "If credentials have not been generated.")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

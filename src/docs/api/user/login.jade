@@ -17,7 +17,10 @@ table.endpoint-param-table
         td.description The username to authenticate with.
     tr
         td.name password
-        td.password The password to attempt to authenticate with.
+        td.description The password to attempt to authenticate with.
+    tr
+        td.name code #[span optional]
+        td.description A two factor authentication code.
 
 h3 Possible Results
 
@@ -40,8 +43,11 @@ h3 Possible Results
         "verified": true
     }
 
-+result("Errorful", "401 Unauthorized", "If the username or password is invalid").
-    "Invalid username or password."
++result("Errorful", "401 Unauthorized").
+    { "message": "Invalid username or password.", "error": "credentials" }
+
++result("Errorful", "401 Unauthorized", "Occurs when username and password are fine, but two-factor verification is needed. User should be prompted to enter a code from their device, then you should retry the post including the <code>code</code> parameter.").
+    { "message": "Invalid two-factor code.", "error": "2fa" }
 
 +result("Errorful", "492 Rate Limited", "If too many attempts have been made in too short an interval").
     "Too many invalid login attempts. Please wait a few minutes."
