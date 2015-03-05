@@ -23,11 +23,18 @@ table.endpoint-param-table
         td.name channel:[:id]:status
         td.description  Subscribes to the online status of a channel. You'll get events sent down named #[code chat:[id]:StartStreaming] and  #[code chat:[id]:StopStreaming]
     tr
-        td.name user:[:id]:followed
-        td.description  Sent when the user follows a new channel. The channel body will contain:
+        td.name channel:[:id]:followed
+        td.description  Sent when a user follows or unfollows a channel. The body will contain:
 
             ul
-                li An attribute #[code following] - the total number of channels the user follows,
+                li An attribute #[code following] - true if the user just followed the channel, false if they unfollowed,
+                li and #[code user] - the user object who just followed the channel.
+    tr
+        td.name user:[:id]:followed
+        td.description Sent when the user follows or unfollows a channel. The body will contain:
+
+            ul
+                li An attribute #[code following] - true if the user just followed the channel, false if they unfollowed,
                 li and #[code channel] - the channel object the user just followed.
     tr
         td.name user:[:id]:achievement
