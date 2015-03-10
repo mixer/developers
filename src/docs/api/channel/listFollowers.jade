@@ -1,0 +1,44 @@
+=version 1
+=resource Channel
+=method get
+=endpoint /channels/:id/follow
+=description Lists users who follow a channel.
+
+include ../../_mixins.jade
+
+p This endpoint lists users who follow a channel, in the order that they followed.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric ID of the channel to look up.
+    tr
+        td.name page #[span optional]
+        td.description
+            | Page of results to get.
+            .default 0
+    tr
+        td.name limit #[span optional]
+        td.description
+            | Number of results per page to retrieve.
+            .default 50
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    [
+        {
+            "avatars": [ /* array of Resource object */ ],
+            "channel": 2,
+            "display_name": "ConnorPeet",
+            "id": 2,
+            "points": 14,
+            "social_facebook": null,
+            "social_twitter": "ConnorPeet",
+            "social_youtube": null,
+            "username": "connor4312",
+            "verified": 1
+        }
+    ]

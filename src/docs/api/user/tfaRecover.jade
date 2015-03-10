@@ -1,0 +1,32 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/reset/2fa
+=description Uses a recovery code and a password to disable two-factor on an account.
+
+include ../../_mixins.jade
+
+p This endpoint should be used when a user no longer has access to the device they use for two-factor authentication. It can be used to removed two-factor verification so that the user may log in.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name user
+        td.description The numeric user ID.
+    tr
+        td.name code
+        td.description A recovery code.
+    tr
+        td.name password
+        td.description The user's password.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    "Two-factor authentication disabled."
+
++result("Errorful", "400 Bad Request", "Invalid or insufficient details to recover the user.")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

@@ -1,0 +1,60 @@
+.language-panel {
+    @bg: #eee;
+
+    display: block;
+    height: 80px;
+    background-color: @bg;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-bottom: 40px;
+    position: relative;
+    border: 2px solid @bg;
+
+    .language-variant(~"php", 65px);
+    .language-variant(~"python", 50px);
+    .language-variant(~"java", 50px);
+    .language-variant(~"nodejs", 50px);
+    .language-variant(~"ruby", 43px);
+    .language-variant(~"golang", 43px);
+
+    .language-variant(@name, @size) {
+        &.@{name} {
+            background-image: url("../img/@{name}-original.svg");
+            background-size: @size;
+        }
+    }
+
+    span {
+        position: absolute;
+        text-align: center;
+        left: 0;
+        right: 0;
+        top: calc(100% + 10px);
+        line-height: 20px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        color: @brand-primary;
+    }
+
+    small {
+        display: block;
+        font-size: 0.6em;
+        margin-top: -5px;
+    }
+
+    &.soon {
+        @opacity: 0.5;
+        @adjusted-bg: hsv(hue(@bg), saturation(@bg), 100% - (100% - lightness(@bg)) / @opacity);
+        filter: grayscale(100%);
+        opacity: @opacity;
+        background-color: @adjusted-bg;
+
+        &, &:hover {
+            border-color: @adjusted-bg;
+        }
+    }
+
+    &:hover {
+        border-color: @brand-primary;
+    }
+}

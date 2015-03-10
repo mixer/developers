@@ -24,7 +24,33 @@ table.endpoint-param-table
 h3 Possible Results
 
 +result("Successful", "200 OK").
-    "Channel thumbnail has been changed."
+    {
+        "allow_costream": "all",
+        "audience": "G",
+        "banner": { /* Resource object */ },
+        "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor delectus dolorum sequi, esse atque enim perspiciatis neque aliquid! Possimus officia id quasi veritatis nemo aliquam omnis sequi libero eum beatae.",
+        "cache": [ /* array of ChatMessage objects */ ],
+        "cover": { /* Resource object */ },
+        "createdAt": "2014-11-20T00:48:01.000Z",
+        "featured": false,
+        "followers": 10,
+        "hidden": false,
+        "id": 20,
+        "name": "Minecraft Rox",
+        "online": true,
+        "partnered": false,
+        "subscribers": 2,
+        "status": {
+            "following": false,
+            "subscribed": false
+        },
+        "thumbnail": { /* Resource object */ },
+        "token": "connor4312",
+        "type": "minecraft",
+        "updatedAt": "2014-11-20T00:48:01.000Z",
+        "user": { /* User object */ },
+        "viewers_total": 127
+    }
 
 +result("Errorful", "403 Forbidden").
     "Access denied."

@@ -22,6 +22,11 @@ html
                         li: a(href='/intro') Getting Started
                         li: a(href='/api') API Reference
 
+                        if user
+                            li: a(href='/user/logout')
+                        else
+                            li: a(href='/user/login')
+
         .content
             block content
 

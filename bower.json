@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.2",
-    "highlight.js": "https://github.com/isagalaev/highlight.js.git#~7.0.1"
+    "highlight.js": "https://github.com/isagalaev/highlight.js.git#~7.0.1",
+    "master": "https://github.com/konpa/devicon/archive/master.zip"
   }
 }

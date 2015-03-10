@@ -75,12 +75,12 @@ block content
 
         h3 Send Chat
 
-        p Send a chat message! This is a method packet. No reply will be recieved.
+        p Send a chat message! This is a method packet. No reply will be recieved unless there was an error sending
 
         pre: code.endpoint-response.language-javascript.
             // Client packet:
             {"type":"method","method":"msg","arguments":["Hello World!"],"id":2}
-            // No server reply should be expected.
+            // No server reply should be expected except on error.
 
         h3 Vote in Poll
 
@@ -169,3 +169,17 @@ block content
                     }
                 }
             }
+
+        h3 User Join
+
+        p Packet is sent whenever a new user joins the channel.
+
+        pre: code.endpoint-response.language-javascript.
+            {"type":"event","event":"UserJoin","data":{"username":"connor4312","role":"Owner","id":1}}
+
+        h3 User Leave
+
+        p Packet is sent whenever a user completely exits a channel. For example, this is not sent if a user has multiple browser windows open with the chat and closes one of them.
+
+        pre: code.endpoint-response.language-javascript.
+            {"type":"event","event":"UserLeave","data":{"username":"connor4312","role":"Owner","id":1}}
