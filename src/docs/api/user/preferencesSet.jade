@@ -1,0 +1,74 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/:id/preferences
+=description Updates preferences for a user.
+
+include ../../_mixins.jade
+
+p This endpoint updates preferences relative to a given user. Requests can be made partially, we'll just "extend" the given data onto the existing preferences.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description The numeric user ID.
+    tr
+        td.name *
+        td.description
+            p Many additional parameters can be passed, including:
+
+            table
+                thead
+                    tr
+                        th Name
+                        th Default
+                        th
+                tbody
+                    tr
+                        td: code chat:colors
+                        td: code true
+                        td Boolean. Whether chat name colors are enabled.
+                    tr
+                        td: code chat:emotes
+                        td: code true
+                        td Boolean. Whether chat emoticons will be displayed.
+                    tr
+                        td: code chat:sounds:notification
+                        td: code whoosh
+                        td Boolean. The sound played when the user gets a notification in chat.
+                    tr
+                        td: code chat:sounds:play
+                        td: code true
+                        td Boolean. Whether to enable chat sounds at all.
+                    tr
+                        td: code chat:sounds:play
+                        td: code 1
+                        td Float, between 0 and 1. The volume of chat sounds.
+                    tr
+                        td: code chat:tagging
+                        td: code true
+                        td Boolean. Whether to table chat tagging.
+                    tr
+                        td: code chat:tagging
+                        td: code false
+                        td Boolean. Whether to show timestamps on chat messages.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "chat:colors": true,
+        "chat:emotes": true,
+        "chat:sounds:notification": "ping",
+        "chat:sounds:play": true,
+        "chat:sounds:volume": 1,
+        "chat:tagging": false,
+        "chat:timestamps": false
+    }
+
++result("Errorful", "400 Bad Request", "Standard Invalid response.")
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."

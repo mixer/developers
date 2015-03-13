@@ -1,0 +1,36 @@
+=version 1
+=resource Subscriptions
+=method get
+=endpoint /subscriptions/:id
+=description Looks up a subscription by its ID.
+
+include ../../_mixins.jade
+
+p This retrieves a single subscription by its ID.
+
+h3 Parameters
+
+table.endpoint-param-table
+    tr
+        td.name :id
+        td.description Numeric ID of the subscriptions to look up.
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "cancelled": false,
+        "channel": null,
+        "createdAt": "2015-01-18T14:21:29.000Z",
+        "expiresAt": "2015-02-18T14:21:29.000Z",
+        "group": "Premium",
+        "id": 4,
+        "updatedAt": "2015-01-18T14:23:22.000Z",
+        "user": 2
+    }
+
++result("Errorful", "403 Forbidden").
+    "You are not permitted to perform that action."
+
++result("Errorful", "404 Not Found").
+    "Subscription not found."
