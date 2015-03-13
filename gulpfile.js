@@ -12,8 +12,7 @@ var globs = {
         'bower_components/master/icons/java/java-*.svg',
         'bower_components/master/icons/nodejs/nodejs-*.svg',
         'bower_components/master/icons/ruby/ruby-*.svg'
-    ],
-    misc: 'src/static/**/*.{ico,eot,woff,ttf,php}'
+    ]
 };
 
 gulp.task('css', function() {
@@ -45,7 +44,8 @@ gulp.task('images', function() {
         .pipe(gulp.dest('static/img'));
 });
 gulp.task('misc', function () {
-    gulp.src(globs.misc).pipe(gulp.dest('static'));
+    gulp.src('src/static/**/*.{ico,eot,woff,ttf,php}').pipe(gulp.dest('static'));
+    gulp.src('src/static/doc/**/*.*').pipe(gulp.dest('static/doc'));
 });
 
 gulp.task('setProduction', function() {
