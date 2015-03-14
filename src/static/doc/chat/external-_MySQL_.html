@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: External: WebSocket</title>
+    <title>JSDoc: External: MySQL</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">External: WebSocket</h1>
+    <h1 class="page-title">External: MySQL</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-        WebSocket
+        MySQL
         </h2>
         
     
@@ -39,7 +39,7 @@
     <div class="container-overview">
     
         
-            <div class="description">A nodejs `ws` client.</div>
+            <div class="description">A standard node-mysql client, with promisification provided by Bluebird.</div>
         
 
         
@@ -79,7 +79,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://github.com/websockets/ws">https://github.com/websockets/ws</a></li>
+            <li><a href="https://github.com/felixge/node-mysql/">https://github.com/felixge/node-mysql/</a></li>
         </ul>
     </dd>
     
@@ -87,6 +87,11 @@
     
 </dl>
 
+
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint"><code>mysql.queryAync('foo').then( ... ).catch( ... );// is equivalent tomysql.query('foo', function (err, result) { ... });</code></pre>
 
         
     
