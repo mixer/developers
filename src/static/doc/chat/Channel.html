@@ -453,160 +453,6 @@
 
     
 
-    <h4 class="name" id="emit"><span class="type-signature"></span>emit<span class="signature">(event, data)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Emits an event to Redis for this channel. It can be listened forin widgets - see the example. Using this method is the recommendedway of broadcasting events across a channel's chat servers.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The event name.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The data.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>channel.emit('FooBar', { foo: 'bar' });// in a widget...hook.event('FooBar', function (channel, data) {    console.log(data); // => { foo: 'bar' }});</code></pre>
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="forUser"><span class="type-signature"></span>forUser<span class="signature">(fn)</span><span class="type-signature"></span></h4>
 
     
@@ -828,101 +674,6 @@
 
     
 
-    <h4 class="name" id="getRedis"><span class="type-signature"></span>getRedis<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="external-_Redis_.html">external:"Redis"</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns the node-redis client associated with the channel. Note thatthe client has been promisified by Bluebird, so you can callthings like getAsync(key), which return a promise.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="external-_Redis_.html">external:"Redis"</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="getUsers"><span class="type-signature"></span>getUsers<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
@@ -1018,14 +769,14 @@
 
     
 
-    <h4 class="name" id="sendChatMessage"><span class="type-signature"></span>sendChatMessage<span class="signature">(user, msg)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="publish"><span class="type-signature"></span>publish<span class="signature">(event, data)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Sends a chat message from the user's account. You can pass in a userobject, or any object that has properties "username", "id", and "role".
+    Emits an event to Redis for this channel. It can be listened forin widgets - see the example. Using this method is the recommendedway of broadcasting events across a channel's chat servers.
 </div>
 
 
@@ -1061,30 +812,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The user</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
+                <td class="name"><code>event</code></td>
             
 
             <td class="type">
@@ -1100,7 +828,287 @@
 
             
 
-            <td class="description last">The message.</td>
+            <td class="description last">The event name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The data.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>channel.publish('FooBar', { foo: 'bar' });// in a widget...hook.event('FooBar', function (channel, data) {    console.log(data); // => { foo: 'bar' }});</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="event:user:join">user:join</h4>
+
+    
+
+
+
+<div class="description">
+    User join is fired whenever someone connects to the channel. At thepoint it's fired, the user has either been authenticated as anonymousor as a registered user.Keep in mind that the particular registered user may have alreadyhad session opens on other chat servers.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="event:user:leave">user:leave</h4>
+
+    
+
+
+
+<div class="description">
+    User leave is fired whenever someone leaves the channel. Keep in mindthat the particular registered user may still be connected on chatservers elsewhere.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -1164,10 +1172,6 @@
 
         
     
-
-    
-
-    
 </article>
 
 </section>
@@ -1178,13 +1182,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-_MySQL_.html">MySQL</a></li><li><a href="external-_Redis_.html">Redis</a></li><li><a href="external-_WebSocket_.html">WebSocket</a></li></ul><h3>Classes</h3><ul><li><a href="BeamWebSocket.html">BeamWebSocket</a></li><li><a href="Channel.html">Channel</a></li><li><a href="User.html">User</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-_MySQL_.html">MySQL</a></li><li><a href="external-_Redis_.html">Redis</a></li><li><a href="external-_WebSocket_.html">WebSocket</a></li></ul><h3>Classes</h3><ul><li><a href="BeamWebSocket.html">BeamWebSocket</a></li><li><a href="Channel.html">Channel</a></li><li><a href="User.html">User</a></li></ul><h3>Events</h3><ul><li><a href="Channel.html#event:user:join">user:join</a></li><li><a href="Channel.html#event:user:leave">user:leave</a></li><li><a href="User.html#event:destroyed">destroyed</a></li><li><a href="User.html#event:loaded">loaded</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta2</a> on Sat Mar 14 2015 10:47:51 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta2</a> on Tue Mar 17 2015 23:20:20 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

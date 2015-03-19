@@ -28,6 +28,97 @@
 
 
 
+    <section>
+        <article><h1>Chat Server / Widget Docs</h1><p>A widget is, most basically, simply a folder in our repository (linked above) that contains a widgets.js file. The directory structure tends to look something like this.</p>
+<pre class="prettyprint source"><code>    myWidget
+    |-- widget.js
+    |-- chat
+    |   |-- index.js
+    |   +-- more_supporting_files
+    +-- test
+        |-- one.test.js
+        +-- another.test.js</code></pre><p>The widget.js might look something like this:</p>
+<pre class="prettyprint source lang-js"><code>    module.exports = {
+        // Package name
+        name: 'Polls',
+        // Whether it's enabled by default
+        default: true,
+        // Beam username(s) of the author(s).
+        authors: ['connor4312'],
+        // Hooks for Beam chat servers/frontend.
+        hooks: {
+            chat: require('./chat')
+        },
+        // Description to display to users.
+        description: 'Allow people to create polls and let viewers vote on them!',
+        // Additional permissions roles should get to use the widget.
+        permissions: {
+            User:  ['chat:poll_vote'],
+            Mod:   ['chat:poll_vote', 'chat:poll_start'],
+            Admin: ['chat:poll_vote', 'chat:poll_start'],
+            Owner: ['chat:poll_vote', 'chat:poll_start']
+        }
+    };</code></pre><p>It's mostly pretty straightforward. The two parts that do warrant additional explaination are the permissions and hooks. Hooks is a map of strings to functions to register your widget various &quot;environments&quot; (currently, #[code chat] is the only available hook, but this will expand). Hooking differents between environments; refer to the sections below for more information.</p>
+<p>Permissions is simply an array of permission strings that your widget needs to operate. In the example, you can see that we let Users, Mods, Admins, and Owners have a permission to vote in polls, but only Mods, Admins, and Owners have permission to start polls. You can verify and restrict access based on permissions in individual hooks.</p>
+<h1>Chat</h1><p>We allow you to hook into the chat server backend, adding middleware-like functions to modify or abort ongoing actions. Backend widgets are written in Node.js, and will be reviewed fairly rigorously as they'll be running in a production environment! In general:</p>
+<ul>
+<li>Unit test your modules the best you're able to. We've got a nice stack of #[a(href='http://mochajs.org/') Mocha] mixed with #[a(href='(http://mochajs.org/)') Chai] and #[a(href='http://sinonjs.org/') Sinon], along with useful fixtures, whipped up for you. Check out the &quot;test&quot; folders of existing widgets for reference.</li>
+<li>Errors should be logged and handled gracefully.</li>
+<li>Avoid, whenever possible, additional networking calls or database hits.</li>
+<li>Use jsdoc's format to document your code.</li>
+<li>Run #[code npm test] locally before opening a pull request. This will run all tests and verify your code against our linters and code style guide.</li>
+<li>We love beautiful code. Write beautiful code.</li>
+</ul>
+<p>The following modules are installed on the chat server available for you to consume anywhere in your widget. We'd prefer to avoid adding additional modules for widgets; if you think that you absolutely need something, let us know and we'll find a solution.</p>
+<ul>
+<li><a href="https://github.com/MCProHosting/beam-common.git'">beam-common</a></li>
+<li><a href="https://github.com/MCProHosting/beam-emoticons.git'">beam-emoticons</a></li>
+<li><a href="https://github.com/petkaantonov/bluebird'">bluebird</a></li>
+<li><a href="https://github.com/lodash/lodash'">lodash</a></li>
+<li><a href="https://github.com/broofa/node-uuid'">node-uuid</a></li>
+</ul>
+<h2>Building Chat Hooks</h2><blockquote>
+<p>If you've not read our document about the #[a(href='/api/chatproto') chat protocol], you should do so before continuing.</p>
+</blockquote>
+<p>On the chat server we can hook into both #[i events] and #[i methods], which provide two distinct types of functionality. When a user wants to do one specific task, they trigger a method for it, and that's the only time a method can be called. Events, on the other hand, can be triggered in a variety of circumstances, such as a user joining a channel, a chat message being sent, or your own events!</p>
+<p>It is important to note that not every user of a chat will be connected to the same chat server instance. For communication across chats, we generally publish Redis events using the #[code channel.emit] method, then listen for them later.</p>
+<p>Now, let's get started! Be sure to have the JSDoc for the chat server (linked at the top of the page) open for reference, and an #[a(href='https://github.com/MCProHosting/beam-widgets/tree/master/polls') existing widget] as well.</p>
+<pre class="prettyprint source lang-js"><code>    // Example hooks file `polls/chat/index.js`
+    module.exports = function (hook) {
+        hook.method('permission', 'vote:start', ['poll_start', require('./start').hook]);
+        hook.method('permission', 'vote:choose', ['poll_vote', require('./vote')]);
+        hook.event('PollStart', require('./events').start);
+        hook.event('PollEnd', require('./events').end);
+    };</code></pre><h3>Method Hooks</h3><p>Method hooks are triggered by a user sending a &quot;message&quot; directly to the chat server. The handler methods can be defined as guarded or unguarded:</p>
+<p>table.endpoint-param-table
+    tr
+        td.name .method(String event, Function handler)
+        td.description The simplest invocation. Your handler function won't be guarded. Anyone, including guests, can send the method. Handler will be called with #[code (WebSocket socket, Array args, Function respond)].
+    tr
+        td.name .method(String guard, String event, Any handler)
+        td.description
+            p You function will be guarded by the guard you specify. Currently we have:</p>
+<pre class="prettyprint source"><code>        ul
+            li #[code user] - Your handler should be a function. It won't be run unless the requesting user is authenticated. Its arguments will be #[code (User user, Array args, Function respond)]
+            li #[code permissions] - Your handler should be an array. The first element should be the permission name, the second should be a function. The function won't be run unless the user is authenticated and has the given permission. Arguments are the same as the above.</code></pre><h3>Event Hooks</h3><p>Event hooks are a bit simpler. They are currently only triggered by events emitted across Redis, and are called with the #[code data] they were broadcast on and arbitrary #[code data]. Example:</p>
+<pre class="prettyprint source lang-js"><code>    /**
+     * Handles a new creation poll event. It attaches an _ongoing_vote vote
+     * to the channel object for use later, and broadcasts to users.
+     * @param  {Object} channel
+     * @param  {Object} data
+     */
+    module.exports.start = function (channel, data) {
+        channel._ongoing_vote = data.endsAt;
+        channel.broadcast('PollStart', data);
+    };</code></pre><p>You can trigger these events yourself as well, by using the channel.emit method. For example:</p>
+<pre class="prettyprint source lang-js"><code>    channel.emit('PollStart', {
+        qquestion: question,
+        answers: answers,
+        duration: duration,
+        endsAt: Date.now() + duration * 1000
+    });</code></pre></article>
+    </section>
+
 
 
 
@@ -36,13 +127,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-_MySQL_.html">MySQL</a></li><li><a href="external-_Redis_.html">Redis</a></li><li><a href="external-_WebSocket_.html">WebSocket</a></li></ul><h3>Classes</h3><ul><li><a href="BeamWebSocket.html">BeamWebSocket</a></li><li><a href="Channel.html">Channel</a></li><li><a href="User.html">User</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-_MySQL_.html">MySQL</a></li><li><a href="external-_Redis_.html">Redis</a></li><li><a href="external-_WebSocket_.html">WebSocket</a></li></ul><h3>Classes</h3><ul><li><a href="BeamWebSocket.html">BeamWebSocket</a></li><li><a href="Channel.html">Channel</a></li><li><a href="User.html">User</a></li></ul><h3>Events</h3><ul><li><a href="Channel.html#event:user:join">user:join</a></li><li><a href="Channel.html#event:user:leave">user:leave</a></li><li><a href="User.html#event:destroyed">destroyed</a></li><li><a href="User.html#event:loaded">loaded</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta2</a> on Sat Mar 14 2015 10:47:51 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta2</a> on Tue Mar 17 2015 23:20:20 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
