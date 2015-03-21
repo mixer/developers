@@ -1,3 +1,3 @@
 [submodule "src/beam-client-java"]
 	path = src/beam-client-java
-	url = git@github.com:MCProHosting/beam-client-java.git
+	url = https://github.com/MCProHosting/beam-client-java
