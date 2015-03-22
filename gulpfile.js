@@ -43,9 +43,14 @@ gulp.task('images', function() {
         })))
         .pipe(gulp.dest('static/img'));
 });
+gulp.task('javadocs', $.shell.task([
+    'cd ./src/beam-client-java && git pull origin master',
+    'cd ./src/beam-client-java && mvn clean site'
+]));
 gulp.task('misc', function () {
     gulp.src('src/static/**/*.{ico,eot,woff,ttf,php}').pipe(gulp.dest('static'));
     gulp.src('src/static/doc/**/*.*').pipe(gulp.dest('static/doc'));
+    gulp.src('src/beam-client-java/target/site/**/*.*').pipe(gulp.dest('static/doc/java-client'));
 });
 
 gulp.task('setProduction', function() {
@@ -53,4 +58,4 @@ gulp.task('setProduction', function() {
 });
 
 gulp.task('dist', ['setProduction', 'default']);
-gulp.task('default', ['js', 'css', 'images', 'misc']);
+gulp.task('default', ['js', 'css', 'images', 'javadocs', 'misc']);
