@@ -37,6 +37,12 @@ table.endpoint-param-table
                 li An attribute #[code following] - true if the user just followed the channel, false if they unfollowed,
                 li and #[code channel] - the channel object the user just followed.
     tr
+        td.name channel:[:id]:subscribed
+        td.description  Sent when a user subscribes to the channel. The body will contain the #[code user] object who just subscribed to the channel.
+    tr
+        td.name user:[:id]:subscribed
+        td.description Sent when the user subscribes to a channel. The body will contain the #[code channel] ID that they just subscribed to.
+    tr
         td.name user:[:id]:achievement
         td.description Sent when a user achievement earning is updated. The body is simply an "earning" record as returned in the #[a(href='/api/achievement/forUser') achievement user listing] endpoint.
 
