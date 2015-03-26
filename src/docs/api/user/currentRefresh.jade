@@ -1,0 +1,47 @@
+=version 1
+=resource User
+=method post
+=endpoint /users/current/refresh
+=description Refreshes the session of the user from the database.
+
+include ../../_mixins.jade
+
+p We cache certain attributes of the user on the session. In some cases it is necessary to manually refresh, such as after a successful Premium or Subscription purchase. This endpoint allows you to do that. It returns the same as #[code GET /users/current]
+
+h3 Possible Results
+
++result("Successful", "200 OK").
+    {
+        "avatars": [ /* array of Resources */ ],
+        "channel": { /* Channel object */ },
+        "createdAt": "2014-11-20T00:47:58.000Z",
+        "display_name": "ConnorPeet",
+        "email": "connor@example.com",
+        "id": 2,
+        "notifications": null,
+        "points": 9,
+        "preferences": {
+            "chat:colors": true,
+            "chat:emotes": true,
+            "chat:sounds:notification": "ping",
+            "chat:sounds:play": true,
+            "chat:sounds:volume": 0,
+            "chat:tagging": true,
+            "chat:timestamps": false
+        },
+        "reset_time": null,
+        "social_facebook": "connor.peet",
+        "social_twitter": "ConnorPeet",
+        "social_youtube": "connorpeet",
+        "updatedAt": "2015-02-02T23:00:22.000Z",
+        "username": "connor4312",
+        "verified": true,
+        "groups": [
+            { "name": "User", "id": 1 },
+            { "name": "Premium", "id": 8}
+        ],
+        "hasTwoFactor" true
+    }
+
++result("Errorful", "400 Bad Request").
+    "You must be authenticated to use this endpoint."
