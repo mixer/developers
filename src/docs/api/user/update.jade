@@ -27,7 +27,12 @@ table.endpoint-param-table
     tr
         td.name password #[span optional]
         td.description
-            | The user's password.
+            | The user's password. If you pass this, you must also pass the #[code passwordVerify] parameter below.
+            .default undefined
+    tr
+        td.name passwordVerify #[span optional]
+        td.description
+            | The user's current password which you are attempting to change. Required if and only if #[code password] is passed.
             .default undefined
     tr
         td.name social_twitter #[span optional]
@@ -70,3 +75,5 @@ h3 Possible Results
 
 +result("Errorful", "403 Forbidden").
     "You are not permitted to perform that action."
+
++result("Errorful", "400 Bad Request", "Standard Invalid response.")

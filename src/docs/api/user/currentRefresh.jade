@@ -1,12 +1,12 @@
 =version 1
 =resource User
-=method get
-=endpoint /users/current
-=description Retrieves the currently authenticated user.
+=method post
+=endpoint /users/current/refresh
+=description Refreshes the session of the user from the database.
 
 include ../../_mixins.jade
 
-p Returns the user associated with the current auth session (when using cookie-base session) or auth token (when using OAuth). This may be used as a means to check whether the user is logged in.
+p We cache certain attributes of the user on the session. In some cases it is necessary to manually refresh, such as after a successful Premium or Subscription purchase. This endpoint allows you to do that. It returns the same as #[code GET /users/current]
 
 h3 Possible Results
 
@@ -44,4 +44,4 @@ h3 Possible Results
     }
 
 +result("Errorful", "400 Bad Request").
-    "User not logged in."
+    "You must be authenticated to use this endpoint."
