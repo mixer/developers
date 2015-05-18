@@ -41,33 +41,28 @@ table.endpoint-param-table
         td.description
             p The audience target of the channel, or rating. Possible values are:
             ul
-                li G
-                li PG
-                li PG13
-                li R
+                li family
+                li teen
+                li 18+
             .default undefined
     tr
-        td.name type #[span optional]
+        td.name categories #[span optional]
         td.description
-            | The channel category this should be listed under.
+            p The channel categories the channel should be listed under. Accepts an array of type IDs.
+            p Note that you don't need to explicitly list the entire hierarchy chain. For example, if I'm playing Skyrim, I could simply add the category "Skyrim", and the channel will also be listed under "Games".
             .default undefined
     tr
-        td.name banner #[span optional]
-        td.description
-            | The numeric resource ID of the stream banner to use for this channel.
-            .default undefined
-    tr
-        td.name cover #[span optional]
+        td.name coverId #[span optional]
         td.description
             | The numeric resource ID of the stream cover to use for this channel. It will be displayed as the channel's page background.
             .default undefined
     tr
-        td.name thumbnail #[span optional]
+        td.name thumbnailId #[span optional]
         td.description
             | The numeric resource ID of the stream thumbnail to use for this channel. It will be displayed on listing or "browse" pages.
             .default undefined
     tr
-        td.name body #[span optional]
+        td.name description #[span optional]
         td.description
             | The channel description to be displayed. HTML is allowed, but it will be sanitized.
             .default undefined
@@ -76,24 +71,172 @@ h3 Possible Results
 
 +result("Successful", "200 OK").
     {
-        "allow_costream": "all",
         "audience": "G",
-        "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor delectus dolorum sequi, esse atque enim perspiciatis neque aliquid! Possimus officia id quasi veritatis nemo aliquam omnis sequi libero eum beatae.",
-        "createdAt": "2014-11-20T00:48:01.000Z",
+        "cache": [],
+        "cover": {
+            "createdAt": "2015-02-02T04:53:38.000Z",
+            "id": 145,
+            "meta": {
+                "small": "https://beam.pro/img/backgrounds/small-generic-001.jpg"
+            },
+            "relid": null,
+            "remotePath": "img/backgrounds/generic-001.jpg",
+            "store": "nil",
+            "type": "channel:cover",
+            "updatedAt": "2015-05-12T06:40:32.000Z",
+            "url": "https://beam.pro/img/backgrounds/generic-001.jpg"
+        },
+        "coverId": 145,
+        "createdAt": "2015-02-01T16:54:28.000Z",
+        "description": "<p>\n\t Lead developer at Beam!\n</p>",
         "featured": false,
-        "followers": 10,
-        "hidden": false,
-        "id": 20,
-        "name": "Minecraft Rox",
-        "online": true,
+        "id": 129,
+        "name": "Some beam backend development! asdsadsdfs",
+        "nativeHeight": null,
+        "nativeWidth": null,
+        "numFollowers": 52,
+        "numSubscribers": 0,
+        "online": false,
         "partnered": false,
-        "subscribers": 2,
-        "thumbnail": 2,
+        "preferences": {
+            "channel:links:allowed": true,
+            "channel:links:clickable": true,
+            "channel:links:slowchat": 500,
+            "costream:allow": {},
+            "sharetext": {}
+        },
+        "smilReady": false,
+        "streamPartnered": false,
+        "streamTranscodingEnabled": false,
+        "suspended": false,
+        "thumbnail": {
+            "createdAt": "2015-02-19T19:12:02.000Z",
+            "id": 1713,
+            "meta": {
+                "size": [
+                    405,
+                    225
+                ]
+            },
+            "relid": "129",
+            "remotePath": "thumbnails/129.jpg",
+            "store": "s3",
+            "type": "channel:thumbnail",
+            "updatedAt": "2015-05-06T02:45:37.000Z",
+            "url": "https://s3.amazonaws.com/uploads.beam.pro/thumbnails/129.jpg"
+        },
+        "thumbnailId": 1713,
         "token": "connor4312",
-        "type": "minecraft",
-        "updatedAt": "2014-11-20T00:48:01.000Z",
-        "user": 2,
-        "viewers_total": 127
+        "transcodingEnabled": true,
+        "updatedAt": "2015-05-15T12:32:41.000Z",
+        "user": {
+            "avatars": [
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1097,
+                    "meta": {
+                        "size": "16x16"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-16x16.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-16x16.jpg"
+                },
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1100,
+                    "meta": {
+                        "size": "24x24"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-24x24.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-24x24.jpg"
+                },
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1102,
+                    "meta": {
+                        "size": "32x32"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-32x32.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-32x32.jpg"
+                },
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1105,
+                    "meta": {
+                        "size": "64x64"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-64x64.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-64x64.jpg"
+                },
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1107,
+                    "meta": {
+                        "size": "128x128"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-128x128.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-128x128.jpg"
+                },
+                {
+                    "createdAt": "2015-02-04T10:39:25.000Z",
+                    "id": 1109,
+                    "meta": {
+                        "size": "256x256"
+                    },
+                    "relid": "146",
+                    "remotePath": "avatars/146-256x256.jpg",
+                    "store": "s3",
+                    "type": "user:avatar",
+                    "updatedAt": "2015-02-04T10:39:25.000Z",
+                    "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-256x256.jpg"
+                }
+            ],
+            "bio": null,
+            "createdAt": "2015-02-01T16:54:28.000Z",
+            "deletedAt": null,
+            "groups": [
+                {
+                    "id": 1,
+                    "name": "User"
+                },
+                {
+                    "id": 7,
+                    "name": "Developer"
+                }
+            ],
+            "id": 146,
+            "points": 55,
+            "social": {
+                "facebook": "",
+                "twitter": "null",
+                "youtube": "null"
+            },
+            "updatedAt": "2015-03-20T01:17:16.000Z",
+            "username": "connor4312",
+            "verified": true
+        },
+        "userId": 146,
+        "viewersCurrent": 6,
+        "viewersTotal": 458
     }
 
 +result("Errorful", "403 Forbidden").

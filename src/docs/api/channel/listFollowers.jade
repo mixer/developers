@@ -14,16 +14,8 @@ table.endpoint-param-table
     tr
         td.name :id
         td.description Numeric ID of the channel to look up.
-    tr
-        td.name page #[span optional]
-        td.description
-            | Page of results to get.
-            .default 0
-    tr
-        td.name limit #[span optional]
-        td.description
-            | Number of results per page to retrieve.
-            .default 50
+
+    +listerOpts()
 
 h3 Possible Results
 

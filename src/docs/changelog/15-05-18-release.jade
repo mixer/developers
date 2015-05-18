@@ -1,0 +1,143 @@
+=title Release 15.05.18
+=date 1431952843527
+=summary This release follows a major refactor of our stack, containing significant tweaking changes.
+
+include ../_mixins.jade
+
+h2 Hello Developers!
+
+p About this time last month, we reached a point where it became sensible for us to take the time to do a major rework of our platform, from a technical standpoint. This was necessary in order to maintain our pace of development, maintainability, and security as our platform continues to grow and expand.
+
+p This release marks the completion of those changes. The bulk of the publicly visible changes come in the form of minor tweaks (particularly to the API), although we also have made notable improvements to both our frontend interface and the backend API.
+
+p Moving forward we plan to continue our fast pace of features and improvements.
+
+h2 Breaking Changes
+
+p Most of the breaking changes involve changing previously snake_case attributes to camelCase.
+
+ul
+    li Users:
+        ul
+            li The old useless #[code display_name] and #[code follows] attributes have been removed.
+            li The #[code social_*] attributes have been merged into a single #[code social] attribute, which is an object with keys being social network names and values being the usernames on that network.
+    li Channels:
+        ul
+            li The channel #[code body] has been renamed to #[code description].
+            li The channel #[code user] has been renamed to #[code userId]. Note that the user model will still be populated to the "user" attribute.
+            li #[code followers] and #[code subscribers] have been renamed to #[code numFollowers] and #[code numSubscribers], respectively.
+            li #[code cover] and #[code thumbnail] have been renamed to #[code coverId] and #[code thumbnailId], respectively.
+            li The channel banner has been removed. It wasn't used any more, and we honestly aren't sure it ever was...
+            li Slowchat, clickable links, and links allowed are now channel preferences. They are now set and returned like other channel preferences.
+            li #[code transcoding_enabled] has been renamed #[code transcodingEnabled].
+            li #[code viewers_current] and #[code viewers_total] have been renamed to #[code viewersCurrent] and #[code viewersTotal].
+            li The format of the #[code status] sent down for authenticated users on channels findOne has changed. View the docs for that endpoint to see more details.
+            li Our channel categories system has changed. Rather than being a flat list, it's now a hierarchy, where a channel can belong to one or more categories. This affects the type listing endpoint and the channel update endpoint. Again, see the docs there for more details. The #[code type] attribute on channels has been removed.
+            li Only types that contain an online channel are shown in the listing endpoint.
+            li The possible audiences for channels have been changed. Previously this was not used anywhere on the frontend, but it is now!
+            li The channel search endpoint has been deprecated. Searching is now done by passing the same scope and query parameters to the primary channels listing endpoint.
+    li Resources:
+        ul
+            li The li #[code remote_path] has been renamed to #[code remotePath]
+    li Chat:
+        ul
+            li Only "healthy" chat servers are now returned in chat endpoints. This means in infrequent cases, there may be one or zero available chat servers. This should be dealt with appropriately in client implementations.
+            li Chat user attributes have been renamed to camelCase: #[code userId], #[code userName], #[code userRoles], #[code userLevel].
+    li Shop item attributes are now camelCase: #[code currencyCost], #[code pointsCost], #[code maxPerUser], #[code maxQuantity].
+    li Transaction attributes are now camelCase: #[code currencyDelta], #[code pointsDelta], #[code shortName].
+    li Rate limits are now enforced on authentication-related endpoints.
+    li Subscriptions now record their associated group ID, rather than the group name.
+    li Costream, log, and notifications endpoints, which are not implemented on the frontend, have been temporarily removed in the backend. They will be reinstated at a later time.
+    li The stats event has been entirely removed from chat servers.
+    li HLS distribution is now available.
+
+h2 API Changes
+
+ul
+    li Channels now bear a #[code suspended] attribute, which will be set to true when the channel is disabled (usually as a result terms of service violation).
+    li The user model, with avatars, is now populated on the channel findOne endpoint.
+    li Thanks to the folks at #[a(href="http://player.me/") Player.me], we now have over 40,000 games categories you can chose from, and more are added automatically!
+    li Users now bear a #[code bio] attribute, which can be used to set a 255-character biography. Plain text only; HTML will be encoded.
+    li Users can send their player.me username to the new social endpoint.
+    li
+        | Listing endpoints now return Link and x-total-count headers, which may be used for pagination. Example:
+        +jsonblock().
+            $ http get https://beam.pro/api/v1/channels page==3 -h | grep 'total\|link'
+
+            link: &lt;/api/v1/channels?limit=2&page=0&gt;; rel="first",
+                  &lt;/api/v1/channels?limit=2&page=4&gt;; rel="next",
+                  &lt;/api/v1/channels?limit=2&page=2&gt;; rel="prev",
+                  &lt;/api/v1/channels?limit=2&page=6177&gt;; rel="last"
+            x-total-count: 12356
+    li Listing endpoints now allow sorting, filtering, and field selection. This is a great addition that should make our API faster and more flexible. Not all endpoints yet have full capabilities, but they will be upgraded gradually to the new system over the coming weeks.
+    li OAuth has been implemented in the API. Frontend integration is coming Soon™.
+    li There is now an endpoint to provide auto-completion of category names.
+    li Subscriptions now bear a #[code status] column, which is "active", "pending", or "deleted".
+    li Subscriptions now expire on-time.
+    li Added a channel suspension system.
+    li Beam points now live-load (at last!).
+
+
+
+h2 UI/UX Changes
+
+ul
+    li Entirely new channel page.
+    li Entirely new browse page.
+    li Reduced site-wide delay to an average of 2 seconds.
+    li Redesigned following page.
+    li Redesigned subscriptions system.
+    li Redesigned loading indicator.
+    li Redesigned and improved stream background selector.
+    li Redesigned footer.
+    li Redesigned E-Mail templates.
+    li Reworked "game selection" system, now with a selction of thousands of titles.
+    li 18+ option is now available for streamers.
+    li Added a "disable all" option for emails.
+    li Users in the viewer list can now be clicked to go to their profile.
+    li Site-wide performance has been significantly improved.
+    li Logins now redirect to the last page you were on instead of always to your channel page.
+    li Text alerts (registration, adblock, errors, etc...) have been reworded and can now be exited.
+    li Added player.me as a social link option.
+    li Added DMCA policy and channel suspension system.
+    li Tweaks to the way Beam points work.
+    li Avatar/channel thumbnail uploader has been reworked.
+    li Redesigned system for selecting current game.
+    li Trailing slashes after URLs no longer result in 404s.
+    li Back to dashboard from Pro page no longer results in a 404.
+    li Users on Android are no longer automatically redirect to the app.
+    li Streamers did not see the option to ban Pro users in quick action menus.
+    li Using middle mouse and going to the right no longer reveals a blank area.
+    li Several issues have been resolved with purchasing items from the shop.
+    li Auto-complete is no longer case sensitive.
+    li Chat link handling has been tweaked to better detect URLs.
+    li "Getting Started" API guide is now available.
+    li Updated privacy policy to include sharks with laser Beams as one of our physical security measures.
+    li Search auto focuses on click.
+    li Logouts now apply instantly and don't require navigating to a new page.
+    li Added 2FA login to modal dialogs.
+    li Twitter links on team page now open in a new tab.
+
+h2 Open Source
+
+.alert.alert-info We're starting a new "open source" section, which will include open source creations and releases developed at Beam. This initial listing includes some past libraries and releases.
+
+h4 Javascript/Node.js
+
+ul
+    li #[a(href="https://github.com/MCProHosting/wsabi") MCProHosting/wsabi]: HTTP-over-websocket layer for the Hapi web framework.
+    li #[a(href="https://github.com/MCProHosting/limitus") MCProHosting/limitus]: Limitus makes rate limiting your anything a snap.
+    li #[a(href="https://github.com/MCProHosting/is-social") MCProHosting/is-social]: Validators for social media profiles.
+    li #[a(href="https://github.com/MCProHosting/oxide") MCProHosting/oxide]: Oxide is a Node.js client designed for easy communicating with Carbon, a data injest tool which is a part of the Graphite project.
+    li #[a(href="https://github.com/MCProHosting/artisan-cassandra-orm") MCProHosting/artisan-cassandra-orm]: Node.js ORM for Cassandra 2.1+. Inspired by SQLAlchemy. WIP.
+    li #[a(href="https://github.com/MCProHosting/connect-smart-redis") MCProHosting/connect-smart-redis]: Like connect-redis, but smarter.
+    li #[a(href="https://github.com/MCProHosting/ccbill-node") MCProHosting/ccbill-node]: Gateway for CCBill payment processing.
+    li #[a(href="https://github.com/MCProHosting/speakeasy") MCProHosting/speakeasy]: significant fork of #[a(href="https://github.com/markbao/speakeasy") markbao/speakeasy], with critical security patches.
+    li #[a(href="https://github.com/MCProHosting/uuid-validate") MCProHosting/uuid-validate]: Javascript validator for UUID versions 1 through 5.
+    li #[a(href="https://github.com/MCProHosting/stream-sender") MCProHosting/stream-sender]: A NodeJS utility for sending large scale E-Mail without killing your sending reputation.
+
+h4 Go
+
+ul
+    li #[a(href="https://github.com/MCProHosting/player.me") MCProHosting/player.me]: Golang client for the player.me API.
+    li #[a(href="https://github.com/MCProHosting/redutil") MCProHosting/redutil]: Thread-safe and consistent Redis utilities for Go.
