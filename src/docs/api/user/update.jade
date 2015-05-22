@@ -15,11 +15,6 @@ table.endpoint-param-table
         td.name :id
         td.description The numeric user ID.
     tr
-        td.name display_name #[span optional]
-        td.description
-            | User's publicly displayed name.
-            .default undefined
-    tr
         td.name email #[span optional]
         td.description
             | Email connected to the user account.
@@ -35,20 +30,17 @@ table.endpoint-param-table
             | The user's current password which you are attempting to change. Required if and only if #[code password] is passed.
             .default undefined
     tr
-        td.name social_twitter #[span optional]
+        td.name social #[span optional]
         td.description
-            | User's handle on twitter.
-            .default undefined
-    tr
-        td.name social_facebook #[span optional]
-        td.description
-            | Username on Facebook.
-            .default undefined
-    tr
-        td.name social_youtube #[span optional]
-        td.description
-            | Channel name on YouTube.
-            .default undefined
+            p An object with keys being social networks, and values being usernames on the networks. Valid networks are:
+
+            ul
+                li: a(href="https://facebook.com") facebook
+                li: a(href="https://player.me") player
+                li
+                    a(href="https://twitter.com") twitter
+                    | Note: handles must not begin with an "at" symbol.
+                li: a(href="https://youtube.com") youtube
 
 
 h3 Possible Results
