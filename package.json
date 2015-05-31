@@ -2,8 +2,9 @@
   "name": "beam-developers",
   "version": "2.0.0",
   "description": "Centralized hub for all things related to Beam development.",
-  "main": "index.js",
+  "main": "./__build__/index.js",
   "scripts": {
+    "start": "node ./__build__/index.js",
     "test": "exit 1"
   },
   "repository": {
