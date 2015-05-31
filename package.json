@@ -1,0 +1,19 @@
+{
+  "name": "beam-developers",
+  "version": "2.0.0",
+  "description": "Centralized hub for all things related to Beam development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MCProHosting/beam-developers"
+  },
+  "author": "Beam LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MCProHosting/beam-developers/issues"
+  },
+  "homepage": "https://github.com/MCProHosting/beam-developers"
+}
