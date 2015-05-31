@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MCProHosting/beam-developers/issues"
   },
-  "homepage": "https://github.com/MCProHosting/beam-developers"
+  "homepage": "https://github.com/MCProHosting/beam-developers",
+  "dependencies": {
+    "gulp": "^3.8.11"
+  }
 }
