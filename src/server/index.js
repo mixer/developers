@@ -8,6 +8,12 @@ import Routes from "../components/routes.js";
 exports.start = (port) => {
   let app = express();
 
+  app.use(require('connect-assets')({
+    paths: [
+      '../../__build__/assets/css'
+    ].map(rel => { return path.join(__dirname, rel) })
+  }));
+
   app.set("views", path.join(__dirname, "../../app/views"));
   app.set("view engine", "ejs");
 
