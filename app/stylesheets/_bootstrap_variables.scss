@@ -1,0 +1,6 @@
+// Import base variables
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
+// Then override:
+$body-bg: rgb(35, 47, 70);
+$text-color: white;
