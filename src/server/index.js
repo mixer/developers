@@ -8,6 +8,7 @@ import Routes from "../components/routes.js";
 exports.start = (port) => {
   let app = express();
 
+  app.use(express.static(path.join(__dirname, '../../app/public')));
   app.use(require('connect-assets')({
     paths: [
       '../../__build__/assets/css'
