@@ -9,12 +9,16 @@
       padding: 10px 0;
     }
 
-    a {
+    span {
       background-color: rgb(60, 75, 99);
       color: white;
       display: block;
       padding: 10px 0;
       text-align: center;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

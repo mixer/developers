@@ -9,8 +9,12 @@ class ClientLibrary extends React.Component {
   render() {
     return (
       <div className="client-library">
-        <img src={this.props.image} alt={this.props.name}/>
-        <a href={this.props.url}>{this.props.name}</a>
+        <a href={this.props.url}>
+          <div>
+            <img src={this.props.image} alt={this.props.name}/>
+            <span>{this.props.name}</span>
+          </div>
+        </a>
       </div>
     );
   }
