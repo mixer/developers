@@ -1,4 +1,5 @@
 import React from "react";
+import Bootstrap from "react-bootstrap";
 
 class ClientLibrary extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ export default class ClientLibraries extends React.Component {
 
   render() {
     return (
-      <div className="component client-libraries">
+      <Bootstrap.Col md={6} className="component client-libraries">
         <h2>Client Libraries</h2>
         <small>Develop for Beam on your platform of choice.</small>
         <ul>{
@@ -57,7 +58,7 @@ export default class ClientLibraries extends React.Component {
             );
           })
         }</ul>
-      </div>
+      </Bootstrap.Col>
     );
   }
 };
