@@ -22,16 +22,20 @@ export default class ClientLibraries extends React.Component {
       clients: [
         {
           name: "python",
-          url: "https://github.com/MCProHosting/beam-client-python"
+          url: "https://github.com/MCProHosting/beam-client-python",
+          img: "/static/img/logo-python.svg"
         }, {
           name: "java",
-          url: "htps://github.com/MCProHosting/beam-client-java"
+          url: "htps://github.com/MCProHosting/beam-client-java",
+          img: "/static/img/logo-java.svg"
         }, {
           name: "go",
-          url: "https://github.com/MCProHosting/beam-client-go"
+          url: "https://github.com/MCProHosting/beam-client-go",
+          img: "/static/img/logo-golang.svg"
         }, {
           name: "node",
           url: "https://github.com/MCProHosting/beam-client-node",
+          img: "/static/img/logo-nodejs.svg"
         }
       ]
     }
@@ -48,7 +52,7 @@ export default class ClientLibraries extends React.Component {
               <li>
                 <ClientLibrary name={client.name}
                                url={client.url}
-                               image={client.image}/>
+                               image={client.img}/>
               </li>
             );
           })
