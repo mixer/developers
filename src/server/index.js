@@ -11,7 +11,7 @@ exports.start = (port) => {
   app.use(express.static(path.join(__dirname, '../../app/public')));
   app.use(require('connect-assets')({
     paths: [
-      '../../__build__/assets/css'
+      '../../__build__/assets/css', '../../bower_components'
     ].map(rel => { return path.join(__dirname, rel) })
   }));
 
