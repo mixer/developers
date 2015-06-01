@@ -27,7 +27,7 @@ export default class ClientLibraries extends React.Component {
           img: "/static/img/logo-python.svg"
         }, {
           name: "Java",
-          url: "htps://github.com/MCProHosting/beam-client-java",
+          url: "https://github.com/MCProHosting/beam-client-java",
           img: "/static/img/logo-java.svg"
         }, {
           name: "Golang",
