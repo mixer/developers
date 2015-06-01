@@ -22,19 +22,19 @@ export default class ClientLibraries extends React.Component {
     this.state = {
       clients: [
         {
-          name: "python",
+          name: "Python",
           url: "https://github.com/MCProHosting/beam-client-python",
           img: "/static/img/logo-python.svg"
         }, {
-          name: "java",
+          name: "Java",
           url: "htps://github.com/MCProHosting/beam-client-java",
           img: "/static/img/logo-java.svg"
         }, {
-          name: "go",
+          name: "Golang",
           url: "https://github.com/MCProHosting/beam-client-go",
           img: "/static/img/logo-golang.svg"
         }, {
-          name: "node",
+          name: "Node.js",
           url: "https://github.com/MCProHosting/beam-client-node",
           img: "/static/img/logo-nodejs.svg"
         }
@@ -47,18 +47,18 @@ export default class ClientLibraries extends React.Component {
       <Bootstrap.Col md={6} className="component client-libraries">
         <h2>Client Libraries</h2>
         <small>Develop for Beam on your platform of choice.</small>
-        <ul>{
+        <Bootstrap.Row>{
           this.state.clients.map(client => {
             return (
-              <li>
+              <Bootstrap.Col md={3}>
                 <ClientLibrary name={client.name}
                                url={client.url}
                                image={client.img}/>
-              </li>
+              </Bootstrap.Col>
             );
           })
-        }</ul>
-      </Bootstrap.Col>
+        }</Bootstrap.Row>
+     </Bootstrap.Col>
     );
   }
 };
