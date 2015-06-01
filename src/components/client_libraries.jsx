@@ -44,7 +44,7 @@ export default class ClientLibraries extends React.Component {
 
   render() {
     return (
-      <Bootstrap.Col md={6} className="component client-libraries">
+      <div className="component client-libraries">
         <div className="component-header">
           <h2>Client Libraries</h2>
           <span>Develop for Beam on your platform of choice.</span>
@@ -60,7 +60,7 @@ export default class ClientLibraries extends React.Component {
             );
           })
         }</Bootstrap.Row>
-     </Bootstrap.Col>
+     </div>
     );
   }
 };
