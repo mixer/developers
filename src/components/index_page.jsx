@@ -12,10 +12,10 @@ export default class IndexPage extends React.Component {
   render() {
     return (
       <div className="index-page">
-        <Bootstrap.Col md={6}>
+        <Bootstrap.Col md={7}>
           <GettingStarted/>
         </Bootstrap.Col>
-        <Bootstrap.Col md={6}>
+        <Bootstrap.Col md={5}>
           <ClientLibraries/>
         </Bootstrap.Col>
       </div>
