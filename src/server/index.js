@@ -3,12 +3,16 @@ import path from "path";
 import React from "react";
 import Router from "react-router";
 
+import DocumentationStore from "../api/store.js";
 import Routes from "../components/routes.js";
 
 export default class Server {
-  constructor(port) {
+  constructor(port, documentationPath) {
     this.app = express();
     this.port = port;
+
+    this.documentationStore = new DocumentationStore(documentationPath);
+    this.documentationStore.load();
   }
 
   start() {
@@ -35,7 +39,8 @@ export default class Server {
       router.run((Handler) => {
         let page = undefined;
         if (documentationSlug) {
-          page = React.renderToString(<Handler describedBy={documentationSlug}/>);
+          let documentation = this.documentationStore.findBySlug(documentationSlug);
+          page = React.renderToString(<Handler describedBy={documentation}/>);
         } else {
           page = React.renderToString(<Handler />);
         }
