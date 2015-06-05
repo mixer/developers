@@ -1,4 +1,4 @@
-class Method {
+export default class Method {
   constructor() {
   }
 
@@ -42,6 +42,7 @@ class Method {
    * @public
    * @abstract
    * @return{Number}
+   */
   version() { }
 
   /**
