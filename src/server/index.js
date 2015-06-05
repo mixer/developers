@@ -5,27 +5,49 @@ import Router from "react-router";
 
 import Routes from "../components/routes.js";
 
-exports.start = (port) => {
-  let app = express();
+export default class Server {
+  constructor(port) {
+    this.app = express();
+    this.port = port;
+  }
 
-  app.use(express.static(path.join(__dirname, '../../app/public')));
-  app.use(require('connect-assets')({
-    paths: [
-      '../../__build__/assets/css', '../../bower_components'
-    ].map(rel => { return path.join(__dirname, rel) })
-  }));
+  start() {
+    this.app.use(express.static(path.join(__dirname, '../../app/public')));
+    this.app.use(require('connect-assets')({
+      paths: [
+        '../../__build__/assets/css', '../../bower_components'
+      ].map(rel => { return path.join(__dirname, rel) })
+    }));
 
-  app.set("views", path.join(__dirname, "../../app/views"));
-  app.set("view engine", "ejs");
+    this.app.set("views", path.join(__dirname, "../../app/views"));
+    this.app.set("view engine", "ejs");
 
-  app.get("*", (req, res) => {
-    let router = Router.create({ location: req.url, routes: Routes });
-    router.run((Handler) => {
-      let page = React.renderToString(<Handler />);
-      res.render("index.ejs", { page: page });
+    this.addRoutes();
+
+    return this.app.listen(this.port);
+  }
+
+  addRoutes() {
+    this.app.get("*", (req, res) => {
+      let router = Router.create({ location: req.url, routes: Routes });
+      let documentationSlug = this.getDocumentationSlugName(req);
+
+      router.run((Handler) => {
+        let page = undefined;
+        if (documentationSlug) {
+          page = React.renderToString(<Handler describedBy={documentationSlug}/>);
+        } else {
+          page = React.renderToString(<Handler />);
+        }
+
+        res.render("index.ejs", { page: page });
+      });
     });
-  });
+  }
 
-  return app.listen(port);
+  getDocumentationSlugName(req) {
+    let regexp = /\/docs(.*)/;
+    let match = regexp.exec(req.url);
+    return (match || [])[1]
+  }
 }
-
