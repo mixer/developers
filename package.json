@@ -26,6 +26,7 @@
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-sass": "^2.0.1",
+    "lorem-ipsum": "^1.0.3",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.0",
     "react-router": "^0.13.3"

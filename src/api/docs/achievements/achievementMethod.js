@@ -1,6 +1,7 @@
 import Method from "../../method.js";
 import Example from "../../example.js";
 import Parameter from "../../parameter.js";
+import LoremIpsum from "lorem-ipsum";
 
 export default class AbstractAchievementMethod extends Method {
   version() { return 1; }
@@ -27,23 +28,23 @@ class SuccesfulExample extends Example {
   data() {
     return [
       {
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        description: LoremIpsum({ count: 1, unit: 'sentences' }),
         earned: false,
         id: 1,
         name: "StalkerPro",
         progress: 0.12,
         slug: "stalker-pro",
-        updatedAt: "2015-02-03T15:44:02.000Z",
+        updatedAt: new Date().toISOString(),
         user: 2
       },
       {
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        description: LoremIpsum({ count: 1, unit: "sentences" }),
         earned: true,
         id: 2,
         name: "Stalker",
         progress: 1,
         slug: "stalker",
-        updatedAt: "2015-02-03T15:44:02.000Z",
+        updatedAt: new Date().toISOString(),
         user: 2
       }
     ];
