@@ -8,11 +8,22 @@ export default class APIDocumentationStore {
   }
 
   load() {
-    let documentPaths = Glob.sync(Path.join(__dirname, this.path, '**/*.js'));
-    for (let path in documentPaths) {
-      let doucmentation = new require(documentPaths[path])();
-      this.documents[documentation.slug().toLowerCase()] = documentation;
+    let documents = Glob.sync(Path.join(__dirname, this.path, '**/*.js'))
+      .map((path) => {
+        let clazz = require(path);
+        return new clazz();
+      });
+
+    for (let i in documents) {
+      let document = documents[i];
+      let slug = document.slug();
+
+      if (slug) {
+        this.documents[slug] = document;
+      }
     }
+
+    console.log(this.documents);
   }
 
   findBySlug(slug) {
