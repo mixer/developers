@@ -2,8 +2,8 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import AccessDeniedResponse from "../../accessDeniedResponse.js";
-import ResourceMissingResponse from "../../resourceMissingResponse.js";
+import AccessDeniedResponse from "../../accessDeniedResult.js";
+import ResourceMissingResponse from "../../resourceMissingResult.js";
 
 export default class DeleteMessageMethod extends Method {
   httpMethod() { return "DELETE"; }
@@ -42,5 +42,3 @@ class SuccesfulResponse extends Example {
   httpCode() { return 200; }
   data() { return "Message deleted."; }
 }
-
-

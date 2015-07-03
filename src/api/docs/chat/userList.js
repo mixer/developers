@@ -2,7 +2,7 @@ import Method from "../../method.js";
 import Example from "../../example.js";
 import Parameter from "../../parameter.js";
 
-export default class UserListMethod extends Method
+export default class UserListMethod extends Method {
   uri() { return "/api/v1/chats/:id/users"; }
   description() {
     return "Displays a list of online users in the chat, sorted in descending \

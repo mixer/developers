@@ -1,3 +1,6 @@
+import Method from "../../method.js";
+import Example from "../../example.js";
+
 export default class ListTypesMethod extends Method {
   httpMethod() { return "GET"; }
   version() { return 1; }

@@ -20,7 +20,7 @@ export default class ChannelTypesMethod extends PaginatedMethod {
     ]);
   }
 
-  examples() { return [ new SuccesfulResult(); ] }
+  examples() { return [ new SuccesfulResult() ]; }
 }
 
 class SlugParameter extends Parameter {
@@ -28,7 +28,7 @@ class SlugParameter extends Parameter {
   description() { return "Slug of the category to search in."; }
 }
 
-class OrderParameter extends Paramter {
+class OrderParameter extends Parameter {
   name() { return "order"; }
   description() {
     return "Specifies the order in which channels should be displayed in the \
@@ -40,7 +40,7 @@ class OrderParameter extends Paramter {
   default() { return "online:desc,viewers_total:desc"; }
 }
 
-class OnlyParamter extends Paramter {
+class OnlyParamter extends Parameter {
   name() { return "only"; }
   description() {
     return "Filters the results to a specific subset. Valid values are: \
@@ -64,7 +64,7 @@ class SuccesfulResult extends Example {
       name: "Minecraft Rox",
       online: true,
       partnered: false,
-      subscribers: 2
+      subscribers: 2,
       thumbnail: { },
       token: "connor4312",
       type: "minecraft",

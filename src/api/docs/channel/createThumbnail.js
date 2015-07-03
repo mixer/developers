@@ -18,7 +18,7 @@ export default class CreateThumbnailMethod extends Method {
   parameters() { return [ new IDParameter(), new ThumbnailParameter() ]; }
   examples() {
     return [
-      new SuccesfulResult()
+      new SuccesfulResult(),
       new AccessDeniedResult(),
       new ResourceMissingResult("Channel"),
       new ErrorfulResult()

@@ -2,8 +2,8 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import AccessDeniedResponse from "../../accessDeniedResponse.js";
-import ResourceMissingResponse from "../../resoureceMissingResponse.js";
+import AccessDeniedResponse from "../../accessDeniedResult.js";
+import ResourceMissingResponse from "../../resourceMissingResult.js";
 
 export default class UpdateChatSettingsMethod extends Method {
   httpMethod() { return "PUT"; }

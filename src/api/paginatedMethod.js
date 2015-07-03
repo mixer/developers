@@ -17,7 +17,7 @@ class PageParameter extends Parameter {
   default() { return 0; }
 }
 
-class LimitParamter extends Paramter {
+class LimitParamter extends Parameter {
   name() { return "limit"; }
   optional() { return true; }
   description() { return "Number of results per page to retrieve."; }

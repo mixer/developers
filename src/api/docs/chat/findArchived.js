@@ -19,7 +19,7 @@ export default class FindArchivedMethod extends Method {
       new LimitParameter()
     ];
   }
-  examples() { return [ new SuccesfulResult() ]; }{
+  examples() { return [ new SuccesfulResult() ]; }
 }
 
 class IDParameter extends Parameter {
@@ -95,4 +95,3 @@ class SuccesfulResult extends Example {
     ];
   }
 }
-

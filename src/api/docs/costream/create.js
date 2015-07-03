@@ -22,7 +22,7 @@ export default class CreateCostreamRequestMethod extends Method {
   }
 }
 
-class FromParameter extneds Parameter {
+class FromParameter extends Parameter {
   name() { return "from"; }
   description() { return "ID of the channel who is making the request."; }
 }
@@ -36,4 +36,3 @@ class SuccesfulResponse extends Example {
   httpCode() { return 200; }
   data() { return "Requests have been sent."; }
 }
-

@@ -16,7 +16,7 @@ export default class APIDocumentationStore {
 
     for (let i in documents) {
       let document = documents[i];
-      let slug = document.slug();
+      let slug = document.slug ? document.slug() : undefined;
 
       if (slug) {
         this.documents[slug] = document;

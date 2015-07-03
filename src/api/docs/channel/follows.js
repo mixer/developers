@@ -1,5 +1,6 @@
-import PaginatedMethod from ".././paginatedMethod.js";
+import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
+import Method from "../../method.js";
 import Example from "../../example.js";
 
 export default class ChannelFollowsMethod extends Method {
@@ -52,7 +53,7 @@ class SuccesfulExample extends Example {
   data() {
     return [{
       avatars: [],
-      channel: 2
+      channel: 2,
       display_name: "ConnorPeet",
       id: 2,
       points: 64,

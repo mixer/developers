@@ -1,6 +1,6 @@
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
-import Exaample from "../../example.js";
+import Example from "../../example.js";
 
 export default class UpdateUserRoleMethod extends Method {
   httpMethod() { return "PATCH"; }

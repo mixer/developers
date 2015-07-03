@@ -2,7 +2,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import ResourceMissingRepsonse from "../../resourceMissingResponse.js";
+import ResourceMissingRepsonse from "../../resourceMissingResult.js";
 
 export default class ChatFindOneMethod extends Method {
   httpMethod() { return "GET"; }

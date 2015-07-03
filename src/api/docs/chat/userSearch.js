@@ -2,6 +2,8 @@ import Method from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
+import PaginatedMethod from "../../paginatedMethod.js";
+
 export default class UserSearchMethod extends PaginatedMethod {
   uri() { return "/api/v1/chats/:id/search"; }
   version() { return 1; }
@@ -39,5 +41,6 @@ class SuccesfulResult extends Example {
         user_name: Bob,
         user_roles: ["User", "Mod"]
       }
+    ];
   }
 }

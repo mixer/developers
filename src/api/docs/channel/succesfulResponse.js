@@ -185,6 +185,5 @@ export default class SuccesfulResult extends Example {
       "viewersCurrent": 6,
       "viewersTotal": 458
     }
+  }
 }
-
-
