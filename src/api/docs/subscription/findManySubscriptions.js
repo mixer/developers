@@ -2,7 +2,7 @@ import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import AccessDeniedExample from "../../accessDeniedExample.js";
+import AccessDeniedExample from "../../accessDeniedResult.js";
 
 export default class SomeAPIMethod extends PaginatedMethod {
   uri() { return "/api/v1/users/:id/subscriptions"; }
@@ -59,7 +59,7 @@ class SortParameter extends Parameter {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       Group: {
         id: 9,
         name: "Subscriber"
@@ -73,6 +73,6 @@ class SuccesfulExample extends Example {
       resourceType: "channel",
       status: "active",
       updatedAt: Date.now().toISOString()
-    }]}
+    }];
   }
 }

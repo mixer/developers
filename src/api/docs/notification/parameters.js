@@ -1,3 +1,5 @@
+import Parameter from "../../parameter.js";
+
 export class IDParameter extends Parameter {
   name() { return "id"; }
   description() { return "User ID to get the notifications for."; }

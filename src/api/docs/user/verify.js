@@ -3,7 +3,7 @@ import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
-import SuccesfulResult from "./succesfulResult.js";
+import SuccesfulResult from "./succesfulExample.js";
 
 export default class ConfirmUserMethod extends Method {
   uri() { return "/api/v1/users/:id/confirm"; }

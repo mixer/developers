@@ -2,7 +2,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import { IDParameter, SinceParameter, BeforeParameter } from "./parameter.js";
+import { IDParameter, SinceParameter, BeforeParameter } from "./parameters.js";
 import AccessDeniedResult from "../../accessDeniedResult.js";
 
 export default class MarkAsReadMethod extends Method {
@@ -18,12 +18,12 @@ export default class MarkAsReadMethod extends Method {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       createdAt: Date.now().toISOString(),
       data: { "user": "2" },
       readAt: Date.now().toISOString(),
       type: "channel:follow",
       user: 2
-    }]};
+    }];
   }
 }

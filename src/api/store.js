@@ -11,11 +11,13 @@ export default class APIDocumentationStore {
     let documents = Glob.sync(Path.join(__dirname, this.path, '**/*.js'))
       .map((path) => {
         let clazz = require(path);
-        return new clazz();
+        return typeof clazz === "function" ? new clazz() : undefined;
       });
 
     for (let i in documents) {
       let document = documents[i];
+      if (typeof document === "undefined") continue;
+      
       let slug = document.slug ? document.slug() : undefined;
 
       if (slug) {

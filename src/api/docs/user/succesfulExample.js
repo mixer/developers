@@ -83,14 +83,15 @@ export class ExpandedSuccesfulResult extends Example {
         },
         {
           "createdAt": Date.now().toISOString(),
-          "id": 1107,
+          "id": 1105,
           "meta": {
             "size": "128x128"
           },
           "relid": "146",
-          "remotePath": Date.now().toISOString()": "s3",
+          "remotePath": "avatars/146-128x128.jpg",
+          "store": "s3",
           "type": "user:avatar",
-          "updatedAt": "2015-02-04T10:39:25.000Z",
+          "updatedAt": Date.now().toISOString(),
           "url": "https://s3.amazonaws.com/uploads.beam.pro/avatars/146-128x128.jpg"
         },
         {

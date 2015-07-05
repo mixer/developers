@@ -38,7 +38,7 @@ class TypeParameter extends Parameter {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       createdAt: Date.now().toISOString(),
       id: 36,
       meta: {},
@@ -48,6 +48,6 @@ class SuccesfulExample extends Example {
       type: "type:cover",
       updatedAt: Date.now().toISOString(),
       url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
-    }]}
+    }];
   }
 }

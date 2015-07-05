@@ -2,7 +2,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import ErrorfulResult from "../../errorfulResult.js";
+import ErrorfulResult from "../../errorfulResponse.js";
 
 export default class RegisterUserMethod extends Method {
   uri() { return "/api/v1/users"; }

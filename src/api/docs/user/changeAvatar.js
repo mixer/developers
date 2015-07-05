@@ -2,16 +2,16 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulResult from "./succesfulResult.js";
+import SuccesfulResult from "./succesfulExample.js";
 import IDParameter from "./idParameter.js";
 import ResourceMissingResult from "../../resourceMissingResult.js";
 import AccessDeniedResult from "../../accessDeniedResult.js";
 
-export default class SomeAPIMethod extends Method {
-  uri() { return "/api/v1/XXX"; }
+export default class ChangeAvatarMethod extends Method {
+  uri() { return "/api/v1/users/:id/changeAvatar"; }
   version() { return 1; }
-  httpMethod() { return "XXX"; }
-  description() { return "XXX"; }
+  httpMethod() { return "POST"; }
+  description() { return "Used for uploading and setting a new user profile image."; }
   parameters() { return [ new IDParameter(), new AvatarParameter() ]; }
   examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
                         new ResourceMissingResult("Channel"),

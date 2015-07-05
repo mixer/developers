@@ -15,11 +15,11 @@ export default class ListCategoriesMethod extends Method {
 class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       color: "red",
       description: "Unlock epic emoticon packs!",
       id: 1,
       title: "Emoticons"
-    }]}
+    }];
   }
 }

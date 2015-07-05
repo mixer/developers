@@ -39,8 +39,7 @@ export default class LiveloadingSubscribe extends Method {
               "You'll get an event sent down that matches the slug, containing
               changes on the channel body. The event may not necessarily include
               the entire channel resource. For example, when a channel goes
-              online an event with the body <code>{ online: true }</code> is
-              sent."
+              online, an event with the key online going to true is sent."
             </td>
           </tr>
           <tr>
@@ -76,31 +75,32 @@ export default class LiveloadingSubscribe extends Method {
                 </li>
                 <li>
                   "and channel - the channel object the user just followed."
-                  </li>
-                </ul>
-              </td>
-            </tr>
-              <td><code>channel:[:id]:subscribed</code></td>
-              <td>
-                "Sent when a user subscribes to the channel. The body will
-                contain the user object who just subscribed to the channel."
-              </td>
-            </tr>
-            <tr>
-              <td><code>user:[:id]:subscribed</code></td>
-              <td>
-                Sent when the user subscribes to a channel. The body will
-                contain the channel ID that they just subscribed to.
-              </td>
-            </tr>
-            <tr>
-              <td><code>user:[:id]:achievement</code></td>
-              <td>
-                "Sent when a user achievement earning is updated. The body is
-                simply an \"earning\" record as returned in the achievement user
-                listing endpoint."
-              </td>
-            </tr>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><code>channel:[:id]:subscribed</code></td>
+            <td>
+              "Sent when a user subscribes to the channel. The body will
+              contain the user object who just subscribed to the channel."
+            </td>
+          </tr>
+          <tr>
+            <td><code>user:[:id]:subscribed</code></td>
+            <td>
+              Sent when the user subscribes to a channel. The body will
+              contain the channel ID that they just subscribed to.
+            </td>
+          </tr>
+          <tr>
+            <td><code>user:[:id]:achievement</code></td>
+            <td>
+              "Sent when a user achievement earning is updated. The body is
+              simply an \"earning\" record as returned in the achievement user
+              listing endpoint."
+            </td>
+          </tr>
         </table>
       </div>
     );

@@ -21,7 +21,7 @@ class IdParameter extends Parameter {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       "data": {
         "by": "2",
         "role": "Mod",
@@ -33,6 +33,6 @@ class SuccesfulExample extends Example {
       "target": null,
       "time": "2015-01-17T02:44:23.789Z",
       "type": "chat:role:channel"
-    }]};
+    }];
   }
 }

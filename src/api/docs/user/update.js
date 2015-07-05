@@ -4,7 +4,7 @@ import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
 import SuccesfulExample from "./succesfulExample.js";
-import AccessDeniedResponse from "../../accessDeniedResponse.js";
+import AccessDeniedResponse from "../../accessDeniedResult.js";
 import ErrorfulResponse from "../../errorfulResponse.js";
 
 export default class SomeAPIMethod extends Method {

@@ -21,7 +21,7 @@ class IdParameter extends Parameter {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[{
+    return [{
       "data": {
         "channel": "2",
         "role": "Mod"
@@ -30,8 +30,8 @@ class SuccesfulExample extends Example {
       "originating": true,
       "source": 2,
       "target": 1,
-      "time": "2015-01-17T02:44:23.788Z",
+      "time": Date.now().toISOString(),
       "type": "chat:role:user"
-    }]};
+    }];
   }
 }

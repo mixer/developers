@@ -2,6 +2,7 @@ import Parameter from "./parameter.js";
 
 export default class OrderParameter extends Parameter {
   constructor(attributes) {
+    super();
     this.attributes = attributes;
   }
 
@@ -18,7 +19,7 @@ export default class OrderParameter extends Parameter {
         </p>
 
         <ul>{
-          return this.attributes.map((attribute) => { <li>${attribute}</li> })
+          this.attributes.map((attribute) => { <li>${attribute}</li> })
         }</ul>
 
         <p>

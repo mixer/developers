@@ -14,8 +14,8 @@ export default class ListEventsMethod extends Method {
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return {[
+    return [
       "channel:2:status"
-    ]}
+    ];
   }
 }

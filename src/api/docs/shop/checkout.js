@@ -3,7 +3,7 @@ import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import ErrorfulResponse from "../../errorfulResponse.js";
-import AccessDeniedResponse from "../../AccessDeniedResponse.js";
+import AccessDeniedResponse from "../../accessDeniedResult.js";
 
 export default class CheckoutMethod extends Method {
   uri() { return "/api/v1/shop/checkout"; }
