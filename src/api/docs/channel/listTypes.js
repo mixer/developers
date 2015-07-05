@@ -5,6 +5,7 @@ export default class ListTypesMethod extends Method {
   httpMethod() { return "GET"; }
   version() { return 1; }
   uri() { return "/api/v1/types"; }
+  group() { return "channels" }
   description() {
     return (
       <div className="description">

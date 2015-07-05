@@ -6,6 +6,7 @@ import LoremIpsum from "lorem-ipsum";
 export default class AbstractAchievementMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "achievements" }
   examples() { return [ new SuccesfulExample(), new ErrorfulExample() ]; }
   parameters() { return [ new IDParameter() ]; }
 }
@@ -61,4 +62,3 @@ class ErrorfulExample extends Example {
     return "You are not permitted to preform that action.";
   }
 }
-

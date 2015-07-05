@@ -8,7 +8,7 @@ export default class FindOneMethod extends Method {
   uri() { return "/api/v1/channels/:id"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
-
+  group() { return "channels" }
   description() {
    return [
     "This endpoint retrieves a single fully-populated channel by its ID or token.",

@@ -6,6 +6,8 @@ export default class UserSearchMethod extends PaginatedMethod {
   uri() { return "/api/v1/users/search"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "user"; }
+
   description() { return "Searches for a user based on the prefix of their " +
                          "username"; }
   parameters() { return super.parameters().concat([ new QueryParameter() ]); }

@@ -8,6 +8,8 @@ export default class CreateResetTokenMethod extends Method {
   uri() { return "/api/v1/users/reset"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() {
     return (
       <div>

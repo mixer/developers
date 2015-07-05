@@ -8,6 +8,8 @@ export default class UserSearchMethod extends PaginatedMethod {
   uri() { return "/api/v1/chats/:id/search"; }
   version() { return 1; }
   description() { return "Searches for online users in a chat."; }
+  group() { return "chat"; }
+
   method() { return "GET"; }
   parameters() {
     return super.parameters().concat([

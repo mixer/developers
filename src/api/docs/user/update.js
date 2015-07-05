@@ -11,6 +11,8 @@ export default class SomeAPIMethod extends Method {
   uri() { return "/api/v1/users/:id"; }
   version() { return 1; }
   httpMethod() { return "PUT"; }
+  group() { return "user"; }
+
   description() { return "Updates user profile information."; }
   parameters() { return [ new IDParameter(), new EmailParameter(),
                           new PasswordParameter(), new PasswordVerifyParameter(),

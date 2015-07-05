@@ -7,6 +7,8 @@ import ResourceMissingRepsonse from "../../resourceMissingResult.js";
 export default class ChatFindOneMethod extends Method {
   httpMethod() { return "GET"; }
   uri() { return "/api/v1/chats/:id"; }
+  group() { return "chat"; }
+
   description() {
     return (
       <div className="description">

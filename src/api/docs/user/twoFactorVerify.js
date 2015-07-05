@@ -8,6 +8,8 @@ export default class TwoFactorVerify extends Method {
   uri() { return "/api/v1/users/:id/2fa/verify"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Verifies and activates the user's two-factor auth " +
                          "credentials, using a code generated on their device."; }
   parameters() { return [ new IDParameter(), new CodeParameter() ]; }

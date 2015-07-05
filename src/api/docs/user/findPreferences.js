@@ -8,6 +8,8 @@ export default class FindPreferencesMethod extends Method {
   uri() { return "/api/v1/users/:id/preferences"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "user"; }
+
   description() { return "Lists preferences for a user."; }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulExample() ]; }

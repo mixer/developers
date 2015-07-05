@@ -6,6 +6,7 @@ export default class UpdateUserRoleMethod extends Method {
   httpMethod() { return "PATCH"; }
   version() { return 1; }
   uri() { return "/api/v1/channels/:id/users/:user"; }
+  group() { return "channels"; }
 
   description() {
     return (

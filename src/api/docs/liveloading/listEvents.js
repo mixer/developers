@@ -7,6 +7,8 @@ export default class ListEventsMethod extends Method {
   httpMethod() { return "GET"; }
   description() { return "Returns a listing of all interfaces that the " +
                          "requesting socket is subscribed to."; }
+  group() { return "liveloading"; }
+
   parameters() { return []; }
   examples() { return [ new SuccesfulExample() ]; }
 }

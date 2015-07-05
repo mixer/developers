@@ -2,10 +2,11 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-export default class SomeAPIMethod extends Method {
+export default class AuthorizeTransactionMethod extends Method {
   uri() { return "/api/v1/transactions/:id/authorize"; }
   version() { return 1; }
   httpMethod() { return "ANY"; }
+  group() { return "transaction"; }
   description() {
     return (
       <div>

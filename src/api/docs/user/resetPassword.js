@@ -8,6 +8,8 @@ export default class ResetPasswordMethod extends Method {
   uri() { return "/api/v1/users/reset"; }
   version() { return 1; }
   httpMethod() { return "PATCH"; }
+  group() { return "user"; }
+
   description() { return "Updates a user's password using the reset code they " +
                          "recieved via email."; }
   parameters() { return [ new TokenParameter(), new PasswordParameter() ]; }

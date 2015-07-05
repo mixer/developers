@@ -11,6 +11,8 @@ export default class CreateCostreamRequestMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   description() { return "Creates and sends a costream request."; }
+  group() { return "costream"; }
+
   parameters() { return [ new FromParameter(), new ToParameter() ]; }
   examples() {
     return [

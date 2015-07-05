@@ -10,6 +10,7 @@ export default class ChannelFollowsMethod extends Method {
     return "Lists the users who follow a channel, in the order that they \
     followed.";
   }
+  group() { return "channels" }
 
   parameters() {
     return super.parameters().concat([

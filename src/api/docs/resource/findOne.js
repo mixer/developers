@@ -10,6 +10,8 @@ export default class FindOneResource extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   description() { return "Looks up a single resource."; }
+  group() { return "resource"; }
+
   parameters() { return [ new IDParameter() ]; }
   examples() { return [
     new SuccesfulExample(),

@@ -10,6 +10,8 @@ export default class UpdatePreferencesMethod extends Method {
   uri() { return "/api/v1/users/:id/preferences"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Updates preferences relative to a given user. Requests " +
                          "can be made partially, we'll just \"extend\" the given " +
                          "data onto the existing preferences."; }

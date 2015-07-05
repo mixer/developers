@@ -8,6 +8,8 @@ export default class UserLoginMethod extends Method {
   uri() { return "/api/v1/users/login"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() {
     return (
       <div>

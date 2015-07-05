@@ -5,6 +5,8 @@ import Example from "../../example.js";
 export default class UserRolesMethod extends PaginatedMethod {
   url() { return "/api/v1/channels/:id/users"; }
   version() { return 1; }
+  group() { return "channels"; }
+
   description() {
     return "This endpoint lists users who have some particular role on the \
     specific channel. This includes subscribers, banned users, and moderators. \
@@ -46,4 +48,3 @@ class SuccesfulResult extends Example {
       }];
   }
 }
-

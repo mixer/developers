@@ -8,6 +8,8 @@ export default class RegisterUserMethod extends Method {
   uri() { return "/api/v1/users"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Registers a new user with Beam."; }
   parameters() { return [ new UsernameParameter(), new PasswordParameter(),
                           new EmailParameter() ]; }

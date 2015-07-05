@@ -8,6 +8,8 @@ export default class CostreamsForChannelMethod extends Method {
   uri() { return "/api/v1/channels/:id/costreams"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "costream"; }
+
   description() {
     return "This lists retrieves all costream requests on a channel. Costream \
     requests expire after 7 days and will no longer be retrievable after that \

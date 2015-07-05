@@ -9,6 +9,8 @@ export default class FindOneChannel extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   description() { return "This endpoint lists logs relative to a given channel."; }
+  group() { return "log"; }
+
   parameters() { return [ new IdParameter() ]; }
   examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
 }

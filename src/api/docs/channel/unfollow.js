@@ -9,6 +9,8 @@ export default class UnfollowUserMethod extends Method {
   httpMethod() { return "DELETE"; }
   uri() { return "/api/v1/channels/:id/follow"; }
   description() { return "Unfollows a channel for the given user."; }
+  group() { return "channels"; }
+
   parameters() { return [ new IDParameter(), new UserParameter() ]; }
   examples() {
     return [

@@ -9,6 +9,8 @@ export default class TwoFactorInvalidMethod extends Method {
   uri() { return "/api/v1/users/:id/2fa/codes"; }
   version() { return 1; }
   httpMethod() { return "DELETE"; }
+  group() { return "user"; }
+
   description() { return "Removes old two-factor recovery codes and returns a new set."; }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulExample(), new AccessDeniedResult(),

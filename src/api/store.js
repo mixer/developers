@@ -17,11 +17,14 @@ export default class APIDocumentationStore {
     for (let i in documents) {
       let document = documents[i];
       if (typeof document === "undefined") continue;
-      
-      let slug = document.slug ? document.slug() : undefined;
 
-      if (slug) {
-        this.documents[slug] = document;
+      let group = document.group ? document.group() : undefined;
+
+      if (group) {
+        if (this.documents[group] === undefined)
+          this.documents[group] = [];
+
+        this.documents[group].push(document);
       }
     }
 

@@ -11,6 +11,7 @@ export default class CreateThumbnailMethod extends Method {
   uri() { return "/api/v1/channels/:id/thumbnail"; }
   httpMethod() { return "POST"; }
   version() { return 1; }
+  group() { return "channels" }
   description() {
     return "This endpoint is used for uploading and setting a new channel \
     thumbnail.";

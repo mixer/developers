@@ -9,6 +9,8 @@ export default class DeleteMessageMethod extends Method {
   httpMethod() { return "DELETE"; }
   version() { return 1; }
   uri() { return "/api/v1/chats/:id/message/:message" }
+  group() { return "chat"; }
+
   description() {
     return "Hitting this endpoint removes a chat message from the channel's \
     chat. The message will be removed from the chat log and an event will go \

@@ -10,6 +10,8 @@ export default class TwoFactorRecoverMethod extends Method {
   uri() { return "/api/v1/users/reset/2fa"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "This endpoint should be used when a user no longer " +
                          "has access to the device they use for two-factor " +
                          "authentication. It can be used to removed two-factor " +

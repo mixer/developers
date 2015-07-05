@@ -8,6 +8,8 @@ export default class SomeAPIMethod extends PaginatedMethod {
   uri() { return "/api/v1/users/:id/subscriptions"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "subscription"; }
+
   description() {
     return (
       <p>

@@ -8,6 +8,8 @@ export default class FindManyTransactionMethod extends PaginatedMethod {
   uri() { return "/api/v1/users/:idtransactions"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "transaction"; }
+
   description() { return "Finds information about a single user's transactions."; }
   parameters() { return super.parameters().concat([ new IDParameter() ]); }
   examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }

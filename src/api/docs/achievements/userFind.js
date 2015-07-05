@@ -2,6 +2,7 @@ import AbstractAchievementMethod from "./achievementMethod.js";
 
 export default class UserProgressMethod extends AbstractAchievementMethod {
   uri() { return "/api/v1/users/:id/achievements"; }
+  group() { return "achievements" }
   description() {
     return [
       "This lists all achievements and the user's progress on those achievements.",

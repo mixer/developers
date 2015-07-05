@@ -6,6 +6,7 @@ export default class ChannelTypesMethod extends PaginatedMethod {
   uri() { return "/api/v1/types/:slug/channels"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "channels"; }
 
   description() {
     return "Lists channels in a particular category. It returns an array of \

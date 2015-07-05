@@ -9,6 +9,8 @@ export default class FindOneTransactionMethod extends Method {
   uri() { return "/api/v1/transactions/:id"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "transaction"; }
+
   description() { return "Finds information about a single transaction."; }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulExample(), new AccessDeniedResult(),

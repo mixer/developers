@@ -9,6 +9,8 @@ export default class MarkAsReadMethod extends Method {
   uri() { return "/api/v1/users/:user/notifications/read"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "notification"; }
+
   description() { return "Hitting this endpoint sets the readAt time on " +
                          "notifications where they previously were null."; }
   parameters() { return [ new IDParameter(), new SinceParameter(), new BeforeParameter() ]; }

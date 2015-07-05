@@ -8,6 +8,8 @@ export default class UserListMethod extends Method {
     return "Displays a list of online users in the chat, sorted in descending \
     order by role.";
   }
+  group() { return "chat"; }
+
   version() { return 1; }
   method() { return "GET"; }
   parameters() {

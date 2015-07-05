@@ -7,6 +7,8 @@ export default class ResendConfirmationMethod extends Method {
   uri() { return "/api/v1/users/:id/confirm/resend"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Triggers a confirmation email to be resent."; }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulExample(), new ErrorfulExample() ]; }

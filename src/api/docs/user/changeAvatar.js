@@ -11,6 +11,8 @@ export default class ChangeAvatarMethod extends Method {
   uri() { return "/api/v1/users/:id/changeAvatar"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Used for uploading and setting a new user profile image."; }
   parameters() { return [ new IDParameter(), new AvatarParameter() ]; }
   examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),

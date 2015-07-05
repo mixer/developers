@@ -3,14 +3,14 @@ export default class Method {
   }
 
   /**
-   * Returns a unique slug for indexing API methods.  By default, this points to
-   * the #uri method, but can safely be overridden by descendant classes.
-   * @public
+   * @public @abstract
+   *
+   * Returns a keyed group ID used for collecting API methods. Must be implemented
+   * by subclasses.
+   *
    * @return{String}
    */
-  slug() {
-    return this.uri();
-  }
+  group() {}
 
   /**
    * Returns the URI that corresponds to a given API method, which optional

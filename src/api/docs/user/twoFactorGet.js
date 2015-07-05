@@ -9,6 +9,8 @@ export default class TwoFactorRecoverMethod extends Method {
   uri() { return "/api/v1/users/:id/2fa/codes"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "user"; }
+
   description() { return "Produces a list of codes a user can utilize to " +
                          "recover their account if their device is stolen or lost."; }
   parameters() { return [ new IDParameter() ]; }

@@ -9,6 +9,8 @@ export default class DeleteResource extends Method {
   uri() { return "/api/v1/resources/:id"; }
   version() { return 1; }
   httpMethod() { return "DELETE"; }
+  group() { return "resource"; }
+
   description() {
     return (
       <div>

@@ -9,6 +9,8 @@ export default class ConfirmUserMethod extends Method {
   uri() { return "/api/v1/users/:id/confirm"; }
   version() { return 1; }
   httpMethod() { return "PATCH"; }
+  group() { return "user"; }
+
   description() {
     return (
       <div>

@@ -7,6 +7,8 @@ export default class CurrentUserMethod extends Method {
   uri() { return "/api/v1/users/current"; }
   version() { return 1; }
   httpMethod() { return "XXX"; }
+  group() { return "user"; }
+
   description() { return "Returns the user associated with the current auth. " +
                          "session (when using cookie-based sessions) or auth " +
                          "token (when using OAuth). This may be used as a means " +

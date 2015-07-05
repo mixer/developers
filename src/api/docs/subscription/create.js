@@ -10,6 +10,8 @@ export default class CreateSubscriptionMethod extends Method {
   uri() { return "/api/v1/subscriptions"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "subscription"; }
+  
   description() {
     return (
       <div>

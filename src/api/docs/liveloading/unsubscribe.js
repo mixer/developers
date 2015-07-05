@@ -8,6 +8,8 @@ export default class LiveloadingUnsubscribe extends Method {
   uri() { return "/api/v1/live"; }
   version() { return 1; }
   httpMethod() { return "DELETE"; }
+  group() { return "liveloading"; }
+
   description() { return "This endpoint unsubscribes the associated socket " +
                          "with an event that it previously subscribed to."; }
   parameters() { return [ new SlugParameter(), new MetaParameter() ]; }

@@ -12,6 +12,8 @@ export default class UpdateChannelMethod extends Method {
   uri() { return "/api/v1/channels/:id"; }
   version() { return 1; }
   description() { return "This endpoint updates the channel's details."; }
+  group() { return "channels"; }
+
   parameters() {
     return [
       new IDParameter(),

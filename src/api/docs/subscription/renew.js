@@ -9,6 +9,8 @@ export default class RenewSubscriptionMethod extends Method {
   uri() { return "/api/v1/subscriptions/:id"; }
   version() { return 1; }
   httpMethod() { return "PATCH"; }
+  group() { return "subscription"; }
+
   description() {
     return (
       <div>

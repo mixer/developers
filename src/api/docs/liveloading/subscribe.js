@@ -8,6 +8,8 @@ export default class LiveloadingSubscribe extends Method {
   uri() { return "/api/v1/live"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "liveloading"; }
+
   description() {
     return (
       <div>

@@ -16,6 +16,7 @@ export default class FindManyItemsMethod extends Method {
   uri() { return "/api/v1/shop/categories/:id/items"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "shop"; }
   description() { return "This lists the items that belong to a particular " +
                          "category. Keep in mind that items can belong to " +
                          "multiple categories, so there may be overlap if you " +

@@ -9,6 +9,8 @@ export default class FindOneResource extends Method {
   uri() { return "/api/v1/users/:id/resources"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "resource"; }
+
   description() {
     return (
       <p>

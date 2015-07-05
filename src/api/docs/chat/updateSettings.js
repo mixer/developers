@@ -9,6 +9,8 @@ export default class UpdateChatSettingsMethod extends Method {
   httpMethod() { return "PUT"; }
   uri() { return "/api/v1/chats/:id"; }
   version() { return 1; }
+  group() { return "chat"; }
+
   description() { return "Updates a particular chat's settings."; }
   parameters() {
     return [

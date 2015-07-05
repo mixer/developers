@@ -8,6 +8,8 @@ export default class NotificationForUserMethod extends Method {
   uri() { return "/api/v1/users/:id/notifications"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "notification"; }
+
   description() {
     return (
       <div>

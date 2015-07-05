@@ -8,6 +8,8 @@ export default class RemoveTwoFactorCredentialsMethod extends Method {
   uri() { return "/api/v1/users/:id/2fa"; }
   version() { return 1; }
   httpMethod() { return "DELETE"; }
+  group() { return "user"; }
+
   description() { return "Removes two-factor credentials from an account."; }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulResult(), new AccessDeniedResult() ]; }

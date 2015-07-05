@@ -7,6 +7,8 @@ export default class RefreshUserMethod extends Method {
   uri() { return "/api/v1/current/refresh"; }
   version() { return 1; }
   httpMethod() { return "XXX"; }
+  group() { return "user"; }
+
   description() { return "We cache certain attributes of the user on the " +
                          "session. In some cases it is necessary to manually " +
                          "refresh, such as after a succesful Premium or Subscription " +

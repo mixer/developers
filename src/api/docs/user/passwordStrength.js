@@ -6,6 +6,8 @@ export default class PasswordStrengthMethod extends Method {
   uri() { return "/api/v1/users/passwordstr"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "user"; }
+
   description() { return "Calculates and returns the strength of a given password " +
                          "using Dropbox's zxcvbn library."; }
   parameters() { return [ new PasswordParameter() ]; }

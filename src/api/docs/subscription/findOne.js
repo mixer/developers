@@ -10,6 +10,8 @@ export default class FindOneSubscriptionMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   description() { return "This retrieves a single subscription by its ID."; }
+  group() { return "subscription"; }
+
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
                         new ResourceMissingResult("Subscription") ]; }

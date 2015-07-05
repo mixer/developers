@@ -9,6 +9,8 @@ export default class CancelRoleMethod extends Method {
   uri() { return "/api/v1/subscriptions/:id"; }
   version() { return 1; }
   httpMethod() { return "DELETE"; }
+  group() { return "subscription"; }
+
   description() {
     return (
       <div>

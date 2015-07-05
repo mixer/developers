@@ -10,6 +10,8 @@ export default class AcceptCostreamRequestMethod extends Method {
   version() { return 1; }
   httpMethod() { return "PATCH"; }
   description() { return "Causes a costream request to be accepted."; }
+  group() { return "costream"; }
+
   parameters() { return [ new IDParameter() ]; }
   examples() {
     return [

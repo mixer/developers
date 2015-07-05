@@ -9,6 +9,8 @@ export default class CheckoutMethod extends Method {
   uri() { return "/api/v1/shop/checkout"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "shop"; }
+
   description() {
     return "This endpoints takes items and quantities that you want to " +
            "purchase and returns a transcation that, when paid, will fulfill " +

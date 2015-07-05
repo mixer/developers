@@ -5,10 +5,12 @@ import Example from "../../example.js";
 import ErrorfulResponse from "../../errorfulResponse.js";
 import AccessDeniedResult from "../../accessDeniedResult.js";
 
-export default class SomeAPIMethod extends Method {
+export default class CreateNotificationMethod extends Method {
   uri() { return "/api/v1/notifications"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
+  group() { return "log"; }
+
   description() {
     return (
       <div>

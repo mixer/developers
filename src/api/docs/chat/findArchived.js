@@ -6,6 +6,8 @@ export default class FindArchivedMethod extends Method {
   httpMethod() { return "GET"; }
   version() { return 1; }
   uri() { return "/api/v1/chats/:id/message"; }
+  group() { return "chat"; }
+
   description() {
     return "With this endpoint, you can retrieve past messages for a channel. \
     Messages do expire after a TTL interval, but until they do they can be \
