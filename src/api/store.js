@@ -25,6 +25,10 @@ export default class APIDocumentationStore {
     }
   }
 
+  static categories() {
+    return Object.keys(APIDocumentationStore.documents);
+  }
+
   static findByGroup(group) {
     return APIDocumentationStore.documents[group.toLowerCase()];
   }

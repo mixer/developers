@@ -1,6 +1,10 @@
 .method-group {
-  & > ul > li {
-    list-style: none;
-    margin-bottom: 50px;
+  & > ul {
+    padding-left: 0;
+
+    & > li {
+      list-style: none;
+      margin-bottom: 50px;
+    }
   }
 }

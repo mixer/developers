@@ -1,6 +1,7 @@
 import React from "react/addons";
-import Bootstrap from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 
+import CategorySelector from "./api_category_selector.js";
 import MethodGroup from "./method/method_group.js";
 import DocumentationStore from "../api/store.js";
 
@@ -17,10 +18,16 @@ export default class APIReferencePage extends React.Component {
 
     return (
       <div className="test-page">
-        <Bootstrap.Col md={2}></Bootstrap.Col>
-        <Bootstrap.Col md={10}>
+        <Col md={3}><Row>
+          <Col md={6}>
+            <CategorySelector active={name}
+                              categories={DocumentationStore.categories()}/>
+          </Col>
+          <Col md={6}></Col>
+        </Row></Col>
+        <Col md={9}>
           <MethodGroup name={name} methods={methods}/>
-        </Bootstrap.Col>
+        </Col>
       </div>
     );
   }
