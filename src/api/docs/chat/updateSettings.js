@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -58,8 +60,12 @@ class LinksClickableParameter extends Parameter {
 class SlowchatParameter extends Parameter {
   name() { return "slowchat"; }
   description() {
-    return "The time interval, in seconds, that users have to wait between \
-    sending messages.  Should be number-like.";
+    return (
+      <p>
+        The time interval, in seconds, that users have to wait between
+        sending messages.  Should be number-like.
+      </p>
+    );
   }
   optional() { return true; }
   default() { return undefined; }

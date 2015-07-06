@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";

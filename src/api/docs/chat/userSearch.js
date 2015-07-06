@@ -35,12 +35,12 @@ class SuccesfulResult extends Example {
     return [
       {
         user_id: 1,
-        user_name: Alice,
+        user_name: "Alice",
         user_roles: ["Owner"]
       },
       {
         user_id: 2,
-        user_name: Bob,
+        user_name: "Bob",
         user_roles: ["User", "Mod"]
       }
     ];

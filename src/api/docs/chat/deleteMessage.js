@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -12,10 +14,14 @@ export default class DeleteMessageMethod extends Method {
   group() { return "chat"; }
 
   description() {
-    return "Hitting this endpoint removes a chat message from the channel's \
-    chat. The message will be removed from the chat log and an event will go \
-    out to chat servers, which in turn send events to connected users \
-    instructings the clients to hide the message.";
+    return (
+      <p>
+        Hitting this endpoint removes a chat message from the channel's
+        chat. The message will be removed from the chat log and an event will go
+        out to chat servers, which in turn send events to connected users
+        instructings the clients to hide the message.
+      </p>
+    );
   }
   parameters() { return [ new IDParameter(), new MessageParameter() ]; }
   examples() {

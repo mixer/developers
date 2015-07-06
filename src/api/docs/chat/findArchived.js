@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -9,9 +11,13 @@ export default class FindArchivedMethod extends Method {
   group() { return "chat"; }
 
   description() {
-    return "With this endpoint, you can retrieve past messages for a channel. \
-    Messages do expire after a TTL interval, but until they do they can be \
-    retrieved here.";
+    return (
+      <p>
+        With this endpoint, you can retrieve past messages for a channel.
+        Messages do expire after a TTL interval, but until they do they can be
+        retrieved here.
+      </p>
+    );
   }
   parameters() {
     return [
@@ -32,8 +38,12 @@ class IDParameter extends Parameter {
 class StartParameter extends Parameter {
   name() { return "start"; }
   description() {
-    return "The start of the time range to query for messages. Should be given \
-    as a unix timestamp with milliseconds.";
+    return (
+      <p>
+        The start of the time range to query for messages. Should be given
+        as a unix timestamp with milliseconds.
+      </p>
+    );
   }
   optional() { return true; }
   default() { return "Date.now()"; }
@@ -42,8 +52,12 @@ class StartParameter extends Parameter {
 class EndParameter extends Parameter {
   name() { return "end"; }
   description() {
-    return "The end of the time range to query for messages. Should be given as \
-    a unix timestamp with milliseconds.";
+    return (
+      <p>
+        The end of the time range to query for messages. Should be given as
+        a unix timestamp with milliseconds.
+      </p>
+    );
   }
   optional() { return true; }
   default() { return "Date.now() - ttl"; }
@@ -52,9 +66,13 @@ class EndParameter extends Parameter {
 class LimitParameter extends Parameter {
   name() { return "limit"; }
   description() {
-    return "The maximim number of results to retrieve. If there are more results\
-    in the range than can be shown, the first limit messages from the end time \
-    will be displayed.";
+    return (
+      <p>
+        The maximim number of results to retrieve. If there are more results
+        in the range than can be shown, the first limit messages from the end
+        time will be displayed.
+      </p>
+    );
   }
   optional() { return true; }
   default() { return 50; }
