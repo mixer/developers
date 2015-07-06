@@ -1,27 +1,18 @@
 import React from "react";
 import {Row, Col} from "react-bootstrap";
 
-import Example from "./example.js";
-import Parameter from "./parameter.js";
+import ParameterGroup from "./parameter_group.js";
+import ExampleGroup from "./example_group.js";
 
 export default class MethodComponent extends React.Component {
   constructor(params) {
     super(params);
   }
 
-  parameters() {
-    return this.props.endpoint.parameters().map((parameter) => {
-      return <Parameter parameter={parameter} />
-    });
-  }
-
-  examples() {
-    return this.props.endpoint.examples().map((example) => {
-      return <Example example={example} />
-    });
-  }
-
   render() {
+    let parameters = this.props.endpoint.parameters();
+    let examples = this.props.endpoint.examples();
+
     return (
       <div className="api-method-container">
         <span className="api-method-heading">
@@ -36,21 +27,8 @@ export default class MethodComponent extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
-              <div className="parameters">
-                <span className="parameters-header">Parameters</span>
-                <ul className="parameters-list">{
-                  this.parameters().map((parameter) => <li>{parameter}</li> )
-                }</ul>
-              </div>
-            </Col>
-            <Col md={6}>
-              <div className="examples">
-                <ul className="examples-list">{
-                  this.examples().map((example) => <li>{example}</li> )
-                }</ul>
-              </div>
-            </Col>
+            <Col md={5}><ParameterGroup parameters={ parameters }/></Col>
+            <Col md={7}><ExampleGroup examples={ examples }/></Col>
           </Row>
         </div>
       </div>
