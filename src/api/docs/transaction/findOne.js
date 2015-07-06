@@ -26,7 +26,7 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       currency_delta: -7.99,
       gateway: "internal",
       id: 9,

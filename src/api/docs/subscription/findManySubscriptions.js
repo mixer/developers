@@ -1,3 +1,5 @@
+import React from "react";
+
 import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -36,9 +38,12 @@ class IDParameter extends Parameter {
 
 class FieldsParameter extends Parameter {
   name() { return "fields"; }
-  description() { return "Comma-delimited list of fields on models you want " +
-                         "to return. If not passed, all available fields are " +
-                         "returned."; }
+  description() { return (
+    <p>
+      Comma-delimited list of fields on models you want to return. If not
+      passed, all available fields are returned.
+    </p>
+  )}
   optional() { return true; }
   default() { return undefined; }
 }
@@ -67,14 +72,14 @@ class SuccesfulExample extends Example {
         name: "Subscriber"
       },
       cancelled: null,
-      createdAt: Date.now().toISOString(),
-      expiresAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
+      expiresAt: new Date().toISOString(),
       group: 9,
       id: 950,
       resourceId: 3181,
       resourceType: "channel",
       status: "active",
-      updatedAt: Date.now().toISOString()
+      updatedAt: new Date().toISOString()
     }];
   }
 }

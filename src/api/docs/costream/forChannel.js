@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -11,9 +13,13 @@ export default class CostreamsForChannelMethod extends Method {
   group() { return "costream"; }
 
   description() {
-    return "This lists retrieves all costream requests on a channel. Costream \
-    requests expire after 7 days and will no longer be retrievable after that \
-    time.";
+    return (
+      <p>
+        This lists retrieves all costream requests on a channel. Costream
+        requests expire after 7 days and will no longer be retrievable after that
+        time.
+      </p>
+    );
   }
   parameters() { return [ new IDParameter() ]; }
   examples() { return [ new SuccesfulResponse(), new AccessDeniedResponse() ]; }

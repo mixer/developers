@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -9,19 +11,19 @@ export default class CreateNotificationMethod extends Method {
   uri() { return "/api/v1/notifications"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
-  group() { return "log"; }
+  group() { return "notification"; }
 
   description() {
     return (
       <div>
         <p>
-          "This creates a new notification manually. Beam automatically creates
+          This creates a new notification manually. Beam automatically creates
           notifications on events such as when new channel follower is gained,
-          but it may be useful for create notifications manually."
+          but it may be useful for create notifications manually.
         </p>
         <p>
-          "Currently permissions are set up so that, in the context of a regular
-          user, you may only create notifications for that one user."
+          Currently permissions are set up so that, in the context of a regular
+          user, you may only create notifications for that one user.
         </p>
       </div>
     );
@@ -51,7 +53,7 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       data: {
           foo: "bar"
       },

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -10,8 +12,8 @@ export default class AuthorizeTransactionMethod extends Method {
   description() {
     return (
       <div>
-        <p>"This serves as a single endpoint for handling transaction authorization."</p>
-        <p>"On initial request it's usually desired to set the gateway to use."</p>
+        <p>This serves as a single endpoint for handling transaction authorization.</p>
+        <p>On initial request it's usually desired to set the gateway to use.</p>
       </div>
     );
   }

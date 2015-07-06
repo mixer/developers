@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -15,13 +17,13 @@ export default class ConfirmUserMethod extends Method {
     return (
       <div>
         <p>
-          "This verifies a new user's account from the code sent to their
+          This verifies a new user's account from the code sent to their
           inbox on registration. This step is necessary before they will be
-          able to log in."
+          able to log in.
         </p>
         <p>
-          "If they verify successfully, they will be logged into their account
-          via session cookie."
+          If they verify successfully, they will be logged into their account
+          via session cookie.
         </p>
       </div>
     )

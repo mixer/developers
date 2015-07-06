@@ -14,7 +14,7 @@ export default class ResetPasswordMethod extends Method {
                          "recieved via email."; }
   parameters() { return [ new TokenParameter(), new PasswordParameter() ]; }
   examples() { return [ new SuccesfulResult(), new ResourceMissingResult("User"),
-                        new ErrorfulResponse()  ]; }
+                        new ErrorfulResponse() ]; }
 }
 
 class TokenParameter extends Parameter {

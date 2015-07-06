@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -12,10 +14,13 @@ export default class TwoFactorRecoverMethod extends Method {
   httpMethod() { return "POST"; }
   group() { return "user"; }
 
-  description() { return "This endpoint should be used when a user no longer " +
-                         "has access to the device they use for two-factor " +
-                         "authentication. It can be used to removed two-factor " +
-                         "verification so that the user may log in."; }
+  description() { return (
+    <p>
+      This endpoint should be used when a user no longer has access to the
+      device they use for two-factor authentication. It can be used to removed
+      two-factor verification so that the user may log in.
+    </p>
+  )}
   parameters() { return [ new UsernameParameter(), new PasswordParameter(),
                           new CodeParameter() ]; }
   examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),

@@ -32,7 +32,7 @@ class SuccesfulExample extends Example {
       "originating": true,
       "source": 2,
       "target": 1,
-      "time": Date.now().toISOString(),
+      "time": new Date().toISOString(),
       "type": "chat:role:user"
     }];
   }

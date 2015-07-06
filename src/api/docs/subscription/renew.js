@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -44,7 +46,7 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       currency_delta: -7.99,
       gateway: "internal",
       id: 12,

@@ -4,7 +4,7 @@ export default class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       currency_cost: 2,
       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis incidunt voluptas odit.",
       id: 1,
@@ -15,7 +15,7 @@ export default class SuccesfulExample extends Example {
       purchases: 4,
       thumbnails: [/* array of Resources */],
       title: "Fancy Emoticon Pack",
-      updatedAt: Date.now().toISOString()
+      updatedAt: new Date().toISOString()
     }
   }
 }

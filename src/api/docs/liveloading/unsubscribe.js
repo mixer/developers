@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -10,22 +12,39 @@ export default class LiveloadingUnsubscribe extends Method {
   httpMethod() { return "DELETE"; }
   group() { return "liveloading"; }
 
-  description() { return "This endpoint unsubscribes the associated socket " +
-                         "with an event that it previously subscribed to."; }
+  description() {
+    return (
+      <p>
+        This endpoint unsubscribes the associated socket with an event that it
+        previously subscribed to.
+      </p>
+    );
+  }
   parameters() { return [ new SlugParameter(), new MetaParameter() ]; }
   examples() { return [ new SuccesfulExample(), new ErrorfulResponse() ]; }
 }
 
 class SlugParameter extends Parameter {
   name() { return "slug"; }
-  description() { return "Passed as a string or array of strings. The name(s) " +
-                        "of the interface you wish to subscribe to (see above)."; }
+  description() {
+    return (
+      <p>
+        Passed as a string or array of strings. The name(s) of the interfaces
+        you wish to subscribe to (see above).
+      </p>
+    );
+  }
 }
 
 class MetaParameter extends Parameter {
   name() { return "meta"; }
-  description() { return "Additional data which can be passed as needed to the" +
-                         " interface."; }
+  description() {
+    return (
+      <p>
+        Additional data which can be passed as needed to the interface.
+      </p>
+    )
+  }
   optional() { return true; }
 }
 

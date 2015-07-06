@@ -1,8 +1,10 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import { ExpandedSuccesfulExample } from "./succesfulExample.js";
+import ExpandedSuccesfulExample from "./expandedSuccesfulExample.js";
 
 export default class UserLoginMethod extends Method {
   uri() { return "/api/v1/users/login"; }
@@ -14,14 +16,14 @@ export default class UserLoginMethod extends Method {
     return (
       <div>
         <p>
-          "Hitting this endpoint causes the user's credentials to be
+          Hitting this endpoint causes the user's credentials to be
           authenticated and, if successful, their session is persisted
-          via cookie"
+          via cookie.
         </p>
         <p>
-          "Use of this endpoint is very specific. If you're looking for a
+          Use of this endpoint is very specific. If you're looking for a
           way to authenticate users on your application, you should use our
-          OAuth API."
+          OAuth API.
         </p>
       </div>
     );
@@ -29,7 +31,7 @@ export default class UserLoginMethod extends Method {
   parameters() { return [ new UsernameParameter(), new PasswordParameter(),
                           new CodeParameter() ]; }
   examples() { return [ new ExpandedSuccesfulExample(), new UnauthorizedExample(),
-                        new Unauthorize2faExample(), new RateLimitExample() ]; }
+                        new Unauthorized2faExample(), new RateLimitExample() ]; }
 }
 
 class UsernameParameter extends Parameter {
@@ -69,6 +71,6 @@ class Unauthorized2faExample extends Example {
 }
 
 class RateLimitExample extends Example {
-  httpCode() { return 492; }
+  httpCode() { return 429; }
   data() { return "Too many invalid login attempts. Please wait a few minutes"; }
 }

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -11,19 +13,19 @@ export default class CreateSubscriptionMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "subscription"; }
-  
+
   description() {
     return (
       <div>
         <p>
-          "Hitting this endpoint creates and returns an unfulfilled transaction
-          which, when completed, causes the user to be subscribed."
+          Hitting this endpoint creates and returns an unfulfilled transaction
+          which, when completed, causes the user to be subscribed.
         </p>
         <p>
-          "When this endpoint is hit we do create the subscription record, but
+          When this endpoint is hit we do create the subscription record, but
           set its expiresAt attribute to be the current date. When the
           transaction is paid, thirty days is added to the subscription
-          (from the payment date)."
+          (from the payment date).
         </p>
       </div>
     );
@@ -84,7 +86,7 @@ class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       currency_delta: -7.99,
       gateway: "internal",
       id: 12,

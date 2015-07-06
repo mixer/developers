@@ -33,7 +33,7 @@ class SuccesfulExample extends Example {
       "originating": null,
       "source": 2,
       "target": null,
-      "time": "2015-01-17T02:44:23.789Z",
+      "time": new Date().toISOString(),
       "type": "chat:role:channel"
     }];
   }

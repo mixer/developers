@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -11,8 +13,14 @@ export default class MarkAsReadMethod extends Method {
   httpMethod() { return "POST"; }
   group() { return "notification"; }
 
-  description() { return "Hitting this endpoint sets the readAt time on " +
-                         "notifications where they previously were null."; }
+  description() {
+    return (
+      <p>
+        Hitting this endpoint sets the <code>readAt</code> time on notifications
+        where they were previously <code>null</code>.
+      </p>
+    );
+  }
   parameters() { return [ new IDParameter(), new SinceParameter(), new BeforeParameter() ]; }
   examples() { return [ new SuccesfulExample(), new AccessDeniedResult ]; }
 }
@@ -21,9 +29,9 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       data: { "user": "2" },
-      readAt: Date.now().toISOString(),
+      readAt: new Date().toISOString(),
       type: "channel:follow",
       user: 2
     }];

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Example from "../../example.js";
 
@@ -14,12 +16,12 @@ export default class NotificationForUserMethod extends Method {
     return (
       <div>
         <p>
-          "This lists retrieves a user's notifications. You should pass a since
-          time, in the reasonable past, to retrieve the notifications for."
+          This lists retrieves a user's notifications. You should pass a since
+          time, in the reasonable past, to retrieve the notifications for.
         </p>
         <p>
-          "Note that all notifications expire after 14 days and, after that
-          time, cannot be retrieved.";
+          Note that all notifications expire after 14 days and, after that
+          time, cannot be retrieved.
         </p>
       </div>
     );
@@ -40,9 +42,9 @@ class SuccesfulExample extends Example {
           user: 2
       },
       {
-          createdAt: Date.now().toISOString(),
+          createdAt: new Date().toISOString(),
           data: { user: "20" },
-          readAt: Date.now().toISOString(),
+          readAt: new Date().toISOString(),
           type: "channel:follow",
           user: 2
       }

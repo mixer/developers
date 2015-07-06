@@ -35,11 +35,11 @@ class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       email: "connor@example.com",
       id: 1,
       points: 0,
-      updatedAt: Date.now().toISOString(),
+      updatedAt: new Date().toISOString(),
       username: "connor4312",
       verified: false
     }

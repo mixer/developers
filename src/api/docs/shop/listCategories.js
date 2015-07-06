@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Example from "../../example.js";
 
@@ -7,11 +9,16 @@ export default class ListCategoriesMethod extends Method {
   httpMethod() { return "GET"; }
   group() { return "shop"; }
 
-  description() { return "Items in the shop may belong to one or more " +
-                         "categories. This endpoint lists the categories that " +
-                         "are available."; }
+  description() {
+    return (
+      <p>
+        Items in the shop may belong to one or more categories. This endpoint
+        lists the categories that are available.
+      </p>
+    )
+  }
   parameters() { return [ ]; }
-  examples() { return [  ]; }
+  examples() { return [ new SuccesfulResult() ]; }
 }
 
 class SuccesfulResult extends Example {

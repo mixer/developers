@@ -1,18 +1,22 @@
+import React from "react";
 import Method from "../../method.js";
 import Example from "../../example.js";
 
-import {ExpandedSuccesfulExample} from "./succesfulExample.js";
+import ExpandedSuccesfulExample from "./expandedSuccesfulExample.js";
 
 export default class CurrentUserMethod extends Method {
   uri() { return "/api/v1/users/current"; }
   version() { return 1; }
-  httpMethod() { return "XXX"; }
+  httpMethod() { return "GET"; }
   group() { return "user"; }
 
-  description() { return "Returns the user associated with the current auth. " +
-                         "session (when using cookie-based sessions) or auth " +
-                         "token (when using OAuth). This may be used as a means " +
-                         "to check whether or not a user is currently logged in."; }
+  description() { return (
+    <p>
+      Returns the user associated with the current auth. session (when using
+      cookie-based sessions) or auth token (when using OAuth). This may be used
+      as a means to check whether or not a user is currently logged in.
+    </p>
+  )}
   parameters() { return []; }
   examples() { return [ new ExpandedSuccesfulExample(), new ErrorfulResult() ]; }
 }

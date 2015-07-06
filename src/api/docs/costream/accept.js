@@ -17,14 +17,14 @@ export default class AcceptCostreamRequestMethod extends Method {
     return [
       new SuccesfulExample(),
       new ResourceMissingResponse("Request"),
-      AccessDeniedResponse()
+      new AccessDeniedResponse()
     ];
   }
 }
 
 class IDParameter extends Parameter {
   name() { return "id"; }
-  description() { return"UUID of the request to accept."; }
+  description() { return "UUID of the request to accept."; }
 }
 
 class SuccesfulExample extends Example {

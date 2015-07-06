@@ -1,8 +1,11 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
+import AccessDeniedResult from "../../accessDeniedResult.js";
 
 export default class TwoFactorVerify extends Method {
   uri() { return "/api/v1/users/:id/2fa/verify"; }
@@ -10,8 +13,12 @@ export default class TwoFactorVerify extends Method {
   httpMethod() { return "POST"; }
   group() { return "user"; }
 
-  description() { return "Verifies and activates the user's two-factor auth " +
-                         "credentials, using a code generated on their device."; }
+  description() { return (
+    <p>
+      Verifies and activates the user's two-factor auth credentials, using a code
+      generated on their device.
+    </p>
+  )}
   parameters() { return [ new IDParameter(), new CodeParameter() ]; }
   examples() { return [ new SuccesfulResult(), new InvalidCodeResult(),
                         new MissingCredentialsResult(), new AccessDeniedResult() ]; }

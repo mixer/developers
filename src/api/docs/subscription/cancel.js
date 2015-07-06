@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -19,10 +21,10 @@ export default class CancelRoleMethod extends Method {
           of renewing a subscription, when payment is made.
         </p>
         <p>
-          "A subscription does not have to be expired in order to renew it. Upon
+          A subscription does not have to be expired in order to renew it. Upon
           payment, the <code>expiresAt</code> date is updated to the greater of:
           30 days from the payment date, or 30 days from its current
-          <code>expiresAt</code>."
+          <code>expiresAt</code>.
         </p>
       </div>
     );
@@ -34,9 +36,12 @@ export default class CancelRoleMethod extends Method {
 
 class ImmediateParameter extends Parameter {
   name() { return "immediate"; }
-  description() { return "Whether the subscription should be cancelled " +
-                         "immediately, or simply marked for deletion after the " +
-                         "term ends."; }
+  description() { return (
+    <p>
+      Whether the subscription should be cancelled immediately, or simply
+      marked for deletion after the term ends.
+    </p>
+  )}
   optional() { return true; }
   default() { return false; }
 }

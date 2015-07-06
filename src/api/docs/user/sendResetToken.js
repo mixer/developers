@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -14,12 +16,12 @@ export default class CreateResetTokenMethod extends Method {
     return (
       <div>
         <p>
-          "This is the \"lost password\" functionality. Hitting this endpoint
-          will cause a password reset request to be sent to the user via their email."
+          This is the "lost password" functionality. Hitting this endpoint
+          will cause a password reset request to be sent to the user via their email.
         </p>
         <p>
-          "That email contains a code which they can use to complete their
-          reset request."
+          That email contains a code which they can use to complete their
+          reset request.
         </p>
       </div>
     )
@@ -40,7 +42,6 @@ class SuccesfulExample extends Example {
 }
 
 class RateLimitExample extends Example {
-  httpCode() { return 492; }
-  data() { return "Too many reset requests. Please wait a few minutes, or " +
-                  "check your spambox."; }
+  httpCode() { return 429; }
+  data() { return "Too many reset requests. Please wait a few minutes, or check your spambox"; }
 }

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -12,9 +14,12 @@ export default class CheckoutMethod extends Method {
   group() { return "shop"; }
 
   description() {
-    return "This endpoints takes items and quantities that you want to " +
-           "purchase and returns a transcation that, when paid, will fulfill " +
-           "the order.";
+    return (
+      <p>
+        This endpoints takes items and quantities that you want to purchase and
+        returns a transcation that, when paid, will fulfill the order.
+      </p>
+    );
   }
   parameters() { return [ new ItemsParameter() ]; }
   examples() { return [ new SuccesfulExample(), new ErrorfulResponse(), new AccessDeniedResponse() ]; }
@@ -36,7 +41,7 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       currency_delta: -7.99,
       gateway: "internal",
       id: 12,

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -26,14 +28,14 @@ class AvatarParameter extends Parameter {
     return (
       <div>
         <p>
-          "An image file, sent as multipart form data, to use as the channel
+          An image file, sent as multipart form data, to use as the channel
           thumbnail. Files will be processed, resized, and converted to JPEG
-          images, so it is not possible to upload animated gifs at this time."
+          images, so it is not possible to upload animated gifs at this time.
         </p>
         <p>
-          "The maximum upload size is 10 megabytes. Valid formats include png,
+          The maximum upload size is 10 megabytes. Valid formats include png,
           jpg, and gif images. Files that do not fit these rules will cause a
-          <code>400 Bad Request</code> to be returned."
+          <code>400 Bad Request</code> to be returned.
         </p>
       </div>
     );

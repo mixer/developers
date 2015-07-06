@@ -1,7 +1,7 @@
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 
-import ItemExample from "./itemExample.js";
+import SuccesfulExample from "./itemExample.js";
 
 export default class FindOneItemMethod extends Method {
   uri() { return "/api/v1/shop/items/:id"; }

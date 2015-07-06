@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -12,9 +14,13 @@ export default class UpdatePreferencesMethod extends Method {
   httpMethod() { return "POST"; }
   group() { return "user"; }
 
-  description() { return "Updates preferences relative to a given user. Requests " +
-                         "can be made partially, we'll just \"extend\" the given " +
-                         "data onto the existing preferences."; }
+  description() { return (
+    <p>
+      Updates preferences relative to a given user. Requests can be made
+      partially, we'll just "extend" the given data onto the existing
+      preferences.
+    </p>
+  )}
   parameters() { return [ new IDParameter(), new SplatParameter() ]; }
   examples() { return [ new SuccesfulExample(), new ErrorfulResponse(),
                         new AccessDeniedResult() ]; }

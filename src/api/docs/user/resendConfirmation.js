@@ -11,7 +11,7 @@ export default class ResendConfirmationMethod extends Method {
 
   description() { return "Triggers a confirmation email to be resent."; }
   parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulExample() ]; }
+  examples() { return [ new SuccesfulExample(), new ErrorfulResult() ]; }
 }
 
 class SuccesfulExample extends Example {

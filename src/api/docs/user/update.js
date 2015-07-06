@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -33,8 +35,8 @@ class PasswordParameter extends Parameter {
   description() {
     return (
       <p>
-        "The user's password. If passed, you must also pass the
-        <code>passwordVerify</code> given below."
+        The user's password. If passed, you must also pass the
+        <code>passwordVerify</code> given below.
       </p>
     );
   }
@@ -48,8 +50,8 @@ class PasswordVerifyParameter extends Parameter {
   description() {
     return (
       <p>
-        "The user's current password, which you are attempting to change. Only
-        required if you have password <code>password</code>."
+        The user's current password, which you are attempting to change. Only
+        required if you have password <code>password</code>.
       </p>
     );
   }
@@ -64,8 +66,8 @@ class SocialParameter extends Parameter {
     return (
       <div>
         <p>
-          "An object with keys being social networks, and values being usernames
-          on the networks. Valid networks are:"
+          An object with keys being social networks, and values being usernames
+          on the networks. Valid networks are:
         </p>
         <ul>
           <li><code>facebook</code></li>
