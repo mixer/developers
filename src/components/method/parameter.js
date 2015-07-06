@@ -9,10 +9,10 @@ export default class ParameterComponent extends React.Component {
   render() {
     return (
       <Row className="api-parameter">
-        <Col md={2} className="parameter-name">
+        <Col md={3} className="parameter-name">
           <span>:{this.props.parameter.name()}</span>
         </Col>
-        <Col md={10} className="parameter-description">
+        <Col md={9} className="parameter-description">
           {this.props.parameter.description()}
         </Col>
       </Row>
