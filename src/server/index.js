@@ -11,8 +11,7 @@ export default class Server {
     this.app = express();
     this.port = port;
 
-    this.documentationStore = new DocumentationStore(documentationPath);
-    this.documentationStore.load();
+    DocumentationStore.load(documentationPath);
   }
 
   start() {
@@ -34,25 +33,12 @@ export default class Server {
   addRoutes() {
     this.app.get("*", (req, res) => {
       let router = Router.create({ location: req.url, routes: Routes });
-      let documentationSlug = this.getDocumentationSlugName(req);
 
       router.run((Handler) => {
-        let page = undefined;
-        if (documentationSlug) {
-          let documentation = this.documentationStore.findBySlug(documentationSlug);
-          page = React.renderToString(<Handler describedBy={documentation}/>);
-        } else {
-          page = React.renderToString(<Handler />);
-        }
+        let page = React.renderToString(<Handler />);
 
         res.render("index.ejs", { page: page });
       });
     });
-  }
-
-  getDocumentationSlugName(req) {
-    let regexp = /\/docs(.*)/;
-    let match = regexp.exec(req.url);
-    return (match || [])[1]
   }
 }

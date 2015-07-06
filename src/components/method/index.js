@@ -10,11 +10,12 @@ export default class MethodComponent extends React.Component {
   }
 
   render() {
+    let uri = this.props.endpoint.uri();
     let parameters = this.props.endpoint.parameters();
     let examples = this.props.endpoint.examples();
 
     return (
-      <div className="api-method-container">
+      <div className="api-method" id={uri}>
         <span className="api-method-heading">
           <span className="http-method">{ this.props.endpoint.httpMethod() }</span>
           <span className="uri">{ this.props.endpoint.uri() }</span>

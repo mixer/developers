@@ -2,13 +2,9 @@ import Glob from "glob";
 import Path from "path";
 
 export default class APIDocumentationStore {
-  constructor(path) {
-    this.path = path;
-    this.documents = {};
-  }
-
-  load() {
-    let documents = Glob.sync(Path.join(__dirname, this.path, '**/*.js'))
+  static load(path) {
+    APIDocumentationStore.documents = {};
+    let documents = Glob.sync(Path.join(__dirname, path, '**/*.js'))
       .map((path) => {
         let clazz = require(path);
         return typeof clazz === "function" ? new clazz() : undefined;
@@ -21,17 +17,15 @@ export default class APIDocumentationStore {
       let group = document.group ? document.group() : undefined;
 
       if (group) {
-        if (this.documents[group] === undefined)
-          this.documents[group] = [];
+        if (APIDocumentationStore.documents[group] === undefined)
+          APIDocumentationStore.documents[group] = [];
 
-        this.documents[group].push(document);
+        APIDocumentationStore.documents[group].push(document);
       }
     }
-
-    console.log(this.documents);
   }
 
-  findBySlug(slug) {
-    return this.documents[slug.toLowerCase()];
+  static findByGroup(group) {
+    return APIDocumentationStore.documents[group.toLowerCase()];
   }
 }

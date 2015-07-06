@@ -1,3 +1,4 @@
+import React from "react";
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -18,9 +19,9 @@ export default class DeleteResource extends Method {
           This endpoint deletes a given resource.
         </p>
         <p>
-          "For default users, they are only permitted to delete resources that
+          For default users, they are only permitted to delete resources that
           they alone have access to. If the resource can be accessed by a group
-          or another user, they will not be permitted to delete it."
+          or another user, they will not be permitted to delete it.
         </p>
       </div>
     );

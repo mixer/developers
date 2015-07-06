@@ -29,14 +29,14 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       id: 36,
       meta: {},
       relid: 0,
       remote_path: "img/covers/wow-cover.jpg",
       store: "nil",
       type: "type:cover",
-      updatedAt: Date.now().toISOString(),
+      updatedAt: new Date().toISOString(),
       url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
     };
   }
