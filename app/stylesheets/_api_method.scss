@@ -1,0 +1,61 @@
+.api-method-container {
+  background-color: $api-base-color;
+  border-width: 1px;
+  border-color: darken($api-base-color, 3%);
+  border-style: solid;
+  border-radius: 3px;
+  padding: 20px;
+
+  .api-method-heading {
+    .http-method {
+      color: rgb(140, 156, 167);
+      padding-right: 16px;
+    }
+
+    background-color: lighten($api-base-color, 5%);
+    border-color: lighten($api-base-color, 10%);
+    border-style: solid;
+    display: table;
+    border-width: 1px;
+    border-radius: 5px;
+    margin-top: -30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+  }
+
+  .api-method-body {
+    padding-top: 15px;
+
+    .api-method-description {
+      color: $api-alt-color;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    .parameters {
+      .parameters-header {
+        color: $api-alt-color;
+        text-transform: uppercase;
+      }
+
+      .parameters-list {
+        list-style: none;
+        margin-top: 3px;
+        margin-bottom: 0;
+        padding-left: 0;
+
+        & > li :not(:last-child) { padding-bottom: 10px; }
+      }
+    }
+
+    .examples {
+      .examples-list {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import React from "react";
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -14,10 +15,10 @@ export default class FindOneResource extends Method {
   description() {
     return (
       <p>
-        "This shows resources that the user has access to. Access is granted
+        This shows resources that the user has access to. Access is granted
         both through the user's group, for shared resources (like default
         channel covers), and through the user directly (like user avatar and
-        channel thumbnails)."
+        channel thumbnails).
       </p>
     );
   }
@@ -41,14 +42,14 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{
-      createdAt: Date.now().toISOString(),
+      createdAt: new Date().toISOString(),
       id: 36,
       meta: {},
       relid: 0,
       remote_path: "img/covers/wow-cover.jpg",
       store: "nil",
       type: "type:cover",
-      updatedAt: Date.now().toISOString(),
+      updatedAt: new Date().toISOString(),
       url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
     }];
   }

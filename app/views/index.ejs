@@ -3,9 +3,18 @@
   <head>
     <title>Beam Developers</title>
     <%- css("index") %>
+    <%- css("highlightjs/styles/obsidian.css") %>
+    <%- js("highlightjs/highlight.pack.js") %>
   </head>
 
   <body>
     <%- page %>
+    <script type="text/javascript">
+      var elements = document.getElementsByClassName("json");
+      for (var i = 0, ii = elements.length; i < ii; i++) {
+        var element = elements[i];
+        hljs.highlightBlock(element);
+      }
+    </script>
   </body>
 </html>

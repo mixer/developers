@@ -1,0 +1,11 @@
+.api-parameter {
+  margin-left: 0;
+
+  .parameter-name {
+    padding-left: 0
+  }
+
+  .parameter-description {
+    color: $api-alt-color;
+  }
+}
