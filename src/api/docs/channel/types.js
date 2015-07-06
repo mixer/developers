@@ -1,6 +1,11 @@
+import React from "react";
+
+import LoremIpsum from "lorem-ipsum";
 import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
+
+import OrderParameter from "../../orderParameter.js";
 
 export default class ChannelTypesMethod extends PaginatedMethod {
   uri() { return "/api/v1/types/:slug/channels"; }
@@ -16,11 +21,11 @@ export default class ChannelTypesMethod extends PaginatedMethod {
   parameters() {
     return super.parameters().concat([
       new SlugParameter(),
-      new OrderParameter(),
+      new OrderParameter(["online", "featured", "partnered", "name",
+                          "viewers_total", "followers", "subscribers"]),
       new OnlyParameter(),
     ]);
   }
-
   examples() { return [ new SuccesfulResult() ]; }
 }
 
@@ -29,23 +34,13 @@ class SlugParameter extends Parameter {
   description() { return "Slug of the category to search in."; }
 }
 
-class OrderParameter extends Parameter {
-  name() { return "order"; }
-  description() {
-    return "Specifies the order in which channels should be displayed in the \
-    format attribute:order.\nOrder should be one of `asc` or `desc`. Attribute \
-    may be one of: `online`, `featured`, `partnered`, `name`, `viewers_total`, \
-    `followers`, `subscribers`.\nIf the attribute or order do not follow these \
-    rules, the sorting rule will be ignored.";
-  }
-  default() { return "online:desc,viewers_total:desc"; }
-}
-
-class OnlyParamter extends Parameter {
+class OnlyParameter extends Parameter {
   name() { return "only"; }
   description() {
-    return "Filters the results to a specific subset. Valid values are: \
-    `featured`, `partnered`.";
+    return (
+      <p>Filters the results to a specific subset. Valid values are <code>featured</code>
+      and <code>partnered</code>.</p>
+    )
   }
   optional() { return true; }
 }

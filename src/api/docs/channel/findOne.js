@@ -1,3 +1,4 @@
+import React from "react";
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -10,14 +11,17 @@ export default class FindOneMethod extends Method {
   httpMethod() { return "GET"; }
   group() { return "channels" }
   description() {
-   return [
-    "This endpoint retrieves a single fully-populated channel by its ID or token.",
-    "If the user is authenticated, we add a status to the output, indicating if the user is following and/or subscribed to the chanel."
-   ].join("\n");
+    return (
+      <p>
+        This endpoint retrieves a single fully-populated channel by its ID or
+        token. If the user is authenticated, we add a status to the output,
+        indicating if the user is following and/or subscribed to the chanel.
+      </p>
+    )
   }
 
   parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new ErrorfulResult() ]; }
+  examples() { return [ new SuccesfulResponse(), new ErrorfulResult() ]; }
 }
 
 class IDParameter extends Parameter {

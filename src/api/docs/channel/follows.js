@@ -1,14 +1,13 @@
 import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
-import Method from "../../method.js";
 import Example from "../../example.js";
 
-export default class ChannelFollowsMethod extends Method {
+export default class ChannelFollowsMethod extends PaginatedMethod {
   uri() { return "/api/v1/channels/:id/follow"; }
   version() { return 1; }
+  httpMethod() { return "GET"; }
   description() {
-    return "Lists the users who follow a channel, in the order that they \
-    followed.";
+    return "Lists the users who follow a channel, in the order that they followed";
   }
   group() { return "channels" }
 

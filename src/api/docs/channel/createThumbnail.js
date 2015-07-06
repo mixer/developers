@@ -1,3 +1,4 @@
+import React from "react";
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -13,8 +14,12 @@ export default class CreateThumbnailMethod extends Method {
   version() { return 1; }
   group() { return "channels" }
   description() {
-    return "This endpoint is used for uploading and setting a new channel \
-    thumbnail.";
+    return (
+      <p>
+        This endpoint is used for uploading and setting a new channel
+        thumbnail.
+      </p>
+    )
   }
   parameters() { return [ new IDParameter(), new ThumbnailParameter() ]; }
   examples() {
@@ -45,7 +50,7 @@ class ThumbnailParameter extends Parameter {
         </p>
         <p>
           The maximum upload size is 10 megabytes. Valid formats include png,
-          jpg, and gif images. Files that do not fit these rules will cause a
+          jpg, and gif images. Files that do not fit these rules will cause a 
           <code>400 Bad Request</code> to be returned.
         </p>
       </div>

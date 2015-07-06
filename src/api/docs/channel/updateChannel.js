@@ -1,8 +1,10 @@
+import React from "react";
+
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulResponse from "./succesfulResponse.js";
+import SuccesfulExample from "./succesfulResponse.js";
 
 import AccessDeniedResult from "../../accessDeniedResult.js";
 import ResourceMissingResult from "../../resourceMissingResult.js";
@@ -105,8 +107,8 @@ class CategoriesParameter extends Parameter {
         <p>
           Note that you don't need to explicitly list the entire hierarchy
           chain. For example, if I'm playing Skyrim, I could simply add the
-          category \"Skyrim\", and the channel will also be listed under
-          \"Games\".
+          category "Skyrim", and the channel will also be listed under
+          "Games".
         </p>
       </div>
     );
