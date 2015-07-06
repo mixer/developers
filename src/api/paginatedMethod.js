@@ -4,7 +4,7 @@ import Parameter from "./parameter.js";
 export default class PaginatedMethod extends Method {
   parameters() {
     return [
-      new PageParamter(),
+      new PageParameter(),
       new LimitParameter()
     ];
   }
@@ -17,7 +17,7 @@ class PageParameter extends Parameter {
   default() { return 0; }
 }
 
-class LimitParamter extends Parameter {
+class LimitParameter extends Parameter {
   name() { return "limit"; }
   optional() { return true; }
   description() { return "Number of results per page to retrieve."; }

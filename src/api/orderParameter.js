@@ -1,3 +1,4 @@
+import React from "react";
 import Parameter from "./parameter.js";
 
 export default class OrderParameter extends Parameter {
@@ -23,8 +24,8 @@ export default class OrderParameter extends Parameter {
         }</ul>
 
         <p>
-          "If the attribute or order do not follow these rules, that sorting
-          rule will be ignored."
+          If the attribute or order do not follow these rules, that sorting
+          rule will be ignored.
         </p>
       </div>
     )
