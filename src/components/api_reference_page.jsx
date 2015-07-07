@@ -18,13 +18,17 @@ export default class APIReferencePage extends React.Component {
 
     return (
       <div className="test-page">
-        <Col md={3}><Row>
-          <Col md={6}>
-            <CategorySelector active={name}
-                              categories={DocumentationStore.categories()}/>
-          </Col>
-          <Col md={6}></Col>
-        </Row></Col>
+        <Col md={3}>
+          <Row>
+            <Col md={6}>
+              <div data-spy="affix" data-offset-top="160">
+                 <CategorySelector active={name}
+                                   categories={DocumentationStore.categories()}/>
+              </div>
+            </Col>
+            <Col md={6}></Col>
+          </Row>
+        </Col>
         <Col md={9}>
           <MethodGroup name={name} methods={methods}/>
         </Col>
