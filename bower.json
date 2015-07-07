@@ -1,13 +1,11 @@
 {
   "name": "beam-developers",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "homepage": "https://github.com/MCProHosting/beam-developers",
   "authors": [
-    "Connor Peet <connor@connorpeet.com>"
+    "Beam LLC"
   ],
-  "description": "The developers server for Beam.",
-  "license": "GPL-2.0",
-  "private": true,
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,8 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.2",
-    "highlight.js": "https://github.com/isagalaev/highlight.js.git#~7.0.1",
-    "master": "https://github.com/konpa/devicon/archive/master.zip"
+    "bootstrap-sass": "~3.3.4",
+    "highlightjs": "~8.5.0"
   }
 }

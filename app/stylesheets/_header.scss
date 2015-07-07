@@ -1,0 +1,40 @@
+header {
+  display: inline-block;
+  padding: 32px 0;
+  width: 100%;
+
+  .header-text {
+    h1, h2 {
+      font-weight: 400;
+      line-height: 1em;
+      margin: 0;
+    }
+
+    h1 {
+      color: $text-color;
+      font-size: 42px;
+    }
+
+    h2 {
+      color: $text-color-muted;
+      font-size: 28px;
+      opacity: 0.8;
+    }
+  }
+
+  .header-nav {
+    ul {
+      list-style-type: none;
+      padding-top: 30px;
+
+      li {
+        display: inline;
+        padding-left: 30px;
+
+        &[data-active=true] > a {
+          color: $text-color-alt;
+        }
+      }
+    }
+  }
+}

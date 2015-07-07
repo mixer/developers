@@ -1,0 +1,43 @@
+.api-category-selector,
+.api-method-selector {
+  ul {
+    padding-left: 0;
+    width: 100%;
+    text-align: right;
+    list-style: none;
+
+    $selector-muted: rgb(82, 89, 106);
+    $selector-active: rgb(227, 141, 70);
+
+    li {
+      width: 100%;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-right: 5px;
+      border-right: 1px solid $selector-muted;
+
+      &.affix { padding-right: 0; }
+
+      &.category-active,
+      &:hover {
+        a { color: $selector-active; }
+        border-right-color: $selector-active;
+      }
+    }
+  }
+}
+
+.affix > .api-method-selector {
+  margin-left: -20px;
+}
+
+.api-method-selector {
+  ul > li {
+    border-right: none;
+    overflow-x: hidden;
+
+    &:hover {
+      overflow-x: visible;
+    }
+  }
+}

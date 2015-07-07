@@ -1,0 +1,18 @@
+.oss-libraries {
+  padding-left: 0;
+  list-style: none;
+
+  .oss-library {
+    $bg-color: rgb(24, 35, 55);
+    &:hover { background-color: lighten($bg-color, 1%); }
+
+    background-color: $bg-color;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    p { margin: 0; }
+    p > a { color: white; }
+    small { color: $text-color-alt; }
+  }
+}
