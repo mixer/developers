@@ -1,4 +1,5 @@
-.api-category-selector {
+.api-category-selector,
+.api-method-selector {
   ul {
     padding-left: 0;
     width: 100%;
@@ -15,11 +16,28 @@
       padding-right: 5px;
       border-right: 1px solid $selector-muted;
 
+      &.affix { padding-right: 0; }
+
       &.category-active,
       &:hover {
         a { color: $selector-active; }
         border-right-color: $selector-active;
       }
+    }
+  }
+}
+
+.affix > .api-method-selector {
+  margin-left: -20px;
+}
+
+.api-method-selector {
+  ul > li {
+    border-right: none;
+    overflow-x: hidden;
+
+    &:hover {
+      overflow-x: visible;
     }
   }
 }

@@ -7,11 +7,16 @@
     <%- js("highlightjs/highlight.pack.js") %>
     <%- js("jquery/dist/jquery.min.js") %>
     <%- js("bootstrap-sass/assets/javascripts/bootstrap/affix.js") %>
+    <%- js("bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js") %>
   </head>
 
   <body>
     <%- page %>
     <script type="text/javascript">
+      // Invoke the scrollspy directive
+      $("body").scrollspy({ target: ".api-method-selector" });
+
+      // Syntax highlight all of the code-blocks.
       var elements = document.getElementsByClassName("json");
       for (var i = 0, ii = elements.length; i < ii; i++) {
         var element = elements[i];

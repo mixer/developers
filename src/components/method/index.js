@@ -13,9 +13,10 @@ export default class MethodComponent extends React.Component {
     let uri = this.props.endpoint.uri();
     let parameters = this.props.endpoint.parameters();
     let examples = this.props.endpoint.examples();
+    let id = this.props.endpoint.httpMethod().toLowerCase()+":"+uri.replace(/\/|:/g, "");
 
     return (
-      <div className="api-method" id={uri}>
+      <div className="api-method" id={id}>
         <span className="api-method-heading">
           <span className="http-method">{ this.props.endpoint.httpMethod() }</span>
           <span className="uri">{ this.props.endpoint.uri() }</span>
