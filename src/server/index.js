@@ -40,11 +40,21 @@ export default class Server {
       res.send(contents.toString());
     });
 
-    this.app.get("/doc/*", (req, res) => {
-      let location = path.join(__dirname, "../../app/views" + req.url);
+    this.app.get("/doc/java-client/?", (_, res) => {
+      let location = path.join(__dirname, "../../app/views/doc/java-client/index.html");
       let contents = fs.readFileSync(location);
 
       res.send(contents.toString());
+    });
+
+    this.app.get("/doc/*", (req, res) => {
+      let location = path.join(__dirname, "../../app/views" + req.url);
+      try {
+        let contents = fs.readFileSync(location);
+        if (/\.css$/.exec(location) !== null) res.set("Content-Type", "text/css");
+
+        res.send(contents.toString());
+      } catch (_) { res.status(404).end() }
     });
 
     this.app.get("*", (req, res) => {
