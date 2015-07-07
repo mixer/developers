@@ -17,8 +17,8 @@
       $("body").scrollspy({ target: ".api-method-selector" });
 
       // Syntax highlight all of the code-blocks.
-      var elements = document.getElementsByClassName("json");
-      for (var i = 0, ii = elements.length; i < ii; i++) {
+      var elements = $("code[class]");
+      for (var i = 0, ii = elements.length; i < ii; i ++) {
         var element = elements[i];
         hljs.highlightBlock(element);
       }
