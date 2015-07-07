@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 import path from "path";
 import React from "react";
 import Router from "react-router";
@@ -31,6 +32,21 @@ export default class Server {
   }
 
   addRoutes() {
+    // TODO(tb): fixme
+    this.app.get("/doc/chat/?", (_, res) => {
+      let location = path.join(__dirname, "../../app/views/doc/chat/index.html");
+      let contents = fs.readFileSync(location);
+
+      res.send(contents.toString());
+    });
+
+    this.app.get("/doc/*", (req, res) => {
+      let location = path.join(__dirname, "../../app/views" + req.url);
+      let contents = fs.readFileSync(location);
+
+      res.send(contents.toString());
+    });
+
     this.app.get("*", (req, res) => {
       let router = Router.create({ location: req.url, routes: Routes });
 
