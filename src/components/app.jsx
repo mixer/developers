@@ -14,7 +14,9 @@ export default class Application extends React.Component {
       <div className="application">
         <Bootstrap.Grid>
           <Bootstrap.Row>
-            <Bootstrap.Col md={12}><Header currentRoute="home"/></Bootstrap.Col>
+            <Bootstrap.Col md={12}>
+              <Header/>
+            </Bootstrap.Col>
           </Bootstrap.Row>
           <Bootstrap.Row>
             <Router.RouteHandler />

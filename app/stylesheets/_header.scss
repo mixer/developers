@@ -30,6 +30,10 @@ header {
       li {
         display: inline;
         padding-left: 30px;
+
+        &[data-active=true] > a {
+          color: $text-color-alt;
+        }
       }
     }
   }
