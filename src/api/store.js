@@ -16,7 +16,7 @@ export default class APIDocumentationStore {
 
       let group = document.group ? document.group() : undefined;
 
-      if (group) {
+      if (group && document.uri()) {
         if (APIDocumentationStore.documents[group] === undefined)
           APIDocumentationStore.documents[group] = [];
 
@@ -27,6 +27,10 @@ export default class APIDocumentationStore {
 
   static categories() {
     return Object.keys(APIDocumentationStore.documents);
+  }
+
+  static hasDocumentsFor(group) {
+    return APIDocumentationStore.documents[group] !== undefined;
   }
 
   static findByGroup(group) {

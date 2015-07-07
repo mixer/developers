@@ -10,7 +10,7 @@ export default class UserSearchMethod extends PaginatedMethod {
   description() { return "Searches for online users in a chat."; }
   group() { return "chat"; }
 
-  method() { return "GET"; }
+  httpMethod() { return "GET"; }
   parameters() {
     return super.parameters().concat([
       new IDParameter(), new UsernameParameter()

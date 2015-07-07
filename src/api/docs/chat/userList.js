@@ -15,7 +15,7 @@ export default class UserListMethod extends Method {
   group() { return "chat"; }
 
   version() { return 1; }
-  method() { return "GET"; }
+  httpMethod() { return "GET"; }
   parameters() {
     return [
       new IDParameter(),

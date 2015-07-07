@@ -14,11 +14,14 @@ export default class APIReferencePage extends React.Component {
   }
 
   render() {
-    var name = this.context.router.getCurrentParams().name;
+    let defaultName = "achievements";
+
+    let target = this.context.router.getCurrentParams().name;
+    let name = DocumentationStore.hasDocumentsFor(target) ? target : defaultName;
     let methods = DocumentationStore.findByGroup(name);
 
     return (
-      <div className="test-page">
+      <div className="api-method-page">
         <Col md={3}>
           <Row>
             <Col md={5}>
