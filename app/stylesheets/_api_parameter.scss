@@ -1,0 +1,24 @@
+.api-parameter {
+  margin-left: 0;
+
+  .parameter-name {
+    padding-left: 0
+  }
+
+  .parameter-description {
+    color: $api-alt-color;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    code {
+      background-color: rgb(40, 43, 46);
+      color: rgb(206, 106, 7);
+      padding: 1px;
+      border-radius: 3px;
+      font-size: 90%;
+    }
+  }
+}
