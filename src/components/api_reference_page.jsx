@@ -30,6 +30,7 @@ export default class APIReferencePage extends React.Component {
                 <Col md={5}>
                   <div className="a-left" data-spy="affix" data-offset-top="160">
                      <CategorySelector active={name}
+                                       base="/api/v1"
                                        categories={DocumentationStore.categories()}/>
                   </div>
                 </Col>
