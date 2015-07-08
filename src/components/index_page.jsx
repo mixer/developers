@@ -13,17 +13,21 @@ export default class IndexPage extends React.Component {
 
   render() {
     return (
-      <div className="index-page">
-        <Bootstrap.Col md={7}>
-          <GettingStarted/>
-          <Bootstrap.Row>
-              <Bootstrap.Col md={6}><OpenSource/></Bootstrap.Col>
-          </Bootstrap.Row>
-        </Bootstrap.Col>
-        <Bootstrap.Col md={5}>
-          <ClientLibraries/>
-        </Bootstrap.Col>
-      </div>
+      <Bootstrap.Grid>
+        <Bootstrap.Row>
+          <div className="index-page">
+            <Bootstrap.Col md={7}>
+              <GettingStarted/>
+              <Bootstrap.Row>
+                  <Bootstrap.Col md={6}><OpenSource/></Bootstrap.Col>
+              </Bootstrap.Row>
+            </Bootstrap.Col>
+            <Bootstrap.Col md={5}>
+              <ClientLibraries/>
+            </Bootstrap.Col>
+          </div>
+        </Bootstrap.Row>
+      </Bootstrap.Grid>
     );
   }
 }

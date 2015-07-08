@@ -25,6 +25,10 @@ export default class Header extends React.Component {
           </h2>
         </div>
 
+        <div className="header-version">
+          Latest: 1.2
+        </div>
+
         <div className="header-nav pull-right"><ul>
           <li data-active={this.active(/^\/$/)}><a href="/">Home</a></li>
           <li data-active={this.active(/^\/api\/v1\//)}><a href="/api/v1/">API Reference</a></li>

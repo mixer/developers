@@ -12,16 +12,9 @@ export default class Application extends React.Component {
   render() {
     return (
       <div className="application">
-        <Bootstrap.Grid>
-          <Bootstrap.Row>
-            <Bootstrap.Col md={12}>
-              <Header/>
-            </Bootstrap.Col>
-          </Bootstrap.Row>
-          <Bootstrap.Row>
-            <Router.RouteHandler />
-          </Bootstrap.Row>
-        </Bootstrap.Grid>
+        <Header/>
+        <img src="/static/img/line.svg" className="line" />
+        <Router.RouteHandler />
       </div>
     );
   }

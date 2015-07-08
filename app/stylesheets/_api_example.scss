@@ -14,9 +14,14 @@
   }
 
   pre {
-    $bg-color: #282b2e;
+    $bg-color: #272d3b;
     background-color: $bg-color;
-    border-color: lighten($bg-color, 10%);
+    border-color: transparent;
     padding: 5px;
+    box-shadow: inset 1px 0px 8px rgba(0,0,0,.085);
+
+    code {
+      background-color: $bg-color;
+    }
   }
 }
