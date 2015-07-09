@@ -25,7 +25,7 @@ export default class APIReferencePage extends React.Component {
       <div className="api-method-page">
         <Bootstrap.Grid fluid="true">
           <Bootstrap.Row>
-            <Col md={3}>
+            <Col lg={4} md={5} sm={6}>
               <Row>
                 <Col md={5}>
                   <div className="a-left" data-spy="affix" data-offset-top="160">
@@ -41,7 +41,7 @@ export default class APIReferencePage extends React.Component {
                 </Col>
               </Row>
             </Col>
-            <Col md={9}>
+            <Col lg={8} md={7} sm={6}>
               <MethodGroup name={name} methods={methods}/>
             </Col>
           </Bootstrap.Row>
