@@ -22,8 +22,10 @@ export default class OpenSource extends React.Component {
             let href = `https://github.com/${l.repo}`;
             return (
               <li className="oss-library">
-                <p><a href={href}>{ l.name }</a></p>
-                <small>{l.desc}</small>
+                <a href={href} target="_blank">
+                  <p>{ l.name }</p>
+                  <small>{l.desc}</small>
+                </a>
               </li>
             );
           })}</ul>

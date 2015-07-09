@@ -5,6 +5,7 @@ import MethodSelector from "./api_method_selector.js";
 import CategorySelector from "./api_category_selector.js";
 import MethodGroup from "./method/method_group.js";
 import DocumentationStore from "../api/store.js";
+import Bootstrap from "react-bootstrap";
 
 export default class APIReferencePage extends React.Component {
   static get contextTypes() { return { router: React.PropTypes.func } };
@@ -22,24 +23,29 @@ export default class APIReferencePage extends React.Component {
 
     return (
       <div className="api-method-page">
-        <Col md={3}>
-          <Row>
-            <Col md={5}>
-              <div data-spy="affix" data-offset-top="160">
-                 <CategorySelector active={name}
-                                   categories={DocumentationStore.categories()}/>
-              </div>
+        <Bootstrap.Grid fluid="true">
+          <Bootstrap.Row>
+            <Col md={3}>
+              <Row>
+                <Col md={5}>
+                  <div className="a-left" data-spy="affix" data-offset-top="160">
+                     <CategorySelector active={name}
+                                       base="/api/v1"
+                                       categories={DocumentationStore.categories()}/>
+                  </div>
+                </Col>
+                <Col md={7}>
+                  <div className="a-right" data-spy="affix" data-offset-top="160">
+                    <MethodSelector methods={methods} />
+                  </div>
+                </Col>
+              </Row>
             </Col>
-            <Col md={7}>
-              <div data-spy="affix" data-offset-top="160">
-                <MethodSelector methods={methods} />
-              </div>
+            <Col md={9}>
+              <MethodGroup name={name} methods={methods}/>
             </Col>
-          </Row>
-        </Col>
-        <Col md={9}>
-          <MethodGroup name={name} methods={methods}/>
-        </Col>
+          </Bootstrap.Row>
+        </Bootstrap.Grid>
       </div>
     );
   }

@@ -1,7 +1,9 @@
 header {
   display: inline-block;
-  padding: 32px 0;
+  padding: 15px 60px;
   width: 100%;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  position: relative;
 
   .header-text {
     h1, h2 {
@@ -11,7 +13,7 @@ header {
     }
 
     h1 {
-      color: $text-color;
+      color: white;
       font-size: 42px;
     }
 
@@ -22,17 +24,35 @@ header {
     }
   }
 
+  .header-version {
+    position: absolute;
+    top: 25px;
+    right: 60px;
+    border-radius: 3px;
+    border: 1px solid $text-color-alt;
+    color: $text-color-alt;
+    font-size: 13px;
+    padding: 3px 6px;
+  }
+
   .header-nav {
     ul {
       list-style-type: none;
-      padding-top: 30px;
+      padding-top: 45px;
 
       li {
         display: inline;
         padding-left: 30px;
 
-        &[data-active=true] > a {
-          color: $text-color-alt;
+        a {
+          font-size: 15px;
+          color: $text-color;
+          transition: all .3s ease;
+        }
+
+        &[data-active=true] > a, a:active, a:hover {
+          color: white;
+          text-decoration: none;
         }
       }
     }

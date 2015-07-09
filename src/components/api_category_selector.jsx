@@ -10,7 +10,7 @@ export default class APICategorySelector extends React.Component {
       <div className="api-category-selector">
         <ul>{
           this.props.categories.map((category) => {
-            let categoryUrl = `/api/v1/${category}`;
+            let categoryUrl = `${this.props.base}/${category}`;
             let className = category === this.props.active ? "category-active"
                                                            : "";
             return (

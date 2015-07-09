@@ -2,17 +2,19 @@
   padding-left: 0;
   list-style: none;
 
-  .oss-library {
-    $bg-color: rgb(24, 35, 55);
-    &:hover { background-color: lighten($bg-color, 1%); }
+  .oss-library a {
+    $bg-color: rgba(0,0,0,.3);
+    &:hover { background-color: rgba(0,0,0,.2); text-decoration: none; }
 
     background-color: $bg-color;
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    transition: .3s all ease;
+    margin-bottom: 2px;
+    display: block;
 
-    p { margin: 0; }
-    p > a { color: white; }
+    a { display: block };
+    p { margin: 0; color: white; }
     small { color: $text-color-alt; }
   }
 }

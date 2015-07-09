@@ -1,5 +1,7 @@
 .api-category-selector,
 .api-method-selector {
+  margin-top: 40px;
+
   ul {
     padding-left: 0;
     width: 100%;
@@ -11,16 +13,23 @@
 
     li {
       width: 100%;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-right: 5px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 15px;
       border-right: 1px solid $selector-muted;
+      transition: .3s all ease;
 
       &.affix { padding-right: 0; }
 
+      a {
+        color: $text-color;
+        transition: .3s all ease;
+        display: block;
+      }
+
       &.category-active,
       &:hover {
-        a { color: $selector-active; }
+        a { color: $selector-active; text-decoration: none; }
         border-right-color: $selector-active;
       }
     }
@@ -33,7 +42,7 @@
 
 .api-method-selector {
   ul > li {
-    border-right: none;
+    // border-right: none;
     overflow-x: hidden;
 
     &:hover {
