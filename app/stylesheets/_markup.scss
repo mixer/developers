@@ -1,2 +1,27 @@
 .markup {
+    margin-right: 75px;
+}
+
+h1,h2,h3,h4 {
+    color: white;
+}
+pre {
+    background-color: #272d3b;
+    border-color: transparent;
+    padding: 5px;
+    box-shadow: inset 1px 0px 8px rgba(0,0,0,.085);
+    color: #ccc;
+
+    code.hljs {
+      background-color: #272d3b;
+    }
+}
+
+table {
+    tr:first-child td {
+        border-top: 1px solid rgba(255,255,255,.05);
+    }
+    td {
+        border-bottom: 1px solid rgba(255,255,255,.05);
+    }
 }
