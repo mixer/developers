@@ -1,6 +1,6 @@
 .method-group {
   margin-top: 60px;
-  margin-right: 40px;
+  padding-bottom: 60px;
 }
 .api-method {
   background-color: $api-base-color;
@@ -44,7 +44,7 @@
 
     .parameters {
       .parameters-header {
-        color: $api-alt-color;
+        color: $api-header-color;
         text-transform: uppercase;
       }
 

@@ -17,7 +17,6 @@
 
 .api-method-page {
   background: #303a4e;
-  margin-top: -5px;
 }
 
 // Fix affix jumping
@@ -26,4 +25,8 @@
 }
 .a-right.affix {
   margin-left: 67px;
+}
+
+.container-fluid {
+  max-width: 1500px;
 }
