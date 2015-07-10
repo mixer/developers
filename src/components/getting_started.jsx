@@ -12,8 +12,7 @@ export default class GettingStarted extends React.Component {
           <h2>Getting Started</h2>
         </div>
         <ol>
-          <li>Read our <a href="#">getting started</a> guide</li>
-          <li>Join our <a href="#">Gitter development channel</a></li>
+          <li>Join our <a href="https://gitter.im/MCProHosting/beam-dev">Gitter development channel</a></li>
           <li>Start developing using our API documentation</li>
         </ol>
       </div>
