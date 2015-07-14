@@ -5,6 +5,6 @@ gulp.task("javadoc", function (done) {
     if (err) console.log(err);
     if (stderr) console.log(stderr);
 
-    return done();
+    return done(err || stderr);
   });
 });
