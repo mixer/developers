@@ -17,7 +17,7 @@ export default class ListTypesMethod extends Method {
           lists the categories that they may belong to.
         </p>
         <p>
-          The <code>slug</code> is the identifying property used in other
+          The <code>id</code> is the identifying property used in other
           endpoints for this resource.
         </p>
       </div>
@@ -31,15 +31,19 @@ export default class ListTypesMethod extends Method {
 class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
-    let makeType = function (name) {
+    let makeType = function (id, name, parent) {
       return {
-        cover: {},
-        description: LoremIpsum({ count: 1, unit: "sentence" }),
+        id: id,
         name: name,
-        slug: name.toLowerCase().replace(" ", "-")
+        parent: parent,
+        description: LoremIpsum({ count: 1, unit: "sentence" }),
+        source: "player.me"
+        viewersCurrent: 0,
+        online: 0
       }
     }
 
-    return [ makeType("Minecraft"), makeType("Battlefield Hardline") ];
+    return [ makeType(1, "Minecraft", "Games"),
+             makeType(2, "Battlefield Hardline", "Games") ];
   }
 }
