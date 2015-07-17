@@ -14,8 +14,8 @@ export default class ListChannelsFollowedMethod extends PaginatedMethod {
 
   description() { return (
     <p>
-      This endpoint lists channels that the user is following in descending
-      order by the date that they were followed.
+      This endpoint lists channels that the user is following with online
+      channels first.
     </p>
   )}
   parameters() { return super.parameters().concat([ new IDParameter(),

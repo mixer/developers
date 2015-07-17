@@ -31,7 +31,7 @@ export default class ChannelTypesMethod extends PaginatedMethod {
 
 class SlugParameter extends Parameter {
   name() { return "slug"; }
-  description() { return "Slug of the category to search in."; }
+  description() { return "Numeric ID of the category in which to search."; }
 }
 
 class OnlyParameter extends Parameter {

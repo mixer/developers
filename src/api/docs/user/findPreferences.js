@@ -25,7 +25,8 @@ class SuccesfulExample extends Example {
       "chat:sounds:play": true,
       "chat:sounds:volume": 1,
       "chat:tagging": true,
-      "chat:timestamps": false
+      "chat:timestamps": false,
+      "channel:mature:allowed": true
     }
   }
 }
