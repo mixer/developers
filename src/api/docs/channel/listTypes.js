@@ -2,6 +2,7 @@ import React from "react";
 
 import LoremIpsum from "lorem-ipsum";
 import Method from "../../method.js";
+import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 export default class ListTypesMethod extends Method {
@@ -24,8 +25,20 @@ export default class ListTypesMethod extends Method {
     );
   }
 
-  parameters() { return []; }
+  parameters() { return [ new QueryParameter() ]; }
   examples() { return [ new SuccesfulResult() ]; }
+}
+
+class QueryParameter extends Parameter {
+  name() { return "query"; }
+  description() {
+    return (<p>
+      A query on the name field. Responses will be ordered by the word distance
+      from the name of the Type to the query provided.
+    </p>);
+  }
+  optional() { return true; }
+  default() { return undefined; }
 }
 
 class SuccesfulResult extends Example {
