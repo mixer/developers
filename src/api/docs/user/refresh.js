@@ -8,7 +8,7 @@ import ExpandedSuccesfulExample from "./expandedSuccesfulExample.js";
 export default class RefreshUserMethod extends Method {
   uri() { return "/api/v1/current/refresh"; }
   version() { return 1; }
-  httpMethod() { return "GET"; }
+  httpMethod() { return "POST"; }
   group() { return "user"; }
 
   description() { return (
