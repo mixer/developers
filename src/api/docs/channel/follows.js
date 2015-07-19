@@ -1,3 +1,4 @@
+import LoremIpsum from "lorem-ipsum";
 import PaginatedMethod from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -40,8 +41,8 @@ class FieldsParameter extends Parameter {
 class SortParameter extends Parameter {
   name() { return "sort"; }
   description() {
-   return "Specifies the order in which results shouldbe dispalyed in the \
-   format of one or more blocks in the form `attirbute:direction`, seperated by \
+   return "Specifies the order in which results should be displayed in the \
+   format of one or more blocks in the form `attribute:direction`, separated by \
    commas.  For example, `attr1:desc,attr2:asc`.";
   }
   optional() { return true; }
@@ -52,18 +53,16 @@ class SuccesfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{
-      avatars: [],
-      channel: 2,
-      display_name: "ConnorPeet",
-      id: 2,
-      points: 64,
       social: {
+        twitter: "http://twitter.com/ConnorPeet",
         facebook: null,
-        twitter: "ConnorPeet",
-        youtube: null
+        youtube: null,
+        player: "http://player.me/connor"
       },
       username: "connor4312",
-      verified: 1
+      verified: true,
+      points: 66,
+      bio: LoremIpsum({ count: 1, unit: "sentences" })
     }];
   }
 }

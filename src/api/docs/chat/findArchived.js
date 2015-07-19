@@ -83,32 +83,32 @@ class SuccesfulResult extends Example {
   data() {
     return [
       {
-        "channel": 2,
-        "id": "b9b1ac30-dec5-11e4-ae00-1dea4d4cdac1",
-        "message": [
+        message: [
           {
             "data": "Hello connor!",
             "type": "text"
           }
         ],
-        "user_id": 1,
-        "user_name": "Salsaman",
-        "user_roles": [
+        channel: 2,
+        id: "f4d417c0-2e2b-11e5-a483-853beec4fa82",
+        user_id: 1,
+        user_name: "Salsaman",
+        user_roles: [
           "Admin"
         ]
       },
       {
-        "channel": 2,
-        "id": "b964c4b0-dec5-11e4-ae00-1dea4d4cdac1",
-        "message": [
+        message: [
           {
             "data": "Hey salsaman!",
             "type": "text"
           }
         ],
-        "user_id": 2,
-        "user_name": "connor4312",
-        "user_roles": [
+        channel: 2,
+        id: "b964c4b0-dec5-11e4-ae00-1dea4d4cdac1",
+        user_id: 2,
+        user_name: "connor4312",
+        user_roles: [
           "Owner"
         ]
       }

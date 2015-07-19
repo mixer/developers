@@ -50,5 +50,5 @@ class MetaParameter extends Parameter {
 
 class SuccesfulExample extends Example {
   httpCode() { return 200; }
-  data() { return "Unsubscribed succesfully."; }
+  data() { return "Unsubscribed successfully."; }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 
+import LoremIpsum from "lorem-ipsum";
 import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -92,19 +93,22 @@ class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {
+      social: {
+        twitter: "http://twitter.com/ConnorPeet",
+        facebook: null,
+        youtube: null,
+        player: "http://player.me/connor"
+      },
+      id: 20,
+      username: "connor4312",
+      verified: true,
+      points: 66,
+      bio: LoremIpsum({ count: 1, unit: "sentences" }),
       createdAt: new Date().toISOString(),
-      displayName: "Connor",
-      email: "connor@example.com",
-      groups: [
-        {
-          id: 2,
-          name: "Mod",
-        }
-      ],
-      id: 1,
-      points: 2,
       updatedAt: new Date().toISOString(),
-      username: "connor4312"
+      groups: [
+        2
+      ]
     };
   }
 }

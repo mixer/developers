@@ -49,24 +49,52 @@ class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [{
-      allow_costream: "all",
-      audience: "G",
-      body: LoremIpsum({ count: 3, unit: "sentences" }),
-      createdAt: new Date().toISOString(),
-      featured: false,
-      followers: 10,
-      hidden: false,
       id: 20,
-      name: "Minecraft Rox",
-      online: true,
-      partnered: false,
-      subscribers: 2,
-      thumbnail: { },
       token: "connor4312",
-      type: "minecraft",
-      updatedAt: new Date().toISOString(),
-      user: 2,
-      viewersTotal: 127
+      online: true,
+      featured: false,
+      partnered: false,
+      transcodingEnabled: true,
+      suspended: false,
+      name: "Minecraft Rocks",
+      audience: "G",
+      viewersTotal: 127,
+      viewersCurrent: 0,
+      numFollowers: 52,
+      numSubscribers: 0,
+      description: LoremIpsum({ count: 3, unit: "sentences" }),
+      typeId: 33217,
+      thumbnail: {
+        meta: {
+          size: [
+            405,
+            225
+          ]
+        },
+        id: 1713,
+        type: "channel:thumbnail",
+        relid: 129,
+        url: "https://s3.amazonaws.com/uploads.beam.pro/thumbnails/129.jpg",
+        store: "s3",
+        remotePath: "thumbnails/129.jpg",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      user: {
+        social: {
+          twitter: "http://twitter.com/ConnorPeet",
+          facebook: null,
+          youtube: null,
+          player: "http://player.me/connor"
+        },
+        id: 146,
+        username: "connor4312",
+        verified: true,
+        points: 66,
+        bio: LoremIpsum({ count: 1, unit: "sentences" }),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }
     }];
   }
 }

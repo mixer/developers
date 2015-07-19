@@ -24,7 +24,7 @@ export default class Parameter {
 
   /**
    * Accessor which lets a caller know whether or not a parameter must be
-   * included in order to mmake the API call work.
+   * included in order to make the API call work.
    * @return{boolean}
    */
   optional() {

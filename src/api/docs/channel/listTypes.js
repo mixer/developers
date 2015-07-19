@@ -50,7 +50,7 @@ class SuccesfulResult extends Example {
         name: name,
         parent: parent,
         description: LoremIpsum({ count: 1, unit: "sentence" }),
-        source: "player.me"
+        source: "player.me",
         viewersCurrent: 0,
         online: 0
       }
