@@ -77,8 +77,8 @@ class SuccesfulResult extends Example {
         url: "https://s3.amazonaws.com/uploads.beam.pro/thumbnails/129.jpg",
         store: "s3",
         remotePath: "thumbnails/129.jpg",
-        createdAt: "2015-02-19 19:12:02",
-        updatedAt: "2015-05-06 02:45:37"
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       },
       user: {
         social: {
