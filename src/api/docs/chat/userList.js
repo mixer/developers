@@ -40,7 +40,7 @@ class PageParameter extends Parameter {
 
 class LimitParameter extends Parameter {
   name() { return "limit"; }
-  description() { return "Number of results per page to retreive."; }
+  description() { return "Number of results per page to retrieve."; }
   optional() { return true; }
   default() { return 50; }
 }
@@ -50,14 +50,14 @@ class SuccesfulResult extends Example {
   data() {
     return [
       {
-        user_id: 1,
-        user_name: "Connor4312",
-        user_roles: ["Owner"]
+        userName: "Connor4312",
+        userRoles: ["Owner"],
+        userId: 1
       },
       {
-        user_id: 2,
-        user_name: "ttaylorr",
-        user_roles: ["User", "Mod"]
+        userName: "ttaylorr",
+        userRoles: ["Mod", "User"],
+        userId: 2
       }
     ];
   }

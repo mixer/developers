@@ -51,24 +51,22 @@ class SuccesfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      authkey: "ce61c79f148fed06fd16fcb6e56f5897",
       endpoints: [
-        "wss://127.0.0.1:1338"
+        "wss://chat2-dal07.beam.pro:443",
+        "wss://chat1-dal07.beam.pro:443"
       ],
-      linksAllowed: true,
-      linksClickable: true,
-      roles: [ "Owner" ],
-      slowchat: 0.5,
+      authkey: "00af3f83608ee753e95e26ee55e796fe",
       permissions: [
-        'connect',
-        'chat',
-        'bypass_links',
-        'bypass_slowchat',
-        'remove_message',
-        'change_ban',
-        'edit_options',
-        'change_role',
-        'clear_messages'
+        "bypass_links",
+        "bypass_slowchat",
+        "remove_message",
+        "change_ban",
+        "clear_messages",
+        "giveaway_start",
+        "poll_vote",
+        "poll_start",
+        "connect",
+        "chat"
       ]
     }
   }

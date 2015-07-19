@@ -1,6 +1,5 @@
 import Method from "../../method.js";
 import Example from "../../example.js";
-import Parameter from "../../parameter.js";
 import LoremIpsum from "lorem-ipsum";
 
 export default class AbstractAchievementMethod extends Method {
@@ -8,16 +7,7 @@ export default class AbstractAchievementMethod extends Method {
   httpMethod() { return "GET"; }
   group() { return "achievements" }
   examples() { return [ new SuccesfulExample(), new ErrorfulExample() ]; }
-  parameters() { return [ new IDParameter() ]; }
-}
-
-class IDParameter extends Parameter {
-  constructor() {
-    super();
-  }
-
-  name() { return "id"; }
-  description() { return "Numeric user ID to get the achievements for."; }
+  parameters() { return []; }
 }
 
 class SuccesfulExample extends Example {
@@ -29,24 +19,16 @@ class SuccesfulExample extends Example {
   data() {
     return [
       {
-        description: LoremIpsum({ count: 1, unit: 'sentences' }),
-        earned: false,
-        id: 1,
-        name: "StalkerPro",
-        progress: 0.12,
-        slug: "stalker-pro",
-        updatedAt: new Date().toISOString(),
-        user: 2
+        slug: "helper-pro",
+        name: "HelperPro",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        points: 0
       },
       {
-        description: LoremIpsum({ count: 1, unit: "sentences" }),
-        earned: true,
-        id: 2,
-        name: "Stalker",
-        progress: 1,
-        slug: "stalker",
-        updatedAt: new Date().toISOString(),
-        user: 2
+        slug: "thousand-beams",
+        name: "ThousandBeams",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        points: 0
       }
     ];
   }

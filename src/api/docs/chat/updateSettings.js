@@ -34,7 +34,7 @@ export default class UpdateChatSettingsMethod extends Method {
 
 class IDParameter extends Parameter {
   name() { return "id"; }
-  description() { return "The ID of the channel whos chat you want to update."; }
+  description() { return "The ID of the channel whose chat you want to update."; }
 }
 
 class LinksAllowedParameter extends Parameter {

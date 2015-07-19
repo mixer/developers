@@ -5,7 +5,7 @@ import Example from "../../example.js";
 export default class FollowMethod extends Method {
   description() { return "Follows a channel for the given user."; }
   httpMethod() { return "PUT"; }
-  uri() { return "/api/v1/channeks/:id/follow"; }
+  uri() { return "/api/v1/channels/:id/follow"; }
   group() { return "channels" }
   parameters() { return [ new IDParameter(), new UserParameter() ]; }
   examples() { return [ new SuccesfulResult(), new BadRequestResult(), new ForbiddenActionResult(), new MissingResult() ]; }

@@ -14,7 +14,7 @@ export default class Method {
 
   /**
    * Returns the URI that corresponds to a given API method, which optional
-   * paremeters.
+   * parameters.
    *
    * @example
    * let method = ...;

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Method from "../../paginatedMethod.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
@@ -7,7 +9,20 @@ import PaginatedMethod from "../../paginatedMethod.js";
 export default class UserSearchMethod extends PaginatedMethod {
   uri() { return "/api/v1/chats/:id/search"; }
   version() { return 1; }
-  description() { return "Searches for online users in a chat."; }
+  description() {
+    return (
+      <div className="description">
+        <p>
+          With this endpoint, you can search the chat for a user using the query parameters on offer. Hitting 
+          then endpoint without parameters will result in an empty array being returned.
+        </p>
+        <p>
+          For example appending the URL with <code>?username=connor4312</code> will show the details for user 
+          if they are in the channel, otherwise an empty array will be returned.
+        </p>
+      </div>
+    );
+  }
   group() { return "chat"; }
 
   httpMethod() { return "GET"; }
@@ -32,17 +47,10 @@ class UsernameParameter extends Parameter {
 class SuccesfulResult extends Example {
   httpCode() { return 200; }
   data() {
-    return [
-      {
-        user_id: 1,
-        user_name: "Alice",
-        user_roles: ["Owner"]
-      },
-      {
-        user_id: 2,
-        user_name: "Bob",
-        user_roles: ["User", "Mod"]
-      }
-    ];
+    return [{
+      userName: "Alice",
+      userRoles: ["Owner"],
+      userId: 1
+    }];
   }
 }

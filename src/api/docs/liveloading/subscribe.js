@@ -9,7 +9,7 @@ import AccessDeniedResult from "../../accessDeniedResult.js";
 export default class LiveloadingSubscribe extends Method {
   uri() { return "/api/v1/live"; }
   version() { return 1; }
-  httpMethod() { return "POST"; }
+  httpMethod() { return "PUT"; }
   group() { return "liveloading"; }
 
   description() {
@@ -50,7 +50,7 @@ export default class LiveloadingSubscribe extends Method {
             <td><code>channel:[:id]:status</code></td>
             <td>
               "Subscribes to the online status of a channel. You'll get events
-              sent down named <code>chat:[id]:StartStreaming</code> and
+              sent down named <code>chat:[id]:StartStreaming</code> and 
               <code>chat:[id]:StopStreaming</code>."
             </td>
           </tr>
@@ -134,7 +134,7 @@ class MetaParameter extends Parameter {
 
 class SuccesfulResponse extends Example {
   httpCode() { return 200; }
-  data() { return "Subscribed succesfully."; }
+  data() { return "Subscribed successfully."; }
 }
 
 class BadRequest extends Example {
