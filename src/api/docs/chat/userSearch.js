@@ -5,7 +5,7 @@ import Example from "../../example.js";
 import PaginatedMethod from "../../paginatedMethod.js";
 
 export default class UserSearchMethod extends PaginatedMethod {
-  uri() { return "/api/v1/chats/:id/search"; }
+  uri() { return "/api/v1/chats/:id/users/search"; }
   version() { return 1; }
   description() { return "Searches for online users in a chat."; }
   group() { return "chat"; }
