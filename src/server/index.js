@@ -4,7 +4,6 @@ import React from "react";
 import Router from "react-router";
 
 import DocumentationStore from "../api/store.js";
-import Routes from "../components/routes.js";
 
 export default class Server {
   constructor(port, documentationPath) {
@@ -41,22 +40,7 @@ export default class Server {
     this.route("/doc/chat/?", "doc/chat/index.html");
     this.route("/doc/java-client/?", "doc/java-client/index.html");
 
-    this.app.get("/doc/*", (req, res) => {
-      let location = path.join(__dirname, "../../app/views" + req.url);
-      try {
-        if (/\.css$/.exec(location) !== null) res.set("Content-Type", "text/css");
-        res.sendFile(location);
-      } catch (_) { res.status(404).end() }
-    });
-
-    this.app.get("*", (req, res) => {
-      let router = Router.create({ location: req.url, routes: Routes });
-
-      router.run((Handler) => {
-        let page = React.renderToString(<Handler />);
-
-        res.render("index.ejs", { page: page });
-      });
-    });
+    this.app.get("/doc/*", require('./routes/doc'));
+    this.app.get("*", require('./routes/catchall'));
   }
 }
