@@ -31,29 +31,22 @@ export default class Server {
     return this.app.listen(this.port);
   }
 
+  route(route, location) {
+    const file = path.join(__dirname, "../../app/views/", location);
+    this.app.get(route, (_, res) => {
+      res.sendFile(file);
+    });
+  }
+
   addRoutes() {
-    // TODO(tb): fixme
-    this.app.get("/doc/chat/?", (_, res) => {
-      let location = path.join(__dirname, "../../app/views/doc/chat/index.html");
-      let contents = fs.readFileSync(location);
-
-      res.send(contents.toString());
-    });
-
-    this.app.get("/doc/java-client/?", (_, res) => {
-      let location = path.join(__dirname, "../../app/views/doc/java-client/index.html");
-      let contents = fs.readFileSync(location);
-
-      res.send(contents.toString());
-    });
+    this.route("/doc/chat/?", "doc/chat/index.html");
+    this.route("/doc/java-client/?", "doc/java-client/index.html");
 
     this.app.get("/doc/*", (req, res) => {
       let location = path.join(__dirname, "../../app/views" + req.url);
       try {
-        let contents = fs.readFileSync(location);
         if (/\.css$/.exec(location) !== null) res.set("Content-Type", "text/css");
-
-        res.send(contents.toString());
+        res.sendFile(location);
       } catch (_) { res.status(404).end() }
     });
 
