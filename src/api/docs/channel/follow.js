@@ -34,7 +34,7 @@ class BadRequestResult extends Example {
 class ForbiddenActionResult extends Example {
   httpCode() { return 403; }
   description() { return "This will occur if you don't have permission on the requested user or the user attempts to follow its own channel."; }
-  data() { return "You are not permitted to preform that action."; }
+  data() { return "You are not permitted to perform that action."; }
 }
 
 class MissingResult extends Example {
