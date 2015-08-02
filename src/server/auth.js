@@ -20,7 +20,7 @@ export default function (req, res, next) {
 
     if (tokens) {
         const provider = client.getProvider();
-        provider.tokens = req.auth.tokens;
+        provider.setTokens(req.auth.tokens);
         req.auth.isAuthed = provider.isAuthenticated();
     }
 

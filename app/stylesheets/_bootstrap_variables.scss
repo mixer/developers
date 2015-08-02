@@ -14,6 +14,12 @@ $api-header-color: rgb(118, 133, 157);
 $code-bg: #1F252D;
 $code-color: rgb(255, 142, 107);
 
+$input-bg: darken($body-bg, 10%);
+$input-bg-disabled: $input-bg;
+$input-color: $text-color;
+$input-border: transparent;
+$input-border-focus: $text-color-alt;
+
 .affix {
   margin-top: -160px;
 }

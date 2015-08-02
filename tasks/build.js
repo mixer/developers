@@ -1,6 +1,7 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 var sass = require("gulp-sass");
+var autoprefixer = require("gulp-autoprefixer");
 
 gulp.task("build", [ "build-backend", "build-frontend" ]);
 
@@ -14,5 +15,6 @@ gulp.task("build-backend", function () {
 gulp.task("build-frontend", function () {
   return gulp.src("./app/stylesheets/**/*.scss")
       .pipe(sass())
+      .pipe(autoprefixer())
       .pipe(gulp.dest("./__build__/assets/css"));
 });

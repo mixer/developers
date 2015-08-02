@@ -36,6 +36,7 @@ export function attempt (req, res) {
     req.beam.getProvider()
         .attempt(buildRedirect(), req.query)
         .then(function () {
+            req.auth.tokens = this.getTokens();
             res.redirect('/');
         })
         .catch(function (e) {

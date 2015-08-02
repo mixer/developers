@@ -16,7 +16,7 @@ exports.cassandra = {
 exports.cookie = {
     cookieName: 'auth',
     secret: 'changeme',
-    duration: 1000 * 60 * 24
+    duration: 1000 * 60 * 60 * 24
 };
 
 /**
