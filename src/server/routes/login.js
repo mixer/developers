@@ -1,19 +1,45 @@
-import {OAuth2} from 'oauth';
 import config from 'config';
 
-const client = new OAuth2(
-    config.get('oauth.clientId'),
-    config.get('oauth.clientSecret'),
-    config.get('apiUrl'),
-    '/oauth/authorize',
-    '/oauth/token',
-);
+/**
+ * Permissions we intend to request over oauth;
+ */
+const permissions = ['oauth:manage:self'];
 
-export function (req, res) {
-    if (req.query.code) {
-        // Looks like they're returning from a successful authorization.
-        client.getOAuthAccessToken(req.query.code, {}, function (err, token) {
-            req.auth.token = token;
+/**
+ * Returns the redirect URL we send to OAuth. Clients will be
+ * redirected back here after authorizing or denying.
+ * @return {String}
+ */
+function buildRedirect () {
+    return config.get('server.url') + '/login/attempt';
+}
+
+/**
+ * Route to redirect the user to the main Beam site for
+ * authentication.
+ * @param  {Express.Request} req
+ * @param  {Express.Response} res
+ */
+export function redirect (req, res) {
+    var url = req.beam.getProvider()
+        .getRedirect(buildRedirect(), permissions);
+
+    res.redirect(url);
+}
+
+/**
+ * Route users should return to after doing authentication stuff.
+ * @param  {Express.Request} req
+ * @param  {Express.Response} res
+ */
+export function attempt (req, res) {
+    req.beam.getProvider()
+        .attempt(buildRedirect(), req.query)
+        .then(function () {
+            res.redirect('/');
+        })
+        .catch(function (e) {
+            console.error(e);
+            res.status(400).send('There was an error authenticating you :(');
         });
-    }
 }

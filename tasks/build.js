@@ -5,14 +5,14 @@ var sass = require("gulp-sass");
 gulp.task("build", [ "build-backend", "build-frontend" ]);
 
 gulp.task("build-backend", function () {
-  gulp.src("./src/**/*.js*")
+  gulp.src("./src/_html/**/*").pipe(gulp.dest("./__build__/_html/"));
+  return gulp.src("./src/**/*.js*")
       .pipe(babel())
       .pipe(gulp.dest("./__build__/"));
-  gulp.src("./src/_html/**/*").pipe(gulp.dest("./__build__/_html/"));
 });
 
 gulp.task("build-frontend", function () {
-  gulp.src("./app/stylesheets/**/*.scss")
+  return gulp.src("./app/stylesheets/**/*.scss")
       .pipe(sass())
       .pipe(gulp.dest("./__build__/assets/css"));
 });

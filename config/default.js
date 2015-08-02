@@ -33,10 +33,13 @@ exports.oauth = {
 exports.server = {
     port: 9393,
     // Public URL this server is accessible on:
-    url: 'http://localhost:9393'
+    url: 'https://developer.beam.pro'
 };
 
 /**
- * Link to V1 of the API. Must not end in a trailing slash.
+ * Link to beam frontend and backends.
  */
-exports.apiUrl = 'https://beam.pro/api/v1';
+exports.url = {
+    api: 'https://beam.pro/api/v1',
+    public: 'https://beam.pro'
+};
