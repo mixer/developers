@@ -27,19 +27,19 @@ export default class ClientLibraries extends React.Component {
       clients: [
         {
           name: "Python",
-          url: "https://github.com/MCProHosting/beam-client-python",
+          url: "https://github.com/WatchBeam/beam-client-python",
           img: "/static/img/logo-python.svg"
         }, {
           name: "Java",
-          url: "https://github.com/MCProHosting/beam-client-java",
+          url: "https://github.com/WatchBeam/beam-client-java",
           img: "/static/img/logo-java.svg"
         }, {
           name: "Golang",
-          url: "https://github.com/MCProHosting/beam-client-go",
+          url: "https://github.com/WatchBeam/beam-client-go",
           img: "/static/img/logo-golang.svg"
         }, {
           name: "Node.js",
-          url: "https://github.com/MCProHosting/beam-client-node",
+          url: "https://github.com/WatchBeam/beam-client-node",
           img: "/static/img/logo-nodejs.svg"
         }
       ]
