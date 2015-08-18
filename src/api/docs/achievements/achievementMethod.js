@@ -41,6 +41,6 @@ class ErrorfulExample extends Example {
 
   httpCode() { return 403; }
   data() {
-    return "You are not permitted to preform that action.";
+    return "You are not permitted to perform that action.";
   }
 }
