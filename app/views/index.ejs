@@ -16,8 +16,12 @@
       // Invoke the scrollspy directive
       $("body").scrollspy({ target: ".api-method-selector" });
 
+      $('.hover-select').on('mouseenter', function () {
+        this.select();
+      });
+
       // Syntax highlight all of the code-blocks.
-      var elements = $("code[class]");
+      var elements = $("pre code");
       for (var i = 0, ii = elements.length; i < ii; i ++) {
         var element = elements[i];
         hljs.highlightBlock(element);

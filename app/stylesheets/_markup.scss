@@ -26,3 +26,18 @@ table {
         border-bottom: 1px solid rgba(255,255,255,.05);
     }
 }
+
+.btn-alt {
+    border: 1px solid $api-alt-color;
+    color: $api-alt-color;
+    background: none;
+
+    &:hover {
+        color: darken($api-alt-color, 10%);
+    }
+}
+
+::selection {
+    background: #fff;
+    color: #000;
+}

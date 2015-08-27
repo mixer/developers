@@ -12,9 +12,9 @@ export default class Application extends React.Component {
   render() {
     return (
       <div className="application">
-        <Header/>
+        <Header authed={this.props.session.isAuthed}/>
         <img src="/static/img/line.svg" className="line" />
-        <Router.RouteHandler />
+        <Router.RouteHandler {...this.props}/>
       </div>
     );
   }

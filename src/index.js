@@ -1,5 +1,6 @@
 var Server = require("./server");
-var port = process.env.PORT || 9393;
+var config = require("config");
+var port = config.get('server.port');
 
 var server = new Server(port, "./docs");
 
