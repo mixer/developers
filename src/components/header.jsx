@@ -14,10 +14,22 @@ export default class Header extends React.Component {
     return match !== null;
   }
 
+  getManageBtn () {
+    if (this.props.authed) {
+      return (
+        <li data-active={this.active(/^\/oauth\/manage/)}>
+          <a href="/oauth/manage">Manage OAuth</a>
+        </li>
+      );
+    } else {
+      return <li><a href="/login/redirect">Login</a></li>
+    }
+  }
+
   render() {
     return (
       <header className="clearfix">
-        <Bootstrap.Grid fluid="true">
+        <Bootstrap.Grid fluid={true}>
           <div className="header-text pull-left">
             <h1>Beam</h1>
             <h2>
@@ -34,6 +46,7 @@ export default class Header extends React.Component {
             <li data-active={this.active(/^\/$/)}><a href="/">Home</a></li>
             <li data-active={this.active(/^\/api\/guides\//)}><a href="/api/guides/">Dev Guides</a></li>
             <li data-active={this.active(/^\/api\/v1\//)}><a href="/api/v1/">API Reference</a></li>
+            {this.getManageBtn()}
           </ul></div>
 
         </Bootstrap.Grid>
