@@ -70,8 +70,8 @@ class Help extends React.Component {
     return (
       <div>
         <h2>Get Started with OAuth</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum metus eu lacus laoreet elementum. Morbi vehicula luctus tortor, eget gravida felis condimentum non. Morbi lobortis rhoncus tellus in ultrices. Duis id neque vitae diam elementum commodo et eget risus. Mauris vitae scelerisque urna. Ut in porttitor neque. Nunc euismod augue id velit molestie tristique. Curabitur rhoncus vestibulum quam.</p>
-        <p>Nullam eget suscipit mi. Vivamus feugiat metus nec leo dapibus pharetra. Donec finibus, lacus non posuere posuere, ligula leo posuere lorem, at malesuada mi mi in odio. Duis aliquam diam et dolor finibus pharetra auctor in ligula. Mauris faucibus justo nulla, a tincidunt nibh mattis ac.</p>
+        <p>OAuth allows apps to request authorization from users to private account functions without requiring the user to provide their actual password.</p>
+        <p>Want to implement an OAuth app? We make it easy.</p>
         <p><a href="/doc/oauth">Read More...</a></p>
       </div>
     );
