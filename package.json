@@ -20,6 +20,8 @@
   "homepage": "https://github.com/MCProHosting/beam-developers",
   "dependencies": {
     "beam-client-node": "git+ssh://git@github.com/WatchBeam/beam-client-node.git",
+    "bluebird": "^2.9.34",
+    "body-parser": "^1.13.3",
     "bower": "^1.4.1",
     "cassandra-driver": "^2.1.2",
     "client-sessions": "^0.7.0",
@@ -32,6 +34,7 @@
     "gulp-babel": "^5.1.0",
     "gulp-sass": "^2.0.1",
     "lorem-ipsum": "^1.0.3",
+    "multer": "^1.0.3",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.0",
     "react-router": "^0.13.3"

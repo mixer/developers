@@ -1,9 +1,9 @@
 import React from "react";
 import Bootstrap from "react-bootstrap";
+import ValidatedInput from "./validated_input";
 
 export class List extends React.Component {
   render() {
-    console.log(this.props.clients);
     return (
       <Bootstrap.Grid>
         <Bootstrap.Col xs={12} md={8}>
@@ -24,6 +24,7 @@ export class List extends React.Component {
 export class Edit extends React.Component {
   render() {
     const client = this.props.client || {};
+    const invalid = this.props.invalid;
     const edit = !!this.props.client;
 
     return (
@@ -32,15 +33,29 @@ export class Edit extends React.Component {
           <h2>
             { edit ? 'Edit OAuth Client' : 'Create OAuth Client' }
           </h2>
-          <form action="/oauth/edit" method="POST">
+          { invalid ? <Bootstrap.Alert bsStyle='danger'>
+                  There was an error with your registration.
+                </Bootstrap.Alert> : '' }
+          <form action="/oauth/edit" method="POST" encType={ edit ? undefined : "multipart/form-data" }>
             { edit ? <input type="hidden" name="id" value={client.client_id} /> : '' }
-            <Bootstrap.Input type='text' label='Name' placeholder='Client Name' value={client.name} />
-            <Bootstrap.Input type='text' label='Website' placeholder='http://example.com' />
-            <Bootstrap.Input
+            <ValidatedInput invalid={invalid} name='name' type='text' label='Name'
+              placeholder='Client Name' value={client.name} />
+            <ValidatedInput invalid={invalid} name='website' type='text' label='Website' placeholder='http://example.com' value={client.website} />
+            <ValidatedInput invalid={invalid} name='hosts'
               type='text' label='Hosts'
-              placeholder='Hosts' value={edit ? client.hosts.join(',') : ''}
+              placeholder='Hosts' value={edit ? client.hosts.join(', ') : ''}
               help='List of hosts, separated by commas. You will only be allowed to redirect to these hostnames.' />
-            { edit ? '' : <Bootstrap.Input type='file' label='Logo' /> }
+            { edit ? '' : (
+              <div>
+                <ValidatedInput invalid={invalid} name='logo' type='file' label='Logo' />
+                <ValidatedInput type='checkbox' name='secret' label='Confidential' help={
+                  'If checked, your client will be issued and must use a secret key. ' +
+                  'This should only be checked if you client can keep the key a secret. ' +
+                  'For example, mobile apps cannot maintain confidentiality, ' +
+                  'but backend web services can.'
+                } />
+              </div>
+            )}
             <button className="btn btn-alt">Save</button>
           </form>
         </Bootstrap.Col>

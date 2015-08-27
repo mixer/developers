@@ -37,6 +37,12 @@ export function attempt (req, res) {
         .attempt(buildRedirect(), req.query)
         .then(function () {
             req.auth.tokens = this.getTokens();
+            return req.beam.request('get', '/users/current', {
+                query: { fields: 'id' }
+            });
+        })
+        .then(function (result) {
+            req.auth.userId = result.body.id;
             res.redirect('/');
         })
         .catch(function (e) {

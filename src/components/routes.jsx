@@ -17,7 +17,8 @@ module.exports = (
     <Route name="widgets" path="api/widgets" handler={WidgetPage}/>
     <Route name="chatproto" path="api/chat" handler={ChatProtoPage}/>
     <Route name="oauthList" path="oauth/manage" handler={OAuthManage.List}/>
-    <Route name="oauthEdit" path="oauth/edit/:id?" handler={OAuthManage.Edit}/>
+    <Route name="oauthEdit" path="oauth/edit/:id" handler={OAuthManage.Edit}/>
+    <Route name="oauthCreate" path="oauth/edit" handler={OAuthManage.Edit}/>
     <DefaultRoute handler={Index} />
   </Route>
 )

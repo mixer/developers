@@ -1,8 +1,10 @@
+import React from "react";
+import Router from "react-router";
+
+import bodyParser from "body-parser";
 import express from "express";
 import path from "path";
 import config from "config";
-import React from "react";
-import Router from "react-router";
 
 import DocumentationStore from "../api/store.js";
 
@@ -22,6 +24,7 @@ export default class Server {
       ].map(rel => { return path.join(__dirname, rel) })
     }));
     this.app.use(require('client-sessions')(config.get('cookie')));
+    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(require('./auth')); // important: auth is registered after session
     this.app.use('/oauth', require('./needLogin'));
 
@@ -47,6 +50,8 @@ export default class Server {
     this.app.get("/doc/*", require('./routes/doc'));
 
     this.app.get("/oauth/manage", require('./routes/react').oauthManage);
+    this.app.get("/oauth/edit/:id?", require('./routes/react').oauthEdit);
+    this.app.post("/oauth/edit", require('./routes/react').oauthSave);
     this.app.get("*", require('./routes/react').render);
   }
 }
