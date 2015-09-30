@@ -8,7 +8,7 @@ import APIReferencePage from "./api_reference_page.js";
 import GuidePage from "./guide_page.js";
 import WidgetPage from "./widget_page_component.js";
 import ChatProtoPage from "./chatproto_page_component.js";
-const OAuthManage = require('./oauth_manage');
+import * as OAuthManage from "./oauth_manage";
 
 module.exports = (
   <Route name="app" path="/" handler={Application}>
