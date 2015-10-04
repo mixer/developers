@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 export default function (req, res) {
   let location = path.join(__dirname, "../../../app/views" + req.url);
