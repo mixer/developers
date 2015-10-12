@@ -1,4 +1,6 @@
 pro.beam.api
+pro.beam.api.exceptions
+pro.beam.api.exceptions.user
 pro.beam.api.http
 pro.beam.api.http.ws
 pro.beam.api.resource
