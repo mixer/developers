@@ -107,7 +107,7 @@ class Client extends React.Component {
             <tr><th>Client ID</th><td><Selector value={this.props.client_id} /></td></tr>
             {this.getSecretItem()}
             <tr><th>Allowed Hosts</th><td>{this.props.hosts.join(', ')}</td></tr>
-            <tr><th>Website</th><td><a href={this.props.website}>{this.props.website}</a></td></tr>
+            <tr><th>Website</th><td><a href={this.props.website} target="_blank">{this.props.website}</a></td></tr>
           </table>
         </div>
       </div>
