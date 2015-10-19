@@ -3,7 +3,7 @@ import config from 'config';
 /**
  * Permissions we intend to request over oauth;
  */
-const permissions = ['oauth:manage:self'];
+const permissions = ['user:details', 'oauth:manage:self'];
 
 /**
  * Returns the redirect URL we send to OAuth. Clients will be
