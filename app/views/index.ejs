@@ -26,6 +26,16 @@
         var element = elements[i];
         hljs.highlightBlock(element);
       }
+
+      $('.confirm-click').each(function () {
+        var text = this.dataset.confirm;
+        this.addEventListener('click', function (e) {
+          if (!confirm(text)) {
+            e.preventDefault();
+            return false;
+          }
+        }, false);
+      });
     </script>
   </body>
 </html>
