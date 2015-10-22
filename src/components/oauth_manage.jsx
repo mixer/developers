@@ -50,7 +50,7 @@ export class Edit extends React.Component {
                 <ValidatedInput invalid={invalid} name='logo' type='file' label='Logo' />
                 <ValidatedInput type='checkbox' name='secret' label='Confidential' help={
                   'If checked, your client will be issued and must use a secret key. ' +
-                  'This should only be checked if you client can keep the key a secret. ' +
+                  'This should only be checked if your client can keep the key a secret. ' +
                   'For example, mobile apps cannot maintain confidentiality, ' +
                   'but backend web services can.'
                 } />
