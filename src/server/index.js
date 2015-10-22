@@ -50,6 +50,7 @@ export default class Server {
     this.app.get("/doc/*", require('./routes/doc'));
 
     this.app.get("/oauth/manage", require('./routes/react').oauthManage);
+    this.app.post("/oauth/delete/:id", require('./routes/react').oauthDelete);
     this.app.get("/oauth/edit/:id?", require('./routes/react').oauthEdit);
     this.app.post("/oauth/edit", require('./routes/react').oauthSave);
     this.app.get("*", require('./routes/react').render);
