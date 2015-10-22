@@ -99,15 +99,23 @@ class Client extends React.Component {
       <div className="oauth-client">
         <div className="logo">
           <img src={this.props.logo} alt={this.props.name} />
+          <a href={'/oauth/edit/' + this.props.client_id} className="btn btn-alt btn-block">Edit</a>
+          <form action={'/oauth/delete/' + this.props.client_id} method="post" style={{ 'margin-top': '5px' }}>
+            <button className="btn btn-sm btn-danger btn-block confirm-click"
+              data-confirm="Are you sure you want to delete your OAuth client? This cannot be undone.">
+                Delete
+            </button>
+          </form>
         </div>
         <div className="content">
-          <a href={'/oauth/edit/' + this.props.client_id} className="edit">Edit</a>
+          <div className="edit">
+          </div>
           <h3>{this.props.name}</h3>
           <table>
             <tr><th>Client ID</th><td><Selector value={this.props.client_id} /></td></tr>
             {this.getSecretItem()}
             <tr><th>Allowed Hosts</th><td>{this.props.hosts.join(', ')}</td></tr>
-            <tr><th>Website</th><td><a href={this.props.website}>{this.props.website}</a></td></tr>
+            <tr><th>Website</th><td><a href={this.props.website} target="_blank">{this.props.website}</a></td></tr>
           </table>
         </div>
       </div>

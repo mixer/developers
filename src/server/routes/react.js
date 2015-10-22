@@ -40,6 +40,13 @@ export function oauthEdit (req, res) {
   render(req, res, { invalid: req.invalid })
 }
 
+export function oauthDelete (req, res) {
+  return req.beam
+    .request('delete', '/oauth/clients/' + req.params.id)
+    .then(() => res.redirect('/oauth/manage'))
+    .catch((e) => showError(e, res));
+}
+
 export function oauthSave (req, res) {
   const id = req.body.id;
   req.params.id = id;
