@@ -1,4 +1,5 @@
 import React from "react";
+import If from "../../lib/If";
 import HTTPCodes from "../../lib/httpCodes.js";
 
 export default class ExampleComponent extends React.Component {
@@ -22,11 +23,14 @@ export default class ExampleComponent extends React.Component {
     return (
       <div className="api-example">
         { this.header() }
-        <pre>
-          <code className="example-json json">
-            { JSON.stringify(this.props.example.data(), null, "  ") }
-          </code>
-        </pre>
+        <If test={ !!this.props.example.data() }>
+          <pre>
+            <code className="example-json json">
+              { JSON.stringify(this.props.example.data(), null, "  ") }
+            </code>
+          </pre>
+        </If>
+        <p>{ this.props.example.description() }</p>
       </div>
     )
   }
