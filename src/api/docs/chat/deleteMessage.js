@@ -19,7 +19,7 @@ export default class DeleteMessageMethod extends Method {
         Hitting this endpoint removes a chat message from the channel's
         chat. The message will be removed from the chat log and an event will go
         out to chat servers, which in turn send events to connected users
-        instructings the clients to hide the message.
+        instructing the clients to hide the message.
       </p>
     );
   }
@@ -37,7 +37,7 @@ export default class DeleteMessageMethod extends Method {
 class IDParameter extends Parameter {
   name() { return "id"; }
   description() {
-    return "The channel numeric id of the channel that the message is in.";
+    return "The numeric id of the channel you want to remove a message from.";
   }
 }
 
