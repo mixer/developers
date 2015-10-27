@@ -30,4 +30,19 @@ export default class Parameter {
   optional() {
     return false;
   }
+
+  type() {
+    return "url";
+  }
+
+  getTypeSymbol() {
+    switch (this.type()) {
+      case "url":
+        return ":";
+      case "query":
+        return "?";
+      default:
+        return "";
+    }
+  }
 }

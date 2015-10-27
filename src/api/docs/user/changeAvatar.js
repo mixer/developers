@@ -23,7 +23,7 @@ export default class ChangeAvatarMethod extends Method {
 }
 
 class AvatarParameter extends Parameter {
-  name() { return "@avatar"; }
+  name() { return "avatar"; }
   description() {
     return (
       <div>
