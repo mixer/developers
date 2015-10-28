@@ -31,12 +31,22 @@ export default class CreateSubscriptionMethod extends Method {
     );
   }
 
-  parameters() { return [ new UserParameter(), new GroupParameter(),
-                          new TermsParameter(), new SplatParameter() ]; }
-
-  examples() { return [ new SuccesfulResult(), new ErrorfulResult(),
-                        new AccessDeniedResult(),
-                        new ResourceMissingResult("Channel") ]; }
+  parameters() {
+    return [
+      new UserParameter(),
+      new GroupParameter(),
+      new TermsParameter(),
+      new SplatParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new ErrorfulResult(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Channel")
+    ];
+  }
 }
 
 class UserParameter extends Parameter {
@@ -82,7 +92,7 @@ class SplatParameter extends Parameter {
                          "group (see above)."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {

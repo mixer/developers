@@ -25,8 +25,16 @@ export default class ListTypesMethod extends Method {
     );
   }
 
-  parameters() { return [ new QueryParameter() ]; }
-  examples() { return [ new SuccesfulResult() ]; }
+  parameters() {
+    return [
+      new QueryParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult()
+    ];
+  }
 }
 
 class QueryParameter extends Parameter {
@@ -41,7 +49,7 @@ class QueryParameter extends Parameter {
   default() { return undefined; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     let makeType = function (id, name, parent) {
@@ -54,7 +62,7 @@ class SuccesfulResult extends Example {
         viewersCurrent: 0,
         online: 0
       }
-    }
+    };
 
     return [ makeType(1, "Minecraft", "Games"),
              makeType(2, "Battlefield Hardline", "Games") ];

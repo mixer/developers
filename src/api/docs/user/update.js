@@ -5,7 +5,7 @@ import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
-import SuccesfulExample from "./succesfulExample.js";
+import SuccessfulExample from "./SuccessfulExample.js";
 import AccessDeniedResponse from "../../accessDeniedResult.js";
 import ErrorfulResponse from "../../errorfulResponse.js";
 
@@ -14,13 +14,24 @@ export default class SomeAPIMethod extends Method {
   version() { return 1; }
   httpMethod() { return "PUT"; }
   group() { return "user"; }
-
   description() { return "Updates user profile information."; }
-  parameters() { return [ new IDParameter(), new EmailParameter(),
-                          new PasswordParameter(), new PasswordVerifyParameter(),
-                          new SocialParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResponse(),
-                        new ErrorfulResponse() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new EmailParameter(),
+      new PasswordParameter(),
+      new PasswordVerifyParameter(),
+      new SocialParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResponse(),
+      new ErrorfulResponse()
+    ];
+  }
 }
 
 class EmailParameter extends Parameter {

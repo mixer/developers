@@ -4,7 +4,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulExample from "./succesfulResponse.js";
+import SuccessfulExample from "./successfulResponse.js";
 
 import AccessDeniedResult from "../../accessDeniedResult.js";
 import ResourceMissingResult from "../../resourceMissingResult.js";
@@ -28,10 +28,9 @@ export default class UpdateChannelMethod extends Method {
       new DescriptionParameter()
     ];
   }
-
   examples() {
     return [
-      new SuccesfulExample(),
+      new SuccessfulExample(),
       new AccessDeniedResult(),
       new ResourceMissingResult("Channel"),
       new ErrorfulResult()
@@ -57,7 +56,7 @@ class AllowCostreamParameter extends Parameter {
     return (
       <div className="description">
         <p>
-          Whether costreaming requests are permitted on the channnel.  It may be
+          Whether costreaming requests are permitted on the channel.  It may be
           one of:
         </p>
         <ul>

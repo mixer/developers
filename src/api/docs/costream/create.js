@@ -13,10 +13,15 @@ export default class CreateCostreamRequestMethod extends Method {
   description() { return "Creates and sends a costream request."; }
   group() { return "costream"; }
 
-  parameters() { return [ new FromParameter(), new ToParameter() ]; }
+  parameters() {
+    return [
+      new FromParameter(),
+      new ToParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulResponse(),
+      new SuccessfulResponse(),
       new ErrorfulResponse(),
       new ResourceMissingResponse("Channel"),
       new AccessDeniedResponse
@@ -34,7 +39,7 @@ class ToParameter extends Parameter {
   description() { return "Array of channel IDs of which to send the request."; }
 }
 
-class SuccesfulResponse extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() { return "Requests have been sent."; }
 }

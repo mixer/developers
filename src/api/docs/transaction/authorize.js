@@ -17,10 +17,20 @@ export default class AuthorizeTransactionMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new IDParameter(), new GatewayParameter(),
-                          new SplatParameter() ]; }
-  examples() { return [ new CompleteExample(), new NeedsAuthorizationExample(),
-                        new PaymentFailedExample() ]; }
+  parameters() {
+    return [
+      new IDParameter(),
+      new GatewayParameter(),
+      new SplatParameter()
+    ];
+  }
+  examples() {
+    return [
+      new CompleteExample(),
+      new NeedsAuthorizationExample(),
+      new PaymentFailedExample()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -42,7 +52,7 @@ class GatewayParameter extends Parameter {
             <td><code>internal</code></td>
             <td>
               Default gateway.  Processes point payments, but will not process
-              monetary transaction.  No aditional parameters are required.
+              monetary transaction.  No additional parameters are required.
             </td>
           </tr>
           <tr>
@@ -68,8 +78,7 @@ class GatewayParameter extends Parameter {
 class SplatParameter extends Parameter {
   name() { return "*"; }
   optional() { return true; }
-  description() { return "Additional parameters can be passed as required per " +
-                         "gateway (see above)."; }
+  description() { return "Additional parameters can be passed as required per gateway (see above)."; }
 }
 
 class CompleteExample extends Example {

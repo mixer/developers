@@ -11,7 +11,6 @@ export default class CreateResetTokenMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() {
     return (
       <div>
@@ -26,9 +25,19 @@ export default class CreateResetTokenMethod extends Method {
       </div>
     )
   }
-  parameters() { return [ new EmailParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ResourceMissingResult("User"),
-                        new RateLimitExample() ]; }
+
+  parameters() {
+    return [
+      new EmailParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ResourceMissingResult("User"),
+      new RateLimitExample()
+    ];
+  }
 }
 
 class EmailParameter extends Parameter {
@@ -36,9 +45,9 @@ class EmailParameter extends Parameter {
   description() { return "Users's email address."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
-  data() { return "Succesfully sent password reset email"; }
+  data() { return "Successfully sent password reset email"; }
 }
 
 class RateLimitExample extends Example {

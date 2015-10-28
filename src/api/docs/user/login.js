@@ -4,14 +4,13 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import ExpandedSuccesfulExample from "./expandedSuccesfulExample.js";
+import ExpandedSuccessfulExample from "./expandedSuccessfulExample.js";
 
 export default class UserLoginMethod extends Method {
   uri() { return "/api/v1/users/login"; }
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() {
     return (
       <div>
@@ -28,10 +27,22 @@ export default class UserLoginMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new UsernameParameter(), new PasswordParameter(),
-                          new CodeParameter() ]; }
-  examples() { return [ new ExpandedSuccesfulExample(), new UnauthorizedExample(),
-                        new Unauthorized2faExample(), new RateLimitExample() ]; }
+
+  parameters() {
+    return [
+      new UsernameParameter(),
+      new PasswordParameter(),
+      new CodeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new ExpandedSuccessfulExample(),
+      new UnauthorizedExample(),
+      new Unauthorized2faExample(),
+      new RateLimitExample()
+    ];
+  }
 }
 
 class UsernameParameter extends Parameter {

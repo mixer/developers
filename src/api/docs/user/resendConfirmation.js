@@ -8,13 +8,22 @@ export default class ResendConfirmationMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return "Triggers a confirmation email to be resent."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new ErrorfulResult()
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "Confirmation email resent."; }
 }

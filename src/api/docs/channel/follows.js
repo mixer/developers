@@ -7,10 +7,10 @@ export default class ChannelFollowsMethod extends PaginatedMethod {
   uri() { return "/api/v1/channels/:id/follow"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "channels" }
   description() {
     return "Lists the users who follow a channel, in the order that they followed";
   }
-  group() { return "channels" }
 
   parameters() {
     return super.parameters().concat([
@@ -19,8 +19,11 @@ export default class ChannelFollowsMethod extends PaginatedMethod {
       new SortParameter()
     ]);
   }
-
-  examples() { return [ new SuccesfulExample() ]; }
+  examples() {
+    return [
+      new SuccessfulExample()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -49,7 +52,7 @@ class SortParameter extends Parameter {
   default() { return "undefined"; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

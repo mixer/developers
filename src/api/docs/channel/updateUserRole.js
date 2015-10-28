@@ -10,7 +10,6 @@ export default class UpdateUserRoleMethod extends Method {
   version() { return 1; }
   uri() { return "/api/v1/channels/:id/users/:user"; }
   group() { return "channels"; }
-
   description() {
     return (
       <div className="description">
@@ -49,10 +48,9 @@ export default class UpdateUserRoleMethod extends Method {
       new RemoveParameter()
     ];
   }
-
   examples() {
     return [
-      new SuccesfulResult(),
+      new SuccessfulResult(),
       new ErrorfulResult(),
       new AccessDeniedResult(),
       new NotFoundResult()
@@ -89,7 +87,7 @@ class RemoveParameter extends Parameter {
   default() { return []; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {

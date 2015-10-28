@@ -14,9 +14,8 @@ export default class OrderParameter extends Parameter {
     return (
       <div>
         <p>
-          Specifies the order in which items should be displayed in the format
-           <code>attribute:order</code>. Order should be one of <code>asc</code>
-           or <code>desc</code>. Attribute may be one of:
+          Specifies the order in which items should be displayed in the form <code>attribute:order</code>.
+          Order should be one of <code>asc</code> or <code>desc</code>. Attribute may be one of:
         </p>
 
         <ul>{

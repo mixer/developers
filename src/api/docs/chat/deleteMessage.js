@@ -12,7 +12,6 @@ export default class DeleteMessageMethod extends Method {
   version() { return 1; }
   uri() { return "/api/v1/chats/:id/message/:message" }
   group() { return "chat"; }
-
   description() {
     return (
       <p>
@@ -23,10 +22,16 @@ export default class DeleteMessageMethod extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter(), new MessageParameter() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new MessageParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulResponse(),
+      new SuccessfulResponse(),
       new AccessDeniedResponse(),
       new ResourceMissingResponse("Channel"),
       new ResourceMissingResponse("Message")
@@ -36,9 +41,7 @@ export default class DeleteMessageMethod extends Method {
 
 class IDParameter extends Parameter {
   name() { return "id"; }
-  description() {
-    return "The numeric id of the channel you want to remove a message from.";
-  }
+  description() { return "The numeric id of the channel you want to remove a message from."; }
 }
 
 class MessageParameter extends Parameter {
@@ -46,7 +49,7 @@ class MessageParameter extends Parameter {
   description() { return "The UUID of the chat message you want to remove."; }
 }
 
-class SuccesfulResponse extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() { return "Message deleted."; }
 }

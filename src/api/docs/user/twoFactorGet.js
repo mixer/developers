@@ -10,15 +10,23 @@ export default class TwoFactorRecoverMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "user"; }
+  description() { return "Produces a list of codes a user can utilize to recover their account if their device is stolen or lost."; }
 
-  description() { return "Produces a list of codes a user can utilize to " +
-                         "recover their account if their device is stolen or lost."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Credentials") ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Credentials")
+    ];
+  }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [

@@ -9,10 +9,17 @@ export default class FindManyTransactionMethod extends PaginatedMethod {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "transaction"; }
-
   description() { return "Finds information about a single user's transactions."; }
-  parameters() { return super.parameters().concat([ new IDParameter() ]); }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return super.parameters().concat([ new IDParameter() ]);
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -20,7 +27,7 @@ class IDParameter extends Parameter {
   description() { return "Numeric user ID for which to gather transactions."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{
