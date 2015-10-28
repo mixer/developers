@@ -14,7 +14,11 @@ export default class ExampleGroup extends React.Component {
     return (
       <div className="examples">
         <ul className="examples-list">{
-          this.examples().map((ex) => <li>{ ex }</li>)
+          this.examples().map((ex) => {
+            let httpCode = ex.props.example.httpCode();
+
+            return <li key={httpCode + ":" + Math.random()}>{ ex }</li>;
+          })
         }</ul>
       </div>
     );

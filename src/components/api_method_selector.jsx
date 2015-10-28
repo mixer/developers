@@ -19,7 +19,7 @@ export default class MethodSelectorComponent extends React.Component {
             let uri = method.uri().substring("/api/v1".length);
             let href = `#${method.httpMethod().toLowerCase()}:${method.uri().replace(/:|\//g, "")}`;
 
-            return <NavItem href={href}><code>{meth}</code> {uri}</NavItem>;
+            return <NavItem key={href} href={href}><code>{meth}</code> {uri}</NavItem>;
           })
         }</Nav>
       </div>
