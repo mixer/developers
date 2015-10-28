@@ -20,7 +20,8 @@ export default class ChannelTypesMethod extends PaginatedMethod {
   parameters() {
     return super.parameters().concat([
       new SlugParameter(),
-      new OrderParameter(["online", "featured", "partnered", "name", "viewers_total", "followers", "subscribers"]),
+      new OrderParameter(["online", "featured", "partnered", "name",
+        "viewers_total", "followers", "subscribers"]),
       new OnlyParameter()
     ]);
   }
@@ -40,7 +41,8 @@ class OnlyParameter extends Parameter {
   name() { return "only"; }
   description() {
     return (
-      <p>Filters the results to a specific subset. Valid values are <code>featured</code> and <code>partnered</code>.</p>
+      <p>Filters the results to a specific subset. Valid values
+        are <code>featured</code> and <code>partnered</code>.</p>
     )
   }
   optional() { return true; }

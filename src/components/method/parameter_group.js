@@ -17,11 +17,7 @@ export default class ParameterGroup extends React.Component {
         <div className="parameters">
           <span className="parameters-header">Parameters</span>
           <ul className="parameters-list">{
-            this.parameters().map((parameter) => {
-              let name = parameter.props.parameter.name();
-
-              return <li key={name}>{ parameter }</li>;
-            })
+            this.parameters().map((parameter, key) => <li key={key}>{ parameter }</li>)
           }</ul>
         </div>
       </If>

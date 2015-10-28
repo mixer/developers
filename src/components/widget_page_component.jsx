@@ -16,7 +16,7 @@ export default class WidgetPageComponent extends React.Component {
 
   render() {
     return (
-      <Col md="12">
+      <Col md={12}>
         <div className="markup widget-markup" dangerouslySetInnerHTML={this.markup()}></div>
       </Col>
     );

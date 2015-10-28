@@ -15,11 +15,7 @@ export default class MethodGroup extends React.Component {
     return (
       <div className="method-group" id={this.props.name}>
         <ul className="methods">{
-          this.methods().map((m) => {
-            let href = `#${m.props.endpoint.httpMethod().toLowerCase()}:${m.props.endpoint.uri().replace(/:|\//g, "")}`;
-
-            return <li key={href}>{ m }</li>;
-          })
+          this.methods().map((m, key) => <li key={key}>{ m }</li>)
         }</ul>
       </div>
     )
