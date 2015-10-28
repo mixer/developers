@@ -10,8 +10,12 @@ export default class WidgetPageComponent extends React.Component {
   }
 
   markup() {
-    let contents = fs.readFileSync(path.join(__dirname, "../_html/chatproto.html"));
+    let contents = fs.readFileSync(path.join(__dirname, "../../_html/oauth.html"));
     return { __html: contents.toString() };
+  }
+
+  static token() {
+    return "oauth";
   }
 
   render() {

@@ -1,0 +1,49 @@
+<div class="widget-page">
+  <section>
+    <h1>Beam OAuth</h1>
+    <p>(PS: Looking for the API endpoints? <a href="/api/v1/oauth">Click here</a>)</p>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        When you need access to a users' private resources, need to be able to act as another user in chat or
+        just want to use Beam credentials to authenticate your users, it's best to use OAuth so the users'
+        credentials don't get stored on your servers.
+      </p>
+      <p>
+        OAuth is a system that replaces the credentials by app-specific tokens. Your app can request a set of
+        tokens for a certain user with a specific set of permissions. This way your app only gets access to what
+        it needs and all other details will stay hidden.
+      </p>
+      <p>
+        To start using OAuth you should start by creating an application as described below.
+      </p>
+    </section>
+    <section>
+      <h2>Registering your application</h2>
+      <p>
+        To create an application you can go to the page called <a href="/oauth/manage">Manage OAuth</a>.
+        (You might need to authorize the developers site first).
+        Once on the page click the <code>Create New</code> button in the top right corner and it'll
+        open the creation form.
+      </p>
+      <p>
+        On this page you'll need to enter some basic details about your application, like the name, website and
+        logo for your application. All of these will be displayed to the user and are for this reason required.
+      </p>
+      <h3>Hosts</h3>
+      <p>
+        The hosts parameter is an important one. This tells us what domains your application can redirect to.
+        (We'll explain redirection later)
+        This should be domains you control. You can use wildcards, for example: <code>*.beam.pro</code> will
+        allow redirects to all subdomains on beam.pro, but not beam.pro itself. The list of domains is comma
+        separated if you want to add multiple ones.
+      </p>
+    </section>
+    <section>
+      <h2>OAuth basics</h2>
+      <p>
+
+      </p>
+    </section>
+  </section>
+</div>

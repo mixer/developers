@@ -1,4 +1,6 @@
 import React from "react/addons";
+import Glob from "glob";
+import Path from "path";
 import {Nav, NavItem, Row, Col} from "react-bootstrap";
 
 import MethodSelector from "./api_method_selector.js";
@@ -7,6 +9,15 @@ import Bootstrap from "react-bootstrap";
 
 import ChatProtoPageComponent from "./chatproto_page_component.js";
 import WidgetPageComponent from "./widget_page_component.js";
+
+let documents = {};
+Glob.sync(Path.join(__dirname, "guides", '**/*.js'))
+    .forEach((path) => {
+      let Component = require(path);
+
+      documents[Component.token()] = Component;
+    });
+
 
 export default class APIReferencePage extends React.Component {
   static get contextTypes() { return { router: React.PropTypes.func } };
@@ -17,13 +28,9 @@ export default class APIReferencePage extends React.Component {
 
   render() {
     let name = (this.context.router.getCurrentParams().name || "chat").toLowerCase();
+    let Component = documents[name];
 
-    let guideComp = undefined;
-    if (name === "chat") {
-      guideComp = <ChatProtoPageComponent />
-    } else if (name === "widgets") {
-      guideComp = <WidgetPageComponent />
-    }
+    let guideComp = <Component />;
 
     return (
       <div className="api-method-page">
@@ -33,7 +40,7 @@ export default class APIReferencePage extends React.Component {
               <div className="a-left" data-spy="affix" data-offset-top="160">
                  <CategorySelector active={name}
                                    base="/api/guides"
-                                   categories={[ "chat", "widgets" ]}/>
+                                   categories={Object.keys(documents)}/>
               </div>
             </Col>
             <Col md={9}>
