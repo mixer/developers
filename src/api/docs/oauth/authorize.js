@@ -3,7 +3,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import TokenResponse from "./tokenResponse.js";
+import CodeResponse from "./codeResponse.js";
 
 export default class getOauthTokensMethod extends Method {
     uri() { return "/api/v1/oauth/authorize"; }
@@ -12,10 +12,20 @@ export default class getOauthTokensMethod extends Method {
     group() { return "oauth" }
     description() {
         return (
-            <p>
-                This endpoint returns a fully populated OAuth client.
-                This endpoint will only return public data for the OAuth app.
-            </p>
+            <div>
+                <p>
+                    This endpoint returns an authorization_code for the user.
+                    The user should be logged in before hitting this endpoint.
+                </p>
+                <p>
+                    If you're building an application you can open a popup
+                    to <a href="#">https://beam.pro/oauth/authorize</a> 
+                    (so without /api/v1), including the same query parameters,
+                    to provide the user with a graphical interface to accept
+                    the authorization. Beam will then redirect back to the
+                    provided callback_uri.
+                </p>
+            </div>
         )
     }
 
@@ -26,7 +36,7 @@ export default class getOauthTokensMethod extends Method {
         new RedirectURIParameter()
     ]; }
     examples() { return [
-        new TokenResponse(),
+        new CodeResponse(),
         new UnsupportedResponseTypeResult(),
         new AccessDeniedResult(),
         new InvalidScopeResult()

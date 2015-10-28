@@ -13,8 +13,7 @@ export default class getOauthTokensMethod extends Method {
     description() {
         return (
             <p>
-                This endpoint returns a fully populated OAuth client.
-                This endpoint will only return public data for the OAuth app.
+                This endpoint returns OAuth tokens generated for your client.
             </p>
         )
     }
