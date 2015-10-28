@@ -27,7 +27,12 @@ export default class getOauthTokensMethod extends Method {
         new RedirectURIParameter(),
         new ClientSecretParameter()
     ]; }
-    examples() { return [ new TokenResponse(), new ErrorfulResult() ]; }
+    examples() { return [
+        new TokenResponse(),
+        new UnsupportedGrantTypeResult(),
+        new InvalidClientResult(),
+        new InvalidGrantResult()
+    ]; }
 }
 
 class GrantTypeParameter extends Parameter {
@@ -66,7 +71,20 @@ class ClientSecretParameter extends Parameter {
     type() { return "body"; }
 }
 
-class ErrorfulResult extends Example {
-    httpCode() { return 404; }
-    data() { return "Client not found."; }
+class UnsupportedGrantTypeResult extends Example {
+    httpCode() { return 400; }
+    data() { return "unsupported_grant_type"; }
+    description() { return "The grant_type you selected is not supported."; }
+}
+
+class InvalidClientResult extends Example {
+    httpCode() { return 400; }
+    data() { return "invalid_client"; }
+    description() { return "The provided client/secret combo is incorrect."; }
+}
+
+class InvalidGrantResult extends Example {
+    httpCode() { return 400; }
+    data() { return "invalid_grant"; }
+    description() { return "From expired tokens, to invalid code, anything goes with this one!"; }
 }
