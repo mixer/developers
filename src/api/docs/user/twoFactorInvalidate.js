@@ -10,14 +10,23 @@ export default class TwoFactorInvalidMethod extends Method {
   version() { return 1; }
   httpMethod() { return "DELETE"; }
   group() { return "user"; }
-
   description() { return "Removes old two-factor recovery codes and returns a new set."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Credentials") ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Credentials")
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [

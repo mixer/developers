@@ -7,6 +7,7 @@ export default class ListEventsMethod extends Method {
   uri() { return "/api/v1/live"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
+  group() { return "liveloading"; }
   description() {
     return (
       <p>
@@ -15,13 +16,18 @@ export default class ListEventsMethod extends Method {
       </p>
     );
   }
-  group() { return "liveloading"; }
 
-  parameters() { return []; }
-  examples() { return [ new SuccesfulExample() ]; }
+  parameters() {
+    return [];
+  }
+  examples() {
+    return [
+      new SuccessfulExample()
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [

@@ -28,7 +28,12 @@ export default class SomeAPIMethod extends PaginatedMethod {
       new SortParameter()
     ]);
   }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedExample() ]; }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedExample()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -63,7 +68,7 @@ class SortParameter extends Parameter {
   default() { return undefined; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

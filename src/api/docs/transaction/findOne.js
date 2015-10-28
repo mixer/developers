@@ -10,11 +10,20 @@ export default class FindOneTransactionMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "transaction"; }
-
   description() { return "Finds information about a single transaction."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Transaction") ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Transaction")
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -22,7 +31,7 @@ class IDParameter extends Parameter {
   description() { return "Numeric user ID of the transaction to get."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

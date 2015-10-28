@@ -13,7 +13,6 @@ export default class UpdatePreferencesMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return (
     <p>
       Updates preferences relative to a given user. Requests can be made
@@ -21,9 +20,20 @@ export default class UpdatePreferencesMethod extends Method {
       preferences.
     </p>
   )}
-  parameters() { return [ new IDParameter(), new SplatParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulResponse(),
-                        new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new SplatParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulResponse(),
+      new AccessDeniedResult()
+    ]
+  }
 }
 
 class SplatParameter extends Parameter {
@@ -92,12 +102,12 @@ class SplatParameter extends Parameter {
         default: true,
         type: "Boolean",
         description: "Whether to show timestamps on chat messages or not."
-      },
+      }
     }
   }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

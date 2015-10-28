@@ -20,13 +20,29 @@ export default class FindManyItemsMethod extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter(),
-                          new OrderParameter([
-                            "id", "title", "description", "purchases",
-                            "currency_cost", "points_cost", "max_per_user",
-                            "max_quantity", "createdAt", "updatedAt"
-                          ]) ]; }
-  examples() { return [ new ItemExample() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new OrderParameter([
+        "id",
+        "title",
+        "description",
+        "purchases",
+        "currency_cost",
+        "points_cost",
+        "max_per_user",
+        "max_quantity",
+        "createdAt",
+        "updatedAt"
+      ])
+    ];
+  }
+  examples() {
+    return [
+      new ItemExample()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {

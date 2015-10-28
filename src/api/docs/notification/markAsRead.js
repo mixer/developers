@@ -12,7 +12,6 @@ export default class MarkAsReadMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "notification"; }
-
   description() {
     return (
       <p>
@@ -21,11 +20,23 @@ export default class MarkAsReadMethod extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter(), new SinceParameter(), new BeforeParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new SinceParameter(),
+      new BeforeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

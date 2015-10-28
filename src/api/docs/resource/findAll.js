@@ -11,7 +11,6 @@ export default class FindOneResource extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "resource"; }
-
   description() {
     return (
       <p>
@@ -22,8 +21,19 @@ export default class FindOneResource extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter(), new TypeParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new TypeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -38,7 +48,7 @@ class TypeParameter extends Parameter {
   default() { return undefined; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

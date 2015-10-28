@@ -15,7 +15,7 @@ export default class MethodGroup extends React.Component {
     return (
       <div className="method-group" id={this.props.name}>
         <ul className="methods">{
-          this.methods().map((m) => <li>{ m }</li>)
+          this.methods().map((m, key) => <li key={key}>{ m }</li>)
         }</ul>
       </div>
     )

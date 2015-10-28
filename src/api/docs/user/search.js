@@ -9,14 +9,20 @@ export default class UserSearchMethod extends PaginatedMethod {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "user"; }
-
   description() { return (
     <p>
       Searches for a user based on the prefix of their username.
     </p>
   )}
-  parameters() { return super.parameters().concat([ new QueryParameter() ]); }
-  examples() { return [ new SuccesfulResult() ]; }
+
+  parameters() {
+    return super.parameters().concat([ new QueryParameter() ]);
+  }
+  examples() {
+    return [
+      new SuccessfulResult()
+    ];
+  }
 }
 
 class QueryParameter extends Parameter {
@@ -29,7 +35,7 @@ class QueryParameter extends Parameter {
   )}
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [

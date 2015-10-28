@@ -11,7 +11,6 @@ export default class TwoFactorGenerator extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() {
     return (
       <div>
@@ -21,7 +20,7 @@ export default class TwoFactorGenerator extends Method {
           URL, you must send a valid key confirmation endpoint.
         </p>
         <p>
-          In acccordance with RFC6238 the time step (X) is 30 seconds and the
+          In accordance with RFC6238 the time step (X) is 30 seconds and the
           starting time (T0) is the unix epoch. This means it should work by
           default with most common authenticator apps, such as Google
           Authenticator. We allow a "drift" of five seconds in the future and
@@ -36,11 +35,21 @@ export default class TwoFactorGenerator extends Method {
       </div>
     );
   }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

@@ -27,7 +27,7 @@ export default class APIReferencePage extends React.Component {
 
     return (
       <div className="api-method-page">
-        <Bootstrap.Grid fluid="true">
+        <Bootstrap.Grid fluid={true}>
           <Bootstrap.Row>
             <Col md={3}>
               <div className="a-left" data-spy="affix" data-offset-top="160">

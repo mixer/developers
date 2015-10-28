@@ -10,7 +10,6 @@ export default class ChatFindOneMethod extends Method {
   httpMethod() { return "GET"; }
   uri() { return "/api/v1/chats/:id"; }
   group() { return "chat"; }
-
   description() {
     return (
       <div className="description">
@@ -19,8 +18,8 @@ export default class ChatFindOneMethod extends Method {
         </p>
         <p>
           It prepares the user to join a chat. It returns chat settings,
-          available chat servers, and an authnetication key that the user
-          (if authenticated) should use to authneticate with the chat servers
+          available chat servers, and an authentication key that the user
+          (if authenticated) should use to authenticate with the chat servers
           over websockets.
         </p>
         <p>
@@ -31,10 +30,15 @@ export default class ChatFindOneMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new IDParameter() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulResponse(),
+      new SuccessfulResponse(),
       new ResourceMissingRepsonse("Channel")
     ];
   }
@@ -47,7 +51,7 @@ class IDParameter extends Parameter {
   }
 }
 
-class SuccesfulResponse extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return {

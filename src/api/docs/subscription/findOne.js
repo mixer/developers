@@ -9,12 +9,21 @@ export default class FindOneSubscriptionMethod extends Method {
   uri() { return "/api/v1/subscriptions/:id"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
-  description() { return "This retrieves a single subscription by its ID."; }
   group() { return "subscription"; }
+  description() { return "This retrieves a single subscription by its ID."; }
 
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Subscription") ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Subscription")
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -22,7 +31,7 @@ class IDParameter extends Parameter {
   description() { return "The numeric ID of the subscriptions to look up."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {

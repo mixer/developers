@@ -13,10 +13,20 @@ export default class ChangeAvatarMethod extends Method {
     version() { return 1; }
     httpMethod() { return "GET"; }
     group() { return "user"; }
-
     description() { return "Used to get the user's avatar."; }
-    parameters() { return [ new IDParameter(), new WidthParameter(), new HeightParameter() ]; }
-    examples() { return [ new RedirectResult() ]; }
+
+    parameters() {
+      return [
+        new IDParameter(),
+        new WidthParameter(),
+        new HeightParameter()
+      ];
+    }
+    examples() {
+      return [
+        new RedirectResult()
+      ];
+    }
 }
 
 class WidthParameter extends Parameter {
