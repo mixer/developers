@@ -28,7 +28,7 @@ class PasswordParameter extends Parameter {
 
 class EmailParameter extends Parameter {
   name() { return "email"; }
-  description() { return "The email address assosciated with the user."; }
+  description() { return "The email address associated with the user."; }
 }
 
 class SuccesfulResult extends Example {
