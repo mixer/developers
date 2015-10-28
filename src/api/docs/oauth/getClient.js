@@ -20,7 +20,7 @@ export default class getOauthClientMethod extends Method {
     }
 
     parameters() { return [ new IDParameter() ]; }
-    examples() { return [ new SuccesfulResponse(), new ErrorfulResult() ]; }
+    examples() { return [ new SuccessfulResponse(), new ErrorfulResult() ]; }
 }
 
 class IDParameter extends Parameter {

@@ -27,7 +27,7 @@ export default class createOauthClientMethod extends Method {
         new SecretParameter(),
         new LogoParameter()
     ]; }
-    examples() { return [ new SuccesfulResponse(), new ErrorfulResult() ]; }
+    examples() { return [ new SuccessfulResponse(), new ErrorfulResult() ]; }
 }
 
 class NameParameter extends Parameter {
