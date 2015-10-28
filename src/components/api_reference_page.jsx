@@ -15,6 +15,7 @@ export default class APIReferencePage extends React.Component {
   }
 
   render() {
+    let defaultName = "achievements";
 
     let target = this.context.router.getCurrentParams().name;
     let name = DocumentationStore.hasDocumentsFor(target) ? target : defaultName;
