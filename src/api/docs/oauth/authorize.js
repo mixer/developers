@@ -17,13 +17,13 @@ export default class getOauthTokensMethod extends Method {
           This endpoint returns an authorization_code for the user.
           The user should be logged in before hitting this endpoint.
         </p>
-
         <p>
-          If you're building an application you can open a popup
-          to <a href="#">https://beam.pro/oauth/authorize</a> (so without /api/v1),
-          including the same query parameters, to provide the user with a graphical
-          interface to accept the authorization. Beam will then redirect back to the
-          provided callback_uri.
+            If you're building an application you can open a popup
+            to <a href="#">https://beam.pro/oauth/authorize</a>
+            (so without /api/v1), including the same query parameters,
+            to provide the user with a graphical interface to accept
+            the authorization. Beam will then redirect back to the
+            provided callback_uri.
         </p>
       </div>
     )
