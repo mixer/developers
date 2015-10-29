@@ -13,38 +13,37 @@
     <section>
       <h2>Introduction</h2>
       <p>
-        When you need access to a users' private resources, need to be able to act as another user in chat or
-        just want to use Beam credentials to authenticate your users, it's best to use OAuth so the users'
-        credentials don't get stored on your servers.
+        If you want to act as another user in chat, access a users' private resources as part of your app,
+        or just want to use Beam credentials to authenticate your users, it's best to use OAuth so the users'
+        credentials don't need to be stored on your servers.
       </p>
       <p>
-        OAuth is a system that replaces the credentials by app-specific tokens. Your app can request a set of
-        tokens for a certain user with a specific set of permissions. This way your app only gets access to what
-        it needs and all other details will stay hidden.
+        OAuth is a system that replaces traditional user/password combos with app-specific tokens. Your app
+        can request a set of tokens for a certain user with a specific set of permissions. This way your app
+        only gets access to what it needs and all other details will stay hidden. It's a win-win scenario for
+        both your app's functionality, and our user's privacy.
       </p>
       <p>
-        To start using OAuth you should start by creating an application as described below.
+        To start using OAuth create an application as described below.
       </p>
     </section>
     <section>
       <h2>Registering your application</h2>
       <p>
-        To create an application you can go to the page called <a href="/oauth/manage">Manage OAuth</a>.
-        (You might need to authorize the developers site first).
-        Once on the page click the <code>Create New</code> button in the top right corner and it'll
-        open the creation form.
+        To create an application head over to the <a href="/oauth/manage">Manage OAuth</a> page!
+        (You may need to authorize the developers site first). Once there, click the <code>Create New</code>
+        button in the top right corner and it'll open the creation form.
       </p>
       <p>
-        On this page you'll need to enter some basic details about your application, like the name, website and
-        logo for your application. All of these will be displayed to the user and are for this reason required.
+        On this page you'll need to enter some basic details about your application, like its name, website and
+        logo. All of these details will be displayed publically to users of your app.
       </p>
       <h3>Hosts</h3>
       <p>
-        The hosts parameter is an important one. This tells us what domains your application can redirect to.
-        (We'll explain redirection later)
-        This should be domains you control. You can use wildcards, for example: <code>*.beam.pro</code> will
-        allow redirects to all subdomains on beam.pro, but not beam.pro itself. The list of domains is comma
-        separated if you want to add multiple ones.
+        The hosts parameter is an important one; it tells us what domains your application can redirect to.
+        This should be set to domains you control. You can use wildcards, for example: <code>*.beam.pro</code>
+        will allow redirects to all subdomains on beam.pro, but not beam.pro itself. The list of domains is
+        comma separated if you want to add multiple ones.
       </p>
     </section>
     <section>
@@ -54,7 +53,7 @@
         Most popular languages will have a library to easily interface with an OAuth server.
       </p>
       <p>
-        If you're interested in reading an in depth explanation of how OAuth works go
+        If you're interested in reading an in depth explanation of how OAuth works head
         <a href="https://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified" target="_blank">here</a>.
       </p>
       <p>
