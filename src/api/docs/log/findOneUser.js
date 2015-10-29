@@ -11,8 +11,17 @@ export default class FindOneUser extends Method {
   description() { return "This endpoint lists logs relative to a given user."; }
   group() { return "log"; }
 
-  parameters() { return [ new IdParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+  parameters() {
+    return [
+      new IdParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class IdParameter extends Parameter {
@@ -20,7 +29,7 @@ class IdParameter extends Parameter {
   description() { return "User ID to retrieve the log for."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

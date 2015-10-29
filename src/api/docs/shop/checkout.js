@@ -12,17 +12,27 @@ export default class CheckoutMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "shop"; }
-
   description() {
     return (
       <p>
         This endpoints takes items and quantities that you want to purchase and
-        returns a transcation that, when paid, will fulfill the order.
+        returns a transaction that, when paid, will fulfill the order.
       </p>
     );
   }
-  parameters() { return [ new ItemsParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulResponse(), new AccessDeniedResponse() ]; }
+
+  parameters() {
+    return [
+      new ItemsParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulResponse(),
+      new AccessDeniedResponse()
+    ];
+  }
 }
 
 class ItemsParameter extends Parameter {
@@ -32,12 +42,12 @@ class ItemsParameter extends Parameter {
   example() {
     return [
       { "id": 1, "quantity": 3},
-      { "id": 2, "quantity": 1},
+      { "id": 2, "quantity": 1}
     ];
   }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

@@ -11,11 +11,20 @@ export default class RemoveTwoFactorCredentialsMethod extends Method {
   group() { return "user"; }
 
   description() { return "Removes two-factor credentials from an account."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult() ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "Two-factor disabled."; }
 }

@@ -7,20 +7,24 @@ export default class PasswordStrengthMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
+  description() { return "Calculates and returns the strength of a given password using Dropbox's zxcvbn library."; }
 
-  description() { return "Calculates and returns the strength of a given password " +
-                         "using Dropbox's zxcvbn library."; }
-  parameters() { return [ new PasswordParameter() ]; }
-  examples() { return [  ]; }
+  parameters() {
+    return [
+      new PasswordParameter()
+    ];
+  }
+  examples() {
+    return [];
+  }
 }
 
 class PasswordParameter extends Parameter {
   name() { return "password"; }
-  description() { return "The password to score. It will not be stored or " +
-                         "persisted."; }
+  description() { return "The password to score. It will not be stored or persisted."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

@@ -12,9 +12,13 @@ export default class FindOneResource extends Method {
   description() { return "Looks up a single resource."; }
   group() { return "resource"; }
 
-  parameters() { return [ new IDParameter() ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
   examples() { return [
-    new SuccesfulExample(),
+    new SuccessfulExample(),
     new AccessDeniedResult(),
     new ResourceMissingResult("Resource")
   ]; }
@@ -25,7 +29,7 @@ class IDParameter extends Parameter {
   description() { return "The resource ID to delete"; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

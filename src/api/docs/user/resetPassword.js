@@ -9,12 +9,21 @@ export default class ResetPasswordMethod extends Method {
   version() { return 1; }
   httpMethod() { return "PATCH"; }
   group() { return "user"; }
+  description() { return "Updates a user's password using the reset code they received via email."; }
 
-  description() { return "Updates a user's password using the reset code they " +
-                         "recieved via email."; }
-  parameters() { return [ new TokenParameter(), new PasswordParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new ResourceMissingResult("User"),
-                        new ErrorfulResponse() ]; }
+  parameters() {
+    return [
+      new TokenParameter(),
+      new PasswordParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new ResourceMissingResult("User"),
+      new ErrorfulResponse()
+    ];
+  }
 }
 
 class TokenParameter extends Parameter {
@@ -27,9 +36,9 @@ class PasswordParameter extends Parameter {
   description() { return "The password to change to."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
-  data() { return "Password has been succesfully updated"; }
+  data() { return "Password has been successfully updated"; }
 }
 
 class ErrorfulResponse extends Example {

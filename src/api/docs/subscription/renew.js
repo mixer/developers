@@ -12,7 +12,6 @@ export default class RenewSubscriptionMethod extends Method {
   version() { return 1; }
   httpMethod() { return "PATCH"; }
   group() { return "subscription"; }
-
   description() {
     return (
       <div>
@@ -30,9 +29,18 @@ export default class RenewSubscriptionMethod extends Method {
     );
   }
 
-  parameters() { return [ new TermsParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Subscription") ]; }
+  parameters() {
+    return [
+      new TermsParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Subscription")
+    ];
+  }
 }
 
 class TermsParameter extends Parameter {
@@ -42,7 +50,7 @@ class TermsParameter extends Parameter {
   default() { return 1; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

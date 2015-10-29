@@ -11,7 +11,6 @@ export default class LiveloadingUnsubscribe extends Method {
   version() { return 1; }
   httpMethod() { return "DELETE"; }
   group() { return "liveloading"; }
-
   description() {
     return (
       <p>
@@ -20,8 +19,19 @@ export default class LiveloadingUnsubscribe extends Method {
       </p>
     );
   }
-  parameters() { return [ new SlugParameter(), new MetaParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulResponse() ]; }
+
+  parameters() {
+    return [
+      new SlugParameter(),
+      new MetaParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulResponse()
+    ];
+  }
 }
 
 class SlugParameter extends Parameter {
@@ -48,7 +58,7 @@ class MetaParameter extends Parameter {
   optional() { return true; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() { return "Unsubscribed successfully."; }
 }

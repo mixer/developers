@@ -14,7 +14,7 @@ export default class ExampleGroup extends React.Component {
     return (
       <div className="examples">
         <ul className="examples-list">{
-          this.examples().map((ex) => <li>{ ex }</li>)
+          this.examples().map((ex, key) => <li key={key}>{ ex }</li>)
         }</ul>
       </div>
     );

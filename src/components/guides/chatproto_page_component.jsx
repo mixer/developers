@@ -10,14 +10,18 @@ export default class WidgetPageComponent extends React.Component {
   }
 
   markup() {
-    let contents = fs.readFileSync(path.join(__dirname, "../_html/widgets.html"));
+    let contents = fs.readFileSync(path.join(__dirname, "../../_html/chatproto.html"));
     return { __html: contents.toString() };
+  }
+
+  static token() {
+    return "chat";
   }
 
   render() {
     return (
       <Col md="12">
-        <div className="markup widget-markup" dangerouslySetInnerHTML={this.markup()}></div>
+        <div className="markup chat-markup" dangerouslySetInnerHTML={this.markup()}></div>
       </Col>
     );
   }

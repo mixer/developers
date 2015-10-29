@@ -9,11 +9,21 @@ export default class RegisterUserMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return "Registers a new user with Beam."; }
-  parameters() { return [ new UsernameParameter(), new PasswordParameter(),
-                          new EmailParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new ErrorfulResult() ]; }
+
+  parameters() {
+    return [
+      new UsernameParameter(),
+      new PasswordParameter(),
+      new EmailParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new ErrorfulResult()
+    ];
+  }
 }
 
 class UsernameParameter extends Parameter {
@@ -28,10 +38,10 @@ class PasswordParameter extends Parameter {
 
 class EmailParameter extends Parameter {
   name() { return "email"; }
-  description() { return "The email address assosciated with the user."; }
+  description() { return "The email address associated with the user."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {

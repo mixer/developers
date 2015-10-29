@@ -9,13 +9,17 @@ export default class AcceptCostreamRequestMethod extends Method {
   uri() { return "/api/v1/costreams/:id/accept"; }
   version() { return 1; }
   httpMethod() { return "PATCH"; }
-  description() { return "Causes a costream request to be accepted."; }
   group() { return "costream"; }
+  description() { return "Causes a costream request to be accepted."; }
 
-  parameters() { return [ new IDParameter() ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulExample(),
+      new SuccessfulExample(),
       new ResourceMissingResponse("Request"),
       new AccessDeniedResponse()
     ];
@@ -27,7 +31,7 @@ class IDParameter extends Parameter {
   description() { return "UUID of the request to accept."; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
