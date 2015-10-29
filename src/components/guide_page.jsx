@@ -7,9 +7,6 @@ import MethodSelector from "./api_method_selector.js";
 import CategorySelector from "./api_category_selector.js";
 import Bootstrap from "react-bootstrap";
 
-import ChatProtoPageComponent from "./chatproto_page_component.js";
-import WidgetPageComponent from "./widget_page_component.js";
-
 let documents = {};
 Glob.sync(Path.join(__dirname, "guides", '**/*.js'))
     .forEach((path) => {

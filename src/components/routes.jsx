@@ -6,8 +6,8 @@ import Application from "./app.js";
 import Index from "./index_page.js";
 import APIReferencePage from "./api_reference_page.js";
 import GuidePage from "./guide_page.js";
-import WidgetPage from "./widget_page_component.js";
-import ChatProtoPage from "./chatproto_page_component.js";
+import WidgetPage from "./guides/widget_page_component.js";
+import ChatProtoPage from "./guides/chatproto_page_component.js";
 import * as OAuthManage from "./oauth_manage";
 
 module.exports = (
