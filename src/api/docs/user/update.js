@@ -5,7 +5,7 @@ import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
-import SuccessfulExample from "./SuccessfulExample.js";
+import SuccessfulExample from "./successfulExample.js";
 import AccessDeniedResponse from "../../accessDeniedResult.js";
 import ErrorfulResponse from "../../errorfulResponse.js";
 

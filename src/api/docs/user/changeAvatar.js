@@ -4,7 +4,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulResult from "./SuccessfulExample.js";
+import SuccesfulResult from "./successfulExample.js";
 import IDParameter from "./idParameter.js";
 import ResourceMissingResult from "../../resourceMissingResult.js";
 import AccessDeniedResult from "../../accessDeniedResult.js";

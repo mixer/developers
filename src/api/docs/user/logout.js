@@ -2,7 +2,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import { ExpandedSuccessfulExample } from "./SuccessfulExample.js";
+import { ExpandedSuccessfulExample } from "./successfulExample.js";
 
 export default class UserLogoutMethod extends Method {
   uri() { return "/api/v1/users/current"; }
