@@ -11,7 +11,6 @@ export default class DeleteResource extends Method {
   version() { return 1; }
   httpMethod() { return "DELETE"; }
   group() { return "resource"; }
-
   description() {
     return (
       <div>
@@ -26,9 +25,14 @@ export default class DeleteResource extends Method {
       </div>
     );
   }
-  parameters() { return [ new IDParameter() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
   examples() { return [
-    new SuccesfulExample(),
+    new SuccessfulExample(),
     new AccessDeniedResult(),
     new ResourceMissingResult("Resource")
   ]; }
@@ -39,7 +43,7 @@ class IDParameter extends Parameter {
   description() { return "The resource ID to delete"; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() { return "Resource deleted"; }
 }

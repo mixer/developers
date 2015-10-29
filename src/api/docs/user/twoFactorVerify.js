@@ -12,16 +12,27 @@ export default class TwoFactorVerify extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return (
     <p>
       Verifies and activates the user's two-factor auth credentials, using a code
       generated on their device.
     </p>
   )}
-  parameters() { return [ new IDParameter(), new CodeParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new InvalidCodeResult(),
-                        new MissingCredentialsResult(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new CodeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new InvalidCodeResult(),
+      new MissingCredentialsResult(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class CodeParameter extends Parameter {
@@ -29,7 +40,7 @@ class CodeParameter extends Parameter {
   description() { return "The numeric six-digit TOTP code."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "Code verified"; }
 }

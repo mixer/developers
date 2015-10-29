@@ -12,7 +12,6 @@ export default class CancelRoleMethod extends Method {
   version() { return 1; }
   httpMethod() { return "DELETE"; }
   group() { return "subscription"; }
-
   description() {
     return (
       <div>
@@ -29,9 +28,19 @@ export default class CancelRoleMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new ImmediateParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Subscription") ]; }
+
+  parameters() {
+    return [
+      new ImmediateParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Subscription")
+    ];
+  }
 }
 
 class ImmediateParameter extends Parameter {
@@ -46,7 +55,7 @@ class ImmediateParameter extends Parameter {
   default() { return false; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "Subscription cancelled."; }
 }

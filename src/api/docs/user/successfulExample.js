@@ -1,6 +1,6 @@
 import Example from "../../example.js";
 
-export default class SuccesfulResult extends Example {
+export default class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return {

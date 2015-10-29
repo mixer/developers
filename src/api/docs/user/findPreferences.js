@@ -9,13 +9,21 @@ export default class FindPreferencesMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "user"; }
-
   description() { return "Lists preferences for a user."; }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulExample() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample()
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

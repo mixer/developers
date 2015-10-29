@@ -11,16 +11,21 @@ export default class ListChannelsFollowedMethod extends PaginatedMethod {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "user"; }
-
   description() { return (
     <p>
       This endpoint lists channels that the user is following with online
       channels first.
     </p>
   )}
-  parameters() { return super.parameters().concat([ new IDParameter(),
-                                                    new FieldsParameter() ]); }
-  examples() { return [ new SuccesfulExample() ]; }
+
+  parameters() {
+    return super.parameters().concat([ new IDParameter(), new FieldsParameter() ]);
+  }
+  examples() {
+    return [
+      new SuccessfulExample()
+    ];
+  }
 }
 
 class FieldsParameter extends Parameter {
@@ -33,7 +38,7 @@ class FieldsParameter extends Parameter {
   )}
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [{

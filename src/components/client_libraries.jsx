@@ -54,9 +54,9 @@ export default class ClientLibraries extends React.Component {
           <span>Develop for Beam on your platform of choice.</span>
         </div>
         <Bootstrap.Row>{
-          this.state.clients.map(client => {
+          this.state.clients.map((client, key) => {
             return (
-              <Bootstrap.Col md={3}>
+              <Bootstrap.Col key={key} md={3}>
                 <ClientLibrary name={client.name}
                                url={client.url}
                                image={client.img}/>

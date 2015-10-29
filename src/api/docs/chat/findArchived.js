@@ -9,7 +9,6 @@ export default class FindArchivedMethod extends Method {
   version() { return 1; }
   uri() { return "/api/v1/chats/:id/message"; }
   group() { return "chat"; }
-
   description() {
     return (
       <p>
@@ -19,6 +18,7 @@ export default class FindArchivedMethod extends Method {
       </p>
     );
   }
+
   parameters() {
     return [
       new IDParameter(),
@@ -27,7 +27,11 @@ export default class FindArchivedMethod extends Method {
       new LimitParameter()
     ];
   }
-  examples() { return [ new SuccesfulResult() ]; }
+  examples() {
+    return [
+    new SuccessfulResponse()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -68,7 +72,7 @@ class LimitParameter extends Parameter {
   description() {
     return (
       <p>
-        The maximim number of results to retrieve. If there are more results
+        The maximum number of results to retrieve. If there are more results
         in the range than can be shown, the first limit messages from the end
         time will be displayed.
       </p>
@@ -78,7 +82,7 @@ class LimitParameter extends Parameter {
   default() { return 50; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return [

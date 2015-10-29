@@ -13,7 +13,6 @@ export default class TwoFactorRecoverMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return (
     <p>
       This endpoint should be used when a user no longer has access to the
@@ -21,10 +20,21 @@ export default class TwoFactorRecoverMethod extends Method {
       two-factor verification so that the user may log in.
     </p>
   )}
-  parameters() { return [ new UsernameParameter(), new PasswordParameter(),
-                          new CodeParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
-                        new ErrorfulExample() ]; }
+
+  parameters() {
+    return [
+      new UsernameParameter(),
+      new PasswordParameter(),
+      new CodeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new AccessDeniedResult(),
+      new ErrorfulExample()
+    ];
+  }
 }
 
 class UsernameParameter extends Parameter {
@@ -42,7 +52,7 @@ class PasswordParameter extends Parameter {
   description() { return "The password of the user to recover."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "Two-factor authentication disabled."; }
 }

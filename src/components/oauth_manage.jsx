@@ -72,7 +72,7 @@ class Help extends React.Component {
         <h2>Get Started with OAuth</h2>
         <p>OAuth allows apps to request authorization from users to private account functions without requiring the user to provide their actual password.</p>
         <p>Want to implement an OAuth app? We make it easy.</p>
-        <p><a href="/doc/oauth">Read More...</a></p>
+        <p><a href="/api/guides/oauth">Read More...</a></p>
       </div>
     );
   }

@@ -18,10 +18,10 @@ export default class OpenSource extends React.Component {
           <h2>Open Source</h2>
           <span>Come take a look at our freely available software, on GitHub!</span>
 
-          <ul className="oss-libraries">{this.libraries.map(l => {
+          <ul className="oss-libraries">{this.libraries.map((l, key) => {
             let href = `https://github.com/${l.repo}`;
             return (
-              <li className="oss-library">
+              <li key={key} className="oss-library">
                 <a href={href} target="_blank">
                   <p>{ l.name }</p>
                   <small>{l.desc}</small>

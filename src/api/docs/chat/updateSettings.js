@@ -12,8 +12,8 @@ export default class UpdateChatSettingsMethod extends Method {
   uri() { return "/api/v1/chats/:id"; }
   version() { return 1; }
   group() { return "chat"; }
-
   description() { return "Updates a particular chat's settings."; }
+
   parameters() {
     return [
       new IDParameter(),
@@ -24,7 +24,7 @@ export default class UpdateChatSettingsMethod extends Method {
   }
   examples() {
     return [
-      new SuccesfulResult(),
+      new SuccessfulResponse(),
       new ErrorfulResponse(),
       new AccessDeniedResponse(),
       new ResourceMissingResponse("Channel")
@@ -71,7 +71,7 @@ class SlowchatParameter extends Parameter {
   default() { return undefined; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return {

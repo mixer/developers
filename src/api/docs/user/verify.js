@@ -5,14 +5,13 @@ import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
 import IDParameter from "./idParameter.js";
-import SuccesfulResult from "./succesfulExample.js";
+import SuccessfulResult from "./successfulExample.js";
 
 export default class ConfirmUserMethod extends Method {
   uri() { return "/api/v1/users/:id/confirm"; }
   version() { return 1; }
   httpMethod() { return "PATCH"; }
   group() { return "user"; }
-
   description() {
     return (
       <div>
@@ -28,8 +27,19 @@ export default class ConfirmUserMethod extends Method {
       </div>
     )
   }
-  parameters() { return [ new IDParameter(), new CodeParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new ErrorfulResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new CodeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new ErrorfulResult()
+    ];
+  }
 }
 
 class CodeParameter extends Parameter {

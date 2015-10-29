@@ -10,7 +10,6 @@ export default class UserRolesMethod extends PaginatedMethod {
   httpMethod() { return "GET"; }
   version() { return 1; }
   group() { return "channels"; }
-
   description() {
     return (
       <p>
@@ -24,18 +23,21 @@ export default class UserRolesMethod extends PaginatedMethod {
   }
 
   parameters() {
-    return super.parameters().concat([ new IDParamter() ]);
+    return super.parameters().concat([ new IDParameter() ]);
   }
-
-  examples() { return [ new SuccesfulResult() ]; }
+  examples() {
+    return [
+      new SuccessfulResult()
+    ];
+  }
 }
 
-class IDParamter extends Parameter {
+class IDParameter extends Parameter {
   name() { return "id"; }
   description() { return "Numeric ID of the channel to look up."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [{

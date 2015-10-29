@@ -7,8 +7,21 @@ export default class FollowMethod extends Method {
   httpMethod() { return "PUT"; }
   uri() { return "/api/v1/channels/:id/follow"; }
   group() { return "channels" }
-  parameters() { return [ new IDParameter(), new UserParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new BadRequestResult(), new ForbiddenActionResult(), new MissingResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new UserParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResult(),
+      new BadRequestResult(),
+      new ForbiddenActionResult(),
+      new MissingResult()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -21,14 +34,14 @@ class UserParameter extends Parameter {
   description() { return "The user ID who wants to follow the channel."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "You are now following this channel."; }
 }
 
 class BadRequestResult extends Example {
   httpCode() { return 400; }
-  data() { "You're already following that channel!"; }
+  data() { return "You're already following that channel!"; }
 }
 
 class ForbiddenActionResult extends Example {

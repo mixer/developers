@@ -12,7 +12,6 @@ export default class CreateNotificationMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "notification"; }
-
   description() {
     return (
       <div>
@@ -21,6 +20,7 @@ export default class CreateNotificationMethod extends Method {
           notifications on events such as when new channel follower is gained,
           but it may be useful for create notifications manually.
         </p>
+
         <p>
           Currently permissions are set up so that, in the context of a regular
           user, you may only create notifications for that one user.
@@ -28,8 +28,21 @@ export default class CreateNotificationMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new UserParameter(), new TypeParameter(), new DataParameter()  ]; }
-  examples() { return [ new SuccesfulExample(), new ErrorfulResponse(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new UserParameter(),
+      new TypeParameter(),
+      new DataParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulResponse(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class UserParameter extends Parameter {
@@ -49,7 +62,7 @@ class DataParameter extends Parameter {
   default() { return null; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

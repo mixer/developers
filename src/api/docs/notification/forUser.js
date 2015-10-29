@@ -11,7 +11,6 @@ export default class NotificationForUserMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "notification"; }
-
   description() {
     return (
       <div>
@@ -26,11 +25,23 @@ export default class NotificationForUserMethod extends Method {
       </div>
     );
   }
-  parameters() { return [ new IDParameter(), new SinceParameter(), new BeforeParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new SinceParameter(),
+      new BeforeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [

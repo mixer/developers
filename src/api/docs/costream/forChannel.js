@@ -11,7 +11,6 @@ export default class CostreamsForChannelMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "costream"; }
-
   description() {
     return (
       <p>
@@ -21,8 +20,18 @@ export default class CostreamsForChannelMethod extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResponse(), new AccessDeniedResponse() ]; }
+
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulResponse(),
+      new AccessDeniedResponse()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -30,7 +39,7 @@ class IDParameter extends Parameter {
   description() { return "Channel ID to get the requests for."; }
 }
 
-class SuccesfulResponse extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return [{

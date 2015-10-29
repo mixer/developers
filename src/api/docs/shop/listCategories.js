@@ -8,7 +8,6 @@ export default class ListCategoriesMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "shop"; }
-
   description() {
     return (
       <p>
@@ -17,11 +16,18 @@ export default class ListCategoriesMethod extends Method {
       </p>
     )
   }
-  parameters() { return [ ]; }
-  examples() { return [ new SuccesfulResult() ]; }
+
+  parameters() {
+    return [];
+  }
+  examples() {
+    return [
+      new SuccessfulResult()
+    ];
+  }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [{

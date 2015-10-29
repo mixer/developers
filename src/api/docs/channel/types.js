@@ -12,7 +12,6 @@ export default class ChannelTypesMethod extends PaginatedMethod {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "channels"; }
-
   description() {
     return "Lists channels in a particular category. It returns an array of \
     channel resources with their \"thumbnail\" attribute populated.";
@@ -22,11 +21,15 @@ export default class ChannelTypesMethod extends PaginatedMethod {
     return super.parameters().concat([
       new SlugParameter(),
       new OrderParameter(["online", "featured", "partnered", "name",
-                          "viewers_total", "followers", "subscribers"]),
-      new OnlyParameter(),
+        "viewers_total", "followers", "subscribers"]),
+      new OnlyParameter()
     ]);
   }
-  examples() { return [ new SuccesfulResult() ]; }
+  examples() {
+    return [
+      new SuccessfulResult()
+    ];
+  }
 }
 
 class SlugParameter extends Parameter {
@@ -38,14 +41,14 @@ class OnlyParameter extends Parameter {
   name() { return "only"; }
   description() {
     return (
-      <p>Filters the results to a specific subset. Valid values are <code>featured</code>
-      and <code>partnered</code>.</p>
+      <p>Filters the results to a specific subset. Valid values
+        are <code>featured</code> and <code>partnered</code>.</p>
     )
   }
   optional() { return true; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() {
     return [{

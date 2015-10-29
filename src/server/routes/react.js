@@ -12,10 +12,14 @@ const logoUpload = Bluebird.promisify(upload.single('logo'));
 export function render (req, res, params={}) {
   let router = Router.create({ location: req.url, routes: Routes });
 
-  router.run((Handler) => {
-    let page = React.renderToString(<Handler session={req.auth} {...params}/>);
+  router.run((Handler, state) => {
+    if (state.routes.length === 0) {
+      res.render("404.ejs");
+    } else {
+      let page = React.renderToString(<Handler session={req.auth} {...params}/>);
 
-    res.render("index.ejs", { page: page });
+      res.render("index.ejs", { page: page });
+    }
   });
 }
 
