@@ -15,16 +15,16 @@
       round-robining).
     </p>
     <p>
-      After connecting to a server, if you are a user you need to authenticate.
-      The details for that are decribed below.
+      After connecting to a server, you'll need to authenticate. The details for 
+      that are described below.
     </p>
   </section>
   <section>
     <h2>Chat Protocol</h2>
     <p>
-      Our chat servers user a standard secure websocket protocol (<code>wss</code>)
-      as defined in RFC6455. We do not use Socket.io or other "wrapper" systems
-      due to unnecessary overhead.
+      Our chat servers use a standard secure websocket protocol (<code>wss</code>) 
+      as defined in RFC6455. We do not use Socket.io or other "wrapper" systems due 
+      to unnecessary overhead.
     </p>
     <p>
       The client and server send <code>JSON</code> "packets" back and forth.
