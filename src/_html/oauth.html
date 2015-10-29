@@ -1,7 +1,15 @@
 <div class="widget-page">
   <section>
     <h1>Beam OAuth</h1>
-    <p>(PS: Looking for the API endpoints? <a href="/api/v1/oauth">Click here</a>)</p>
+    <section>
+      <h2>Quick details:</h2>
+      <p>(PS: Looking for the API endpoints? <a href="/api/v1/oauth">Click here</a>)</p>
+      <ul>
+        <li>Authorize endpoint: <code>https://beam.pro/oauth/authorize</code></li>
+        <li>Token endpoint: <code>https://beam.pro/api/v1/oauth/token</code></li>
+      </ul>
+    </section>
+
     <section>
       <h2>Introduction</h2>
       <p>
@@ -40,9 +48,25 @@
       </p>
     </section>
     <section>
-      <h2>OAuth basics</h2>
+      <h2>Using OAuth</h2>
       <p>
-
+        The OAuth 2.0 protocol is simple enough, but that doesn't mean you should implement it from scratch.
+        Most popular languages will have a library to easily interface with an OAuth server.
+      </p>
+      <p>
+        If you're interested in reading an in depth explanation of how OAuth works go
+        <a href="https://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified" target="_blank">here</a>.
+      </p>
+      <p>
+        To use our OAuth implementation you'll just need a few details which can be found at the top of the page
+        and on your <a href="/oauth/manage">Manage OAuth</a> page.
+      </p>
+    </section>
+    <section>
+      <h2>Need more help?</h2>
+      <p>
+        If you're still not sure on how to use OAuth, or you've hit a bug. Hit us up on
+        <a href="https://gitter.im/MCProHosting/beam-dev" target="_blank">Gitter</a>.
       </p>
     </section>
   </section>
