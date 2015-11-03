@@ -33,7 +33,7 @@ export default class getOauthTokensMethod extends Method {
     return [
       new ResponseTypeParameter(),
       new ClientIDParameter(),
-      new PermissionsParameter(),
+      new ScopeParameter(),
       new RedirectURIParameter()
     ];
   }
@@ -59,8 +59,8 @@ class ClientIDParameter extends Parameter {
   description() { return "The OAuth client's id string."; }
 }
 
-class PermissionsParameter extends Parameter {
-  name() { return "permissions"; }
+class ScopeParameter extends Parameter {
+  name() { return "scope"; }
   type() { return "query"; }
   description() { return "A space separated list of permissions to grant."; }
 }
