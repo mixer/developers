@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MCProHosting/beam-developers"
+    "url": "https://github.com/WatchBeam/beam-developers"
   },
   "author": "Beam LLC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MCProHosting/beam-developers/issues"
+    "url": "https://github.com/WatchBeam/beam-developers/issues"
   },
-  "homepage": "https://github.com/MCProHosting/beam-developers",
+  "homepage": "https://github.com/WatchBeam/beam-developers",
   "dependencies": {
     "beam-client-node": "git+ssh://git@github.com/WatchBeam/beam-client-node.git",
     "bluebird": "^2.9.34",
