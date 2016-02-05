@@ -37,7 +37,7 @@ export class Edit extends React.Component {
                   There was an error with your registration.
                 </Bootstrap.Alert> : '' }
           <form action="/oauth/edit" method="POST" encType={ edit ? undefined : "multipart/form-data" }>
-            { edit ? <input type="hidden" name="id" value={client.client_id} /> : '' }
+            { edit ? <input type="hidden" name="id" value={client.clientId} /> : '' }
             <ValidatedInput invalid={invalid} name='name' type='text' label='Name'
               placeholder='Client Name' value={client.name} />
             <ValidatedInput invalid={invalid} name='website' type='text' label='Website' placeholder='http://example.com' value={client.website} />
@@ -81,7 +81,7 @@ class Help extends React.Component {
 
 class Client extends React.Component {
   getSecretItem () {
-    const secret = this.props.client_secret
+    const secret = this.props.clientSecret
     if (!secret) {
       return;
     }
@@ -89,7 +89,7 @@ class Client extends React.Component {
     return (
       <tr>
         <th>Client Secret</th>
-        <td className="blurred"><Selector value={this.props.client_secret} /></td>
+        <td className="blurred"><Selector value={this.props.clientSecret} /></td>
       </tr>
     );
   }
@@ -99,8 +99,8 @@ class Client extends React.Component {
       <div className="oauth-client">
         <div className="logo">
           <img src={this.props.logo} alt={this.props.name} />
-          <a href={'/oauth/edit/' + this.props.client_id} className="btn btn-alt btn-block">Edit</a>
-          <form action={'/oauth/delete/' + this.props.client_id} method="post" style={{ 'margin-top': '5px' }}>
+          <a href={'/oauth/edit/' + this.props.clientId} className="btn btn-alt btn-block">Edit</a>
+          <form action={'/oauth/delete/' + this.props.clientId} method="post" style={{ 'margin-top': '5px' }}>
             <button className="btn btn-sm btn-danger btn-block confirm-click"
               data-confirm="Are you sure you want to delete your OAuth client? This cannot be undone.">
                 Delete
@@ -112,7 +112,7 @@ class Client extends React.Component {
           </div>
           <h3>{this.props.name}</h3>
           <table>
-            <tr><th>Client ID</th><td><Selector value={this.props.client_id} /></td></tr>
+            <tr><th>Client ID</th><td><Selector value={this.props.clientId} /></td></tr>
             {this.getSecretItem()}
             <tr><th>Allowed Hosts</th><td>{this.props.hosts.join(', ')}</td></tr>
             <tr><th>Website</th><td><a href={this.props.website} target="_blank">{this.props.website}</a></td></tr>
