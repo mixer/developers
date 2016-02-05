@@ -133,17 +133,20 @@
     "user_name":"connor4312",
     "user_id":2,
     "user_roles":["Owner"],
-    "message":[
-      { "type":"text", "data":"hello " },
-      { "type": 'emoticon', "text": ':)', "path": 'default/1F604' }
-    ]
+    "message":{
+      "message":[
+        { "type":"text", "data":"hello " },
+        { "type": 'emoticon', "text": ':)', "path": 'default/1F604' }
+      ],
+      meta:{}
+    }
   }
 }</code></pre>
     <p>
       It's fairly straightforward, except for the message property of the data.
-      This is an array of components that tell the client how the message should
-      be rendered, dictated by the component type. The following components are
-      currently in place:
+      It contains a property called message which is an array of components 
+      that tell the client how the message should be rendered. The following components
+      are currently in place:
     </p>
     <table>
       <tr>
