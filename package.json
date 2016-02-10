@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/WatchBeam/beam-developers",
   "dependencies": {
-    "beam-client-node": "",
+    "beam-client-node": "^0.1.2",
     "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
     "bower": "^1.4.1",
