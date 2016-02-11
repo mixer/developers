@@ -6,7 +6,7 @@ export default class FollowMethod extends Method {
   description() { return "Follows a channel for the given user."; }
   httpMethod() { return "PUT"; }
   uri() { return "/api/v1/channels/:id/follow"; }
-  group() { return "channels" }
+  group() { return "channels"; }
 
   parameters() {
     return [

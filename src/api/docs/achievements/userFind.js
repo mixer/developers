@@ -5,7 +5,7 @@ import Parameter from "../../parameter.js";
 
 export default class UserProgressMethod extends AbstractAchievementMethod {
   uri() { return "/api/v1/users/:id/achievements"; }
-  group() { return "achievements" }
+  group() { return "achievements"; }
   description() {
     return (
       <div>

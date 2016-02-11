@@ -87,12 +87,17 @@ class SuccessfulResponse extends Example {
   data() {
     return [
       {
-        message: [
-          {
-            "data": "Hello connor!",
-            "type": "text"
+        message: {
+          message: [
+            {
+              "data": "Hello connor!",
+              "type": "text"
+            }
+          ],
+          meta: {
+            me: true
           }
-        ],
+        },
         channel: 2,
         id: "f4d417c0-2e2b-11e5-a483-853beec4fa82",
         user_id: 1,
@@ -102,12 +107,15 @@ class SuccessfulResponse extends Example {
         ]
       },
       {
-        message: [
-          {
-            "data": "Hey salsaman!",
-            "type": "text"
-          }
-        ],
+        message: {
+          message: [
+            {
+              "data": "Hey salsaman!",
+              "type": "text"
+            }
+          ],
+          meta: {}
+        },
         channel: 2,
         id: "b964c4b0-dec5-11e4-ae00-1dea4d4cdac1",
         user_id: 2,

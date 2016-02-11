@@ -10,7 +10,7 @@ import ResourceMissingResponse from "../../resourceMissingResult.js";
 export default class ClearChatMethod extends Method {
   httpMethod() { return "DELETE"; }
   version() { return 1; }
-  uri() { return "/api/v1/chats/:id/message" }
+  uri() { return "/api/v1/chats/:id/message"; }
   group() { return "chat"; }
   description() {
     return (
