@@ -5,7 +5,7 @@ import LoremIpsum from "lorem-ipsum";
 export default class AbstractAchievementMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
-  group() { return "achievements" }
+  group() { return "achievements"; }
 
   examples() {
     return [
