@@ -7,7 +7,7 @@ export default class ChannelFollowsMethod extends PaginatedMethod {
   uri() { return "/api/v1/channels/:id/follow"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
-  group() { return "channels" }
+  group() { return "channels"; }
   description() {
     return "Lists the users who follow a channel, in the order that they followed";
   }

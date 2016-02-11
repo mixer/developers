@@ -51,16 +51,22 @@ class TypeParameter extends Parameter {
 class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return [{
-      createdAt: new Date().toISOString(),
-      id: 36,
-      meta: {},
-      relid: 0,
-      remote_path: "img/covers/wow-cover.jpg",
-      store: "nil",
-      type: "type:cover",
-      updatedAt: new Date().toISOString(),
-      url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
-    }];
+    return [
+      {
+        "id": 2450,
+        "group": 12,
+        "resourceId": null,
+        "resourceType": null,
+        "status": "active",
+        "cancelled": null,
+        "expiresAt": new Date().toISOString(),
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString(),
+        "Group": {
+          "id": 12,
+          "name": "Pro"
+        }
+      }
+    ];
   }
 }

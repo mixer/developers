@@ -9,7 +9,7 @@ export default class FindOneMethod extends Method {
   uri() { return "/api/v1/channels/:id"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
-  group() { return "channels" }
+  group() { return "channels"; }
   description() {
     return (
       <p>
