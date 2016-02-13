@@ -91,7 +91,6 @@ export default class SuccessfulResult extends Example {
         "bio": "",
         "createdAt": new Date().toISOString(),
         "deletedAt": null,
-        "experience": 349,
         "groups": [
           {
             "id": 7,
@@ -108,6 +107,7 @@ export default class SuccessfulResult extends Example {
           "twitter": "http://twitter.com/ConnorPeet"
         },
         "sparks": 17638,
+        "experience": 1234,
         "updatedAt": new Date().toISOString(),
         "username": "connor4312",
         "verified": true
