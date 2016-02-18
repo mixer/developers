@@ -107,7 +107,8 @@ export default class SuccessfulResult extends Example {
           "twitter": "http://twitter.com/ConnorPeet"
         },
         "sparks": 17638,
-        "experience": 1234,
+        "experience": 86864,
+        "level": 87,
         "updatedAt": new Date().toISOString(),
         "username": "connor4312",
         "verified": true
