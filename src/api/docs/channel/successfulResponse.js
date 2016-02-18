@@ -106,8 +106,9 @@ export default class SuccessfulResult extends Example {
           "player": "http://player.me/connor",
           "twitter": "http://twitter.com/ConnorPeet"
         },
-        "sparks": 17638,
+        "sparks": 86864,
         "experience": 1234,
+        "level": 87,
         "updatedAt": new Date().toISOString(),
         "username": "connor4312",
         "verified": true
