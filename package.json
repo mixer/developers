@@ -1,7 +1,7 @@
 {
   "name": "beam-developers",
   "version": "2.0.0",
-  "description": "Centralized hub for all things related to Beam development.",
+  "description": "Centralized hub for all things related to Beam development",
   "main": "./__build__/index.js",
   "scripts": {
     "start": "node ./__build__/index.js",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/WatchBeam/beam-developers"
   },
-  "author": "Beam LLC",
+  "author": "Beam Interactive, Inc",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/WatchBeam/beam-developers/issues"
