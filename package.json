@@ -23,7 +23,6 @@
     "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
     "bower": "^1.4.1",
-    "cassandra-driver": "^2.1.2",
     "client-sessions": "^0.7.0",
     "config": "^1.15.0",
     "connect-assets": "^4.7.1",
