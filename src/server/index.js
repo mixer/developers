@@ -26,7 +26,6 @@ export default class Server {
     this.app.use(require('client-sessions')(config.get('cookie')));
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(require('./auth')); // important: auth is registered after session
-    this.app.use('/oauth', require('./needLogin'));
 
     this.app.set("views", path.join(__dirname, "../../app/views"));
     this.app.set("view engine", "ejs");
@@ -49,10 +48,7 @@ export default class Server {
     this.app.get("/login/attempt", require('./routes/login').attempt);
     this.app.get("/doc/*", require('./routes/doc'));
 
-    this.app.get("/oauth/manage", require('./routes/react').oauthManage);
-    this.app.post("/oauth/delete/:id", require('./routes/react').oauthDelete);
-    this.app.get("/oauth/edit/:id?", require('./routes/react').oauthEdit);
-    this.app.post("/oauth/edit", require('./routes/react').oauthSave);
+    this.app.all("/oauth*", (req, res) => res.redirect(`${config.url.public}/lab/oauth`));
     this.app.get("*", require('./routes/react').render);
   }
 }
