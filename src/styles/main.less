@@ -1,0 +1,160 @@
+@import 'bootstrap-material-design';
+@import 'ripples.less';
+
+@brand-primary: #1e2236;
+@brand-success: @green;
+@brand-danger: @red;
+@brand-warning: @deep-orange;
+@brand-info: #5572fa;
+
+@bg-color: #171929;
+@main-text: #fbfbfb;
+@well-bg: #22273d;
+
+// general styles
+* {
+    color: @main-text !important;
+}
+
+h1 {
+    color: #c1c7d8;
+}
+
+pre {
+    background-color: lighten(@bg-color, 15%) !important;
+}
+
+body > .container {
+    width: 80%;
+}
+
+body {
+    background-color: @bg-color;
+    .container, .container-fluid {
+        .jumbotron, .well {
+            box-shadow: 0 8px 8px 0 rgba(0,0,0,.8),0 6px 8px 0 rgba(0,0,0,.8) !important;
+            background-color: @well-bg !important;
+        }
+        .jumbotron-default, .well-default  {
+            background-color: @well-bg !important;
+        }
+    }
+}
+
+[onclick^="location.href="] {
+    cursor: pointer;
+}
+
+.categories {
+    margin-top: 60px;
+    .category-wrapper {
+        padding: 20px 20px 20px 20px;
+        .category-card {
+
+            transition: background-color 0.2s, transform 0.2s;
+            &:hover {
+                transform: scale(1.1);
+                background-color: lighten(@well-bg, 20%) !important;
+            }
+            height: 300px;
+            img {
+                width: 60%;
+                margin: 0 auto;
+            }
+            p, h4 {
+                text-align: center;
+            }
+        }
+    }
+}
+
+// bootstrap overrides
+//
+
+.modal-dialog {
+    .modal-content {
+        background-color: lighten(@bg-color, 15%) !important;
+    }
+}
+
+.list-group-item {
+    background-color: lighten(@bg-color, 10%) !important;
+}
+
+.panel {
+    background-color: lighten(@bg-color, 15%);
+    .panel-heading {
+        background-color: lighten(@bg-color, 10%) !important;
+    }
+}
+
+.navbar {
+   .navbar-logo-text {
+        height: 22px;
+        width: 70px;
+        margin-top: 1px;
+        margin-left: 4px;
+    }
+
+    .navbar-brand > img {
+        display: inline !important;
+        height: 32px;
+    }
+    li {
+        text-transform: uppercase;
+    }
+}
+
+a.btn.btn-raised {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    border-radius: 16px !important;
+}
+
+footer > nav {
+    padding-top: 16px;
+}
+
+
+// rest doc docs
+.rest-doc {
+
+    #sidebar {
+        li > a:hover {
+            background-color: lighten(@bg-color, 10%) !important;
+        }
+    }
+
+    .panel-title > .methods {
+        float: right;
+    }
+
+    .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+    }
+
+    .badge_get {
+        background-color: #63a8e2;
+    }
+
+    .badge_post {
+        background-color: #6cbd7d;
+    }
+
+    .badge_put {
+        background-color: #22bac4;
+    }
+
+    .badge_delete {
+        background-color: #d26460;
+    }
+
+    .badge_patch {
+        background-color: #ccc444;
+    }
+}

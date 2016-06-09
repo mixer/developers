@@ -1,0 +1,76 @@
+doctype html
+html
+    head
+        link(
+            rel="stylesheet"
+            type="text/css"
+            href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+        )
+        link(
+            rel="stylesheet"
+            type="text/css"
+            href="//fonts.googleapis.com/icon?family=Material+Icons"
+        )
+        link(
+            rel="stylesheet"
+            type="text/css"
+            href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        )
+        link(
+            rel="stylesheet"
+            type="text/css"
+            href="styles/main.css"
+        )
+
+        block additionalStyles
+
+        script(
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"
+        )
+        script(
+            type="text/javascript"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"
+        )
+        script(
+            type="text/javascript"
+            src="scripts/material.min.js"
+        )
+        script(
+            type="text/javascript"
+            src="scripts/ripples.min.js"
+        )
+
+        block title
+            title Beam - Developers
+
+        block additionalScripts
+
+        meta(
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        )
+
+        block additionalMetas
+    body
+        header
+            include navbar.pug
+
+        .container(
+            data-spy="scroll"
+            data-target="#sidebar"
+        )
+            block content
+        script(type="text/javascript").
+            addEventListener('load', function() {
+                $.material.init();
+            });
+
+        footer
+            nav.navbar.navbar-default(class="text-center").
+                Copyright Beam 2016
+
+

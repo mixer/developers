@@ -1,0 +1,52 @@
+extends ./layouts/main.pug
+block content
+    h1.
+        Welcome to beam developer central
+    h4.
+        This page is an overview of directions you can take when developing with beam.
+    .row.categories
+        .col-md-3
+            h3.
+                Section title
+            hr
+            ul
+                li
+                    test
+                li
+                    test
+                li
+                    test
+                li
+                    test
+        .category-wrapper.col-md-3
+            .category-card.well(onclick="location.href='#';")
+                img(
+                    src="images/beam-dev-app-icon.svg"
+                    class="img-responsive"
+                )
+                h4.
+                    Chat Bot
+                p.
+                    Hook into the Beam chat API to moderate, run fun chat based
+                    games, and more!
+        .col-md-3.category-wrapper
+            .category-card.well(onclick="location.href='#';")
+                img(
+                    src="images/beam-dev-chat-icon.svg"
+                    class="img-responsive"
+                )
+                h4.
+                    Interactive Integration
+                p.
+                    Provide viewers with joysticks, buttons and screen controls to
+                    interface with the games streamers are playing.
+        .col-md-3.category-wrapper
+            .category-card.well(onclick="location.href='rest.html';")
+                img(
+                    src="images/beam-dev-interactive-icon.svg"
+                    class="img-responsive"
+                )
+                h4.
+                    Beam App
+                p.
+                    Crerate a third party Beam application using our RESTful API.
