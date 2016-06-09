@@ -38,18 +38,18 @@ myWidget
   }
 };</code></pre>
     <p>
-      It's mostly pretty straightforward. The two parts that do warrant
-      additional explaination are the permissions and hooks. Hooks is a map
-      of strings to functions to register your widget various "environments"
-      (currently, chat is the only available hook, but this will expand).
-      Hooking differents between environments; refer to the sections below
-      for more information.
+      It's mostly straightforward. The two parts that might need additional 
+      explanation are the permissions and hooks. Hooks is a map of strings 
+      to functions to register your widget various "environments" (currently, 
+      chat is the only available hook, but this will expand in the future). 
+      The process for hooking differs between environments; refer to the 
+      sections below for more information.
     </p>
     <p>
-      Permissions is simply an array of permission strings that your widget
-      needs to operate. In the example, you can see that we let Users, Mods,
-      Admins, and Owners have a permission to vote in polls, but only Mods,
-      Admins, and Owners have permission to start polls. You can verify and
+      Permissions are simply an array of permission strings that your widget 
+      needs to operate. In the example, you can see that we let Users, Mods, 
+      Admins, and Owners have a permission to vote in polls, but only Mods, 
+      Admins, and Owners have permission to start polls. You can verify and 
       restrict access based on permissions in individual hooks.
     </p>
   </section>

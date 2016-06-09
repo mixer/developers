@@ -6,16 +6,16 @@ import Parameter from "../../parameter.js";
 
 export default class UserListMethod extends Method {
   uri() { return "/api/v1/chats/:id/users"; }
+  version() { return 1; }
+  httpMethod() { return "GET"; }
+  group() { return "chat"; }
   description() {
     return (
       <p>Displays a list of online users in the chat, sorted in descending
       order by role.</p>
     );
   }
-  group() { return "chat"; }
 
-  version() { return 1; }
-  httpMethod() { return "GET"; }
   parameters() {
     return [
       new IDParameter(),
@@ -23,7 +23,11 @@ export default class UserListMethod extends Method {
       new LimitParameter()
     ];
   }
-  examples() { return [ new SuccesfulResult() ]; }
+  examples() {
+    return [
+      new SuccessfulResponse()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -45,7 +49,7 @@ class LimitParameter extends Parameter {
   default() { return 50; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return [

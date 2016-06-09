@@ -12,9 +12,13 @@ export default class FindOneResource extends Method {
   description() { return "Looks up a single resource."; }
   group() { return "resource"; }
 
-  parameters() { return [ new IDParameter() ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
   examples() { return [
-    new SuccesfulExample(),
+    new SuccessfulExample(),
     new AccessDeniedResult(),
     new ResourceMissingResult("Resource")
   ]; }
@@ -25,19 +29,21 @@ class IDParameter extends Parameter {
   description() { return "The resource ID to delete"; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {
-      createdAt: new Date().toISOString(),
-      id: 36,
-      meta: {},
-      relid: 0,
-      remote_path: "img/covers/wow-cover.jpg",
-      store: "nil",
-      type: "type:cover",
-      updatedAt: new Date().toISOString(),
-      url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
+      "id": 2450,
+      "resourceId": null,
+      "resourceType": null,
+      "status": "active",
+      "cancelled": null,
+      "expiresAt": new Date().toISOString(),
+      "createdAt": new Date().toISOString(),
+      "updatedAt": new Date().toISOString(),
+      "deletedAt": null,
+      "group": 12,
+      "user": 693
     };
   }
 }

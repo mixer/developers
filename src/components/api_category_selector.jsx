@@ -14,7 +14,7 @@ export default class APICategorySelector extends React.Component {
             let className = category === this.props.active ? "category-active"
                                                            : "";
             return (
-              <li className={className}>
+              <li key={category} className={className}>
                 <a href={categoryUrl}>{category}</a>
               </li>
             )

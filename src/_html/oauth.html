@@ -1,0 +1,128 @@
+<div class="widget-page">
+  <section>
+    <h1>Beam OAuth</h1>
+    <section>
+      <h2>Quick details:</h2>
+      <p>(PS: Looking for the API endpoints? <a href="/api/v1/oauth">Click here</a>)</p>
+      <ul>
+        <li>Authorize endpoint: <code>https://beam.pro/oauth/authorize</code></li>
+        <li>Token endpoint: <code>https://beam.pro/api/v1/oauth/token</code></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        If you want to act as another user in chat, access a users' private resources as part of your app,
+        or just want to use Beam credentials to authenticate your users, it's best to use OAuth so the users'
+        credentials don't need to be stored on your servers.
+      </p>
+      <p>
+        OAuth is a system that replaces traditional user/password combos with app-specific tokens. Your app
+        can request a set of tokens for a certain user with a specific set of permissions. This way your app
+        only gets access to what it needs and all other details will stay hidden. It's a win-win scenario for
+        both your app's functionality, and our user's privacy.
+      </p>
+      <p>
+        To start using OAuth create an application as described below.
+      </p>
+    </section>
+    <section>
+      <h2>Registering your application</h2>
+      <p>
+        To create an application head over to the <a href="/oauth/manage">Manage OAuth</a> page!
+        (You may need to authorize the developers site first). Once there, click the <code>Create New</code>
+        button in the top right corner and it'll open the creation form.
+      </p>
+      <p>
+        On this page you'll need to enter some basic details about your application, like its name, website and
+        logo. All of these details will be displayed publically to users of your app.
+      </p>
+      <h3>Hosts</h3>
+      <p>
+        The hosts parameter is an important one; it tells us what domains your application can redirect to.
+        This should be set to domains you control. You can use wildcards, for example: <code>*.beam.pro</code>
+        will allow redirects to all subdomains on beam.pro, but not beam.pro itself. The list of domains is
+        comma separated if you want to add multiple ones.
+      </p>
+    </section>
+    <section>
+      <h2>Using OAuth</h2>
+      <p>
+        The OAuth 2.0 protocol is simple enough, but that doesn't mean you should implement it from scratch.
+        Most popular languages will have a library to easily interface with an OAuth server.
+      </p>
+      <p>
+        If you're interested in reading an in depth explanation of how OAuth works head
+        <a href="https://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified" target="_blank">here</a>.
+      </p>
+      <p>
+        To use our OAuth implementation you'll just need a few details which can be found at the top of the page
+        and on your <a href="/oauth/manage">Manage OAuth</a> page.
+      </p>
+    </section>
+    <section>
+      <h2>OAuth Scopes</h2>
+      <p>
+        To request access to a users' account you need to use scopes. Scopes limit the amount of access a certain 
+        application has to the account. Below are all the scopes you can use. If you're requesting multiple, make 
+        sure to use spaces in between them!
+      </p>
+      <ul>
+        <li>
+          <code>user:details:self</code> View your email address and other private details. 
+          (Handy for authenticating the user without needing edit access)
+        </li>
+        <li><code>user:analytics:self</code> View your user analytics</li>
+        <li><code>user:delete:self</code> Delete your account.</li>
+        <li><code>user:log:self</code> View your user security log.</li>
+        <li><code>user:twofactor:self</code> Update your two-factor settings.</li>
+        <li><code>user:update:self</code> Update your account, including your email and password.</li>
+        <li><code>achievement:view:self</code> View your earned achievements.</li>
+        <li><code>channel:analytics:self</code> View your channel analytics.</li>
+        <li><code>channel:details:self</code> View your channel details.</li>
+        <li><code>channel:follow:self</code> Follow and unfollow other channels.</li>
+        <li><code>channel:partnership:self</code> Manage your partnership status.</li>
+        <li><code>channel:update:self</code> Update your channel settings.</li>
+        <li><code>channel:streamKey:self</code> View your stream key.</li>
+        <li>
+          <code>chat:bypass_links</code> Bypass links being disallowed in chat. (Only mods/streamer in 
+          their own chat)
+        </li>
+        <li>
+          <code>chat:bypass_slowchat</code> Bypass slowchat settings on channels. (Only mods/streamer in 
+          their own chat)
+        </li>
+        <li><code>chat:chat</code> Interact with chats on your behalf.</li>
+        <li><code>chat:clear_messages</code> Clear messages in chats where authorized.</li>
+        <li><code>chat:connect</code> Connect to chat.</li>
+        <li><code>chat:edit_options</code> Edit chat options, including links settings and slowchat.</li>
+        <li><code>chat:giveaway_start</code> Start a giveaway in chats where authorized.</li>
+        <li><code>chat:poll_start</code> Start a poll in chats where authorized.</li>
+        <li><code>chat:poll_vote</code> Vote in chat polls.</li>
+        <li>
+          <code>chat:remove_message</code> Remove own and other's messages in chat. (Only mods/streamer in 
+          their own chat)
+        </li>
+        <li><code>log:view:self</code> View and manage the your security log.</li>
+        <li><code>notification:update:self</code> Create and manage your notifications.</li>
+        <li><code>notification:view:self</code> View your notifications.</li>
+        <li><code>oauth:manage:self</code> View and manage your OAuth clients.</li>
+        <li><code>oauth:authorize:self</code> Authorize other applications to access your account.</li>
+        <li><code>resource:delete:self</code> Remove your access to emoticons and other graphical resources.</li>
+        <li><code>resource:find:self</code> View emoticons and other graphical resources you have access to.</li>
+        <li><code>subscription:view:self</code> View who you're subscribed to.</li>
+        <li><code>transaction:view:self</code> View your pending transactions.</li>
+        <li><code>tetris:robot:self</code> Run as an interactive game in your channel.</li>
+        <li><code>tetris:manage:self</code> Create, update and delete the interactive games in your account.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Need more help?</h2>
+      <p>
+        If you're still not sure on how to use OAuth, or you've hit a bug. Hit us up on
+        <a href="https://gitter.im/MCProHosting/beam-dev" target="_blank">Gitter</a>.
+      </p>
+    </section>
+  </section>
+</div>

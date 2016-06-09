@@ -5,12 +5,20 @@ import LoremIpsum from "lorem-ipsum";
 export default class AbstractAchievementMethod extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
-  group() { return "achievements" }
-  examples() { return [ new SuccesfulExample(), new ErrorfulExample() ]; }
-  parameters() { return []; }
+  group() { return "achievements"; }
+
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulExample()
+    ];
+  }
+  parameters() {
+    return [];
+  }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   constructor() {
     super();
   }

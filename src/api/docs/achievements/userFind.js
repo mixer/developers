@@ -5,7 +5,7 @@ import Parameter from "../../parameter.js";
 
 export default class UserProgressMethod extends AbstractAchievementMethod {
   uri() { return "/api/v1/users/:id/achievements"; }
-  group() { return "achievements" }
+  group() { return "achievements"; }
   description() {
     return (
       <div>
@@ -25,8 +25,17 @@ export default class UserProgressMethod extends AbstractAchievementMethod {
       </div>
     )
   }
-  examples() { return [ new SuccesfulResult() ]; }
-  parameters() { return [ new IDParameter() ]; }
+
+  examples() {
+    return [
+      new SuccessfulExample()
+    ];
+  }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -38,7 +47,7 @@ class IDParameter extends Parameter {
   description() { return "Numeric user ID to get the achievements for."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return [

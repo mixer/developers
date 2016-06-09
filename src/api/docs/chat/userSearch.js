@@ -8,7 +8,9 @@ import PaginatedMethod from "../../paginatedMethod.js";
 
 export default class UserSearchMethod extends PaginatedMethod {
   uri() { return "/api/v1/chats/:id/users/search"; }
+  httpMethod() { return "GET"; }
   version() { return 1; }
+  group() { return "chat"; }
   description() {
     return (
       <div className="description">
@@ -23,15 +25,17 @@ export default class UserSearchMethod extends PaginatedMethod {
       </div>
     );
   }
-  group() { return "chat"; }
 
-  httpMethod() { return "GET"; }
   parameters() {
     return super.parameters().concat([
       new IDParameter(), new UsernameParameter()
     ]);
   }
-  examples() { return [ new SuccesfulResult() ]; }
+  examples() {
+    return [
+      new SuccessfulResponse()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -44,7 +48,7 @@ class UsernameParameter extends Parameter {
   description() { return "The username to search by."; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResponse extends Example {
   httpCode() { return 200; }
   data() {
     return [{

@@ -4,7 +4,7 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulResult from "./succesfulExample.js";
+import SuccesfulResult from "./successfulExample.js";
 import IDParameter from "./idParameter.js";
 import ResourceMissingResult from "../../resourceMissingResult.js";
 import AccessDeniedResult from "../../accessDeniedResult.js";
@@ -14,16 +14,26 @@ export default class ChangeAvatarMethod extends Method {
   version() { return 1; }
   httpMethod() { return "POST"; }
   group() { return "user"; }
-
   description() { return "Used for uploading and setting a new user profile image."; }
-  parameters() { return [ new IDParameter(), new AvatarParameter() ]; }
-  examples() { return [ new SuccesfulResult(), new AccessDeniedResult(),
-                        new ResourceMissingResult("Channel"),
-                        new ErrorfulResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new AvatarParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccesfulResult(),
+      new AccessDeniedResult(),
+      new ResourceMissingResult("Channel"),
+      new ErrorfulResult()
+    ];
+  }
 }
 
 class AvatarParameter extends Parameter {
-  name() { return "@avatar"; }
+  name() { return "avatar"; }
   description() {
     return (
       <div>

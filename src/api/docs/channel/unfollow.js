@@ -11,10 +11,15 @@ export default class UnfollowUserMethod extends Method {
   description() { return "Unfollows a channel for the given user."; }
   group() { return "channels"; }
 
-  parameters() { return [ new IDParameter(), new UserParameter() ]; }
+  parameters() {
+    return [
+      new IDParameter(),
+      new UserParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulResult(),
+      new SuccessfulResult(),
       new AccessDeniedResult(),
       new ResourceMissingResult("Channel")
     ];
@@ -31,7 +36,7 @@ class UserParameter extends Parameter {
   description() { return "The user ID who wants to unfollow the channel"; }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulResult extends Example {
   httpCode() { return 200; }
   data() { return "You are no longer following this channel."; }
 }

@@ -23,7 +23,7 @@ export default class APIReferencePage extends React.Component {
 
     return (
       <div className="api-method-page">
-        <Bootstrap.Grid fluid="true">
+        <Bootstrap.Grid fluid={true}>
           <Bootstrap.Row>
             <Col lg={4} md={5} sm={6}>
               <Row>

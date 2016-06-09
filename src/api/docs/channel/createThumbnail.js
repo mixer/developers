@@ -12,7 +12,7 @@ export default class CreateThumbnailMethod extends Method {
   uri() { return "/api/v1/channels/:id/thumbnail"; }
   httpMethod() { return "POST"; }
   version() { return 1; }
-  group() { return "channels" }
+  group() { return "channels"; }
   description() {
     return (
       <p>
@@ -21,10 +21,16 @@ export default class CreateThumbnailMethod extends Method {
       </p>
     )
   }
-  parameters() { return [ new IDParameter(), new ThumbnailParameter() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new ThumbnailParameter()
+    ];
+  }
   examples() {
     return [
-      new SuccesfulResult(),
+      new SuccessfulExample(),
       new AccessDeniedResult(),
       new ResourceMissingResult("Channel"),
       new ErrorfulResult()
@@ -50,15 +56,15 @@ class ThumbnailParameter extends Parameter {
         </p>
         <p>
           The maximum upload size is 10 megabytes. Valid formats include png,
-          jpg, and gif images. Files that do not fit these rules will cause a 
-          <code>400 Bad Request</code> to be returned.
+          jpg, and gif images. Files that do not fit these rules will cause
+          a <code>400 Bad Request</code> to be returned.
         </p>
       </div>
     );
   }
 }
 
-class SuccesfulResult extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
     return {

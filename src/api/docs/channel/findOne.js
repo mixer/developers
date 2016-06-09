@@ -3,13 +3,13 @@ import Method from "../../method.js";
 import Parameter from "../../parameter.js";
 import Example from "../../example.js";
 
-import SuccesfulResponse from "./succesfulResponse.js";
+import SuccessfulExample from "./successfulResponse.js";
 
 export default class FindOneMethod extends Method {
   uri() { return "/api/v1/channels/:id"; }
   version() { return 1; }
   httpMethod() { return "GET"; }
-  group() { return "channels" }
+  group() { return "channels"; }
   description() {
     return (
       <p>
@@ -20,8 +20,17 @@ export default class FindOneMethod extends Method {
     )
   }
 
-  parameters() { return [ new IDParameter() ]; }
-  examples() { return [ new SuccesfulResponse(), new ErrorfulResult() ]; }
+  parameters() {
+    return [
+      new IDParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new ErrorfulResult()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {

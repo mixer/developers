@@ -11,7 +11,6 @@ export default class FindOneResource extends Method {
   version() { return 1; }
   httpMethod() { return "GET"; }
   group() { return "resource"; }
-
   description() {
     return (
       <p>
@@ -22,8 +21,19 @@ export default class FindOneResource extends Method {
       </p>
     );
   }
-  parameters() { return [ new IDParameter(), new TypeParameter() ]; }
-  examples() { return [ new SuccesfulExample(), new AccessDeniedResult() ]; }
+
+  parameters() {
+    return [
+      new IDParameter(),
+      new TypeParameter()
+    ];
+  }
+  examples() {
+    return [
+      new SuccessfulExample(),
+      new AccessDeniedResult()
+    ];
+  }
 }
 
 class IDParameter extends Parameter {
@@ -38,19 +48,25 @@ class TypeParameter extends Parameter {
   default() { return undefined; }
 }
 
-class SuccesfulExample extends Example {
+class SuccessfulExample extends Example {
   httpCode() { return 200; }
   data() {
-    return [{
-      createdAt: new Date().toISOString(),
-      id: 36,
-      meta: {},
-      relid: 0,
-      remote_path: "img/covers/wow-cover.jpg",
-      store: "nil",
-      type: "type:cover",
-      updatedAt: new Date().toISOString(),
-      url: "https://lab.beam.pro/img/covers/wow-cover.jpg"
-    }];
+    return [
+      {
+        "id": 2450,
+        "group": 12,
+        "resourceId": null,
+        "resourceType": null,
+        "status": "active",
+        "cancelled": null,
+        "expiresAt": new Date().toISOString(),
+        "createdAt": new Date().toISOString(),
+        "updatedAt": new Date().toISOString(),
+        "Group": {
+          "id": 12,
+          "name": "Pro"
+        }
+      }
+    ];
   }
 }
