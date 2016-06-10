@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "Centralized hub for all things related to Beam development",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint gulpfile.js",
+    "test": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,11 @@
     "install": "^0.8.1",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1",
-    "npm": "^3.9.5"
+    "lodash": "^4.13.1",
+    "npm": "^3.9.5",
+    "run-sequence": "^1.2.1"
+  },
+  "optionalDependencies": {
+    "@mcph/beam-common": "^2.4.1"
   }
 }

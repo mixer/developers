@@ -44,8 +44,10 @@ html
             src="scripts/ripples.min.js"
         )
 
-        block title
-            title Beam - Developers
+        title
+            | Beam - #{''}
+            block title
+                | Developers
 
         block additionalScripts
 
@@ -59,11 +61,9 @@ html
         header
             include navbar.pug
 
-        .container(
-            data-spy="scroll"
-            data-target="#sidebar"
-        )
+        .container
             block content
+
         script(type="text/javascript").
             addEventListener('load', function() {
                 $.material.init();

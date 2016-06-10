@@ -147,7 +147,6 @@
                                                 {% endif %}
 
                                                 {% if b.type and b.type != "" and not b.schema %}
-                                                    <b>Test {{b.type | dump}}</b>
                                                     <p><strong>Type</strong>:</p>
                                                     {% if b.properties %}
                                                         <ul>
@@ -212,7 +211,6 @@
 
                                                     {% if b.type and b.type != "" and not b.schema %}
                                                         <p><strong>Type</strong>:</p>
-                                                        <b>Test {{b.type | dump}}</b>
                                                         {% if b.properties %}
                                                             <ul>
                                                                 {% for key, item in b.properties %}

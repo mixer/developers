@@ -1,4 +1,4 @@
-<div class="row rest-doc">
+<div class="row rest-doc" data-spy="scroll" data-target="#sidebar">
     <div class="col-md-9" role="main">
         <div class="page-header">
             <h1>{{ title }} API documentation{% if version %} <small>version {{ version }}</small>{% endif %}</h1>
