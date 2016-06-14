@@ -1,5 +1,12 @@
 /* eslint-disable no-console */
 
+'use strict';
+
+const assert = require('assert');
+
+const hostLocation = process.env.HOST_LOCATION;
+assert(hostLocation, 'HOST_LOCATION env variable must be set.');
+
 const path = require('path');
 const childProcess = require('child_process');
 
@@ -34,7 +41,7 @@ const paths = {
         },
         icon: 'src/favicon.ico',
         images: 'src/images/**/*',
-        pug: 'src/pug/*.pug',
+        pug: ['src/pug/**/*.pug', '!src/pug/layouts/*'],
         styles: 'src/styles/**/*.less',
         restDocsNunjucks: './src/nunjucks/raml2html/template.nunjucks',
     },
@@ -165,6 +172,7 @@ function getLocals () {
     }
     return {
         permissions,
+        hostLocation,
     };
 }
 
@@ -188,6 +196,9 @@ gulp.task('images', () =>
 gulp.task('styles', () =>
     gulp.src(paths.src.styles)
     .pipe(less({
+        globalVars: {
+            hostLocation,
+        },
         paths: [
             'node_modules/bootstrap-material-design/less',
         ],
@@ -210,6 +221,14 @@ gulp.task('watch', () => {
         paths.watch.restDoc,
         paths.watch.restDocsNunjucks,
     ], ['rest-doc-pug']);
+});
+
+gulp.task('dist-light', cb => {
+    runSequence(
+        'clean',
+        ['copy-scripts', 'styles', 'icon', 'images'],
+        'pug'
+    , cb);
 });
 
 gulp.task('dist', cb => {

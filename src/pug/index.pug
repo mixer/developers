@@ -1,5 +1,6 @@
 extends ./layouts/main.pug
 block content
+    h1=hostLocation
     h1.
         Welcome to beam developer central
     h4.
@@ -19,9 +20,9 @@ block content
                 li
                     test
         .col-md-3.category-wrapper
-            .category-card.well(onclick="location.href='#';")
+            .category-card.well(onclick=`location.href='${hostLocation}/guides/chatbot.html';`)
                 img(
-                    src="images/beam-dev-chat-icon.svg"
+                    src=`${hostLocation}/images/beam-dev-chat-icon.svg`
                     class="img-responsive"
                 )
                 h4.
@@ -30,9 +31,9 @@ block content
                     Hook into the Beam chat API to moderate, run fun chat based
                     games, and more!
         .category-wrapper.col-md-3
-            .category-card.well(onclick="location.href='guides/chatbot.html';")
+            .category-card.well(onclick=`location.href='${hostLocation}/guides/interactive.html';`)
                 img(
-                    src="images/beam-dev-interactive-icon.svg"
+                    src=`${hostLocation}/images/beam-dev-interactive-icon.svg`
                     class="img-responsive"
                 )
                 h4.
@@ -41,9 +42,9 @@ block content
                     Provide viewers with joysticks, buttons and screen controls to
                     interface with the games streamers are playing.
         .col-md-3.category-wrapper
-            .category-card.well(onclick="location.href='rest.html';")
+            .category-card.well(onclick=`location.href='${hostLocation}/rest.html';`)
                 img(
-                    src="images/beam-dev-app-icon.svg"
+                    src=`${hostLocation}/images/beam-dev-app-icon.svg`
                     class="img-responsive"
                 )
                 h4.
