@@ -12,8 +12,12 @@
 @well-bg: #22273d;
 
 // general styles
-* {
+p, h2, h3, h4, h5, h6, ol, ul, pre, table {
     color: @main-text !important;
+}
+
+.container a[href]:not([class]) {
+    color: darken(@main-text, 40%) !important;
 }
 
 h1 {

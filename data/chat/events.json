@@ -1,0 +1,91 @@
+{
+  "ChatMessage": {
+    "description": "Send by the server when a any client send a message.",
+    "example": {
+      "channel": 12345,
+      "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
+      "user_name": "USERNAME",
+      "user_id": 12345,
+      "user_roles": [
+        "User"
+      ],
+      "message": {
+        "message": [
+          {
+            "type": "text",
+            "data": "Hello!"
+          }
+        ],
+        "meta": {}
+      }
+    }
+  },
+  "UserJoin": {
+    "description": "Send when a user left the chat.",
+    "example": {
+      "username": "USERNAME",
+      "roles": [
+        "User"
+      ],
+      "id": 12345
+    }
+  },
+  "UserLeave": {
+    "description": "Send when a user left the chat.",
+    "example": {
+      "username": "USERNAME",
+      "roles": [
+        "User"
+      ],
+      "id": 12345
+    }
+  },
+  "PollStart": {
+    "description": "Send when a new poll is started.",
+    "example": {
+      "q": "How's the weather?",
+      "answers": [
+        "Good.",
+        "Bad."
+      ],
+      "author": {
+        "user_name": "USERNAME",
+        "user_id": 12345,
+        "user_roles": [
+          "Mod"
+        ]
+      },
+      "duration": 29996,
+      "endsAt": 1465533783407,
+      "voters": 0,
+      "responses": {
+        "Good.": 0,
+        "Bad.": 0
+      }
+    }
+  },
+  "PollEnd": {
+    "description": "Send when a poll ended",
+    "example": {
+      "q": "How's the weather?",
+      "answers": [
+        "Good.",
+        "Bad."
+      ],
+      "author": {
+        "user_name": "USERNAME",
+        "user_id": 12345,
+        "user_roles": [
+          "Mod"
+        ]
+      },
+      "duration": 29996,
+      "endsAt": 1465533783407,
+      "voters": 5,
+      "responses": {
+        "Good.": 2,
+        "Bad.": 3
+      }
+    }
+  }
+}

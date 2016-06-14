@@ -41,7 +41,7 @@ const paths = {
         },
         icon: 'src/favicon.ico',
         images: 'src/images/**/*',
-        pug: ['src/pug/**/*.pug', '!src/pug/layouts/*'],
+        pug: ['src/pug/**/*.pug', '!src/pug/layouts/*', '!src/pug/includes'],
         styles: 'src/styles/**/*.less',
         restDocsNunjucks: './src/nunjucks/raml2html/template.nunjucks',
     },
@@ -54,11 +54,20 @@ const paths = {
         images: 'dist/images',
     },
     watch: {
-        pug: 'src/pug/**/*.pug',
+        pug: 'src/pug/**/*',
         restDoc: path.join(ramlPath, '**/*.raml'),
         restDocsNunjucks: './src/nunjucks/raml2html/**/*.nunjucks',
     },
 };
+
+function handleError (stream) {
+    return stream.on('error', function (error) {
+        console.error(error.stack);
+        // Keep gulp from hanging on this task
+        if (this.emit) this.emit('end');
+        if (this.end) this.end();
+    });
+}
 
 const javadocCommand = [
     'rm -rf temp/',
@@ -170,16 +179,30 @@ function getLocals () {
             },
         };
     }
+    const chatEvents = _.cloneDeep(require('./data/chat/events.json'));
+    _.forEach(chatEvents, event => {
+        event.example = JSON.stringify(event.example, null, '  ');
+    });
     return {
         permissions,
         hostLocation,
+        fixtures: {
+            chat: {
+                events: chatEvents,
+            },
+        },
     };
 }
 
 gulp.task('pug', () =>
-    gulp.src(paths.src.pug).pipe(pug({
-        locals: getLocals(),
-    }))
+    gulp.src(paths.src.pug)
+    .pipe(
+        handleError(
+            pug({
+                locals: getLocals(),
+            })
+        )
+    )
     .pipe(gulp.dest(paths.dist.html))
 );
 

@@ -1,0 +1,20 @@
+mixin codehighlight(language, path)
+    pre
+        code(class=language)
+            if block
+                block
+            else
+                | Error: No content
+mixin codehighlightScripts
+    script(
+        src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"
+    )
+mixin codehighlightStyles
+    link(
+        rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css"
+    )
+    link(
+        rel="stylesheet"
+        href=`${hostLocation}/styles/highlightjs.css`
+    )

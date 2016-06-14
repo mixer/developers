@@ -1,4 +1,90 @@
-extends ./layouts/main.pug
+extends ../layouts/main.pug
+include ../includes/mixins.pug
 block title
     | ChatBot creation
+block additionalStyles
+    +codehighlightStyles
+block additionalScripts
+    +codehighlightScripts
 block content
+    h1 Introduction:
+    p.
+        Our chat servers use a standard secure websocket protocol (wss)
+        as defined in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455].
+
+        For more info see the #[a(href="#Raw API") Raw API section]
+
+    h1 Events
+    p.
+        All libraries use the same websocket events, here is a list of them
+        with raw JSON examples.
+    table.table
+        thead
+            tr
+                th Name
+                th Description
+                th Example
+        tbody
+            for eventData, eventName in fixtures.chat.events
+                tr
+                    td=eventName
+                    td=eventData.description
+                    td
+                        +codehighlight('json')=eventData.example
+
+    h1 Creating a simple chat bot.
+    p.
+        In this guide, we will show you how to create a "ping-pong" chat bot using
+        our #[a(href="https://github.com/WatchBeam/beam-client-node") Node],
+        #[a(href="https://github.com/WatchBeam/beam-client-java") Java]
+        and #[a(href="https://github.com/WatchBeam/beam-client-python") Python]
+        libraries and some examples using the
+        the API directly with #[a(href="https://curl.haxx.se/") curl]
+        and #[a(href="https://github.com/websockets/wscat") wscat].
+
+    h2 Node (and TypeScript)
+    h3 Prerequisites:
+    ol
+        li.
+            Get #[a(href="https://nodejs.org/en/") NodeJS and NPM] for your platform.
+        li.
+            Create a #[a(href="https://docs.npmjs.com/cli/init") new project] with npm.
+        li.
+            Run #[kbd npm i -S beam-client-node]
+    h3 Usage
+    p.
+        The node implementation is using
+        #[a(href="http://bluebirdjs.com/docs/api-reference.html") Bluebird]
+        promises, so natively callbacks are not supported.
+    p.
+        Before we can connect to the chat servers, we must authenticate
+        ourselves with the backend.
+        In our example we are gonna use the simple login auth.
+
+    +codehighlight('javascript')
+        include ./code/node/chatbot/1.js
+    p.
+        The result should be something like this:
+    +codehighlight('txt')
+        include ./code/node/chatbot/1_response.txt
+    p.
+        In the next step we will use the response from the backend to connect
+        to the chat server, for that we have the #[kbd createChatSocket()] function.
+    +codehighlight('javascript')
+        include ./code/node/chatbot/2.js
+    p.
+        The result should look something like this:
+    +codehighlight('txt')
+        include ./code/node/chatbot/2_response.txt
+    p.
+        Now that we are more familiar with how we do things using the node client
+        lets bring on the ping-pong example.
+    +codehighlight('javascript')
+        include ./code/node/chatbot/3.js
+
+    h2 Java
+    h2 Python
+    h2 Raw API
+    p.
+    script(type="text/javascript").
+        hljs.initHighlightingOnLoad();
