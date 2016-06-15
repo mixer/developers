@@ -30,6 +30,13 @@ const bsmd = 'node_modules/bootstrap-material-design/dist';
 
 const ramlPath = process.env.BE_PATH || '../backend/doc/raml';
 
+const chatEvents = require('./data/chat/events.json');
+
+/**
+ * Contains all source dist and watch paths.
+ * Now paths should be hardcoded below this object.
+ * @type {Object}
+ */
 const paths = {
     src: {
         rest: ramlPath,
@@ -60,7 +67,18 @@ const paths = {
     },
 };
 
+const isWatch = process.argv.some(task => task === 'watch');
+
+/**
+ * Simple error handler function that stops gulp watch from crashing.
+ * Will do nothing when the task is not watch.
+ * @param  {Stream} stream
+ * @return {Stream} stream
+ */
 function handleError (stream) {
+    if (!isWatch) {
+        return stream;
+    }
     return stream.on('error', function (error) {
         console.error(error.stack);
         // Keep gulp from hanging on this task
@@ -69,6 +87,10 @@ function handleError (stream) {
     });
 }
 
+/**
+ * The command to be executed in order to build the java-doc.
+ * @type {String}
+ */
 const javadocCommand = [
     'rm -rf temp/',
     'mkdir -p temp',
@@ -79,13 +101,19 @@ const javadocCommand = [
     'cd ../../',
 ].join(' && ');
 
+/**
+ * Clones the beam-client-java and generates the corresponding JavaDoc.
+ */
 gulp.task('java-doc', () => {
     childProcess.execSync(javadocCommand);
 });
 
+/**
+ * Wipes the dist and temp folder for a fresh build.
+ */
 gulp.task('clean', () => del.sync([
     'dist/**/*',
-    'tmp/**/*',
+    'temp/**/*',
 ]));
 
 /**
@@ -132,6 +160,16 @@ function generateRAML2HTMLConfig () {
     return defaultConfig;
 }
 
+/**
+ * This task relies on the presence of a backend install.
+ * It uses raml2html to render the raml docs with our own nunjuck templates
+ * and a bit of our own logic such as:
+ * Injection of required permissions warnings into descriptions.
+ * TODO: Filtering of methods that should not be exported.
+ * TODO: ReadOnly/Private property indicators.
+ * It then moves the compiled html into the temp folder,
+ * from there it is included by pug.
+ */
 gulp.task('rest-doc', () =>
     Bluebird.resolve(
         raml2html.render(
@@ -143,13 +181,16 @@ gulp.task('rest-doc', () =>
     .then(html => fs.writeFileAsync(paths.dist.rest, html))
 );
 
+/**
+ * Copies 3rd party javascript for dist.
+ */
 gulp.task('copy-scripts', () =>
     gulp.src(paths.src.material.scripts)
     .pipe(gulp.dest(paths.dist.scripts))
 );
 
 /**
- * Creates a new object with all values from the passed object ordered by keys
+ * Creates a new object with all values from the passed object ordered by keys.
  * @param  {Object} obj
  * @return {Object}
  */
@@ -164,6 +205,9 @@ function orderObject (obj) {
 
 /**
  * Generates locals required for templating.
+ * `permissions` is used for the REST API docs, they are displayed in a table.
+ * `hostLocation` is needed for correct resource loading of paths (src, href, etc.)
+ * `fixtures` contains misc json structures.
  * @return {Object}
  */
 function getLocals () {
@@ -179,8 +223,8 @@ function getLocals () {
             },
         };
     }
-    const chatEvents = _.cloneDeep(require('./data/chat/events.json'));
-    _.forEach(chatEvents, event => {
+    const eventsCopy = _.cloneDeep(chatEvents);
+    _.forEach(eventsCopy, event => {
         event.example = JSON.stringify(event.example, null, '  ');
     });
     return {
@@ -188,12 +232,15 @@ function getLocals () {
         hostLocation,
         fixtures: {
             chat: {
-                events: chatEvents,
+                events: eventsCopy,
             },
         },
     };
 }
 
+/**
+ * Compiles pug templates.
+ */
 gulp.task('pug', () =>
     gulp.src(paths.src.pug)
     .pipe(
@@ -206,16 +253,26 @@ gulp.task('pug', () =>
     .pipe(gulp.dest(paths.dist.html))
 );
 
+/**
+ * Moves the favicon.
+ */
 gulp.task('icon', () =>
     gulp.src(paths.src.icon)
     .pipe(gulp.dest(paths.dist.icon))
 );
 
+/**
+ * Copies images.
+ * TODO: Imagemin.
+ */
 gulp.task('images', () =>
     gulp.src(paths.src.images)
     .pipe(gulp.dest(paths.dist.images))
 );
 
+/**
+ * Compiles and dists less to css.
+ */
 gulp.task('styles', () =>
     gulp.src(paths.src.styles)
     .pipe(less({
@@ -233,10 +290,19 @@ gulp.task('styles', () =>
     .pipe(gulp.dest(paths.dist.styles))
 );
 
+/**
+ * Rebuilds the rest docs and runs pugs, useful when editing the raml docs.
+ */
 gulp.task('rest-doc-pug', cb => {
     runSequence('rest-doc', 'pug', cb);
 });
 
+/**
+ * Watches the following:
+ * pug changes
+ * style changes
+ * raml doc changes (in backend)
+ */
 gulp.task('watch', () => {
     gulp.watch(paths.src.styles, ['styles']);
     gulp.watch(paths.watch.pug, ['pug']);
@@ -246,6 +312,9 @@ gulp.task('watch', () => {
     ], ['rest-doc-pug']);
 });
 
+/**
+ * Fast version of dist, does not build JavaDoc and Raml Docs.
+ */
 gulp.task('dist-light', cb => {
     runSequence(
         'clean',
@@ -254,6 +323,9 @@ gulp.task('dist-light', cb => {
     , cb);
 });
 
+/**
+ * Full version of dist, should be used for deployment.
+ */
 gulp.task('dist', cb => {
     runSequence(
         'clean',
