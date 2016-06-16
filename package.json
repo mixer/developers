@@ -4,7 +4,7 @@
   "description": "Centralized hub for all things related to Beam development",
   "scripts": {
     "lint": "eslint gulpfile.js",
-    "test": "npm run lint && npm test"
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
