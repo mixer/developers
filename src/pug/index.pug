@@ -1,6 +1,5 @@
 extends ./layouts/main.pug
 block content
-    h1=hostLocation
     h1.
         Welcome to beam developer central
     h4.
@@ -19,35 +18,36 @@ block content
                     test
                 li
                     test
-        .col-md-3.category-wrapper
-            .category-card.well(onclick=`location.href='${hostLocation}/guides/chatbot.html';`)
-                img(
-                    src=`${hostLocation}/images/beam-dev-chat-icon.svg`
-                    class="img-responsive"
+        mixin guideButton(title, name, image)
+            .col-md-3.category-wrapper
+                .category-card.well.withripple(
+                    onclick=`location.href='${hostLocation}/${name}.html';`
+                    data-ripple-color="#FFFFFF"
                 )
-                h4.
-                    Chat Bot
-                p.
-                    Hook into the Beam chat API to moderate, run fun chat based
-                    games, and more!
-        .category-wrapper.col-md-3
-            .category-card.well(onclick=`location.href='${hostLocation}/guides/interactive.html';`)
-                img(
-                    src=`${hostLocation}/images/beam-dev-interactive-icon.svg`
-                    class="img-responsive"
-                )
-                h4.
-                    Interactive Integration
-                p.
-                    Provide viewers with joysticks, buttons and screen controls to
-                    interface with the games streamers are playing.
-        .col-md-3.category-wrapper
-            .category-card.well(onclick=`location.href='${hostLocation}/rest.html';`)
-                img(
-                    src=`${hostLocation}/images/beam-dev-app-icon.svg`
-                    class="img-responsive"
-                )
-                h4.
-                    Beam App
-                p.
-                    Crerate a third party Beam application using our RESTful API.
+                    img(
+                        src=`${hostLocation}${image}`
+                        class="img-responsive"
+                    )
+                    h4=title
+                    p
+                        block
+        +guideButton(
+            'Chat Bot',
+            'guides/chatbot',
+            '/images/beam-dev-chat-icon.svg'
+        ).
+            Hook into the Beam chat API to moderate, run fun chat based games, and more!',
+            'guides/chatbot
+        +guideButton(
+            'Interactive Integration',
+            'guides/interactive',
+            '/images/beam-dev-interactive-icon.svg'
+        ).
+            Provide viewers with joysticks, buttons and screen controls tointerface with the games streamers are playing.
+        +guideButton(
+            'Beam App',
+            'rest',
+            '/images/beam-dev-app-icon.svg'
+        ).
+            Crerate a third party Beam application using our RESTful API.
+
