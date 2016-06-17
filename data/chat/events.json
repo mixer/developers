@@ -1,6 +1,6 @@
 {
   "ChatMessage": {
-    "description": "Send by the server when a any client send a message.",
+    "description": "Send by the server when a any client send a message. Can contain multiple message parts.",
     "example": {
       "channel": 12345,
       "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
@@ -14,6 +14,16 @@
           {
             "type": "text",
             "data": "Hello!"
+          },
+          {
+            "type": "emoticon",
+            "text": ":)",
+            "path": "default/1F604"
+          },
+          {
+            "type": "link",
+            "url": "http://beam.pro/awesome_channel",
+            "text": "Check out my channel, yo!"
           }
         ],
         "meta": {}

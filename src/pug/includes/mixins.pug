@@ -30,17 +30,21 @@ mixin bsTabs(tabs, prefix)
     .tab-content
         block
     script.
+        function hashUpdate() {
+            var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
+            tab.tab('show');
+            var rawEl = tab.get(0);
+            rawEl.scrollIntoView();
+        }
+        addEventListener('hashchange', hashUpdate);
         $(document).ready(function() {
             if (location.hash !== '') {
-                var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
-                tab.tab('show');
-                var rawEl = tab.get(0);
-                rawEl.scrollIntoView();
+                hashUpdate();
             }
 
             // Change hash for page-reload
             $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
-                location.hash = e.target.hash;
+                history.pushState( null, null, $(this).attr('href') );
             });
         });
 mixin bsTabItem(tabId, prefix, active)

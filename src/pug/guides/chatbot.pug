@@ -14,9 +14,39 @@ block content
         For more info see the #[a(href="#Raw API") Raw API section]
     h1 Events
     p.
-        All libraries use the same websocket events, here is a list of them
-        with raw JSON examples.
+        All libraries use the same websocket actions and events events,
+        here is a list of them with raw JSON examples.
+    h2 Actions
     table.table
+        colgroup
+            col(style="width:10%")
+            col(style="width:20%")
+            col(style="width:35%")
+            col(style="width:35%")
+        thead
+            tr
+                th Name
+                th Description
+                th Request
+                th Response
+        tbody
+            for actionData, actionName in fixtures.chat.actions
+                tr(id=`chat-action-${actionName}`)
+                    td=actionName
+                    td=actionData.description
+                    td
+                        +codehighlight('json')=actionData.example.request
+                    td=actionData.response
+                        if actionData.example.response
+                            +codehighlight('json')=actionData.example.response
+                        else
+                            | No success response
+    h2 Events
+    table.table
+        colgroup
+            col(style="width:10%")
+            col(style="width:20%")
+            col(style="width:70%")
         thead
             tr
                 th Name
@@ -24,7 +54,7 @@ block content
                 th Example
         tbody
             for eventData, eventName in fixtures.chat.events
-                tr
+                tr(id=`chat-event-${eventName}`)
                     td=eventName
                     td=eventData.description
                     td
@@ -38,6 +68,9 @@ block content
         libraries and some examples using the
         the API directly with #[a(href="https://curl.haxx.se/") curl]
         and #[a(href="https://github.com/websockets/wscat") wscat].
+
+        Please note that it is possible to create a passive bot as well,
+        a passive bot will not require #[b any] authentication.
     +bsTabs({
         node: 'Node and Typescript',
         java:'Java',
@@ -119,5 +152,43 @@ block content
         +bsTabItem('raw', 'guide')
             h2 Raw API
             p.
+                The code here is not meant for a real world implementation but rather
+                as an explanation/help for custom implementors.
+            h3 Prerequisites
+            ol
+                li.
+                    A bash shell
+                li
+                    a(href="https://curl.haxx.se/") curl
+                li
+                    a(href="https://github.com/websockets/wscat") wscat
+                li
+                    a(href="https://stedolan.github.io/jq/") jq
+            h3 Usage
+            p.
+                First, we want to show off how to connect to perform a simple
+                password auth with #[kbd curl].
+                We simply send our credentials and store the resulting json
+                in a variable for later use.
+            +codehighlight('bash')
+                include ./code/raw/chat/1.sh
+            p.
+                In the next step we use the previously gathered info to request
+                the chat server auth info.
+            +codehighlight('bash')
+                include ./code/raw/chat/2.sh
+            p.
+                Now that we have all required information, we can etablish a connection
+                to the chatserver with #[kbd wscat].
+                As shown in the next snippet, we send a authentication payload first.
+                #[i Please note that all previous steps are optional if you just want to listen to the chat].
+            +codehighlight('bash')
+                include ./code/raw/chat/3.sh
+            p.
+                Typically the first messages we receive are our own
+                #[a(href="#chat-event-UserJoin") UserJoin] event
+                and an acknowledgement of our auth.
+
+
             script(type="text/javascript").
                 hljs.initHighlightingOnLoad();

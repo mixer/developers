@@ -30,6 +30,7 @@ const bsmd = 'node_modules/bootstrap-material-design/dist';
 
 const ramlPath = process.env.BE_PATH || '../backend/doc/raml';
 
+const chatActions = require('./data/chat/actions.json');
 const chatEvents = require('./data/chat/events.json');
 
 /**
@@ -204,6 +205,15 @@ function orderObject (obj) {
 }
 
 /**
+ * Pretty prints objects as string
+ * @param  {Object} object
+ * @return {String}
+ */
+function prettyJSON (object) {
+    return JSON.stringify(object, null, '  ');
+}
+
+/**
  * Generates locals required for templating.
  * `permissions` is used for the REST API docs, they are displayed in a table.
  * `hostLocation` is needed for correct resource loading of paths (src, href, etc.)
@@ -223,16 +233,24 @@ function getLocals () {
             },
         };
     }
-    const eventsCopy = _.cloneDeep(chatEvents);
-    _.forEach(eventsCopy, event => {
-        event.example = JSON.stringify(event.example, null, '  ');
+    const actions = _.cloneDeep(chatActions);
+    _.forEach(actions, action => {
+        action.example.request = prettyJSON(action.example.request);
+        if (action.example.response) {
+            action.example.response = prettyJSON(action.example.response);
+        }
+    });
+    const events = _.cloneDeep(chatEvents);
+    _.forEach(events, event => {
+        event.example = prettyJSON(event.example);
     });
     return {
         permissions,
         hostLocation,
         fixtures: {
             chat: {
-                events: eventsCopy,
+                events,
+                actions,
             },
         },
     };
