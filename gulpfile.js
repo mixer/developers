@@ -118,21 +118,38 @@ gulp.task('clean', () => del.sync([
 ]));
 
 /**
- * Retrieves all methods from a raml resource object
- * @param  {Object[]} resources
- * @return {Object[]}
+ * @callback RAMLTraverseCallback
+ * @param {Resource|Method} resource The current resource or method
+ * @param {Boolean} isMethod Indicates if node is a method.
+ * keep in mind that methods are 'leaves' and have no children.
+ * @return {Boolean} If falsy, the entire resource and subresources will be
+ * discarded.
  */
-function flattenMethods (resources) {
-    let ret = [];
-    resources.forEach(resource => {
+
+/**
+ * Traverses the entire resource tree while providing a way to filter out specific
+ * notes from the tree.
+ * @param  {Object[]} resources
+ * @param  {RAMLTraverseCallback} callback
+ */
+function traverseRAMLResourceTree (resources, callback) {
+    resources.forEach((resource, idx) => {
+        if (!callback(resource, false)) {
+            resources.splice(idx, 1);
+            return;
+        }
         if (resource.methods) {
-            ret = ret.concat(resource.methods);
+            resource.methods.forEach((method, methodIdx) => {
+                if (!callback(method, true)) {
+                    resource.methods.splice(methodIdx, 1);
+                    return;
+                }
+            });
         }
         if (resource.resources) {
-            ret = ret.concat(flattenMethods(resource.resources));
+            traverseRAMLResourceTree(resource.resources, callback);
         }
     });
-    return ret;
 }
 
 /**
@@ -145,17 +162,22 @@ function generateRAML2HTMLConfig () {
     const oldRef = defaultConfig.processRamlObj;
     //
     defaultConfig.processRamlObj = ramlObject => {
-        const methods = flattenMethods(ramlObject.resources).filter(m => m.is);
-        // Alter description to reflect permission requirements.
-        methods.forEach(method => {
-            const trait = _.find(method.is, t => t.permissible);
-            if (!trait) {
-                return;
+        traverseRAMLResourceTree(ramlObject.resources, (resource, isMethod) => {
+            if (resource.annotations && resource.annotations.internal) {
+                return false;
             }
-            method.description +=
-            `\n\n This endpoint requires the \`${trait.permissible.permission}\` permission`;
-        });
 
+            if (isMethod) {
+                // Alter description to reflect permission requirements.
+                const trait = _.find(resource.is, t => t.permissible);
+                if (!trait) {
+                    return true;
+                }
+                resource.description +=
+                `\n\n This endpoint requires the \`${trait.permissible.permission}\` permission`;
+            }
+            return true;
+        });
         return oldRef(ramlObject);
     };
     return defaultConfig;
