@@ -2,7 +2,7 @@ const Beam = require('beam-client-node');
 const Tetris = require('beam-interactive-node');
 const rjs = require('robotjs');
 
-const stream = 1234;
+const channelId = 1234;
 const username = 'connor';
 const password = 'password';
 
@@ -13,14 +13,14 @@ beam.use('password', {
     password,
 })
 .attempt()
-.then(() => beam.game.join(stream))
+.then(() => beam.game.join(channelId))
 .then(res => createRobot(res))
 .then(robot => handleRobotConnection(robot));
 
 function createRobot (res) {
     return new Tetris.Robot({
         remote: res.body.address,
-        channel: stream,
+        channel: channelId,
         key: res.body.key,
     });
 }
