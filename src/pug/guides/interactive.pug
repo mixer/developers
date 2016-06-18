@@ -1,4 +1,104 @@
 extends ../layouts/main.pug
+include ../includes/mixins.pug
 block title
     | Interactive Integration creation
+block additionalStyles
+    +codehighlightStyles
+block additionalScripts
+    +codehighlightScripts
 block content
+    h1 Introduction
+    p.
+        Our interactive platform communicates using #[a(href="https://developers.google.com/protocol-buffers/") Google's Protocol Buffer]
+        specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
+        server, which analyzes them for you, before being sent to your Robot.
+    h1 Creating a Simple Interactive Robot
+
+    h2 Registering a Game On Beam
+    p.
+        Head over to the Interactive section of the Beam website. Click the plus
+        button next to "My Games", and name the game whatever you'd like.
+        Hit "Create Game".
+    p.
+        You’re now in the control editor. For our simple robot, we just want to
+        be able to record joystick input. Click the Joystick Tab on the right
+        side of the screen and then click "New". Click the arrow on the right
+        of your new joystick to expand its settings and check the "Coords (Mean)" analysis.
+        Collapse the Joystick settings by clicking the arrow again and then drag
+        the ""#0" item onto the grid on the left hand side of the screen.
+
+    p.
+        Everything else can be left to the defaults. Click Save.
+
+    h2 Writing the Code.
+    p.
+        We’re going to be using our #[a(href="https://github.com/WatchBeam/beam-interactive-node") Node],
+        #[a(href="https://github.com/WatchBeam/beam-interactive-java") Java]
+        and #[a(href="https://github.com/WatchBeam/beam-interactive-python") Python] to build a simple Robot.
+        Users will be able to visit your channel on Beam, and control the mouse
+        movement on your screen.
+
+    +bsTabs({
+        node: 'Node',
+        java:'Java',
+        python: 'Python'
+    }, 'guide')
+        +bsTabItem('node', 'guide', true)
+            h3 Prerequisites
+            ol
+                li.
+                    Get #[a(href="https://nodejs.org/en/") NodeJS and NPM] for your platform.
+                li.
+                    Create a #[a(href="https://docs.npmjs.com/cli/init") new project] with npm.
+                li.
+                    Run #[kbd npm i -S beam-client-node beam-interactive-node robotjs]
+            h3 Usage
+            p.
+                Let's start by importing all of the modules which we'll need and define
+                our channel id, username and password.
+            +codehighlight('javascript')
+                include ./code/node/interactive/1.js
+            p.
+                To connect to Beam Interactive we need to authenticate as our user specified above
+                using  #[kbd beam-client-node] we can use password based authentication to do this.
+                Once authenticated we're asking the api to join a stream as a robot with #[kbd beam.game.join].
+                We'll use the response from this to create a robot in the next step.
+            +codehighlight('javascript')
+                include ./code/node/interactive/2.js
+            p.
+                The join request should resolve with something like this
+            +codehighlight('json')
+                include ./code/node/interactive/2_response.txt
+            p.
+                We can use these details to create a robot by writing the #[kbd createRobot] function.
+            +codehighlight('javascript')
+                include ./code/node/interactive/3.js
+            p.
+                Once we have a robot the last thing to do is to hook the joystick
+                on beam up to your mouse. We do this by creating the #[kbd handleRobotConnection] function.
+            +codehighlight('javascript')
+                include ./code/node/interactive/4.js
+            p.
+                This function takes our Robot instance and initiates a handshake, An error will be
+                reported if a problem occurs during this process. Once its complete you'll get regular
+                reports from Beam as a #[kbd report] event on the robot object.
+
+                As we've only registered a Joystick control on Beam we'll only get joystick updates.
+                These come in an array within the report. As we've selected mean, the mean of all
+                the viewers joysticks will be contained within the coordMean object. We take this
+                mean and apply it to the mouse position.
+
+    h2 Start Streaming
+    p.
+        Head over to your channel page and click “Go Interactive” on the bottom
+        of the page. Now find your game and click the “Play” button. If everything
+        has gone well you should now see a joystick underneath your channel’s stream.
+        Move the joystick and your mouse should move in that direction.
+
+    script(type="text/javascript").
+        hljs.initHighlightingOnLoad();
+
+
+
+
+
