@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 
     public static void main(String[] args) throws AWTException {
-        BeamAPI beam = new BeamAPI();
-        Robot controller = new Robot();
+        BeamAPI beam = new BeamAPI(); //An instance of the BeamAPI from beam-client-java
+        Robot controller = new Robot(); // An AWT Robot, Not a Beam Robot
     }
 }

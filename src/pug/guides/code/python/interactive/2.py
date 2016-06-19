@@ -4,7 +4,6 @@ auth = {
     "password": "PASSWORD"
 }
 
-
 def login(session, username, password):
     """Log into the Beam servers via the API."""
     auth = dict(username=username, password=password)

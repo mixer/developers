@@ -85,7 +85,7 @@ block content
                 This function takes our Robot instance and initiates a handshake, An error will be
                 reported if a problem occurs during this process. Once its complete you'll get regular
                 reports from Beam as a #[kbd report] event on the robot object.
-
+            p.
                 As we've only registered a Joystick control on Beam we'll only get joystick updates.
                 These come in an array within the report. As we've selected mean, the mean of all
                 the viewers joysticks will be contained within the coordMean object. We take this
@@ -139,7 +139,7 @@ block content
                 include ./code/java/interactive/2.java
             p.
                 The last thing to do is wire up a report handler that takes the joystick's
-                coordMean and apply it to the mouse.
+                coordMean and applys it to the mouse.
             +codehighlight('java')
                 include ./code/java/interactive/3.java
             p.
@@ -156,36 +156,33 @@ block content
                 #[a(href="https://pypi.python.org/pypi/PyAutoGUI") PyAutoGUI]and the #[kbd requests] module.
                 Once installed create a new file and add the required imports.
             +codehighlight('python')
-                include ./code/java/python/1.py
+                include ./code/python/interactive/1.py
             p.
                 Next we need to setup some variables to store authentication details
                 and some funcions to login the user and retrieve some data from beam.
             +codehighlight('python')
-                    include ./code/java/python/2.py
+                    include ./code/python/interactive/2.py
             p.
-                After that we'll write our error and report handlers.
+                After that we'll write our error and report handlers. Our report handlers
+                takes the joystick's coordMean and applies it to the mouse.
             +codehighlight('python')
-                    include ./code/java/python/3.py
+                    include ./code/python/interactive/3.py
             p.
                 The final step is to setup the coroutine that will handle the connection to beam.
             +codehighlight('python')
-                include ./code/java/python/4.py
+                include ./code/python/interactive/4.py
             p.
                 The full code is below:
             +codehighlight('python')
-                include ./code/java/python/5.py
+                include ./code/python/interactive/5.py
 
     h2 Start Streaming
     p.
-        Head over to your channel page and click “Go Interactive” on the bottom
-        of the page. Now find your game and click the “Play” button. If everything
+        Head over to your channel page and click "Go Interactive" on the bottom
+        of the page. Now find your game and click the "Play" button. If everything
         has gone well you should now see a joystick underneath your channel’s stream.
         Move the joystick and your mouse should move in that direction.
 
     script(type="text/javascript").
         hljs.initHighlightingOnLoad();
-
-
-
-
 

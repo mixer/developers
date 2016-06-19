@@ -12,7 +12,6 @@ auth = {
     "password": "password"
 }
 
-
 def login(session, username, password):
     """Log into the Beam servers via the API."""
     auth = dict(username=username, password=password)
@@ -28,7 +27,6 @@ def on_error(error, conn):
     """
     print('Oh no, there was an error!')
     print(error.message)
-
 
 def on_report(report, conn):
     # Reports from beam will end up here
