@@ -146,6 +146,35 @@ block content
                 When you put everything together you get the final code which is below:
             +codehighlight('java')
                 include ./code/java/interactive/4.java
+        +bsTabItem('python', 'guide')
+            h3 Prerequisites
+            ol
+                li Python
+                li Pip (Python Package Manager)
+            p.
+                Once you have the prerequisites install #[a(href="https://github.com/WatchBeam/beam-interactive-python") beam-interactive-python],
+                #[a(href="https://pypi.python.org/pypi/PyAutoGUI") PyAutoGUI]and the #[kbd requests] module.
+                Once installed create a new file and add the required imports.
+            +codehighlight('python')
+                include ./code/java/python/1.py
+            p.
+                Next we need to setup some variables to store authentication details
+                and some funcions to login the user and retrieve some data from beam.
+            +codehighlight('python')
+                    include ./code/java/python/2.py
+            p.
+                After that we'll write our error and report handlers.
+            +codehighlight('python')
+                    include ./code/java/python/3.py
+            p.
+                The final step is to setup the coroutine that will handle the connection to beam.
+            +codehighlight('python')
+                include ./code/java/python/4.py
+            p.
+                The full code is below:
+            +codehighlight('python')
+                include ./code/java/python/5.py
+
     h2 Start Streaming
     p.
         Head over to your channel page and click “Go Interactive” on the bottom
