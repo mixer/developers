@@ -88,6 +88,59 @@ block content
                 the viewers joysticks will be contained within the coordMean object. We take this
                 mean and apply it to the mouse position.
 
+                The final code can be found below:
+            +codehighlight('java')
+                include ./code/node/interactive/5.js
+        +bsTabItem('java', 'guide')
+            h3 Prerequisites
+            ol
+                li
+                    a(href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html") Java
+                li
+                    | A Java IDE such as:
+                    ol
+                        li
+                            a(href="https://www.eclipse.org/downloads/") Eclipse
+                        li
+                            a(href="https://www.jetbrains.com/idea/") IntelliJ
+                        li
+                            a(href="https://netbeans.org/downloads/") NetBeans
+                li
+                    | A Java Project Manager such as:
+                    ol
+                        li
+                            a(href="https://maven.apache.org/") Maven
+                        li
+                            a(href="gradle.org") Gradle
+            h3 Project Setup
+            p.
+                Setup a standard project for your environment and include
+                #[a(href="https://github.com/WatchBeam/beam-client-java") beam-client-java]
+                and #[a(href="https://github.com/WatchBeam/beam-interactive-java") beam-interactive-java]
+                as dependancies.
+            h3 Usage
+            p.
+                Let's start by creating a Main class for the Java application and
+                importing all of the required packages. We'll also initialize a few
+                objects. A instance of the BeamAPI and an instance of the AWT Robot class
+                which will allow us to control the mouse.
+            +codehighlight('java')
+                include ./code/java/interactive/1.java
+            p.
+                Next we need to setup a Beam Interactive robot and supply it with
+                valid beam account credentials and a channel id.
+
+            +codehighlight('java')
+                include ./code/java/interactive/2.java
+            p.
+                The last thing to do is wire up a report handler that takes the joystick's
+                coordMean and apply it to the mouse.
+            +codehighlight('java')
+                include ./code/java/interactive/3.java
+            p.
+                When you put everything together you get the final code which is below:
+            +codehighlight('java')
+                include ./code/java/interactive/4.java
     h2 Start Streaming
     p.
         Head over to your channel page and click “Go Interactive” on the bottom
