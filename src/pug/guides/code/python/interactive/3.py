@@ -15,4 +15,4 @@ def on_report(report, conn):
         y = report.joystick[0].coordMean.y;
         # If we have x and y coordinates from the joystick
         if not math.isnan(x) and not math.isnan(y):
-            pyautogui.moveTo(x + 300 * x, y + 300 * y)
+            pyautogui.moveTo(currentMouseX + 300 * x, currentMouseY + 300 * y)
