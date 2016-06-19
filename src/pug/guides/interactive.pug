@@ -55,7 +55,10 @@ block content
             h3 Usage
             p.
                 Let's start by importing all of the modules which we'll need and define
-                our channel id, username and password.
+                our channel id, username and password. You can find your channel id by
+                going to #[a(href="https://beam.pro/api/v1/channels/<username>?fields=id") https://beam.pro/api/v1/channels/<username>?fields=id]
+                in your browser.
+
             +codehighlight('javascript')
                 include ./code/node/interactive/1.js
             p.
@@ -128,7 +131,9 @@ block content
                 include ./code/java/interactive/1.java
             p.
                 Next we need to setup a Beam Interactive robot and supply it with
-                valid beam account credentials and a channel id.
+                valid beam account credentials and a channel id. You can find your channel id by
+                going to #[a(href="https://beam.pro/api/v1/channels/<username>?fields=id") https://beam.pro/api/v1/channels/<username>?fields=id]
+                in your browser.
 
             +codehighlight('java')
                 include ./code/java/interactive/2.java
