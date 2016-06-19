@@ -15,9 +15,9 @@ public class Main {
         Robot controller = new Robot();
         try {
             pro.beam.interactive.robot.Robot robot = new RobotBuilder()
-                    .username("***REMOVED***")
-                    .password("***REMOVED***")
-                    .channel(***REMOVED***).build(beam).get();
+                    .username("connor")
+                    .password("password")
+                    .channel(1234).build(beam).get();
 
             robot.on(Protocol.Report.class, report -> {
                 if (report.getJoystickCount() > 0) {
