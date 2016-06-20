@@ -6,6 +6,8 @@ AUTHENTICATION = {
     "code": "2FA-CODE"  # Unnecessary if two-factor authentication is disabled.
 }
 
+SESSION = Session()
+
 
 def _build(endpoint, *, url=URL):
     """Build an address for an API endpoint."""
