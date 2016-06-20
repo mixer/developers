@@ -1,18 +1,37 @@
-def on_error(error, conn):
-    """This is called when we get an Error packet. It contains
-    a single attribute, 'message'.
-    """
-    print('Oh no, there was an error!')
-    print(error.message)
+def on_error(error, connection):
+    """Handle error packets."""
+    print("Oh no, there was an error!", error.message)
 
 
-def on_report(report, conn):
-    """ Reports from beam will end up here
-    """
-    currentMouseX, currentMouseY = pyautogui.position()
-    if report.joystick[0]:
-        x = report.joystick[0].coordMean.x;
-        y = report.joystick[0].coordMean.y;
-        # If we have x and y coordinates from the joystick
-        if not math.isnan(x) and not math.isnan(y):
-            pyautogui.moveTo(currentMouseX + 300 * x, currentMouseY + 300 * y)
+def on_report(report, connection):
+    """Handle report packets."""
+
+    # Tactile Mouse Click Control
+    for tactile in report.tactile:
+        if tactile.pressFrequency:
+            print("Tactile report received!", tactile, sep='\n')
+            MOUSE.click(*MOUSE.position())
+
+    # Joystick Mouse Movement Control
+    for joystick in report.joystick:
+        if not isnan(joystick.coordMean.x) and not isnan(joystick.coordMean.y):
+            print("Joystick report received!", joystick, sep='\n')
+            mouse_x, mouse_y = MOUSE.position()
+
+            MOUSE.move(
+                round(joystick.coordMean.x*20) + mouse_x,
+                round(joystick.coordMean.y*20) + mouse_y
+            )
+
+    # Screen Mouse Movement and Click Control
+    # WARNING: Dangerous!
+    # for screen in report.screen:
+    #     if not isnan(screen.coordMean.x) and not isnan(screen.coordMean.y):
+    #         print("Screen report received!", screen, sep='\n')
+    #         screen_x, screen_y = MOUSE.screen_size()
+    #         MOUSE.move(
+    #             round(screen.coordMean.x*screen_x),
+    #             round(screen.coordMean.y*screen_y)
+    #         )
+    #         if screen.clicks:
+    #             MOUSE.click(*MOUSE.position())

@@ -42,8 +42,7 @@ def get_tetris(channel, session=SESSION):
 
 def on_error(error, connection):
     """Handle error packets."""
-    print("Oh no, there was an error!")
-    print(error.message)
+    print("Oh no, there was an error!", error.message)
 
 
 def on_report(report, connection):
