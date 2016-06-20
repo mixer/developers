@@ -1,7 +1,10 @@
 import asyncio
-import pyautogui
-import math
+
+from urllib.parse import urljoin
+
+from math import isnan
+
+from beam_interactive import start, proto
 from requests import Session
-from beam_interactive import start
-from beam_interactive import proto
-from random import random
+
+from pymouse import PyMouse
