@@ -1,14 +1,24 @@
-path = "https://beam.pro/api/v1"
-auth = {
+URL = "https://beam.pro/api/v1/"
+
+AUTHENTICATION = {
     "username": "USERNAME",
-    "password": "PASSWORD"
+    "password": "PASSWORD",
+    "code": "2FA-CODE"  # Unnecessary if two-factor authentication is disabled.
 }
 
-def login(session, username, password):
-    """Log into the Beam servers via the API."""
-    auth = dict(username=username, password=password)
-    return session.post(path + "/users/login", auth).json()
 
-def get_tetris(session, channel):
+def _build(endpoint, *, url=URL):
+    """Build an address for an API endpoint."""
+    return urljoin(url, endpoint.lstrip('/'))
+
+
+def login(username, password, code='', *, session=SESSION):
+    """Log into Beam via the API."""
+    auth = dict(username=username, password=password, code=code)
+    return session.post(_build("/users/login"), data=auth).json()
+
+
+def get_tetris(channel, session=SESSION):
     """Retrieve interactive connection information."""
-    return session.get(path + "/tetris/{id}/robot".format(id=channel)).json()
+    return session.get(_build("/tetris/{channel}/robot").format(
+        channel=channel)).json()
