@@ -1,86 +1,130 @@
-import asyncio
-import pyautogui
-import math
-from requests import Session
-from beam_interactive import start
-from beam_interactive import proto
-from random import random
+"""Move the mouse based on Beam Interactive controls."""
 
-path = "https://beam.pro/api/v1"
-auth = {
-    "username": "connor",
-    "password": "password"
+import asyncio
+
+from urllib.parse import urljoin
+
+from math import isnan
+
+from beam_interactive import start, proto
+from requests import Session
+
+from pymouse import PyMouse
+
+URL = "https://beam.pro/api/v1/"
+
+AUTHENTICATION = {
+    "username": "USERNAME",
+    "password": "PASSWORD",
+    "code": "2FA-CODE"  # Unnecessary if two-factor authentication is disabled.
 }
 
-def login(session, username, password):
-    """Log into the Beam servers via the API."""
-    auth = dict(username=username, password=password)
-    return session.post(path + "/users/login", auth).json()
+SESSION = Session()
+MOUSE = PyMouse()
 
-def get_tetris(session, channel):
+
+def _build(endpoint, *, url=URL):
+    """Build an address for an API endpoint."""
+    return urljoin(url, endpoint.lstrip('/'))
+
+
+def login(username, password, code='', *, session=SESSION):
+    """Log into Beam via the API."""
+    auth = dict(username=username, password=password, code=code)
+    return session.post(_build("/users/login"), data=auth).json()
+
+
+def get_tetris(channel, session=SESSION):
     """Retrieve interactive connection information."""
-    return session.get(path + "/tetris/{id}/robot".format(id=channel)).json()
+    return session.get(_build("/tetris/{channel}/robot").format(
+        channel=channel)).json()
 
-def on_error(error, conn):
-    """This is called when we get an Error packet. It contains
-    a single attribute, 'message'.
-    """
-    print('Oh no, there was an error!')
+
+def on_error(error, connection):
+    """Handle error packets."""
+    print("Oh no, there was an error!")
     print(error.message)
 
-def on_report(report, conn):
-    # Reports from beam will end up here
-    currentMouseX, currentMouseY = pyautogui.position()
-    if report.joystick[0]:
-        x = report.joystick[0].coordMean.x;
-        y = report.joystick[0].coordMean.y;
-        # If we have x and y coordinates from the joystick
-        if not math.isnan(x) and not math.isnan(y):
-            pyautogui.moveTo(currentMouseX + 300 * x, currentMouseY + 300 * y)
 
-loop = asyncio.get_event_loop()
+def on_report(report, connection):
+    """Handle report packets."""
+
+    # Tactile Mouse Click Control
+    for tactile in report.tactile:
+        if tactile.pressFrequency:
+            print("Tactile report received!", tactile, sep='\n')
+            MOUSE.click(*MOUSE.position())
+
+    # Joystick Mouse Movement Control
+    for joystick in report.joystick:
+        if not isnan(joystick.coordMean.x) and not isnan(joystick.coordMean.y):
+            print("Joystick report received!", joystick, sep='\n')
+            mouse_x, mouse_y = MOUSE.position()
+
+            MOUSE.move(
+                round(joystick.coordMean.x*20) + mouse_x,
+                round(joystick.coordMean.y*20) + mouse_y
+            )
+
+    # Screen Mouse Movement and Click Control
+    # WARNING: Dangerous!
+    # for screen in report.screen:
+    #     if not isnan(screen.coordMean.x) and not isnan(screen.coordMean.y):
+    #         print("Screen report received!", screen, sep='\n')
+    #         screen_x, screen_y = MOUSE.screen_size()
+    #         MOUSE.move(
+    #             round(screen.coordMean.x*screen_x),
+    #             round(screen.coordMean.y*screen_y)
+    #         )
+    #         if screen.clicks:
+    #             MOUSE.click(*MOUSE.position())
+
 
 @asyncio.coroutine
-def connect():
-    # Initialize session, authenticate to Beam servers, and retrieve Tetris
-    # address and key.
-    session = Session()
-    # When we login we can retrieve the channel id from the response.
-    channel_id = login(session, **auth)['channel']['id']
+def run():
+    """Run the interactive app."""
 
-    data = get_tetris(session, channel_id)
+    # Authenticate with Beam and retrieve the channel id from the response.
+    channel_id = login(  # **AUTHENTICATION is a cleaner way of doing this.
+        AUTHENTICATION["username"],
+        AUTHENTICATION["password"],
+        AUTHENTICATION["code"]
+    )["channel"]["id"]
 
-    # start() takes the remote address of Beam Interactive, the channel
-    # ID, and channel the auth key. This information can be obtained
-    # via the backend API, which is documented at:
-    # https://developer.beam.pro/api/v1/
-    conn = yield from start(data['address'], channel_id, data['key'], loop)
+    # Get Tetris connection information.
+    data = get_tetris(channel_id)
 
-    # Here we define some handlers which we will write in the next step
+    # Initialize a connection with Tetris.
+    connection = yield from start(data["address"], channel_id, data["key"])
+
+    # Handlers, to be called when Tetris packets are received.
     handlers = {
         proto.id.error: on_error,
         proto.id.report: on_report
     }
 
-    # wait_message is a coroutine that will return True when we get
-    # a complete message from Beam Interactive, or False if we
-    # got disconnected.
-    while (yield from conn.wait_message()):
-        # These two lines decode the packet from beam
-        # into something more useable
-        decoded, packet_bytes = conn.get_packet()
+    # wait_message is a coroutine that will return True when it receives
+    # a complete packet from Tetris, or False if we got disconnected.
+    while (yield from connection.wait_message()):
+
+        # Decode the Tetris packet.
+        decoded, _ = connection.get_packet()
         packet_id = proto.id.get_packet_id(decoded)
 
-        if decoded is None:
-            print('We got a bunch of unknown bytes.')
-            print(packet_id)
-        elif packet_id in handlers:
-            # Based on the packet id we can then
-            # send it to the correct handler
-            handlers[packet_id](decoded, conn)
+        # Handle the packet with the proper handler, if its type is known.
+        if packet_id in handlers:
+            handlers[packet_id](decoded, connection)
+        elif decoded is None:
+            print("Unknown bytes were received. Uh oh!", packet_id)
         else:
             print("We got packet {} but didn't handle it!".format(packet_id))
 
-    conn.close()
+    connection.close()
 
-loop.run_until_complete(connect())
+
+loop = asyncio.get_event_loop()
+
+try:
+    loop.run_until_complete(run())
+finally:
+    loop.close()
