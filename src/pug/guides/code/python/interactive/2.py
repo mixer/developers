@@ -20,7 +20,7 @@ def login(username, password, code='', *, session=SESSION):
     return session.post(_build("/users/login"), data=auth).json()
 
 
-def get_tetris(channel, session=SESSION):
+def get_tetris(channel, *, session=SESSION):
     """Retrieve interactive connection information."""
     return session.get(_build("/tetris/{channel}/robot").format(
         channel=channel)).json()

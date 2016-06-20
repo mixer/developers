@@ -25,16 +25,3 @@ def on_report(report, connection):
                 round(joystick.coordMean.x*20) + mouse_x,
                 round(joystick.coordMean.y*20) + mouse_y
             )
-
-    # Screen Mouse Movement and Click Control
-    # WARNING: Dangerous!
-    # for screen in report.screen:
-    #     if not isnan(screen.coordMean.x) and not isnan(screen.coordMean.y):
-    #         print("Screen report received!", screen, sep='\n')
-    #         screen_x, screen_y = MOUSE.screen_size()
-    #         MOUSE.move(
-    #             round(screen.coordMean.x*screen_x),
-    #             round(screen.coordMean.y*screen_y)
-    #         )
-    #         if screen.clicks:
-    #             MOUSE.click(*MOUSE.position())
