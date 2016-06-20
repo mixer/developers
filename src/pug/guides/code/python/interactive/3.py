@@ -1,3 +1,6 @@
+MOUSE = PyMouse()
+
+
 def on_error(error, connection):
     """Handle error packets."""
     print("Oh no, there was an error!", error.message)
