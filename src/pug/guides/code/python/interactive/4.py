@@ -1,46 +1,48 @@
-loop = asyncio.get_event_loop()
-
 @asyncio.coroutine
-def connect():
-    # Initialize session, authenticate to Beam servers, and retrieve Tetris
-    # address and key.
-    session = Session()
-    # When we login we can retrieve the channel id from the response.
-    channel_id = login(session, **auth)['channel']['id']
+def run():
+    """Run the interactive app."""
 
-    data = get_tetris(session, channel_id)
+    # Authenticate with Beam and retrieve the channel id from the response.
+    channel_id = login(  # **AUTHENTICATION is a cleaner way of doing this.
+        AUTHENTICATION["username"],
+        AUTHENTICATION["password"],
+        AUTHENTICATION["code"]
+    )["channel"]["id"]
 
-    # start() takes the remote address of Beam Interactive, the channel
-    # ID, and channel the auth key. This information can be obtained
-    # via the backend API, which is documented at:
-    # https://developer.beam.pro/api/v1/
-    conn = yield from start(data['address'], channel_id, data['key'], loop)
+    # Get Tetris connection information.
+    data = get_tetris(channel_id)
 
-    # Here we define some handlers which we will write in the next step
+    # Initialize a connection with Tetris.
+    connection = yield from start(data["address"], channel_id, data["key"])
+
+    # Handlers, to be called when Tetris packets are received.
     handlers = {
         proto.id.error: on_error,
         proto.id.report: on_report
     }
 
-    # wait_message is a coroutine that will return True when we get
-    # a complete message from Beam Interactive, or False if we
-    # got disconnected.
-    while (yield from conn.wait_message()):
-        # These two lines decode the packet from beam
-        # into something more useable
-        decoded, packet_bytes = conn.get_packet()
+    # wait_message is a coroutine that will return True when it receives
+    # a complete packet from Tetris, or False if we got disconnected.
+    while (yield from connection.wait_message()):
+
+        # Decode the Tetris packet.
+        decoded, _ = connection.get_packet()
         packet_id = proto.id.get_packet_id(decoded)
 
-        if decoded is None:
-            print('We got a bunch of unknown bytes.')
-            print(packet_id)
-        elif packet_id in handlers:
-            # Based on the packet id we can then
-            # send it to the correct handler
-            handlers[packet_id](decoded, conn)
+        # Handle the packet with the proper handler, if its type is known.
+        if packet_id in handlers:
+            handlers[packet_id](decoded, connection)
+        elif decoded is None:
+            print("Unknown bytes were received. Uh oh!", packet_id)
         else:
             print("We got packet {} but didn't handle it!".format(packet_id))
 
-    conn.close()
+    connection.close()
 
-loop.run_until_complete(connect())
+
+loop = asyncio.get_event_loop()
+
+try:
+    loop.run_until_complete(run())
+finally:
+    loop.close()
