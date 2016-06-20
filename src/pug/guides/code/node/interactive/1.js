@@ -3,5 +3,5 @@ const Tetris = require('beam-interactive-node');
 const rjs = require('robotjs');
 
 const channelId = 1234;
-const username = 'connor';
+const username = 'username';
 const password = 'password';

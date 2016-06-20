@@ -15,7 +15,7 @@ public class Main {
         Robot controller = new Robot();
         try {
             pro.beam.interactive.robot.Robot robot = new RobotBuilder()
-                    .username("connor")
+                    .username("username")
                     .password("password")
                     .channel(1234).build(beam).get();
 

@@ -8,7 +8,7 @@ from random import random
 
 path = "https://beam.pro/api/v1"
 auth = {
-    "username": "connor",
+    "username": "username",
     "password": "password"
 }
 
