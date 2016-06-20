@@ -1,6 +1,6 @@
 # Developers
 
-Project used to generate contents of [http://beam.pro/lab Lab]
+Project used to generate contents of the [Developer Lab](http://beam.pro/lab).
 
 ## Requirements
 - [Maven](https://maven.apache.org/)
