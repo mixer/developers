@@ -152,10 +152,12 @@ block content
                 li Python 3
                 li pip (Python Package Manager)
             p.
-                Once you have the prerequisites, install modules
-                #[a(href="https://github.com/WatchBeam/beam-interactive-python") beam-interactive-python],
-                #[a(href="https://github.com/kennethreitz/requests") requests], and
-                #[a(href="https://github.com/PyUserInput/PyUserInput") PyUserInput].
+                Once you have the prerequisites, install the following modules.
+            ol
+                li #[a(href="https://github.com/WatchBeam/beam-interactive-python") beam-interactive-python]
+                li #[a(href="https://github.com/kennethreitz/requests") requests]
+                li #[a(href="https://github.com/PyUserInput/PyUserInput") PyUserInput]
+            p.
                 Once installed, create a new file and add the required imports.
             +codehighlight('python')
                 include ./code/python/interactive/1.py
@@ -163,12 +165,12 @@ block content
                 Next, we need to create a dictionary to store authentication details
                 and some functions to authenticate the user and retrieve some data from Beam.
             +codehighlight('python')
-                    include ./code/python/interactive/2.py
+                include ./code/python/interactive/2.py
             p.
                 After that, we'll write our error and report handlers. Our report handler
                 interacts with the mouse based on Interactive inputs.
             +codehighlight('python')
-                    include ./code/python/interactive/3.py
+                include ./code/python/interactive/3.py
             p.
                 The final step is to setup the coroutine that will run everything.
             +codehighlight('python')
