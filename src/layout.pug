@@ -1,0 +1,80 @@
+mixin navbar
+    .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#js-navbar')
+            span.icon.icon-view-headline
+        a.navbar-brand(href='/')
+
+    #js-navbar.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+            li: a(href="/tutorials.html") Tutorials
+            li: a(href="/reference.html") Reference
+            li: a(href="https://beam.pro/lab") Lab &amp; Apps
+
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+        link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/img/ico/apple-touch-icon-144x144.png')
+        link(rel='apple-touch-icon-precomposed', sizes='152x152', href='/img/ico/apple-touch-icon-152x152.png')
+        link(rel='icon', type='image/png', href='/img/ico/favicon-32x32.png', sizes='32x32')
+        link(rel='icon', type='image/png', href='/img/ico/favicon-16x16.png', sizes='16x16')
+
+        link(href='https://fonts.googleapis.com/css?family=Heebo:100,300|Inconsolata:400,700|Open+Sans:400,300' rel='stylesheet')
+        link(rel='stylesheet', href='/css/style.css')
+
+        block head
+
+        title
+            block title
+
+    body
+        block navbar
+            .navbar-wrapper
+                .container
+                    nav.navbar.navbar-inverse: +navbar()
+
+        block outerContent
+            .site-content
+                block content
+
+        block footer
+            footer.site-footer
+                .container
+                    .col-lg-2.col-md-3.col-xs-6
+                        h3 Beam
+                        ul
+                            li: a(href='https://beam.pro') Home
+                            li: a(href='https://beam.pro/browse/streamers') Browse
+                            li: a(href='https://beam.pro/about/features') About
+                            li: a(href='https://beam.pro/contact') Contact Us
+
+                    .col-lg-2.col-md-3.col-xs-6
+                        h3 Social
+                        ul
+                            li: a(href='https://twitter.com/Beam') Twitter
+                            li: a(href='https://github.com/WatchBeam') Github
+                            li: a(href='https://gitter.im/MCProHosting/beam-dev') Gitter.im
+                            li: a(href='https://facebook.com/watchbeam') Facebook
+
+                    .col-lg-2.col-md-3.col-xs-6
+                        h3 Network
+                        ul
+                            li: a(href='https://beam.pro') Beam.pro
+                            li: a(href='/') Beam Developers
+                            li: a(href='http://forums.beam.pro/') Beam Forums
+                            li: a(href='https://blog.beam.pro/') Blog
+
+                    .col-lg-2.col-md-3.col-xs-6
+                        h3 Legal
+                        ul
+                            li: a(href='https://beam.pro/legal/privacy') Privacy Policy
+                            li: a(href='https://beam.pro/legal/tos') Terms of Service
+                            li: a(href='https://beam.pro/legal/abuse') DMCA/Abuse
+
+                    .col-sm-4.visible-lg-block
+                        a.footer-logo(href='https://beam.pro')
+                            img(src='/img/footer-logo.png')
+
+                    .clearfix
+                    .copyright Copyright #{new Date().getUTCFullYear()} Beam Interactive, Inc.

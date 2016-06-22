@@ -1,0 +1,245 @@
+.button-variant(@color; @background; @border) {
+
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
+
+    &:hover {
+        color: inherit;
+        background-color: inherit;
+        border-color: inherit;
+    }
+
+    &:focus,
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+        color: inherit;
+        background-color: inherit;
+        border-color: inherit;
+    }
+
+}
+
+.btn-uppercase {
+    text-transform: uppercase;
+}
+
+.button-beam(@color; @background; @border; @opacity) {
+    color: @color;
+    border-radius: 4em;
+    background: fade(@background, @opacity);
+    text-shadow: 0 0 1px fade(darken(@background, 20%), 95%);
+    letter-spacing: 1px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    position: relative;
+    outline: 0 !important;
+    transform: translateZ(0px);
+    box-shadow: 0px 0px 1px rgba(0,0,0,.5);
+    text-transform: uppercase;
+
+    &:hover {
+        outline: 0 !important;
+        color: lighten(@color, 15%);
+        border-color: transparent;
+        background: fade(lighten(@background, 10%), @opacity);
+        box-shadow: 0px 2px 3px rgba(0,0,0,.5), inset 0px 0px 3px rgba(255,255,255,.05);
+    }
+
+    &:focus {
+        transform: translate3d(0, 1.5px, 0);
+    }
+
+    &:focus,
+    &:active:focus,
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+        outline: 0 !important;
+        color: lighten(@color, 15%);
+        box-shadow: 0px 2px 3px rgba(0,0,0,.35), inset 0px 0px 12px rgba(0, 0, 0, .35);
+        background: fade(@background, 65%);
+        border-color: transparent;
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            background: fade(desaturate(@background, 50%), 20%);
+            border-color: fade(desaturate(lighten(@border, 5%), 50%), 20%);
+            color: fade(desaturate(lighten(@color, 50%), 50%), 30%);
+            cursor: not-allowed;
+        }
+    }
+
+
+    .badge {
+        color: @background;
+        background-color: @color;
+    }
+
+    // Addons
+    &.btn-addon {
+        padding: 0 !important;
+        margin: 0 !important;
+
+        .addon, .text {
+            color: @color;
+            margin: 0;
+            text-align: center;
+            display: inline-block;
+            float: left;
+            transform: translateZ(0px);
+        }
+
+        .addon {
+            border-top-left-radius: 17px;
+            border-bottom-left-radius: 17px;
+            position: relative;
+            border-right: 1px solid darken(@background, 7%);
+            transition: border .3s ease;
+            padding-right: 5px;
+        }
+
+        .text {
+            padding-left: 0;
+            position: relative;
+            overflow: hidden;
+            border-top-right-radius: 17px;
+            border-bottom-right-radius: 17px;
+        }
+
+        &:hover {
+            .addon {
+                border-right-color: @background;
+            }
+        }
+
+        &:focus,
+        &:active,
+        &:active:focus,
+        &.active,
+        .open > .dropdown-toggle& {
+            .addon {
+                border-right-color: darken(@background, 12%);
+            }
+        }
+
+        &.disabled,
+        &[disabled],
+        fieldset[disabled] & {
+            &,
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                .addon {
+                    border-right-color: fade(white, 5%);
+                }
+            }
+        }
+
+    }
+
+    &.btn-round {
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.btn-uppercase {
+        text-transform: uppercase;
+    }
+
+    &.btn-bordered {
+        background: transparent;
+        border-width: 0px;
+        box-shadow: inset 0px 0px 0px 1px desaturate(lighten(@background, 10%), 5%);
+        color: desaturate(lighten(@background, 10%), 5%);
+        font-weight: 500;
+
+        &:hover {
+            box-shadow: inset 0px 0px 0px 1px desaturate(lighten(@background, 20%), 5%);
+            color: desaturate(lighten(@background, 20%), 5%);
+            border-width: 0px;
+        }
+    }
+}
+
+.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
+    font-size: @font-size;
+    line-height: @line-height;
+    border-radius: @border-radius;
+    padding: @padding-vertical*0.8 @padding-horizontal+3px;
+
+    // Addons
+    &.btn-addon {
+        padding: 0;
+        .addon {
+            padding: @padding-vertical @padding-horizontal;
+        }
+        .text {
+            padding: @padding-vertical @padding-horizontal*.8 @padding-vertical @padding-horizontal*.8;
+        }
+    }
+
+    &.btn-round {
+        @base: @line-height * @font-size + @padding-horizontal;
+
+        padding: 0;
+        width: @base;
+        height: @base;
+        line-height: @base * 1.25;
+    }
+}
+
+.btn-lg.btn-addon {
+    .text:before {
+        margin-top: -15px !important;
+        left: -24px !important;
+    }
+}
+.btn-sm.btn-addon {
+    .text:before {
+        left: -28px !important;
+    }
+}
+.btn-xs.btn-addon {
+    .addon:before, .addon:after {
+        height: 33% !important;
+    }
+    .text:before {
+        margin-top: -15px !important;
+        left: -31px !important;
+    }
+}
+.btn-default {
+    .button-beam(@btn-default-color; @btn-default-bg; @btn-default-border; 100%);
+}
+.btn-primary {
+    .button-beam(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 100%);
+}
+.btn-success {
+    .button-beam(@btn-success-color; @btn-success-bg; @btn-success-border; 100%);
+}
+.btn-info {
+    .button-beam(@btn-info-color; @btn-info-bg; @btn-info-border; 100%);
+}
+.btn-warning {
+    .button-beam(@btn-warning-color; @btn-warning-bg; @btn-warning-border; 100%);
+}
+.btn-danger {
+    .button-beam(@btn-danger-color; @btn-danger-bg; @btn-danger-border; 100%);
+}
+
+.btn-subtle {
+    background: none;
+}

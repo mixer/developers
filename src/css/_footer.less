@@ -1,0 +1,40 @@
+.site-footer {
+    .bar-transition-top();
+    margin-top: @grid-gutter-width;
+    background: @gray-lighter;
+
+    ul {
+        padding: 0;
+        margin: 0 0 @grid-gutter-width;
+    }
+
+    li {
+        list-style-type: none;
+        padding: 0.2em;
+
+        a {
+            color: #666;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .footer-logo {
+        display: block;
+        margin-top: 40px;
+        max-width: 100%;
+    }
+
+    .copyright {
+        color: #aaa;
+        font-size: 0.8em;
+        margin: 0 0 @grid-gutter-width / 2;
+        text-align: center;
+
+        @media (min-width: @screen-md-min) {
+            text-align: right;
+        }
+    }
+}

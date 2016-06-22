@@ -1,0 +1,21 @@
+# Whether the resulting build should be minified, or not.
+minify: false
+
+# Source and corresponding destination paths for resources. You should
+# probably not change these unless you know what you're doing:
+src:
+  tmp: build/tmp
+  css: src/css/style.less
+  js: src/js/*.js
+  html: src/**/*.pug
+  icons: src/icons/*.svg
+  images: src/**/*.{svg,png,jpg,gif}
+  restTmpl: src/rest/template.nunjucks
+
+dist:
+  css: dist/css
+  js: dist/js
+  html: dist
+  font: dist/font
+  images: dist
+  javadoc: dist/java-doc

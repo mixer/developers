@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
+.navbar-wrapper {
+    .bar-transition-bottom(10px);
+    background: @brand-secondary;
+
+    &:after {
+        margin-top: 0 !important;
+    }
+
+    .navbar {
+        padding: 10px 0;
+        background: none;
+    }
+
+    .navbar-nav a {
+        font-family: 'Heebo';
+        font-size: 1em;
+        padding-left: @grid-gutter-width * 2 / 3;
+        padding-right: @grid-gutter-width * 2 / 3;
+    }
+
+    .navbar-brand {
+        background: url('../img/logo.png') center center no-repeat;
+        min-width: 196px;
+    }
+
+    &.dark {
+        .bar-transition-bottom(15px);
+        background: url('../img/intro.jpg') top center;
+        background-size: cover;
+    }
+}
+
+.bar-transition(@size) {
+    content: "";
+    display: block;
+    height: @size;
+    background: url('../img/line-pattern.png');
+}
+
+.bar-transition-top(@size: 30px) {
+    &:before {
+        .bar-transition(@size);
+        margin-bottom: @grid-gutter-width;
+    }
+}
+
+.bar-transition-bottom(@size: 30px) {
+    &:after {
+        .bar-transition(@size);
+        margin-top: @grid-gutter-width;
+    }
+}
+
+.bar-transition-top { .bar-transition-top(); }
+.bar-transition-bottom { .bar-transition-bottom(); }

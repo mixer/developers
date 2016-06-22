@@ -1,0 +1,19 @@
+'use strict';
+
+const config = require('config');
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
+
+require('./build/docs')(gulp, $);
+require('./build/misc')(gulp, $);
+require('./build/css')(gulp, $);
+
+gulp.task('default', ['html', 'js', 'css', 'images', 'java-doc']);
+gulp.task('recompile', ['html-quick', 'js', 'css', 'images']);
+
+gulp.task('watch', () => {
+    gulp.watch('src/css/**/*.less', ['css']);
+    gulp.watch(config.src.html, ['html-quick']);
+    gulp.watch(config.src.js, ['js']);
+    gulp.watch(config.src.restTmpl, ['backend-doc']);
+});
