@@ -1,0 +1,193 @@
+include ./type.pug
+mixin statusCode(code)
+    a(
+        href=`http://httpstatus.es/${code}`
+        target="_blank"
+    )=code
+
+mixin method(method, resource)
+    .modal.fade(tabindex="0" id=`${resource.uniqueId}_${method.method}`)
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true")!='&times'
+                    h4#myModalLabel.modal-title
+                        span.badge(class=`badge_${method.method}`)=method.method
+                            if method.securedBy && method.securedBy.length > 0
+                                span.glyphicon.glyphicon-lock(title="Authentication required")
+                                = ' '
+                        span.parent=resource.parentUrl
+                        =resource.relativeUri
+
+                .modal-body
+                    if method.description
+                        .alert.alert-info.
+                            !{marked(method.description)}
+                    if method.securedBy
+                        for securedBy in method.securedBy
+                            - securityScheme = restUtil.securitySchemeWithName(securedBy)
+                            .alert.alert-warning
+                                span.glyphicon.glyphicon-lock(title="Authentication required")
+                                = ' '
+                                |  Secured by #{securityScheme.displayName || securityScheme.name}
+                                if restUtil.isSecurityOAuth(securedBy)
+                                    |  Scopes:
+                                    for scope in restUtil.getOAuthScopes(securedBy)
+                                        kbd.oauth-scope=scope
+                                if securityScheme.description
+                                    | !{marked(securityScheme.description)}
+                    ul.nav.nav-tabs
+                        if method.allUriParameters.length || method.queryParameters || method.headers || method.body
+                            li.active
+                                a(
+                                    href=`#${resource.uniqueId}_${method.method}_request`
+                                    data-toggle="tab"
+                                ) Request
+                        if method.responses
+                            li(class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
+                                a(
+                                    href=`#${resource.uniqueId}_${method.method}_response`
+                                    data-toggle="tab"
+                                ) Response
+
+                        if method.securedBy
+                            li
+                                a(
+                                    href=`#${resource.uniqueId}_${method.method}_securedby`
+                                    data-toggle="tab"
+                                ) Security
+                    .tab-content
+                        if method.allUriParameters.length || method.queryParameters || method.headers || method.body
+                            .tab-pane.active(id=`${resource.uniqueId}_${method.method}_request`)
+                                if resource.allUriParameters.length
+                                    h3 URI Parameters
+                                    ul
+                                        for item, key in resource.allUriParameters
+                                            +simpleType(key, item)
+                                if method.headers
+                                    h3 Headers
+                                    ul
+                                        for item, key in method.headers
+                                            +simpleType(key, item)
+                                if method.queryParameters
+                                    h3 Query Parameters
+                                    ul
+                                        for item, key in method.queryParameters
+                                            +simpleType(key, item)
+                                if method.body
+                                    h3 Body
+                                    for b, key in method.body
+                                        h4
+                                            | Media Type: #{key}
+                                        if b.type
+                                            +type(key, b)
+                                        if b.schema
+                                            p
+                                                strong Schema
+                                                | :
+                                            pre
+                                                code b.schema
+                                        if b.example
+                                            p
+                                                strong Example
+                                                | :
+                                            pre
+                                                code b.example
+                        if method.responses
+                            .tab-pane(
+                                id=`${resource.uniqueId}_${method.method}_response`
+                                class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
+                                for response, key in method.responses
+                                    h2 HTTP status code
+                                        = ' '
+                                        +statusCode(key)
+                                    if (response.description)
+                                        | !{marked(response.description)}
+                                    if response.headers
+                                        h3 Headers
+                                        ul
+                                            if Array.isArray(response.headers)
+                                                for item, key in response.headers
+                                                    +simpleType(key, item, true)
+                                    if response.body
+                                        h3 Body
+                                        for b, key in response.body
+                                            +type(key, b, true)
+                                            h4
+                                                | Media Type: #{key}
+                                            if b.type
+                                                +type(key, b, true)
+                                            if b.schema
+                                                p
+                                                    strong Schema
+                                                    | :
+                                                pre
+                                                        code=b.schema
+                                            if b.example
+                                                p
+                                                    strong Example
+                                                    | :
+                                                pre
+                                                    code=b.example
+                        if method.securedBy
+                            .tab-pane(id=`${resource.uniqueId}_${method.method}_securedby`)
+                                for securedBy in method.securedBy
+                                    - securityScheme = restUtil.securitySchemeWithName(securedBy)
+                                    h2
+                                        | #{securityScheme.displayName || securityScheme.name} Authentication
+                                    if securityScheme.describedBy
+                                        if securityScheme.describedBy.headers
+                                            h3 Headers
+                                            ul
+                                                for item, key in securityScheme.describedBy.headers
+                                                    +simpleType(key, item)
+                                        for response, key in securityScheme.describedBy.responses
+                                            h2 HTTP status code
+                                                = ' '
+                                                +statusCode(response.code)
+                                            | !{marked(response.description)}
+
+                                            if response.headers
+                                                h3 Headers
+                                                ul
+                                                    for item, key in response.headers
+                                                        +simpleType(key, item, true)
+
+mixin resource(resource)
+    if (resource.methods || (resource.description && resource.parentUrl))
+        .panel.panel-white
+            .panel-heading
+                h4.panel-title
+                    a.collapsed(data-toggle="collapse" href=`#panel_${resource.uniqueId}`)
+                        span.parent=resource.parentUrl
+                        =resource.relativeUri
+
+                    span.methods
+                        for method in resource.methods
+                            a(href=`#${resource.uniqueId}_${method.method}`)
+                                span(class=`badge badge_${method.method}`)=method.method
+                                    = ' '
+                                    if method.securedBy && method.securedBy.length > 0
+                                        span.glyphicon.glyphicon-lock(title="Authentication required")
+
+            .panel-collapse.collapse(id=`panel_${resource.uniqueId}`)
+                .panel-body
+                    if resource.parentUrl
+                        if resource.description
+                            .resource-description!=resource.description
+                    .list-group
+                        for method in resource.methods
+                            .list-group-item(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'`)
+                                span.class.badge(class=`badge_${method.method}`)=method.method
+                                    = ' '
+                                    if method.securedBy && method.securedBy.length > 0
+                                        span.glyphicon.glyphicon-lock(title="Authentication required")
+                                .method_description
+                                    p=method.description
+                                .clearfix
+
+            for method in resource.methods
+                +method(method, resource)
+    if resource.resources
+        for resource in resource.resources
+            +resource(resource)

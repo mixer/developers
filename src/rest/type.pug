@@ -1,0 +1,64 @@
+mixin type(key, type, skipRequired)
+    h4 Type:
+        = ' '
+        strong=type.type
+        if type.repeat
+            span.help(title="List") []
+
+
+
+mixin simpleType(key, type, skipRequired)
+    - rootType = restUtil.getRootType(type)
+    // rendering of scalar and 0.8 types
+    if rootType != 'object'
+        li
+            strong=type.displayName || key
+            = ': '
+            em
+                if type.default
+                    | [
+                if type.enum
+                    | (#{type.enum.join(', ')})
+                    if type.default
+                        span.help(title="Default Value")=`=${type.default}`
+                else
+                    if type.minimum
+                        span.help(title="Min value")=`${type.minimum}`
+                        ='>'
+                    =type.type
+                    if type.default
+                        | =
+                        span.help(title="Default Value")=`${type.default}`
+                    if type.maximum
+                        ='>'
+                        span.help(title="Max value")=`${type.maximum}`
+                    if type.default
+                        | ]
+                if !type.default && !type.required
+                    span.help(title="Optional") ?
+                else if type.required && !skipRequired
+                    span.help(title="Required") !
+                if type.type == 'string'
+                    if type.minLength
+                        | minLength: #{type.minLength}
+                    if type.maxLength
+                        | maxLength: #{type.maxLength}
+                if type.pattern
+                    | pattern: #[kbd=type.pattern]
+            if type.description
+                | !{marked(type.description)}
+            if type.schema
+                p
+                    strong Schema
+                    | :
+                pre
+                    code=type.schema
+            if type.example
+                p
+                    strong Example
+                    | :
+                pre
+                    if type.type == 'string'
+                        =type.example
+                    else
+                        code=type.example

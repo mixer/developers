@@ -1,0 +1,32 @@
+include ./resource.pug
+.row.rest-doc(data-spy="scroll" data-target="#sidebar")
+    .col-md-9(role="main")
+        .page-header
+            h1
+                | #{rest.title} API documentation
+                if rest.version
+                    =' '
+                    small version
+                        =` ${rest.version}`
+            p= rest.baseUri
+            if rest.documentation
+                for chapter in rest.documentation
+                    h3(id=chapter.uniqueId, href=`#${chapter.uniqueId}`)=chapter.title
+                    | !{marked(chapter.content)}
+        for resource in rest.resources
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title(id=resource.uniqueId)=resource.displayName || resource.relativeUri
+                .panel-body
+                    if resource.description
+                        .top-resource-description!=marked(resource.description)
+                    .panel-group
+                        +resource(resource)
+
+    .col-md-3
+        #sidebar.hidden-print.affix(role="complementary")
+            ul.nav.nav-pills.nav-stacked
+                for resource in rest.resources
+                    li
+                        a(href=`$#{resource.uniqueId}`)=resource.displayName || resource.relativeUri
+

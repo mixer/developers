@@ -4,11 +4,12 @@ const childProcess = require('child_process');
 const config = require('config');
 const path = require('path');
 const fs = require('fs');
+const _ = require('lodash');
 
-// Function which returns raml2html. We don't load this on require-time since
-// it has a _lot_ of dependencies and slows down development builds when
+// Function which returns the raml parser. We don't load this on require-time
+// since it has a lot of dependencies and slows down development builds when
 // unneeded.
-const raml2html = () => require('raml2html');
+const ramlParser = () => require('raml-1-parser');
 
 
 /**
@@ -30,6 +31,7 @@ function getRepo(addr, callback) {
     });
 }
 
+
 /**
  * @callback RAMLTraverseCallback
  * @param {Resource|Method} resource The current resource or method
@@ -39,30 +41,86 @@ function getRepo(addr, callback) {
  * discarded.
  */
 
+
+/* RAML processing */
+
+// The below code has been taken from
+// https://github.com/raml2html/raml2html/blob/raml1.0/index.js
+// and has been refactored, license must not be included.
+
 /**
- * Traverses the entire resource tree while providing a way to filter out specific
- * notes from the tree.
- * @param  {Object[]} resources
- * @param  {RAMLTraverseCallback} callback
+ * Parses the base url by adding the version
+ * @param  {RamlJSONObject} ramlObj
+ * @return {String}
  */
-function traverseRAMLResourceTree (resources, callback) {
-    resources.forEach((resource, idx) => {
-        if (!callback(resource, false)) {
-            resources.splice(idx, 1);
-            return;
+function parseBaseUri (ramlObj) {
+  // I have no clue what kind of variables the RAML spec allows in the baseUri.
+  // For now keep it super super simple.
+    if (ramlObj.baseUri) {
+        ramlObj.baseUri = ramlObj.baseUri.replace('{version}', ramlObj.version);
+    }
+    return ramlObj;
+}
+
+function leftTrim (str, chr) {
+    const rgxtrim = !chr ? /^\\s+/ : new RegExp(`^${chr}+`);
+    return str.replace(rgxtrim, '');
+}
+
+function makeUniqueId (resource) {
+    const fullUrl = resource.parentUrl + resource.relativeUri;
+    return leftTrim(fullUrl.replace(/\W/g, '_'), '_');
+}
+
+function traverse (ramlObj, parentUrl, allUriParameters) {
+    // Add unique id's and parent URL's plus parent URI parameters to resources
+    _.forIn(ramlObj.resources, resource => {
+        resource.parentUrl = parentUrl || '';
+        resource.uniqueId = makeUniqueId(resource);
+        resource.allUriParameters = [];
+
+        if (allUriParameters) {
+            resource.allUriParameters.push.apply(resource.allUriParameters, allUriParameters);
         }
-        if (resource.methods) {
-            resource.methods.forEach((method, methodIdx) => {
-                if (!callback(method, true)) {
-                    resource.methods.splice(methodIdx, 1);
-                    return;
-                }
+
+        if (resource.uriParameters) {
+            _.forIn(resource.uriParameters, parameters => {
+                resource.allUriParameters.push(parameters);
             });
         }
-        if (resource.resources) {
-            traverseRAMLResourceTree(resource.resources, callback);
+
+        if (resource.methods) {
+            _.forIn(resource.methods, method => {
+                method.allUriParameters = resource.allUriParameters;
+            });
         }
+        traverse(resource, resource.parentUrl + resource.relativeUri, resource.allUriParameters);
     });
+    return ramlObj;
+}
+
+/**
+ * Adds unique ids to each segment.
+ * @param {RAMLJSONObject} ramlObj
+ */
+function addUniqueIdsToDocs (ramlObj) {
+    // Add unique id's to top level documentation chapters
+    _.forEach(ramlObj.documentation, docSection => {
+        docSection.uniqueId = docSection.title.replace(/\W/g, '-');
+    });
+
+    return ramlObj;
+}
+
+/**
+ * Makes the raml object more usable.
+ * @param  {RAMLJSONObject} ramlObj
+ * @return {RAMLJSONObject}
+ */
+function enhanceRamlObj (ramlObj) {
+    ramlObj = parseBaseUri(ramlObj);
+    ramlObj = traverse(ramlObj);
+    return addUniqueIdsToDocs(ramlObj);
 }
 
 /**
@@ -70,30 +128,27 @@ function traverseRAMLResourceTree (resources, callback) {
  * to add features raml2html doesn't provide by default.
  * @return {Object}
  */
-function generateRAML2HTMLConfig () {
-    const defaultConfig = raml2html().getDefaultConfig(config.src.restTmpl, __dirname + '/..');
-    const oldRef = defaultConfig.processRamlObj;
+function traverseRAMLResourceTree (resources, callback, absURL) {
+    absURL = absURL || '';
 
-    defaultConfig.processRamlObj = ramlObject => {
-        traverseRAMLResourceTree(ramlObject.resources, (resource, isMethod) => {
-            if (resource.annotations && resource.annotations.internal) {
-                return false;
-            }
-
-            if (isMethod) {
-                // Alter description to reflect permission requirements.
-                const trait = resource.is && resource.is.find(t => t.permissible);
-                if (!trait) {
-                    return true;
+    resources.forEach((resource, idx) => {
+        const currUrl = absURL + resource.relativeUri;
+        if (!callback(resource, false, absURL)) {
+            resources.splice(idx, 1);
+            return;
+        }
+        if (resource.methods) {
+            resource.methods.forEach((method, methodIdx) => {
+                if (!callback(method, true, currUrl)) {
+                    resource.methods.splice(methodIdx, 1);
+                    return;
                 }
-                resource.description +=
-                `\n\n This endpoint requires the \`${trait.permissible.permission}\` permission`;
-            }
-            return true;
-        });
-        return oldRef(ramlObject);
-    };
-    return defaultConfig;
+            });
+        }
+        if (resource.resources) {
+            traverseRAMLResourceTree(resource.resources, callback, currUrl);
+        }
+    });
 }
 
 /**
@@ -118,10 +173,31 @@ module.exports = (gulp, $) => {
         getRepo('git@github.com:WatchBeam/backend.git', callback);
     });
     gulp.task('backend-doc', ['backend-clone'], () => {
-        return raml2html().render(
+        return ramlParser().loadApi(
             path.join(config.src.tmp, 'backend/doc/raml/index.raml'),
-            generateRAML2HTMLConfig()
+            { rejectOnErrors: true }
         )
-        .then(html => fs.writeFileSync(path.join(config.src.tmp, 'raml-doc.html'), html));
+        .catch(error => {
+            if (error.parserErrors) {
+                const stack = error.parserErrors
+                .map((err, idx) => `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`)
+                .join('\n');
+                error.message += `\n${stack}`;
+            }
+
+            throw error;
+        })
+        .then(api => {
+            const tree = enhanceRamlObj(api.expand().toJSON());
+
+            traverseRAMLResourceTree(tree.resources, resource => {
+                return resource.annotations && resource.annotations.internal;
+            });
+
+            fs.writeFileSync(
+                path.join(config.src.tmp, 'raml-doc.json'),
+                JSON.stringify(tree, null, '   ')
+            );
+        });
     });
 };
