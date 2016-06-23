@@ -243,3 +243,13 @@
 .btn-subtle {
     background: none;
 }
+
+@keyframes panelFlash {
+    from { background: rgba(252, 255, 169, 0.15); }
+    to   { background: rgba(252, 255, 169, 0); }
+}
+
+.panel-flash {
+    animation-duration: 3s;
+    animation-name: panelFlash;
+}

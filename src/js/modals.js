@@ -1,12 +1,27 @@
 $(document).ready(function() {
     // open modal on hashes like #_action_get
+    var activeModalEl = null;
     $(window).bind('hashchange', function(e) {
+        if (activeModalEl) {
+            activeModalEl.modal('hide');
+        }
+
         var anchor_id = document.location.hash.substr(1); //strip #
         var element = $('#' + anchor_id);
 
         // do we have such element + is it a modal?  --> show it
         if (element.length && element.hasClass('modal')) {
             element.modal('show');
+            activeModalEl = element;
+        }
+        // for links to pages we should "flash" the highlighted region
+        var panel = element.closest('.panel');
+        if (panel.length > 0) {
+            panel.addClass('panel-flash');
+
+            setTimeout(function () {
+                panel.removeClass('panel-flash');
+            }, 3000);
         }
     });
 
