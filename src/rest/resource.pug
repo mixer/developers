@@ -173,6 +173,7 @@ mixin method(method, resource)
                                                         +simpleType(key, item, true)
 
 mixin resource(resource)
+    a(name=resource.uniqueId, id=resource.uniqueId)
     if (resource.methods || (resource.description && resource.parentUrl))
         for method in resource.methods
             .rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'`)
