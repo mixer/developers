@@ -71,3 +71,31 @@
         margin-left: 0.5em;
     }
 }
+
+@media print {
+    .rest-endpoint {
+        display: none;
+    }
+
+    .modal {
+        display: block;
+        position: static;
+        opacity: 1;
+    }
+
+    .modal-dialog {
+        margin: 0;
+        width: inherit;
+        transform: none !important;
+    }
+
+    .modal-content {
+        box-shadow: none;
+    }
+
+    .tab-content > .tab-pane {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
