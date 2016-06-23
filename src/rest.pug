@@ -3,6 +3,18 @@ extends ./layout.pug
 block title
     | API Reference - Beam Developers
 
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+
+            h1
+                | #{rest.title} API documentation
+                if rest.version
+                    =' '
+                    small version
+                        =` ${rest.version}`
+
 block content
     .container
         include ./rest/template.pug

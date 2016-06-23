@@ -11,6 +11,19 @@ const _ = require('lodash');
 // unneeded.
 const ramlParser = () => require('raml-1-parser');
 
+/**
+ * Creates a new object with all values from the passed object ordered by keys.
+ * @param  {Object} obj
+ * @return {Object}
+ */
+function orderObject (obj) {
+    const ret = {};
+    const orderedKeys = Object.keys(obj).sort();
+    for (const key of orderedKeys) {
+        ret[key] = obj[key];
+    }
+    return ret;
+}
 
 /**
  * Ensures that the repo cloneable at the provided address is downloaded
@@ -72,7 +85,7 @@ function makeUniqueId (resource) {
     return leftTrim(fullUrl.replace(/\W/g, '_'), '_');
 }
 
-function traverse (ramlObj, parentUrl, allUriParameters) {
+function traverseResources (ramlObj, parentUrl, allUriParameters) {
     // Add unique id's and parent URL's plus parent URI parameters to resources
     _.forIn(ramlObj.resources, resource => {
         resource.parentUrl = parentUrl || '';
@@ -94,8 +107,21 @@ function traverse (ramlObj, parentUrl, allUriParameters) {
                 method.allUriParameters = resource.allUriParameters;
             });
         }
-        traverse(resource, resource.parentUrl + resource.relativeUri, resource.allUriParameters);
+        traverseResources(resource, resource.parentUrl + resource.relativeUri, resource.allUriParameters);
     });
+
+    return orderObject(ramlObj);
+}
+
+function transverseTypes (ramlObj) {
+    if (!ramlObj.hasOwnProperty('types')) {
+        return ramlObj;
+    }
+
+    const newTypes = {};
+    ramlObj.types.forEach(type => _.assign(newTypes, type));
+    ramlObj.types = orderObject(newTypes);
+
     return ramlObj;
 }
 
@@ -119,7 +145,8 @@ function addUniqueIdsToDocs (ramlObj) {
  */
 function enhanceRamlObj (ramlObj) {
     ramlObj = parseBaseUri(ramlObj);
-    ramlObj = traverse(ramlObj);
+    ramlObj = traverseResources(ramlObj);
+    ramlObj = transverseTypes(ramlObj);
     return addUniqueIdsToDocs(ramlObj);
 }
 
@@ -191,7 +218,7 @@ module.exports = (gulp, $) => {
             const tree = enhanceRamlObj(api.expand().toJSON());
 
             traverseRAMLResourceTree(tree.resources, resource => {
-                return resource.annotations && resource.annotations.internal;
+                return !(resource.annotations && resource.annotations.internal);
             });
 
             fs.writeFileSync(

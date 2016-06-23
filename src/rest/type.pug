@@ -5,6 +5,54 @@ mixin type(key, type, skipRequired)
         if type.repeat
             span.help(title="List") []
 
+mixin typeNameString(type)
+    -
+        var name = Array.isArray(type.type) ? type.type[0] : type.type;
+        var isArray = false;
+        if (name.slice(-2) === '[]') {
+            isArray = true;
+            name = name.slice(0, -2);
+        }
+
+    if type.default
+        | [
+    if isArray
+        | Array&lt;
+    if type.enum
+        if rest.types[name]
+            a(href='#' + name)= name
+        else
+            =name
+        | (#{type.enum.join(', ')})
+        if type.default
+            span.help(title="Default Value")=`=${type.default}`
+    else
+        if type.minimum
+            span.help(title="Min value")= type.minimum
+            ='<'
+        if rest.types[name]
+            a(href='#' + name)= name
+        else
+            =name
+        if type.default
+            | =
+            span.help(title="Default Value")= type.default
+        if type.maximum
+            ='<'
+            span.help(title="Max value")= type.maximum
+        if type.default
+            | ]
+    if isArray
+        | &gt;
+    if !type.default && !type.required
+        span.help(title="Optional") ?
+    if name === 'string'
+        if type.minLength
+            | minLength: #{type.minLength}
+        if type.maxLength
+            | maxLength: #{type.maxLength}
+    if type.pattern
+        | pattern: #[kbd=type.pattern]
 
 
 mixin simpleType(key, type, skipRequired)
@@ -14,37 +62,7 @@ mixin simpleType(key, type, skipRequired)
         li
             strong=type.displayName || key
             = ': '
-            em
-                if type.default
-                    | [
-                if type.enum
-                    | (#{type.enum.join(', ')})
-                    if type.default
-                        span.help(title="Default Value")=`=${type.default}`
-                else
-                    if type.minimum
-                        span.help(title="Min value")=`${type.minimum}`
-                        ='>'
-                    =type.type
-                    if type.default
-                        | =
-                        span.help(title="Default Value")=`${type.default}`
-                    if type.maximum
-                        ='>'
-                        span.help(title="Max value")=`${type.maximum}`
-                    if type.default
-                        | ]
-                if !type.default && !type.required
-                    span.help(title="Optional") ?
-                else if type.required && !skipRequired
-                    span.help(title="Required") !
-                if type.type == 'string'
-                    if type.minLength
-                        | minLength: #{type.minLength}
-                    if type.maxLength
-                        | maxLength: #{type.maxLength}
-                if type.pattern
-                    | pattern: #[kbd=type.pattern]
+            em: +typeNameString(type)
             if type.description
                 | !{marked(type.description)}
             if type.schema

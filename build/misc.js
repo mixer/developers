@@ -1,6 +1,10 @@
 'use strict';
 
+const highlight = require('highlight.js');
 const config = require('config');
+const marked = require('marked');
+const http = require('http');
+const _ = require('lodash');
 
 /**
  * Generates locals required for templating.
@@ -9,9 +13,15 @@ const config = require('config');
  */
 function getLocals() {
     const restDoc = require('./tmp/raml-doc.json');
+    marked.setOptions({
+        highlight: function (code) {
+            return require('highlight.js').highlightAuto(code).value;
+        }
+    });
+
     const out = {
-        highlight: require('highlight.js'),
-        marked: require('marked'),
+        highlight,
+        marked,
         rest: require('./tmp/raml-doc.json'),
         permissions: { 'some:test': { text: 'Text description' } },
 
@@ -28,13 +38,9 @@ function getLocals() {
                     return 'object';
                 }
 
-                if (restDoc.types) {
-                    const parent = type.type[0];
-                    for (const type2 of restDoc.types) {
-                        if (typeof type2[parent] !== 'undefined') {
-                            return this.getRootType(type2[parent]);
-                        }
-                    }
+                const parent = type.type[0];
+                if (restDoc.types && restDoc.types[parent]) {
+                    return this.getRootType(restDoc.types[parent]);
                 }
 
                 return type.type[0];
@@ -61,6 +67,15 @@ function getLocals() {
             getOAuthScopes(security) {
                 return security.oauth_2_0.scopes;
             },
+            /**
+             * Attempts to look up an HTTP status message corresponding
+             * to the provided numeric code.
+             * @param  {Number} code
+             * @return {String}
+             */
+            getStatusMessage(code) {
+                return http.STATUS_CODES[code];
+            }
         },
     };
 
@@ -116,6 +131,7 @@ module.exports = (gulp, $) => {
 
     gulp.task('js', () => {
         return gulp.src(config.src.js)
+        .pipe($.concat('developers.js'))
         .pipe($.if(config.minify, $.uglify()))
         .pipe(gulp.dest(config.dist.js));
     });

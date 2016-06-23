@@ -1,0 +1,73 @@
+.panel-rest {
+    position: relative;
+
+    .panel-reference {
+        position: absolute;
+        right: 100%;
+        line-height: 50px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        display: none;
+        cursor: pointer;
+    }
+
+    &:hover .panel-reference {
+        display: block;
+    }
+
+    .panel-title {
+        font-family: @font-family-monospace;
+    }
+
+    .panel-heading > .panel-title {
+        font-size: 1.8em;
+    }
+}
+
+.rest-properties {
+    margin: 0;
+    padding: 0;
+
+    li {
+        list-style-type: none;
+
+        + li {
+            border-top: 1px solid #eee;
+        }
+    }
+
+    h5 {
+        font-family: @font-family-monospace;
+        font-size: 1.3em;
+    }
+}
+
+.rest-endpoint {
+    font-size: 1.1em;
+    line-height: 50px;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+
+    &:first-child {
+        border-top: none;
+    }
+
+    &:hover {
+        background: #eee;
+    }
+
+    &-method {
+        text-transform: uppercase;
+        display: inline-block;
+        width: 5em;
+        opacity: 0.5;
+        text-align: right;
+        padding-right: 0.3em;
+        color: lighten(@brand-primary, 10%);
+    }
+
+    .icon-lock-3 {
+        margin-left: 0.5em;
+    }
+}

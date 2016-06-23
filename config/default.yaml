@@ -6,7 +6,10 @@ minify: false
 src:
   tmp: build/tmp
   css: src/css/style.less
-  js: src/js/*.js
+  js:
+    - node_modules/sticky-kit/dist/sticky-kit.js
+    - node_modules/bootstrap/dist/js/bootstrap.js
+    - src/js/*.js
   html: src/**/*.pug
   icons: src/icons/*.svg
   images: src/**/*.{svg,png,jpg,gif}

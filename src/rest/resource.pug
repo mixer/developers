@@ -1,9 +1,31 @@
 include ./type.pug
 mixin statusCode(code)
-    a(
-        href=`http://httpstatus.es/${code}`
-        target="_blank"
-    )=code
+    a(href=`http://httpstatus.es/${code}`, target="_blank")
+        = code
+        = ' ' + restUtil.getStatusMessage(code)
+
+mixin typeDetails(typeName)
+    - var type = rest.types[typeName]
+    if type.description
+        p.top-resource-description !{marked(type.description)}
+
+    if type.properties
+        ul.rest-properties
+            for property, name in type.properties
+                li
+                    -
+                        var ptype = property.type[0];
+                    h5.title
+                        | #{property.name}
+                        //- The &nbsp; is used below rather than css-based
+                        //- spacing so that double clicking selects the
+                        //- property name without the type.
+                        small &nbsp;
+                            +typeNameString(property)
+
+                    if typeof property.description === 'string'
+                        p !{marked(property.description)}
+
 
 mixin method(method, resource)
     .modal.fade(tabindex="0" id=`${resource.uniqueId}_${method.method}`)
@@ -11,7 +33,7 @@ mixin method(method, resource)
             .modal-content
                 .modal-header
                     button.close(type="button" data-dismiss="modal" aria-hidden="true")!='&times'
-                    h4#myModalLabel.modal-title
+                    h4.modal-title
                         span.badge(class=`badge_${method.method}`)=method.method
                             if method.securedBy && method.securedBy.length > 0
                                 span.glyphicon.glyphicon-lock(title="Authentication required")
@@ -21,8 +43,7 @@ mixin method(method, resource)
 
                 .modal-body
                     if method.description
-                        .alert.alert-info.
-                            !{marked(method.description)}
+                        != marked(method.description)
                     if method.securedBy
                         for securedBy in method.securedBy
                             - securityScheme = restUtil.securitySchemeWithName(securedBy)
@@ -77,10 +98,11 @@ mixin method(method, resource)
                                 if method.body
                                     h3 Body
                                     for b, key in method.body
-                                        h4
-                                            | Media Type: #{key}
-                                        if b.type
-                                            +type(key, b)
+                                        ul
+                                            li #[strong Media Type]: #{key}
+                                            if b.type
+                                                li #[strong Data Type]: #[+typeNameString(b)]
+
                                         if b.schema
                                             p
                                                 strong Schema
@@ -98,11 +120,9 @@ mixin method(method, resource)
                                 id=`${resource.uniqueId}_${method.method}_response`
                                 class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
                                 for response, key in method.responses
-                                    h2 HTTP status code
-                                        = ' '
-                                        +statusCode(key)
+                                    h2: +statusCode(key)
                                     if (response.description)
-                                        | !{marked(response.description)}
+                                        != marked(response.description)
                                     if response.headers
                                         h3 Headers
                                         ul
@@ -112,11 +132,10 @@ mixin method(method, resource)
                                     if response.body
                                         h3 Body
                                         for b, key in response.body
-                                            +type(key, b, true)
-                                            h4
-                                                | Media Type: #{key}
-                                            if b.type
-                                                +type(key, b, true)
+                                            ul
+                                                li #[strong Media Type]: #{key}
+                                                if b.type
+                                                    li #[strong Data Type]: #[+typeNameString(b)]
                                             if b.schema
                                                 p
                                                     strong Schema
@@ -155,39 +174,15 @@ mixin method(method, resource)
 
 mixin resource(resource)
     if (resource.methods || (resource.description && resource.parentUrl))
-        .panel.panel-white
-            .panel-heading
-                h4.panel-title
-                    a.collapsed(data-toggle="collapse" href=`#panel_${resource.uniqueId}`)
-                        span.parent=resource.parentUrl
-                        =resource.relativeUri
+        for method in resource.methods
+            .rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'`)
+                span.rest-endpoint-method= method.method
+                span.rest-endpoint-path= resource.parentUrl + resource.relativeUri
+                if method.securedBy && method.securedBy.length > 0
+                    span.icon.icon-lock-3(title="Authentication required")
 
-                    span.methods
-                        for method in resource.methods
-                            a(href=`#${resource.uniqueId}_${method.method}`)
-                                span(class=`badge badge_${method.method}`)=method.method
-                                    = ' '
-                                    if method.securedBy && method.securedBy.length > 0
-                                        span.glyphicon.glyphicon-lock(title="Authentication required")
+            +method(method, resource)
 
-            .panel-collapse.collapse(id=`panel_${resource.uniqueId}`)
-                .panel-body
-                    if resource.parentUrl
-                        if resource.description
-                            .resource-description!=resource.description
-                    .list-group
-                        for method in resource.methods
-                            .list-group-item(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'`)
-                                span.class.badge(class=`badge_${method.method}`)=method.method
-                                    = ' '
-                                    if method.securedBy && method.securedBy.length > 0
-                                        span.glyphicon.glyphicon-lock(title="Authentication required")
-                                .method_description
-                                    p=method.description
-                                .clearfix
-
-            for method in resource.methods
-                +method(method, resource)
     if resource.resources
         for resource in resource.resources
             +resource(resource)

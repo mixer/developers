@@ -32,11 +32,11 @@
 @text-color:            @gray-dark;
 
 //** Global textual link color.
-@link-color:            @brand-primary;
+@link-color:            lighten(@brand-primary, 15%);
 //** Link hover color set via `darken()` function.
 @link-hover-color:      darken(@link-color, 15%);
 //** Link hover decoration.
-@link-hover-decoration: underline;
+@link-hover-decoration: transparent;
 
 
 //== Typography
@@ -695,10 +695,10 @@
 @panel-body-padding:          15px;
 @panel-heading-padding:       10px 15px;
 @panel-footer-padding:        @panel-heading-padding;
-@panel-border-radius:         @border-radius-base;
+@panel-border-radius:         0;
 
 //** Border color for elements within panels
-@panel-inner-border:          #ddd;
+@panel-inner-border:          transparent;
 @panel-footer-bg:             #f5f5f5;
 
 @panel-default-text:          @gray-dark;
@@ -818,8 +818,8 @@
 //
 //##
 
-@code-color:                  #c7254e;
-@code-bg:                     #f9f2f4;
+@code-color:                  #000;
+@code-bg:                     transparent;
 
 @kbd-color:                   #fff;
 @kbd-bg:                      #333;
