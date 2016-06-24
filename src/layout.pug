@@ -6,7 +6,11 @@ mixin navbar
 
     #js-navbar.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
-            li: a(href="/tutorials.html") Tutorials
+            li.dropdown
+                a.dropdown-toggle(href="#", data-toggle="dropdown") Tutorials
+                ul.dropdown-menu
+                    li: a(href="#") Chat
+                    li: a(href="#") Interactive
             li: a(href="/reference/index.html") Reference
             li: a(href="https://beam.pro/lab") Lab &amp; Apps
 

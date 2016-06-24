@@ -33,6 +33,10 @@ body {
         min-width: 196px;
     }
 
+    .dropdown-menu {
+        border: transparent;
+    }
+
     h1 {
         color: #fff;
         margin-bottom: @grid-gutter-width;
@@ -46,6 +50,24 @@ body {
         .bar-transition-bottom(15px);
         background: url('../img/intro.png') top center;
         background-size: cover;
+    }
+}
+
+pre {
+    position: relative;
+    background: #eee;
+    border: none;
+    overflow: visible;
+
+    &:before {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 0;
+        bottom: 0;
+        width: 15px;
+        display: block;
+        background: url('../img/line-pattern.png') #eee;
     }
 }
 
