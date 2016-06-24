@@ -1,0 +1,7 @@
+mixin highlightFile(language, file)
+    +highlightStr(language, readFile(file).toString())
+
+mixin highlightStr(language, str)
+    pre
+        code(class=language)
+            != highlight(language, str)

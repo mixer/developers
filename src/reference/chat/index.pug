@@ -1,0 +1,34 @@
+include ../../mixins.pug
+h1(id="chat") Chat
+p.
+  Our chat servers use a standard secure websocket protocol (wss) as defined in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. For more info see the #[a(href="#Raw API") Raw API section]
+h1(id="chat__methods") Methods
+for data, method in chat.methods
+    h3(id=`chat__methods__${method}`)= method
+    p= data.description
+    table.table
+        thead
+            th.col-xs-6 Request
+            th.col-xs-6 Response
+        tbody
+            td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
+            if data.example.response
+                td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
+            else
+                td.col-xs-6 No response
+
+h1(id="chat__events") Events
+p.
+    All libraries use the same websocket actions and events events,
+    here is a list of them with raw JSON examples.
+
+for data, event in chat.events
+    h3(id=`chat__events__${event}`)= event
+    p= data.description
+    if data.examples
+        for example in data.examples
+            h4= example.title
+            p= example.description
+            +highlightStr("json", JSON.stringify(example.data, null, 3))
+    else
+        +highlightStr("json", JSON.stringify(data.example, null, 3))

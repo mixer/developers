@@ -7,7 +7,7 @@ mixin navbar
     #js-navbar.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
             li: a(href="/tutorials.html") Tutorials
-            li: a(href="/reference.html") Reference
+            li: a(href="/reference/index.html") Reference
             li: a(href="https://beam.pro/lab") Lab &amp; Apps
 
 mixin bsTabs(tabs, prefix)
@@ -44,13 +44,7 @@ mixin bsTabItem(tabId, prefix, active)
     .tab-pane.fade(class=active && 'active in', id=`${prefix}${tabId}` role="tabpanel")
         block
 
-mixin highlightFile(language, file)
-    +highlightStr(language, readFile(file).toString())
-
-mixin highlightStr(language, str)
-    pre
-        code(class=language)
-            != highlight(language, str)
+include ./mixins.pug
 
 doctype html
 html

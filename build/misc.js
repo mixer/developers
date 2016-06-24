@@ -23,7 +23,7 @@ function getLocals() {
 
     const out = {
         marked,
-        chat: require('../src/tutorials/chatData'),
+        chat: require('../src/reference/chat/data'),
         rest: require('./tmp/raml-doc.json'),
         permissions: { 'some:test': { text: 'Text description' } },
         highlight: (lang, str) => highlight.highlight(lang, str).value,

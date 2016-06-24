@@ -1,0 +1,12 @@
+a(href="#chat") Chat
+ul.nav.nav-stacked
+  li
+      a(href="#chat__methods") Methods
+      ul.nav.nav-stacked
+          for data, method in chat.methods
+              li: a(href=`#chat__methods__${method}`)= method
+  li
+      a(href="#chat__events") Events
+      ul.nav.nav-stacked
+          for data, event in chat.events
+              li: a(href=`#chat__events__${event}`)= event
