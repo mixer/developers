@@ -12,35 +12,6 @@ block navbar
 block content
     .container: .row
         .col-md-9(role="main")
-            .page-header
-                p Our chat servers use a standard secure websocket protocol (wss) as defined in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. For more info see the #[a(href="#Raw API") Raw API section]
-
-            h1(id="methods") Methods
-            for data, method in chat.methods
-                h3(id=`methods__${method}`)= method
-                p= data.description
-
-                table.table
-                    thead
-                        th Request
-                        th Response
-                    tbody
-                        td: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
-                        if data.example.response
-                            td: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
-                        else
-                            td No response
-
-            h1(id="events") Events
-            p.
-                All libraries use the same websocket actions and events events,
-                here is a list of them with raw JSON examples.
-
-            for data, event in chat.events
-                h3(id=`events__${event}`)= event
-                p= data.description
-                +highlightStr("json", JSON.stringify(data.example, null, 3))
-
             h1#guide Creating a simple chat bot
             p.
                 In this guide, we will show you how to create a "ping-pong" chat bot using
