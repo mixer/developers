@@ -91,7 +91,7 @@
 }
 
 .rest-sidebar {
-    padding-left: 20px;
+    padding-left: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
 
@@ -116,14 +116,18 @@
 
         ul.nav {
             display: none;
+
+            a {
+                padding-left: 30px;
+            }
         }
 
         &.active {
-            ul.nav {
+            > ul.nav {
                 display: block;
             }
 
-            a {
+            > a {
                 font-weight: 600;
                 border-left-color: @brand-primary;
                 color: @brand-primary;

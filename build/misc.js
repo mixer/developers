@@ -4,6 +4,8 @@ const highlight = require('highlight.js');
 const config = require('config');
 const marked = require('marked');
 const http = require('http');
+const path = require('path');
+const fs = require('fs');
 const _ = require('lodash');
 
 /**
@@ -20,10 +22,12 @@ function getLocals() {
     });
 
     const out = {
-        highlight,
         marked,
+        chat: require('../src/tutorials/chatData'),
         rest: require('./tmp/raml-doc.json'),
         permissions: { 'some:test': { text: 'Text description' } },
+        highlight: (lang, str) => highlight.highlight(lang, str).value,
+        readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
 
         restUtil: {
             /**
