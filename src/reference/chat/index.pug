@@ -9,7 +9,7 @@ h2(id="chat__connection") Connection
     //- TODO: add a hyperlink to the chat endpoint here
 p.
     To connect to the chat server, retrieve details from our Rest API by sending
-    a GET request to our  #[code /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
+    a GET request to #[code /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
     If you are authenticated in the request you will recieve an #[code authkey] in the response for
     authentication purposes. You may join chat and read messages without being authenticated,
     but you will not be able to participate in chat.
@@ -29,11 +29,10 @@ p.
 table.table
     tbody
         tr
-          td
+          td.col-xs-2
             code type
-          td
-            | Must be set to
-            code  method
+          td.col-xs-10
+            | Must be #[code method].
         tr
           td
             code method
@@ -47,18 +46,17 @@ table.table
             code id
           td
             | Should be a unique numeric ID. If the method you sent requires a
-            | reply, the numeric ID will be sent back down in the #[a(href="#chat__reply") Reply] packet.
+            | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
 h3(id="chat__packets__event") Event
 p.
     An event is recieved from the chat server.
 table.table
     tbody
         tr
-          td
+          td.col-xs-2
             code type
-          td
-            | Must be set to
-            code event
+          td.col-xs-10
+            | Must be #[code event].
         tr
           td
             code event
@@ -69,19 +67,18 @@ table.table
           td Associated event data - may be of any type, specific to the event.
 h3(id="chat__packets__reply") Reply
 p.
-    A reply is recieved from the server in response to a #[a(href="#chat__method") Method] packet
+    A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet
 table.table
     tbody
         tr
-          td
+          td.col-xs-2
             code type
-          td
-            | Must be set to
-            code reply
+          td.col-xs-10
+            | Must be #[code reply].
         tr
           td
             code error
-          td #[code null] if no error occured, otherwise an error message
+          td  If an error  has not occured #[code null], otherwise an error message.
         tr
           td
             code data
@@ -89,7 +86,7 @@ table.table
 h1(id="chat__methods") Methods
 for data, method in chat.methods
     h3(id=`chat__methods__${method}`)= method
-    p= data.description
+    p!= marked(data.description)
     table.table
         thead
             th.col-xs-6 Request
@@ -102,10 +99,6 @@ for data, method in chat.methods
                 td.col-xs-6 No response
 
 h1(id="chat__events") Events
-p.
-    All libraries use the same websocket actions and events events,
-    here is a list of them with raw JSON examples.
-
 for data, event in chat.events
     h3(id=`chat__events__${event}`)= event
     p= data.description

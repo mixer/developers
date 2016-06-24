@@ -1,15 +1,15 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate to join as an active user in a specified channel",
+      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelid`,`userid`,`key`. The key is retrieved from the request explained in the [Connection](#chat__connection) section.",
       "example": {
         "request": {
           "type": "method",
           "method": "auth",
           "arguments": [
-            "CHANNELID",
-            "USERID",
-            "32hexadedimalAuthKey"
+            12345,
+            54321,
+            "key"
           ],
           "id": 0
         },
@@ -25,7 +25,7 @@
       }
     },
     "msg": {
-      "description": "Send a chat message to the server, the server will not directly reply unless an error occurred. For confirmation use the events.",
+      "description": "Send a chat message to the server, the server will reply with data identical to a [ChatMessage](#chat__events__) event.",
       "example": {
         "request": {
           "type": "method",
@@ -34,6 +34,21 @@
             "Hello World!"
           ],
           "id": 2
+        },
+        "response": {
+          "type":"reply",
+          "error":null,
+          "id":2,
+          "data":{
+            "channel":12345,
+            "id":"06cba8a0-3a4a-11e6-b410-e9a72fcede64",
+            "user_name":"username","user_id":12345,
+            "user_roles":["User"],
+            "message":{
+              "message":[{"type":"text","data":"Hello World!","text":"Hello World!"}],
+              "meta":{}
+            }
+          }
         }
       }
     },
@@ -184,7 +199,7 @@
         },
         {
           "title":"Whisper",
-          "description":"A private whisper from one user to another which is only sent to the recipient",
+          "description":"A private whisper from one user to another which is only sent to the recipient. The `meta` object contains a `whisper` attribute which is `true`.",
           "data": {
             "type": "event",
             "event": "ChatMessage",
@@ -214,7 +229,7 @@
         },
         {
           "title": "Action",
-          "description": "When a user uses /me in chat, meta contains a whisper property which is true",
+          "description": "When a user uses `/me` in chat. The `meta` object contains a `me` attribute which is `true`.",
           "data": {
             "type": "event",
             "event": "ChatMessage",
@@ -288,7 +303,7 @@
       }
     },
     "PollEnd": {
-      "description": "Sent when a poll ended",
+      "description": "Sent when a poll ended.",
       "example": {
         "q": "How's the weather?",
         "answers": [
@@ -332,7 +347,7 @@
       }
     },
     "UserUpdate": {
-      "description": "Sent when a user is updated, usually on status change. E.g. Modding, Subscribing, Banning",
+      "description": "Sent when a user is updated, usually on status change. E.g. Modding, Subscribing, Banning.",
       "example":{
         "type":"event",
         "event":"UserUpdate",
