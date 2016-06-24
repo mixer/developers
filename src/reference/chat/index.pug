@@ -29,60 +29,66 @@ p.
 table.table
     tbody
         tr
-          td.col-xs-2
-            code type
-          td.col-xs-10
-            | Must be #[code method].
+            td.col-xs-2
+                code type
+            td.col-xs-10
+                | Must be #[code method].
         tr
           td
             code method
           td The method name to execute.
         tr
-          td
-            code arguments
-          td An array of arguments, specific per method type.
+            td
+                code arguments
+            td An array of arguments, specific per method type.
         tr
-          td
-            code id
-          td
-            | Should be a unique numeric ID. If the method you sent requires a
-            | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
-h3(id="chat__packets__event") Event
-p.
-    An event is recieved from the chat server.
-table.table
-    tbody
-        tr
-          td.col-xs-2
-            code type
-          td.col-xs-10
-            | Must be #[code event].
-        tr
-          td
-            code event
-          td The event name.
-        tr
-          td
-            code data
-          td Associated event data - may be of any type, specific to the event.
+            td
+                code id
+            td
+                | Must be a unique numeric ID. If the method you sent has a
+                | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
 h3(id="chat__packets__reply") Reply
 p.
     A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet
 table.table
     tbody
         tr
-          td.col-xs-2
-            code type
-          td.col-xs-10
-            | Must be #[code reply].
+            td.col-xs-2
+                code type
+            td.col-xs-10
+                | Must be #[code reply].
+        tr
+            td
+                code error
+            td If an error  has not occured #[code null], otherwise an error message.
+        tr
+            td
+                code data
+            td Associated event data - may be of any type, specific to the event.
+        tr
+            td
+                code id
+            td
+                | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method]
+                | packet that this reply is in response to.
+h3(id="chat__packets__event") Event
+p.
+    An event is recieved from the chat server.
+table.table
+    tbody
+        tr
+            td.col-xs-2
+                code type
+            td.col-xs-10
+                | Must be #[code event].
         tr
           td
-            code error
-          td  If an error  has not occured #[code null], otherwise an error message.
+            code event
+          td The event name.
         tr
-          td
-            code data
-          td Associated event data - may be of any type, specific to the event.
+            td
+                code data
+            td Associated event data - may be of any type, specific to the event.
 h1(id="chat__methods") Methods
 for data, method in chat.methods
     h3(id=`chat__methods__${method}`)= method
