@@ -1,12 +1,22 @@
 a(href="#chat") Chat
 ul.nav.nav-stacked
-  li
-      a(href="#chat__methods") Methods
-      ul.nav.nav-stacked
-          for data, method in chat.methods
-              li: a(href=`#chat__methods__${method}`)= method
-  li
-      a(href="#chat__events") Events
-      ul.nav.nav-stacked
-          for data, event in chat.events
-              li: a(href=`#chat__events__${event}`)= event
+    li
+        a(href="#chat__introduction") Introduction
+    li
+        a(href="#chat__connection") Connection
+    li
+        a(href="#chat__packets") Packets
+        ul.nav.nav-stacked
+            li: a(href="#chat__packets__method") Method
+            li: a(href="#chat__packets__event") Event
+            li: a(href="#chat__packets__reply") Reply
+    li
+        a(href="#chat__methods") Methods
+        ul.nav.nav-stacked
+            for data, method in chat.methods
+                li: a(href=`#chat__methods__${method}`)= method
+    li
+        a(href="#chat__events") Events
+        ul.nav.nav-stacked
+            for data, event in chat.events
+                li: a(href=`#chat__events__${event}`)= event
