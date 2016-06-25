@@ -19,7 +19,7 @@
           "id": 1,
           "data": {
             "authenticated": true,
-            "role": "Owner"
+            "role": ["Owner"]
           }
         }
       }
