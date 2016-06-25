@@ -112,7 +112,7 @@ for data, event in chat.events
     if data.examples
         for example  in data.examples
             h4= example.title
-            p= example.description
+            p!= marked(example.description)
             +highlightStr("json", JSON.stringify(example.data, null, 3))
     else
         +highlightStr("json", JSON.stringify(data.example, null, 3))
