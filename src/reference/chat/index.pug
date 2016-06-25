@@ -25,7 +25,8 @@ p.
     There are 3 types of packets sent over the socket.
 h3(id="chat__packets__method") Method
 p.
-    A method is sent to the chat server.
+    A method is sent to the chat server the server will respond with a
+    #[a(href="#chat__packets__reply") Reply packet].
 table.table
     tbody
         tr
@@ -49,7 +50,7 @@ table.table
                 | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
 h3(id="chat__packets__reply") Reply
 p.
-    A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet
+    A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet.
 table.table
     tbody
         tr
