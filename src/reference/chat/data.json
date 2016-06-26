@@ -110,6 +110,12 @@
                   "duration"
               ],
               "id": 4
+          },
+          "response": {
+              "type":"reply",
+              "error":null,
+              "id":6,
+              "data":"Username has been timed out for duration."
           }
       }
     },
