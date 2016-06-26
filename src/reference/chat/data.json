@@ -438,7 +438,7 @@
     },
     "UserTimeout": {
         "description": "Sent only to a user when they are timed out.",
-        "example": {"type":"event","event":"UserTimeout","data":{"user":{"user_name":"Merlin","user_id":102534,"user_roles":["Pro","User"]},"duration":59998}}
+        "example": {"type":"event","event":"UserTimeout","data":{"user":{"user_name":"username","user_id":102534,"user_roles":["Pro","User"]},"duration":59998}}
     }
   }
 }
