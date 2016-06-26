@@ -200,12 +200,12 @@
                 {
                   "type": "link",
                   "url": "http://beam.pro/awesome_channel",
-                  "text": "Check out my[channel, yo!"
+                  "text": "Check out mychannel, yo!"
                 },
                 {
                   "type":"emoticon",
                   "source":"external",
-                  "pack":"https://uploa]s.beam.pro/emoticons/x.png",
+                  "pack":"https://uploas.beam.pro/emoticons/x.png",
                   "coords":{"x":24,"y":48,"width":24,"height":24},
                   "text":":coolpartneremote"
                 }
