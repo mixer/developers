@@ -154,15 +154,4 @@ block content
             .hidden-print.rest-sidebar(role="complementary")
                 nav
                     ul.nav.nav-stacked
-                        li
-                            a(href="#methods") Methods
-                            ul.nav.nav-stacked
-                                for data, method in chat.methods
-                                    li: a(href=`#methods__${method}`)= method
-                        li
-                            a(href="#events") Events
-                            ul.nav.nav-stacked
-                                for data, event in chat.events
-                                    li: a(href=`#events__${event}`)= event
-
                         li: a(href="#guide") Guide
