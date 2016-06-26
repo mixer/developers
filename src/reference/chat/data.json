@@ -104,6 +104,7 @@
       "example": {
           "request": {
               "type": "method",
+              "method":"timeout",
               "arguments": [
                   "username",
                   "duration"
@@ -152,6 +153,22 @@
         },
         "response": {"type":"reply","error":null,"id":11,"data":"Starting a giveaway"}
       }
+    },
+    "ping": {
+        "description": "A ping method, used in environemtns where websocket implementations do not natively support pings.",
+        "example": {
+            "request": {
+              "type":"method",
+              "method":"ping",
+              "arguments":[],
+              "id":12
+            },
+            "response": {
+                "type":"reply",
+                "error":null,
+                "id":12
+            }
+        }
     }
   },
   "events": {
@@ -255,6 +272,27 @@
                 }
             }
           }
+        },
+        {
+            "title": "Tag",
+            "description": "When a user tags another user with `@` e.g. `@username`",
+            "data": {
+                "channel": 12345,
+                "id": "c46148d0-3a30-11e6-b368-2953589298fa",
+                "user_name": "username",
+                "user_id": 12345,
+                "user_roles": [
+                    "User"
+                ],
+                "message": {
+                    "message": {
+                        "text": "@username",
+                        "type": "tag",
+                        "username": "username",
+                        "id": 12345
+                    }
+                }
+            }
         }
       ]
     },
@@ -345,6 +383,14 @@
           "user_id":12345
         }
       }
+    },
+    "ClearMessages": {
+        "description": "Sent when the server clears all messages in chat.",
+        "example": {
+            "type":"event",
+            "event":"ClearMessages",
+            "data":{}
+        }
     },
     "UserUpdate": {
       "description": "Sent when a user is updated, usually on status change. E.g. Modding, Subscribing, Banning.",
