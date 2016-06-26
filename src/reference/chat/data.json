@@ -204,7 +204,7 @@
   },
   "events": {
     "ChatMessage": {
-      "description": "Sent by the server when a client sends a message. Can contain multiple message parts. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
+      "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
       "examples": [
         {
           "title": "Regular Message",
@@ -221,7 +221,7 @@
               "message": [
                 {
                   "type": "text",
-                  "data": "Hello!"
+                  "text": "Hello!"
                 },
                 {
                   "type": "emoticon",

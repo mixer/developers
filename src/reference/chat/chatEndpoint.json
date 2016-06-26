@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Date: Sun, 26 Jun 2016 22:50:41 GMT
+
+{
+    "authkey": "b41e9ae6b14df18c59f415419b1f827c",
+    "endpoints": [
+        "wss://chat2-dal.beam.pro:443",
+        "wss://chat1-dal.beam.pro:443"
+    ],
+    "permissions": [
+        "chat",
+        "connect",
+        "poll_vote"
+    ]
+}

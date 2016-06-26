@@ -16,30 +16,32 @@ block reference
     h1(id="chat") Chat
     h2(id="chat__introduction") Introduction
     p.
-        Our chat servers use a standard secure websocket protocol (wss) as defined
+        Our chat servers use a standard secure websocket protocol #[code wss://] as defined
         in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. Messages are sent
-        and recieved in standard JSON.
+        and received in standard JSON.
     h2(id="chat__connection") Connection
         //- TODO: add a hyperlink to the chat endpoint here
     p.
-        To connect to the chat server, retrieve details from our Rest API by sending
-        a GET request to #[code /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
-        If you are authenticated in the request you will recieve an #[code authkey] in the response for
-        authentication purposes. You may join chat and read messages without being authenticated,
-        but you will not be able to participate in chat.
+        To connect to the chat server, retrieve details from our Rest API by calling #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] where #[code id] is the channel id of the channel you wish to join. If you are authenticated in the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated, but you will not be able to participate in chat.
     p.
-        To connect to a chat, you should randomly chose an address from the endpoints array.
-        If you lose connection to a server, you should re-connect to a different server
-        (this can be chosen randomly or via round-robining strategy).
+        This is what a typical response from the #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] endpoint looks like:
+    +highlightFile("http", "reference/chat/chatEndpoint.json")
+    p.
+        To connect to a chat, you should randomly chose an address from the endpoints array. If you lose connection to a server, you should re-connect to a different server (this can be chosen randomly or via round-robining strategy).
     p.
         After connecting to a server you must call the #[a(href="#chat__methods__auth") auth] method.
+
     h2(id="chat__packets") Packets
     p.
-        There are 3 types of packets sent over the socket.
+        There are 3 types of packets sent over the socket: #[code method], #[code reply], and #[code event] packets. The former two are typical RPC-style packets; think of sending them as calling a function or method and getting a return value back, but over the network.
+
+    p.
+        We go into more detail below, but a typical exchange between the server and client might look like this:
+    +highlightFile("js", "reference/chat/exchange.txt")
+
     h3(id="chat__packets__method") Method
     p.
-        A method is sent to the chat server the server will respond with a
-        #[a(href="#chat__packets__reply") Reply packet].
+        A method is sent to the chat server the server will respond with a #[a(href="#chat__packets__reply") Reply packet].
     table.table
         tbody
             tr
@@ -63,7 +65,7 @@ block reference
                     | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
     h3(id="chat__packets__reply") Reply
     p.
-        A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet.
+        A reply is received from the server in response to a #[a(href="#chat__packets__method") Method] packet.
     table.table
         tbody
             tr
@@ -83,11 +85,10 @@ block reference
                 td
                     code id
                 td
-                    | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method]
-                    | packet that this reply is in response to.
+                    | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method] packet that this reply is in response to.
     h3(id="chat__packets__event") Event
     p.
-        An event is recieved from the chat server.
+        An event is received from the chat server when an event occurs in the channel's chat. This includes chat messages themselves, polls, and role changes. The full list can be found in the #[a(href="#chat__events") Events section] below.
     table.table
         tbody
             tr
@@ -133,7 +134,7 @@ block reference
     h1(id="chat__events") Events
     for data, event in chat.events
         h3(id=`chat__events__${event}`)= event
-        p= data.description
+        p!= marked(data.description)
         if data.examples
             for example in data.examples
                 h4= example.title
