@@ -114,7 +114,7 @@
           "response": {
               "type":"reply",
               "error":null,
-              "id":6,
+              "id":4,
               "data":"Username has been timed out for duration."
           }
       }
