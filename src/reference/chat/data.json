@@ -1,7 +1,7 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelid`,`userId`,`key`. The key is retrieved from the request explained in the [Connection](#chat__connection) section.",
+      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api explained in the [Connection](#chat__connection) section.",
       "example": {
         "request": {
           "type": "method",
