@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Reference Documentation
+
+block content
+    .container: .row
+        .col-md-3
+            block menu
+        .col-md-9(role="main")
+            block reference

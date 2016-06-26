@@ -11,7 +11,13 @@ mixin navbar
                 ul.dropdown-menu
                     li: a(href="#") Chat
                     li: a(href="#") Interactive
-            li: a(href="/reference/index.html") Reference
+            li.dropdown
+                a.dropdown-toggle(href="#", data-toggle="dropdown") Reference
+                ul.dropdown-menu
+                    li: a(href="/rest.html") Rest API
+                    li: a(href="/reference/chat/index.html") Live Loading
+                    li: a(href="/reference/chat/index.html") Chat
+                    li: a(href="/reference/chat/index.html") Interactive
             li: a(href="https://beam.pro/lab") Lab &amp; Apps
 
 mixin bsTabs(tabs, prefix)

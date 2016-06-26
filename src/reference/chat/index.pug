@@ -1,118 +1,132 @@
-include ../../mixins.pug
-h1(id="chat") Chat
-h2(id="chat__introduction") Introduction
-p.
-    Our chat servers use a standard secure websocket protocol (wss) as defined
-    in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. Messages are sent
-    and recieved in standard JSON.
-h2(id="chat__connection") Connection
-    //- TODO: add a hyperlink to the chat endpoint here
-p.
-    To connect to the chat server, retrieve details from our Rest API by sending
-    a GET request to #[code /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
-    If you are authenticated in the request you will recieve an #[code authkey] in the response for
-    authentication purposes. You may join chat and read messages without being authenticated,
-    but you will not be able to participate in chat.
-p.
-    To connect to a chat, you should randomly chose an address from the endpoints array.
-    If you lose connection to a server, you should re-connect to a different server
-    (this can be chosen randomly or via round-robining strategy).
-p.
-    After connecting to a server, you'll need to authenticate. To do this you should send an
-    #[a(href="#chat__methods__auth") auth] method.
-h2(id="chat__packets") Packets
-p.
-    There are 3 types of packets sent over the socket.
-h3(id="chat__packets__method") Method
-p.
-    A method is sent to the chat server the server will respond with a
-    #[a(href="#chat__packets__reply") Reply packet].
-table.table
-    tbody
-        tr
-            td.col-xs-2
-                code type
-            td.col-xs-10
-                | Must be #[code method].
-        tr
-          td
-            code method
-          td The method name to execute.
-        tr
-            td
-                code arguments
-            td An array of arguments, specific per method type.
-        tr
-            td
-                code id
-            td
-                | Must be a unique numeric ID. If the method you sent has a
-                | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
-h3(id="chat__packets__reply") Reply
-p.
-    A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet.
-table.table
-    tbody
-        tr
-            td.col-xs-2
-                code type
-            td.col-xs-10
-                | Must be #[code reply].
-        tr
-            td
-                code error
-            td If an error  has not occured #[code null], otherwise an error message.
-        tr
-            td
-                code data
-            td Associated event data - may be of any type, specific to the event.
-        tr
-            td
-                code id
-            td
-                | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method]
-                | packet that this reply is in response to.
-h3(id="chat__packets__event") Event
-p.
-    An event is recieved from the chat server.
-table.table
-    tbody
-        tr
-            td.col-xs-2
-                code type
-            td.col-xs-10
-                | Must be #[code event].
-        tr
-          td
-            code event
-          td The event name.
-        tr
-            td
-                code data
-            td Associated event data - may be of any type, specific to the event.
-h1(id="chat__methods") Methods
-for data, method in chat.methods
-    h3(id=`chat__methods__${method}`)= method
-    p!= marked(data.description)
-    table.table
-        thead
-            th.col-xs-6 Request
-            th.col-xs-6 Response
-        tbody
-            td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
-            if data.example.response
-                td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
-            else
-                td.col-xs-6 No response
+extends ../reference_layout.pug
+block title
+    | Chat Reference | Beam Developers
 
-h1(id="chat__events") Events
-for data, event in chat.events
-    h3(id=`chat__events__${event}`)= event
-    p= data.description
-    if data.examples
-        for example  in data.examples
-            h4= example.title
-            p!= marked(example.description)
-            +highlightStr("json", JSON.stringify(example.data, null, 3))
-    else
-        +highlightStr("json", JSON.stringify(data.example, null, 3))
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Chat Reference Documentation
+block menu
+    .hidden-print.rest-sidebar(role="complementary")
+        nav
+            ul.nav.nav-stacked
+                include menu.pug
+block reference
+    h1(id="chat") Chat
+    h2(id="chat__introduction") Introduction
+    p.
+        Our chat servers use a standard secure websocket protocol (wss) as defined
+        in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. Messages are sent
+        and recieved in standard JSON.
+    h2(id="chat__connection") Connection
+        //- TODO: add a hyperlink to the chat endpoint here
+    p.
+        To connect to the chat server, retrieve details from our Rest API by sending
+        a GET request to #[code /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
+        If you are authenticated in the request you will recieve an #[code authkey] in the response for
+        authentication purposes. You may join chat and read messages without being authenticated,
+        but you will not be able to participate in chat.
+    p.
+        To connect to a chat, you should randomly chose an address from the endpoints array.
+        If you lose connection to a server, you should re-connect to a different server
+        (this can be chosen randomly or via round-robining strategy).
+    p.
+        After connecting to a server, you'll need to authenticate. To do this you should send an
+        #[a(href="#chat__methods__auth") auth] method.
+    h2(id="chat__packets") Packets
+    p.
+        There are 3 types of packets sent over the socket.
+    h3(id="chat__packets__method") Method
+    p.
+        A method is sent to the chat server the server will respond with a
+        #[a(href="#chat__packets__reply") Reply packet].
+    table.table
+        tbody
+            tr
+                td.col-xs-2
+                    code type
+                td.col-xs-10
+                    | Must be #[code method].
+            tr
+              td
+                code method
+              td The method name to execute.
+            tr
+                td
+                    code arguments
+                td An array of arguments, specific per method type.
+            tr
+                td
+                    code id
+                td
+                    | Must be a unique numeric ID. If the method you sent has a
+                    | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
+    h3(id="chat__packets__reply") Reply
+    p.
+        A reply is recieved from the server in response to a #[a(href="#chat__packets__method") Method] packet.
+    table.table
+        tbody
+            tr
+                td.col-xs-2
+                    code type
+                td.col-xs-10
+                    | Must be #[code reply].
+            tr
+                td
+                    code error
+                td If an error  has not occured #[code null], otherwise an error message.
+            tr
+                td
+                    code data
+                td Associated event data - may be of any type, specific to the event.
+            tr
+                td
+                    code id
+                td
+                    | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method]
+                    | packet that this reply is in response to.
+    h3(id="chat__packets__event") Event
+    p.
+        An event is recieved from the chat server.
+    table.table
+        tbody
+            tr
+                td.col-xs-2
+                    code type
+                td.col-xs-10
+                    | Must be #[code event].
+            tr
+              td
+                code event
+              td The event name.
+            tr
+                td
+                    code data
+                td Associated event data - may be of any type, specific to the event.
+    h1(id="chat__methods") Methods
+    for data, method in chat.methods
+        h3(id=`chat__methods__${method}`)= method
+        p!= marked(data.description)
+        table.table
+            thead
+                th.col-xs-6 Request
+                th.col-xs-6 Response
+            tbody
+                td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
+                if data.example.response
+                    td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
+                else
+                    td.col-xs-6 No response
+
+    h1(id="chat__events") Events
+    for data, event in chat.events
+        h3(id=`chat__events__${event}`)= event
+        p= data.description
+        if data.examples
+            for example  in data.examples
+                h4= example.title
+                p!= marked(example.description)
+                +highlightStr("json", JSON.stringify(example.data, null, 3))
+        else
+            +highlightStr("json", JSON.stringify(data.example, null, 3))
