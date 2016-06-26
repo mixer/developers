@@ -1,4 +1,0 @@
-{
-    address: 'wss://tetris2-dal.beam.pro',
-    key: '3l39jjgnhqf4kv4'
-}
