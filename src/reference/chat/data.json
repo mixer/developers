@@ -1,7 +1,7 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelid`,`userid`,`key`. The key is retrieved from the request explained in the [Connection](#chat__connection) section.",
+      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelid`,`userId`,`key`. The key is retrieved from the request explained in the [Connection](#chat__connection) section.",
       "example": {
         "request": {
           "type": "method",
@@ -19,7 +19,7 @@
           "id": 1,
           "data": {
             "authenticated": true,
-            "role": ["Owner"]
+            "roles": ["Owner"]
           }
         }
       }
@@ -114,7 +114,7 @@
       }
     },
     "history": {
-      "description": "Request previous messages from this chat from before you joined. The argument controls how many messages are requested.",
+      "description": "Request previous messages from this chat from before you joined. The argument controls how many messages are requested. 100 is the maximum.",
       "example": {
         "request": {
           "type":"method",
@@ -155,7 +155,7 @@
       }
     },
     "ping": {
-        "description": "A ping method, used in environemtns where websocket implementations do not natively support pings.",
+        "description": "A ping method, used in environments where websocket implementations do not natively support pings.",
         "example": {
             "request": {
               "type":"method",
@@ -173,7 +173,7 @@
   },
   "events": {
     "ChatMessage": {
-      "description": "Sent by the server when a client sends a message. Can contain multiple message parts.",
+      "description": "Sent by the server when a client sends a message. Can contain multiple message parts. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
       "examples": [
         {
           "title": "Regular Message",
@@ -200,12 +200,12 @@
                 {
                   "type": "link",
                   "url": "http://beam.pro/awesome_channel",
-                  "text": "Check out my channel, yo!"
+                  "text": "Check out my[channel, yo!"
                 },
                 {
                   "type":"emoticon",
                   "source":"external",
-                  "pack":"https://uploads.beam.pro/emoticons/x.png",
+                  "pack":"https://uploa]s.beam.pro/emoticons/x.png",
                   "coords":{"x":24,"y":48,"width":24,"height":24},
                   "text":":coolpartneremote"
                 }
@@ -285,12 +285,15 @@
                     "User"
                 ],
                 "message": {
-                    "message": {
-                        "text": "@username",
-                        "type": "tag",
-                        "username": "username",
-                        "id": 12345
-                    }
+                    "message": [
+                        {
+                            "text": "@username",
+                            "type": "tag",
+                            "username": "username",
+                            "id": 12345
+                        }
+                    ],
+                    "meta": {}
                 }
             }
         }
@@ -310,9 +313,6 @@
       "description": "Sent when a user left the chat.",
       "example": {
         "username": "USERNAME",
-        "roles": [
-          "User"
-        ],
         "id": 12345
       }
     },
@@ -404,6 +404,10 @@
           "username":"username"
         }
       }
+    },
+    "UserTimeout": {
+        "description": "Sent only to a user when they are timed out.",
+        "example": {"type":"event","event":"UserTimeout","data":{"user":{"user_name":"Merlin","user_id":102534,"user_roles":["Pro","User"]},"duration":59998}}
     }
   }
 }
