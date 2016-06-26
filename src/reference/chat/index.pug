@@ -32,8 +32,7 @@ block reference
         If you lose connection to a server, you should re-connect to a different server
         (this can be chosen randomly or via round-robining strategy).
     p.
-        After connecting to a server if you wish to send messages you will need to authenticate. To do this you should send an
-        #[a(href="#chat__methods__auth") auth] method.
+        After connecting to a server you must call the #[a(href="#chat__methods__auth") auth] method.
     h2(id="chat__packets") Packets
     p.
         There are 3 types of packets sent over the socket.
@@ -113,18 +112,30 @@ block reference
                 th.col-xs-6 Request
                 th.col-xs-6 Response
             tbody
-                td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
-                if data.example.response
-                    td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
+                if data.examples
+                    for example in data.examples
+                        tr
+                            td(colspan="2")= example.description
+                        tr
+                            td.col-xs-6: +highlightStr("json", JSON.stringify(example.data.request, null, 3))
+                            if example.data.response
+                                td.col-xs-6: +highlightStr("json", JSON.stringify(example.data.response, null, 3))
+                            else
+                                td.col-xs-6 No response
                 else
-                    td.col-xs-6 No response
+                    tr
+                        td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
+                        if data.example.response
+                            td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
+                        else
+                            td.col-xs-6 No response
 
     h1(id="chat__events") Events
     for data, event in chat.events
         h3(id=`chat__events__${event}`)= event
         p= data.description
         if data.examples
-            for example  in data.examples
+            for example in data.examples
                 h4= example.title
                 p!= marked(example.description)
                 +highlightStr("json", JSON.stringify(example.data, null, 3))

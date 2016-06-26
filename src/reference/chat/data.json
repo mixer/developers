@@ -1,28 +1,53 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api explained in the [Connection](#chat__connection) section.",
-      "example": {
-        "request": {
-          "type": "method",
-          "method": "auth",
-          "arguments": [
-            12345,
-            54321,
-            "key"
-          ],
-          "id": 0
-        },
-        "response": {
-          "type": "reply",
-          "error": null,
-          "id": 1,
+      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
+      "examples":[
+        {
+          "description": "Authenticating as a User.",
           "data": {
-            "authenticated": true,
-            "roles": ["Owner"]
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [
+                12345,
+                54321,
+                "key"
+              ],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": null,
+              "id": 0,
+              "data": {
+                "authenticated": true,
+                "roles": ["Owner"]
+              }
+            }
+          }
+        },
+        {
+          "description": "Authenticating anonymously",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [12345],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": null,
+              "id": 0,
+              "data": {
+                "authenticated":true,
+                "roles": []
+              }
+            }
           }
         }
-      }
+      ]
     },
     "msg": {
       "description": "Send a chat message to the server, the server will reply with data identical to a [ChatMessage](#chat__events__) event.",
