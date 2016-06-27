@@ -9,7 +9,6 @@ const _ = require('lodash');
 // Function which returns the raml parser. We don't load this on require-time
 // since it has a lot of dependencies and slows down development builds when
 // unneeded.
-// eslint-disable-next-line global-require
 const ramlParser = () => require('raml-1-parser');
 
 /**
@@ -224,9 +223,9 @@ module.exports = (gulp) => {
         .catch(error => {
             if (error.parserErrors) {
                 const stack = error.parserErrors
-                .map((err, idx) =>
-                    `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`
-                )
+                .map((err, idx) => {
+                    return `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`;
+                })
                 .join('\n');
                 error.message += `\n${stack}`;
             }

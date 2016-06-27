@@ -9,7 +9,8 @@
         "no-param-reassign": 0,
         "space-before-function-paren": [2, "always"],
         "strict": [2, "global"],
-        "arrow-body-style": 0
+        "arrow-body-style": 0,
+        "global-require": 0
     },
     "globals": {
         "log": true
