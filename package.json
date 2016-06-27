@@ -45,5 +45,8 @@
     "raml-1-parser": "^0.2.25",
     "sticky-kit": "^1.1.3",
     "@mcph/beam-common": "*"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.1"
   }
 }
