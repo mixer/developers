@@ -18,14 +18,12 @@ function getLocals () {
     const restDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'tmp/raml-doc.json')));
     marked.setOptions({
         highlight (code) {
-            // eslint-disable-next-line global-require
             return require('highlight.js').highlightAuto(code).value;
         },
     });
 
     const out = {
         marked,
-        // eslint-disable-next-line global-require
         chat: require('../src/reference/chat/data'),
         rest: restDoc,
         permissions: common.permissions,

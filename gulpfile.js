@@ -13,7 +13,6 @@ require('./build/css')(gulp, $);
 const bePath = process.env.BACKEND_PATH;
 config.backendRamlPath = bePath && path.join(bePath, 'doc/raml');
 if (bePath) {
-    // eslint-disable-next-line global-require
     const pkgInfo = require(path.join(bePath, 'package.json'));
     if (pkgInfo.name !== 'beam-backend') {
         throw new Error('BACKEND_PATH not pointing to backend project');
