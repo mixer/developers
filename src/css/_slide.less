@@ -78,3 +78,61 @@
         }
     }
 }
+
+.slide-library {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: @grid-gutter-width / 2;
+    margin-bottom: @grid-gutter-width;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        transform: translateY(1px);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &-icon {
+        > object {
+            width: 80px;
+            max-height: 80px;
+        }
+    }
+
+    &-name {
+        margin-left: @grid-gutter-width / 2;
+        flex-grow: 1;
+
+        h3 {
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        small {
+            display: block;
+            font-size: 0.5em;
+        }
+    }
+
+    &-meta {
+        position: absolute;
+        right: @grid-gutter-width / 3;
+        bottom: @grid-gutter-width / 4;
+        line-height: 1.2em;
+
+        span {
+            display: inline-block;
+            margin: 0 0.5em 0 0.25em;
+            height: 0.9em;
+            color: #999;
+        }
+
+        object {
+            height: 1em;
+        }
+    }
+}

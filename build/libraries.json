@@ -1,0 +1,38 @@
+[
+    {
+        "language": "java",
+        "name": "WatchBeam/beam-client-java",
+        "alias": "client-java",
+        "official": true
+    },
+    {
+        "language": "js",
+        "name": "WatchBeam/beam-client-node",
+        "alias": "client-node",
+        "official": true
+    },
+    {
+        "language": "python",
+        "name": "WatchBeam/beam-client-python",
+        "alias": "client-python",
+        "official": true
+    },
+    {
+        "language": "java",
+        "name": "WatchBeam/beam-interactive-java",
+        "alias": "interactive-java",
+        "official": true
+    },
+    {
+        "language": "js",
+        "name": "WatchBeam/beam-interactive-node",
+        "alias": "interactive-node",
+        "official": true
+    },
+    {
+        "language": "python",
+        "name": "WatchBeam/beam-interactive-python",
+        "alias": "interactive-python",
+        "official": true
+    }
+]

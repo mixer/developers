@@ -23,6 +23,7 @@ function getLocals() {
 
     const out = {
         marked,
+        libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
         rest: require('./tmp/raml-doc.json'),
@@ -113,7 +114,7 @@ function getPugOpts() {
  */
 module.exports = (gulp, $) => {
 
-    gulp.task('html', ['backend-doc'], () => {
+    gulp.task('html', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))

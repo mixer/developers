@@ -2,6 +2,7 @@
 
 const childProcess = require('child_process');
 const config = require('config');
+const fetch = require('node-fetch');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
@@ -224,6 +225,37 @@ module.exports = (gulp, $) => {
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree, null, '   ')
+            );
+        });
+    });
+
+    gulp.task('pull-client-repos', () => {
+        const todo = require('./libraries').map(lib => {
+            return fetch(`https://api.github.com/repos/${lib.name}`)
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new Error(`Errorful response getting ${lib.name}: ${response.statusText}`);
+                }
+
+                return response.json();
+            }).then(json => {
+                const updated = new Date(json.pushed_at);
+
+                return {
+                    language: lib.language,
+                    official: lib.official,
+                    name: lib.alias || lib.name.split('/').pop(),
+                    updatedAt: `${updated.getFullYear()}-${updated.getMonth() + 1}-${updated.getDate()}`,
+                    stars: json.stargazers_count,
+                    url: json.html_url,
+                };
+            });
+        });
+
+        return Promise.all(todo).then(result => {
+            fs.writeFileSync(
+                path.join(config.src.tmp, 'libraries.json'),
+                JSON.stringify(result, null, '   ')
             );
         });
     });
