@@ -10,7 +10,8 @@
         "space-before-function-paren": [2, "always"],
         "strict": [2, "global"],
         "arrow-body-style": 0,
-        "global-require": 0
+        "global-require": 0,
+        "consistent-return": 0
     },
     "globals": {
         "log": true

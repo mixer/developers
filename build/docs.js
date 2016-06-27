@@ -1,10 +1,14 @@
 'use strict';
 
-const childProcess = require('child_process');
+
 const config = require('config');
 const path = require('path');
-const fs = require('fs');
 const _ = require('lodash');
+const Bluebird = require('bluebird');
+const del = require('del');
+
+const fs = Bluebird.promisifyAll(require('fs'));
+const childProcess = Bluebird.promisifyAll(require('child_process'));
 
 // Function which returns the raml parser. We don't load this on require-time
 // since it has a lot of dependencies and slows down development builds when
@@ -29,18 +33,47 @@ function orderObject (obj) {
  * Ensures that the repo cloneable at the provided address is downloaded
  * and up-to-date.
  * @param  {String} addr
- * @param  {Function} callback
+ * @return {Promise}
  */
-function getRepo (addr, callback) {
+function getRepo (addr) {
     // extract everything after the last slash of the path, excluding .git:
     const name = (/\/([^/]*?)(\.git)?$/).exec(addr)[1];
     const target = path.join(config.src.tmp, name);
-    fs.lstat(target, (err, stats) => {
-        if (!err && stats.isDirectory()) {
-            childProcess.exec(`cd ${target} && git pull`, callback);
-        } else {
-            childProcess.exec(`cd ${config.src.tmp} && git clone ${addr}`, callback);
+    const statPromise = fs.lstatAsync(target);
+    // We have a repo override
+    if (config.repos && config.repos[name]) {
+        return statPromise.then(stats => {
+            // If it's a cloned copy, ripe it
+            if (!stats.isSymbolicLink() && stats.isDirectory()) {
+                return del(target);
+            }
+        })
+        // if it didn't exist, ignore.
+        .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
+        .then(() => fs.symlinkAsync(path.join(__dirname, '../', config.repos[name]), target))
+        // if it existed already, ignore it.
+        .catch({ code: 'EEXIST' }, () => { /* do nothing */ });
+    }
+
+    return statPromise.tap(stats => {
+        // Delete symbolic if present
+        if (stats.isSymbolicLink()) {
+            return fs.unlinkAsync(target);
         }
+    })
+    .tap(stats => {
+        // Pull if present
+        if (stats.isDirectory()) {
+            return childProcess.execAsync(`cd ${target} && git pull`);
+        }
+    })
+    .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
+    .then(stats => {
+        if (stats.isDirectory()) {
+            return;
+        }
+        // Clone if not present
+        return childProcess.execAsync(`cd ${config.src.tmp} && git clone ${addr}`);
     });
 }
 
@@ -189,9 +222,8 @@ function traverseRAMLResourceTree (resources, callback, absURL) {
  * @return {Stream}
  */
 module.exports = (gulp) => {
-    gulp.task('java-clone', (callback) => {
-        getRepo('git@github.com:WatchBeam/beam-client-java.git', callback);
-    });
+    gulp.task('java-clone', () => getRepo('git@github.com:WatchBeam/beam-client-java.git'));
+
     gulp.task('java-mvn-gen', ['java-clone'], (callback) => {
         childProcess.exec(
             `cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`,
@@ -203,13 +235,8 @@ module.exports = (gulp) => {
         .pipe(gulp.dest(config.dist.javadoc));
     });
 
-    gulp.task('backend-clone', (callback) => {
-        if (config.backendRamlPath) {
-            callback();
-            return;
-        }
-        getRepo('git@github.com:WatchBeam/backend.git', callback);
-    });
+    gulp.task('backend-clone', () => getRepo('git@github.com:WatchBeam/backend.git'));
+
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
         if (config.backendRamlPath) {
