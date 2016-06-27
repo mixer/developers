@@ -1,13 +1,15 @@
-$(document).ready(function() {
+'use strict';
+
+$(document).ready(function () {
     // open modal on hashes like #_action_get
     var activeModalEl = null;
-    $(window).bind('hashchange', function(e) {
+    $(window).bind('hashchange', function () {
         if (activeModalEl) {
             activeModalEl.modal('hide');
         }
 
-        var anchor_id = document.location.hash.substr(1); //strip #
-        var element = $('#' + anchor_id);
+        var anchorId = document.location.hash.substr(1); // strip #
+        var element = $('#' + anchorId);
 
         // do we have such element + is it a modal?  --> show it
         if (element.length && element.hasClass('modal')) {
@@ -28,11 +30,13 @@ $(document).ready(function() {
     // execute hashchange on first page load
     $(window).trigger('hashchange');
 
-    $('.modal').on('hidden.bs.modal', function() {
+    $('.modal').on('hidden.bs.modal', function () {
         try {
             if (history && history.replaceState) {
                 history.replaceState({}, '', '#');
             }
-        } catch(e) {}
+        } catch (e) {
+            /* Do Nothing */
+        }
     });
 });

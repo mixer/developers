@@ -9,6 +9,7 @@ const _ = require('lodash');
 // Function which returns the raml parser. We don't load this on require-time
 // since it has a lot of dependencies and slows down development builds when
 // unneeded.
+// eslint-disable-next-line global-require
 const ramlParser = () => require('raml-1-parser');
 
 /**
@@ -31,11 +32,11 @@ function orderObject (obj) {
  * @param  {String} addr
  * @param  {Function} callback
  */
-function getRepo(addr, callback) {
+function getRepo (addr, callback) {
     // extract everything after the last slash of the path, excluding .git:
     const name = (/\/([^/]*?)(\.git)?$/).exec(addr)[1];
     const target = path.join(config.src.tmp, name);
-    fs.lstat(target, function(err, stats) {
+    fs.lstat(target, (err, stats) => {
         if (!err && stats.isDirectory()) {
             childProcess.exec(`cd ${target} && git pull`, callback);
         } else {
@@ -107,7 +108,11 @@ function traverseResources (ramlObj, parentUrl, allUriParameters) {
                 method.allUriParameters = resource.allUriParameters;
             });
         }
-        traverseResources(resource, resource.parentUrl + resource.relativeUri, resource.allUriParameters);
+        traverseResources(
+            resource,
+            resource.parentUrl + resource.relativeUri,
+            resource.allUriParameters
+        );
     });
 
     return orderObject(ramlObj);
@@ -184,12 +189,15 @@ function traverseRAMLResourceTree (resources, callback, absURL) {
  * @param  {Object} $ plugin loader
  * @return {Stream}
  */
-module.exports = (gulp, $) => {
+module.exports = (gulp) => {
     gulp.task('java-clone', (callback) => {
         getRepo('git@github.com:WatchBeam/beam-client-java.git', callback);
     });
     gulp.task('java-mvn-gen', ['java-clone'], (callback) => {
-        childProcess.exec(`cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`, callback);
+        childProcess.exec(
+            `cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`,
+            callback
+        );
     });
     gulp.task('java-doc', ['java-mvn-gen'], () => {
         return gulp.src(path.join(config.src.tmp, 'beam-client-java/target/site/apidocs'))
@@ -197,17 +205,28 @@ module.exports = (gulp, $) => {
     });
 
     gulp.task('backend-clone', (callback) => {
+        if (config.backendRamlPath) {
+            callback();
+            return;
+        }
         getRepo('git@github.com:WatchBeam/backend.git', callback);
     });
     gulp.task('backend-doc', ['backend-clone'], () => {
-        return ramlParser().loadApi(
-            path.join(config.src.tmp, 'backend/doc/raml/index.raml'),
-            { rejectOnErrors: true }
-        )
+        let docPath;
+        if (config.backendRamlPath) {
+            docPath = path.join(config.backendRamlPath, 'index.raml');
+        } else {
+            docPath = path.join(config.src.tmp, 'backend/doc/raml/index.raml');
+        }
+        return ramlParser().loadApi(docPath, {
+            rejectOnErrors: true,
+        })
         .catch(error => {
             if (error.parserErrors) {
                 const stack = error.parserErrors
-                .map((err, idx) => `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`)
+                .map((err, idx) =>
+                    `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`
+                )
                 .join('\n');
                 error.message += `\n${stack}`;
             }
