@@ -2,12 +2,47 @@ include ./resource.pug
 .row
     .col-md-9(role="main")
         .page-header
-            p= rest.baseUri
-            //- This doesn't seem to generate any code, I've commented it out for now:
-            //- if rest.documentation
-            //-     for chapter in rest.documentation
-            //-         h3(id=chapter.uniqueId, href=`#${chapter.uniqueId}`)=chapter.title
-            //-         | !{marked(chapter.content)}
+            p Beam provides an API over HTTP that can be used either with cookies or #[a(href="/reference/oauth/index.html") OAuth]. The base API URL is #[code https://beam.pro/api/v1], and all paths listed here are appended to that.
+
+
+        h3 Side note: REST APIs
+        p Beam's API is RESTful. This means that the URL contains a #[em noun], and the request type is a #[em verb] which takes an action on that noun. If you go to google.com, your browser is making a #[code GET] request to Google&mdash;it's asking for information about that page.
+
+        p When you're talking to our API, you won't be asking about pages, but rather about resources. For instance, you might want to get information about a user with ID #[code 314], so you might call #[code http://beam.pro/api/v1/users/314] (we'll abbreviate this as #[code GET /users/314] from here on).
+
+        p #[code GET] isn't the only verb available&mdash;Beam wouldn't be very useful if no one could sign up or chat! In general, the API adheres to the following blueprint:
+
+        table.table
+            thead
+                tr
+                    th Endpoint
+                    th Description
+                    th Example
+            tbody
+                tr
+                    td: code GET /resources
+                    td Returns a list of 'resource' objects.
+                    td: code GET /users
+                tr
+                    td: code POST /resources
+                    td Creates a new 'resource' object.
+                    td: code POST /users
+                tr
+                    td: code GET /resources/{id}
+                    td Returns information about the 'resource' with the provided ID.
+                    td: code GET /users/314
+                tr
+                    td: code PUT /resources/{id}
+                    td Updates a resource with the provided ID.
+                    td: code PUT /users/314
+                tr
+                    td: code POST /resources/{id}/action
+                    td Runs some action on a 'resource'.
+                    td: code PUT /users/314/confirm
+                tr
+                    td: code GET /resources/{id}/data
+                    td Gets some nested information about a 'resource'.
+                    td: code GET /users/314/avatar
 
         h2 Endpoints
         for resource in rest.resources
