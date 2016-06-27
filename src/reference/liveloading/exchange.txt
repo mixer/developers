@@ -1,0 +1,10 @@
+/* client subscribes: */
+Client: emit('put', { method: 'put', data: { slug: ['announcement:announce'] }, url: '/api/v1/live' })
+Server: reply({ statusCode: 204, body: '',  headers: { /* ... */ }})
+
+/* some time later, the server emits an event */
+Server: emit('announcement:announce', 'Hello world!')
+
+/* client unsubscribes: */
+Client: emit('delete', { method: 'delete', data: { slug: ['announcement:announce'] }, url: '/api/v1/live' })
+Server: reply({ statusCode: 204, body: '',  headers: { /* ... */ }})

@@ -23,6 +23,7 @@ function getLocals() {
 
     const out = {
         marked,
+        liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
         rest: require('./tmp/raml-doc.json'),
         permissions: { 'some:test': { text: 'Text description' } },
