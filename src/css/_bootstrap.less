@@ -256,3 +256,45 @@
     animation-duration: 3s;
     animation-name: panelFlash;
 }
+
+.alert-variant(@background; @border; @text-color) {
+    background-color: @background;
+    border-color: @border;
+    color: @text-color;
+
+    hr {
+        border-top-color: darken(@border, 5%);
+    }
+
+    blockquote {
+        border-left-color: darken(@background, 10%)
+    }
+
+    a {
+        color: darken(@text-color, 5%);
+        text-decoration: underline;
+
+        &:hover {
+            color: darken(@text-color, 15%);
+            text-decoration: none;
+        }
+    }
+
+    .alert-link {
+        color: darken(@text-color, 10%);
+    }
+}
+
+.alert {
+    > p {
+        margin-bottom: 10px;
+    }
+
+    > *:last-child {
+        margin-bottom: 0px;
+    }
+
+    blockquote {
+        font-size: 13px;
+    }
+}
