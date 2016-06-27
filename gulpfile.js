@@ -28,6 +28,6 @@ gulp.task('watch', () => {
     gulp.watch(config.src.html, ['html-quick']);
     gulp.watch(config.src.js, ['js']);
     if (bePath) {
-        gulp.watch(path.join(config.backendRamlPath, '**/*.raml'), ['backend-doc']);
+        gulp.watch(path.join(config.backendRamlPath, '**/*.raml'), ['html']);
     }
 });
