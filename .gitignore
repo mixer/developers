@@ -41,3 +41,7 @@ jspm_packages
 # Compiled assets
 /dist
 /src/css/_iconfont.less
+
+# projects
+*.sublime-project
+*.sublime-workspace

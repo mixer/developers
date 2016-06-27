@@ -13,7 +13,6 @@ src:
   html: src/**/*.pug
   icons: src/icons/*.svg
   images: src/**/*.{svg,png,jpg,gif}
-  restTmpl: src/rest/template.nunjucks
 
 dist:
   css: dist/css
