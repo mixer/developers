@@ -7,13 +7,13 @@ block tutorialTitle
     h1 Build a Interactive Robot
 
 block tutorialContent
-    h2 Introduction
+    h2#intro Introduction
     p.
         Our interactive platform communicates using #[a(href="https://developers.google.com/protocol-buffers/") Google's Protocol Buffer]
         specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
         server, which analyzes them for you, before being sent to your Robot.
 
-    h2 Registering a Game On Beam
+    h2#controlEditor Registering a Game On Beam
     p.
         Head over to the Interactive section of the Beam website. Click the plus
         button next to "My Games", and name the game whatever you'd like.
@@ -29,7 +29,7 @@ block tutorialContent
     p.
         Everything else can be left to the defaults. Click Save.
 
-    h2 Writing the Code.
+    h2#code Writing the Code
     p.
         We’re going to be using our #[a(href="https://github.com/WatchBeam/beam-interactive-node") Node],
         #[a(href="https://github.com/WatchBeam/beam-interactive-java") Java]
@@ -164,11 +164,14 @@ block tutorialContent
                 The full code is shown below.
             +highlightFile("python","./tutorials/code/python/interactive/5.py")
 
-    h2 Start Streaming
+    h2#stream Start Streaming
     p.
         Head over to your channel page and click "Go Interactive" on the bottom
         of the page. Now find your game and click the "Play" button. If everything
         has gone well you should now see a joystick underneath your channel’s stream.
         Move the joystick and your mouse should move in that direction.
 block tutorialMenu
-    li: a(href="#guide") Guide
+    li: a(href="#intro") Introduction
+    li: a(href="#controlEditor") Registering a Game On Beam
+    li: a(href="#code") Writing The Code
+    li: a(href="#stream") Start Streaming
