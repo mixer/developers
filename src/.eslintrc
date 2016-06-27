@@ -1,0 +1,13 @@
+{
+    "env": {
+        "browser": true,
+        "jquery": true,
+        "es6": false
+    },
+    "rules": {
+        "no-var": 0,
+        "vars-on-top": 0,
+        "prefer-arrow-callback": 0,
+        "prefer-template": 0
+    },
+}

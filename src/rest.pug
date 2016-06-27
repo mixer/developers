@@ -11,9 +11,9 @@ block navbar
             h1
                 | #{rest.title} API documentation
                 if rest.version
-                    =' '
+                    = ' '
                     small version
-                        =` ${rest.version}`
+                        = ` ${rest.version}`
 
 block content
     .container

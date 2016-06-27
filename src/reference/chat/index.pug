@@ -8,41 +8,54 @@ block navbar
             nav.navbar.navbar-inverse: +navbar()
             h1 Chat Reference Documentation
 block menu
-    .hidden-print.rest-sidebar(role="complementary")
+    .hidden-print.rest-sidebar(role='complementary')
         nav
             ul.nav.nav-stacked
                 include menu.pug
 block reference
-    h1(id="chat") Chat
-    h2(id="chat__introduction") Introduction
+    h1(id='chat') Chat
+    h2(id='chat__introduction') Introduction
     p.
         Our chat servers use a standard secure websocket protocol #[code wss://]. Messages are sent
         and received in standard JSON.
-    h2(id="chat__connection") Connection
+    h2(id='chat__connection') Connection
     p.
-        To connect to the chat server, retrieve details from our Rest API by calling #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
+        To connect to the chat server, retrieve details from our Rest API by
+        calling #[a(href='/rest.html#chats__chat__get') GET /chats/{id}] where
+        #[code id] is the channel id of the channel you wish to join.
     include ../../tutorials/channelid.pug
     p.
-        If you are authenticated in the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated, but you will not be able to participate in chat.
+        If you are authenticated in the request you will recieve an #[code authkey]
+        in the response for authentication purposes.
+        You may join chat and read messages without being authenticated,
+        but you will not be able to participate in chat.
     p.
-        This is what a typical response from the #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] endpoint looks like:
-    +highlightFile("http", "reference/chat/chatEndpoint.json")
+        This is what a typical response from the
+        #[a(href='/rest.html#chats__chat__get') GET /chats/{id}] endpoint looks like:
+    +highlightFile('http', 'reference/chat/chatEndpoint.json')
     p.
-        To connect to a chat, you should randomly chose an address from the endpoints array. If you lose connection to a server, you should re-connect to a different server (this can be chosen randomly or via round-robining strategy).
+        To connect to a chat, you should randomly chose an address from the endpoints array.
+        If you lose connection to a server,
+        you should re-connect to a different server
+        (this can be chosen randomly or via round-robining strategy).
     p.
-        After connecting to a server you must call the #[a(href="#chat__methods__auth") auth] method.
+        After connecting to a server you must call the #[a(href='#chat__methods__auth') auth] method.
 
-    h2(id="chat__packets") Packets
+    h2(id='chat__packets') Packets
     p.
-        There are 3 types of packets sent over the socket: #[code method], #[code reply], and #[code event] packets. The former two are typical RPC-style packets; think of sending them as calling a function or method and getting a return value back, but over the network.
+        There are 3 types of packets sent over the socket:
+        #[code method], #[code reply], and #[code event] packets.
+        The former two are typical RPC-style packets;
+        think of sending them as calling a function or method and getting a return value back,
+        but over the network.
 
     p.
         We go into more detail below, but a typical exchange between the server and client might look like this:
-    +highlightFile("js", "reference/chat/exchange.txt")
+    +highlightFile('js', 'reference/chat/exchange.txt')
 
-    h3(id="chat__packets__method") Method
+    h3(id='chat__packets__method') Method
     p.
-        A method is sent to the chat server the server will respond with a #[a(href="#chat__packets__reply") Reply packet].
+        A method is sent to the chat server the server will respond with a #[a(href='#chat__packets__reply') Reply packet].
     table.table
         tbody
             tr
@@ -51,9 +64,9 @@ block reference
                 td.col-xs-10
                     | Must be #[code method].
             tr
-              td
-                code method
-              td The method name to execute.
+                td
+                    code method
+                td The method name to execute.
             tr
                 td
                     code arguments
@@ -61,12 +74,14 @@ block reference
             tr
                 td
                     code id
-                td
-                    | Must be a unique numeric ID. If the method you sent has a
-                    | reply, the numeric ID will be sent back down in the #[a(href="#chat__packets__reply") Reply] packet.
-    h3(id="chat__packets__reply") Reply
+                td.
+                    Must be a unique numeric ID. If the method you sent has a
+                    reply, the numeric ID will be sent back down in
+                    the #[a(href='#chat__packets__reply') Reply] packet.
+    h3(id='chat__packets__reply') Reply
     p.
-        A reply is received from the server in response to a #[a(href="#chat__packets__method") Method] packet.
+        A reply is received from the server in response to a
+        #[a(href='#chat__packets__method') Method] packet.
     table.table
         tbody
             tr
@@ -85,11 +100,16 @@ block reference
             tr
                 td
                     code id
-                td
-                    | Must be a unique numeric ID. The ID will match the ID sent in the #[a(href="#chat__packets__method") Method] packet that this reply is in response to.
-    h3(id="chat__packets__event") Event
+                td.
+                    Must be a unique numeric ID.
+                    The ID will match the ID sent in the
+                    #[a(href='#chat__packets__method') Method] packet that this
+                    reply is in response to.
+    h3(id='chat__packets__event') Event
     p.
-        An event is received from the chat server when an event occurs in the channel's chat. This includes chat messages themselves, polls, and role changes. The full list can be found in the #[a(href="#chat__events") Events section] below.
+        An event is received from the chat server when an event occurs in the channel's chat.
+        This includes chat messages themselves, polls, and role changes.
+        The full list can be found in the #[a(href='#chat__events') Events section] below.
     table.table
         tbody
             tr
@@ -98,14 +118,14 @@ block reference
                 td.col-xs-10
                     | Must be #[code event].
             tr
-              td
-                code event
-              td The event name.
+                td
+                    code event
+                td The event name.
             tr
                 td
                     code data
                 td Associated event data - may be of any type, specific to the event.
-    h1(id="chat__methods") Methods
+    h1(id='chat__methods') Methods
     for data, method in chat.methods
         h3(id=`chat__methods__${method}`)= method
         p!= marked(data.description)
@@ -117,22 +137,22 @@ block reference
                 if data.examples
                     for example in data.examples
                         tr
-                            td(colspan="2")= example.description
+                            td(colspan='2')= example.description
                         tr
-                            td.col-xs-6: +highlightStr("json", JSON.stringify(example.data.request, null, 3))
+                            td.col-xs-6: +highlightStr('json', JSON.stringify(example.data.request, null, 3))
                             if example.data.response
-                                td.col-xs-6: +highlightStr("json", JSON.stringify(example.data.response, null, 3))
+                                td.col-xs-6: +highlightStr('json', JSON.stringify(example.data.response, null, 3))
                             else
                                 td.col-xs-6 No response
                 else
                     tr
-                        td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.request, null, 3))
+                        td.col-xs-6: +highlightStr('json', JSON.stringify(data.example.request, null, 3))
                         if data.example.response
-                            td.col-xs-6: +highlightStr("json", JSON.stringify(data.example.response, null, 3))
+                            td.col-xs-6: +highlightStr('json', JSON.stringify(data.example.response, null, 3))
                         else
                             td.col-xs-6 No response
 
-    h1(id="chat__events") Events
+    h1(id='chat__events') Events
     for data, event in chat.events
         h3(id=`chat__events__${event}`)= event
         p!= marked(data.description)
@@ -140,6 +160,6 @@ block reference
             for example in data.examples
                 h4= example.title
                 p!= marked(example.description)
-                +highlightStr("json", JSON.stringify(example.data, null, 3))
+                +highlightStr('json', JSON.stringify(example.data, null, 3))
         else
-            +highlightStr("json", JSON.stringify(data.example, null, 3))
+            +highlightStr('json', JSON.stringify(data.example, null, 3))

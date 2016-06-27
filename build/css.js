@@ -10,7 +10,6 @@ const path = require('path');
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
-
     /**
      * Task: `iconfont`
      *   - pipe .svg files
@@ -30,7 +29,7 @@ module.exports = (gulp, $) => {
             .pipe($.consolidate('lodash', {
                 glyphs,
                 fontName,
-                fontPath: `../font/`,
+                fontPath: '../font/',
                 className: 'icon',
             }))
             .pipe(gulp.dest('src/css'));

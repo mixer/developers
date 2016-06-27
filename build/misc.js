@@ -7,18 +7,19 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
+const common = require('@mcph/beam-common');
 
 /**
  * Generates locals required for templating.
  * `permissions` is used for the REST API docs, they are displayed in a table.
  * @return {Object}
  */
-function getLocals() {
-    const restDoc = require('./tmp/raml-doc.json');
+function getLocals () {
+    const restDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'tmp/raml-doc.json')));
     marked.setOptions({
-        highlight: function (code) {
+        highlight (code) {
             return require('highlight.js').highlightAuto(code).value;
-        }
+        },
     });
 
     const out = {
@@ -26,11 +27,10 @@ function getLocals() {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
-        rest: require('./tmp/raml-doc.json'),
-        permissions: { 'some:test': { text: 'Text description' } },
+        rest: restDoc,
+        permissions: common.permissions,
         highlight: (lang, str) => highlight.highlight(lang, str).value,
         readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
-
         restUtil: {
             /**
             * Get the root type of a type.
@@ -38,7 +38,7 @@ function getLocals() {
             * Object: 'Object'
             * Scalars: 'string', 'number', 'integer', 'boolean', 'date', 'file', 'scalar'
             */
-            getRootType(type) {
+            getRootType (type) {
                 if (type.type.length > 1) {
                     // Multiple inheritence is only supported for object types.
                     return 'object';
@@ -56,21 +56,29 @@ function getLocals() {
              * @param  {String}  type
              * @return {Boolean}
              */
-            isChildType(type) {
-                const buildinTypes = ['string', 'number', 'integer', 'boolean', 'date', 'file', 'scalar'];
+            isChildType (type) {
+                const buildinTypes = [
+                    'string',
+                    'number',
+                    'integer',
+                    'boolean',
+                    'date',
+                    'file',
+                    'scalar',
+                ];
                 return _.includes(buildinTypes, type);
             },
-            securitySchemeWithName(name) {
+            securitySchemeWithName (name) {
                 if (name && name.oauth_2_0) {
                     // oauth_2_0 is a special snowflake if it has scopes :>
                     name = 'oauth_2_0';
                 }
                 return _.find(restDoc.securitySchemes, scheme => scheme[name])[name];
             },
-            isSecurityOAuth(security) {
+            isSecurityOAuth (security) {
                 return !!security.oauth_2_0;
             },
-            getOAuthScopes(security) {
+            getOAuthScopes (security) {
                 return security.oauth_2_0.scopes;
             },
             /**
@@ -79,19 +87,11 @@ function getLocals() {
              * @param  {Number} code
              * @return {String}
              */
-            getStatusMessage(code) {
+            getStatusMessage (code) {
                 return http.STATUS_CODES[code];
-            }
+            },
         },
     };
-
-    let common;
-    try {
-        out.permissions = require('@mcph/beam-common').permissions;
-    } catch (e) {
-        console.warn('@mcph/beam-common not installed, using dummy fixtures...');
-    }
-
     return out;
 }
 
@@ -99,10 +99,10 @@ function getLocals() {
  * Returns an object of options for Pug compilation.
  * @return {Object}
  */
-function getPugOpts() {
+function getPugOpts () {
     return {
         locals: getLocals(),
-        pretty: !config.minify
+        pretty: !config.minify,
     };
 }
 

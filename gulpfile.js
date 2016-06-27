@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const config = require('config');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
@@ -15,5 +17,7 @@ gulp.task('watch', () => {
     gulp.watch('src/css/**/*.less', ['css']);
     gulp.watch(config.src.html, ['html-quick']);
     gulp.watch(config.src.js, ['js']);
-    gulp.watch(config.src.restTmpl, ['backend-doc']);
+    if (config.repos && config.repos.backend) {
+        gulp.watch(path.join(config.repos.backend, '**/*.raml'), ['html']);
+    }
 });

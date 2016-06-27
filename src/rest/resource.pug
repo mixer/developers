@@ -1,8 +1,8 @@
 include ./type.pug
 mixin statusCode(code)
-    a(href=`http://httpstatus.es/${code}`, target="_blank")
+    a(href=`http://httpstatus.es/${code}` target='_blank')
         = code
-        = ' ' + restUtil.getStatusMessage(code)
+        = ` ${restUtil.getStatusMessage(code)}`
 
 mixin typeDetails(typeName)
     - var type = rest.types[typeName]
@@ -26,19 +26,18 @@ mixin typeDetails(typeName)
                     if typeof property.description === 'string'
                         p !{marked(property.description)}
 
-
 mixin method(method, resource)
-    .modal.fade(tabindex="0" id=`${resource.uniqueId}_${method.method}`)
+    .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
         .modal-dialog
             .modal-content
                 .modal-header
-                    button.close(type="button" data-dismiss="modal" aria-hidden="true")!='&times'
+                    button.close(type='button' data-dismiss='modal' aria-hidden='true')!= '&times'
                     h4.modal-title
-                        span.text-primary(style="font-weight:300")
-                            =method.method.toUpperCase()
+                        span.text-primary(style='font-weight:300')
+                            = method.method.toUpperCase()
                         | &nbsp;
-                        span.parent=resource.parentUrl
-                        =resource.relativeUri
+                        span.parent= resource.parentUrl
+                        = resource.relativeUri
 
                 .modal-body
                     if method.description
@@ -47,13 +46,13 @@ mixin method(method, resource)
                         for securedBy in method.securedBy
                             - securityScheme = restUtil.securitySchemeWithName(securedBy)
                             .alert.alert-warning
-                                span.glyphicon.glyphicon-lock(title="Authentication required")
+                                span.glyphicon.glyphicon-lock(title='Authentication required')
                                 = ' '
                                 |  Secured by #{securityScheme.displayName || securityScheme.name}
                                 if restUtil.isSecurityOAuth(securedBy)
                                     |  Scopes:
                                     for scope in restUtil.getOAuthScopes(securedBy)
-                                        kbd.oauth-scope=scope
+                                        kbd.oauth-scope= scope
                                 if securityScheme.description
                                     | !{marked(securityScheme.description)}
                     ul.nav.nav-tabs
@@ -61,20 +60,20 @@ mixin method(method, resource)
                             li.active
                                 a(
                                     href=`#${resource.uniqueId}_${method.method}_request`
-                                    data-toggle="tab"
+                                    data-toggle='tab'
                                 ) Request
                         if method.responses
                             li(class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
                                 a(
                                     href=`#${resource.uniqueId}_${method.method}_response`
-                                    data-toggle="tab"
+                                    data-toggle='tab'
                                 ) Response
 
                         if method.securedBy
                             li
                                 a(
                                     href=`#${resource.uniqueId}_${method.method}_securedby`
-                                    data-toggle="tab"
+                                    data-toggle='tab'
                                 ) Security
                     .tab-content
                         if method.allUriParameters.length || method.queryParameters || method.headers || method.body
@@ -140,13 +139,13 @@ mixin method(method, resource)
                                                     strong Schema
                                                     | :
                                                 pre
-                                                        code=b.schema
+                                                    code= b.schema
                                             if b.example
                                                 p
                                                     strong Example
                                                     | :
                                                 pre
-                                                    code=b.example
+                                                    code= b.example
                         if method.securedBy
                             .tab-pane(id=`${resource.uniqueId}_${method.method}_securedby`)
                                 for securedBy in method.securedBy
@@ -187,7 +186,7 @@ mixin resourceRows(resource)
                 td.rest-endpoint-path
                     = resource.parentUrl + resource.relativeUri
                     if method.securedBy && method.securedBy.length > 0
-                        span.icon.icon-lock-3(title="Authentication required")
+                        span.icon.icon-lock-3(title='Authentication required')
                 td.rest-endpoint-description.hidden-xs
                     = method.description.slice(0, method.description.indexOf('.'))
 
