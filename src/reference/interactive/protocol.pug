@@ -1,50 +1,38 @@
 include ../../mixins.pug
-h1(id="interactive__connection") Connection
+h1#interactive__connection Connection
 p.
     To make a connection you first need to have an authenticated session with our
-    #[a(href="#") Rest API]. Once you have one you make a #[code GET] request to
+    #[a(href='#') Rest API]. Once you have one you make a #[code GET] request to
     #[code /tetris/{channel}/robot] where #[code channel] is the channel id of the
     channel you wish to connect to.
 include ../../tutorials/channelid.pug
 p.
     In response to the request you'll recieve a WebSocket address and a key:
-+highlightFile("json","./tutorials/code/node/interactive/2_response.json")
++highlightFile('json','./tutorials/code/node/interactive/2_response.json')
 
 p.
     A connection should then be made to the recieved address and the key and
     channel id must be included in the #[code Handshake] packet.
 
-h2(id="interactive__flow") Data Flow
+h2(id='interactive__flow') Data Flow
 
 p Then general protocol flow is the following:
 
-pre.
-    ┌──────┐                      ┌──────┐
-    │      │<─────Handshake───────│      │
-    │      │                      │      │
-    │      │────HandshakeACK─────>│      │
-    │      │      (or error)      │      │
-    │      │                      │      │
-    │Server│<───Progress Update───│Client│
-    │      │<─────────────────────│      │
-    │      │                      │      │
-    │      │────────Report───────>│      │
-    │      │─────────────────────>│      │
-    │      │                      │      │
-    └──────┘                      └──────┘
+pre
+    include ./protocol.ascii
 ol
     li The Client establishes a TCP connection to the server. It sends a Handshake packet, populated with the channel ID and auth key.
     li Beam Interactive verifies the key. If it's correct, a blank HandshakeACK packet is sent. If it's not correct, an Error packet is sent down.
     li Beam Interactive repeatedly sends Reports down to the Client every #[code reportInterval].
     li The Client can send Progress Updates to the Server at it's discretion.
 
-h2(id="interactive__packets") Packets
+h2(id='interactive__packets') Packets
 p.
     Protocol Buffer Packets start with their length followed by their packet ID,
     formatted as variable length unsigned integers.
     (Note that the length refers to the encoded protobuf data, not including the
      packet ID or the length itself.) Variable integers are described in the
-    #[a(href="https://developers.google.com/protocol-buffers/docs/encoding#varints") protocol buffer specification].
+    #[a(href='https://developers.google.com/protocol-buffers/docs/encoding#varints') protocol buffer specification].
 
 p A single packet can be represented as follows:
 pre.
@@ -83,9 +71,9 @@ table.table
     tr
         td 4
         td Progress Update
-h2(id="interactive__protocol") Specification
+h2(id='interactive__protocol') Specification
 p.
     The protocol buffer specification for beam interactive lists packet types and
     structures within those packets in more detail:
 
-+highlightFile("protobuf","./reference/interactive/proto/tetris.proto")
++highlightFile('protobuf','./reference/interactive/proto/tetris.proto')

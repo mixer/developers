@@ -9,31 +9,31 @@ block tutorialTitle
 block tutorialContent
     h2#intro Introduction
     p.
-        Our interactive platform communicates using #[a(href="https://developers.google.com/protocol-buffers/") Google's Protocol Buffer]
+        Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/') Google's Protocol Buffer]
         specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
         server, which analyzes them for you, before being sent to your Robot.
 
     h2#controlEditor Registering a Game On Beam
     p.
         Head over to the Interactive section of the Beam website. Click the plus
-        button next to "My Games", and name the game whatever you'd like.
-        Hit "Create Game".
+        button next to 'My Games', and name the game whatever you'd like.
+        Hit 'Create Game'.
     p.
         You’re now in the control editor. For our simple robot, we just want to
         be able to record joystick input. Click the Joystick Tab on the right
-        side of the screen and then click "New". Click the arrow on the right
-        of your new joystick to expand its settings and check the "Coords (Mean)" analysis.
+        side of the screen and then click 'New'. Click the arrow on the right
+        of your new joystick to expand its settings and check the 'Coords (Mean)' analysis.
         Collapse the Joystick settings by clicking the arrow again and then drag
-        the ""#0" item onto the grid on the left hand side of the screen.
+        the ''#0' item onto the grid on the left hand side of the screen.
 
     p.
         Everything else can be left to the defaults. Click Save.
 
     h2#code Writing the Code
     p.
-        We’re going to be using our #[a(href="https://github.com/WatchBeam/beam-interactive-node") Node],
-        #[a(href="https://github.com/WatchBeam/beam-interactive-java") Java]
-        and #[a(href="https://github.com/WatchBeam/beam-interactive-python") Python] to build a simple Robot.
+        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-interactive-node') Node],
+        #[a(href='https://github.com/WatchBeam/beam-interactive-java') Java]
+        and #[a(href='https://github.com/WatchBeam/beam-interactive-python') Python] to build a simple Robot.
         Users will be able to visit your channel on Beam, and control the mouse
         movement on your screen.
 
@@ -46,9 +46,9 @@ block tutorialContent
             h3 Prerequisites
             ol
                 li.
-                    Get #[a(href="https://nodejs.org/en/") NodeJS and NPM] for your platform.
+                    Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
                 li.
-                    Create a #[a(href="https://docs.npmjs.com/cli/init") new project] with npm.
+                    Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
                 li.
                     Run #[code npm i -S beam-client-node beam-interactive-node robotjs]
             h3 Usage
@@ -57,24 +57,24 @@ block tutorialContent
                 our channel id, username and password.
             include ./channelid.pug
 
-            +highlightFile("javascript","./tutorials/code/node/interactive/1.js")
+            +highlightFile('javascript','./tutorials/code/node/interactive/1.js')
             p.
                 To connect to Beam Interactive we need to authenticate as our user specified above
                 using  #[code beam-client-node] we can use password based authentication to do this.
                 Once authenticated we're asking the api to join a channel as a robot with #[code beam.game.join].
                 We'll use the response from this to create a robot in the next step.
-            +highlightFile("javascript","./tutorials/code/node/interactive/2.js")
+            +highlightFile('javascript','./tutorials/code/node/interactive/2.js')
             p.
                 The join request should resolve with something like this
-            +highlightFile("json","./tutorials/code/node/interactive/2_response.json")
+            +highlightFile('json','./tutorials/code/node/interactive/2_response.json')
             p.
                 We can use these details to create a robot by writing the #[code createRobot] function.
-            +highlightFile("javascript","./tutorials/code/node/interactive/3.js")
+            +highlightFile('javascript','./tutorials/code/node/interactive/3.js')
             p.
                 Once we have a robot we need to perform a handshake with the interactive servers and then
                 hook up event handlers so that a joystick on beam is bound to your mouse.
                 We do this by creating the #[code performRobotHandShake] and #[code setupRobotEvents] functions.
-            +highlightFile("javascript","./tutorials/code/node/interactive/4.js")
+            +highlightFile('javascript','./tutorials/code/node/interactive/4.js')
             p.
                 This function takes our Robot instance and initiates a handshake, An error will be
                 reported if a problem occurs during this process. Once its complete you'll get regular
@@ -86,33 +86,33 @@ block tutorialContent
                 mean and apply it to the mouse position.
 
                 The final code can be found below:
-            +highlightFile("java","./tutorials/code/node/interactive/5.js")
+            +highlightFile('java','./tutorials/code/node/interactive/5.js')
         +bsTabItem('java', 'guide')
             h3 Prerequisites
             ol
                 li
-                    a(href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html") Java
+                    a(href='http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html') Java
                 li
                     | A Java IDE such as:
                     ol
                         li
-                            a(href="https://www.eclipse.org/downloads/") Eclipse
+                            a(href='https://www.eclipse.org/downloads/') Eclipse
                         li
-                            a(href="https://www.jetbrains.com/idea/") IntelliJ
+                            a(href='https://www.jetbrains.com/idea/') IntelliJ
                         li
-                            a(href="https://netbeans.org/downloads/") NetBeans
+                            a(href='https://netbeans.org/downloads/') NetBeans
                 li
                     | A Java Project Manager such as:
                     ol
                         li
-                            a(href="https://maven.apache.org/") Maven
+                            a(href='https://maven.apache.org/') Maven
                         li
-                            a(href="gradle.org") Gradle
+                            a(href='gradle.org') Gradle
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
-                #[a(href="https://github.com/WatchBeam/beam-client-java") beam-client-java]
-                and #[a(href="https://github.com/WatchBeam/beam-interactive-java") beam-interactive-java]
+                #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
+                and #[a(href='https://github.com/WatchBeam/beam-interactive-java') beam-interactive-java]
                 as dependancies.
             h3 Usage
             p.
@@ -120,20 +120,20 @@ block tutorialContent
                 importing all of the required packages. We'll also initialize a few
                 objects. A instance of the BeamAPI and an instance of the AWT Robot class
                 which will allow us to control the mouse.
-            +highlightFile("java","./tutorials/code/java/interactive/1.java")
+            +highlightFile('java','./tutorials/code/java/interactive/1.java')
             p.
                 Next we need to setup a Beam Interactive robot and supply it with
                 valid beam account credentials and a channel id.
             include ./channelid.pug
 
-            +highlightFile("java","./tutorials/code/java/interactive/2.java")
+            +highlightFile('java','./tutorials/code/java/interactive/2.java')
             p.
                 The last thing to do is wire up a report handler that takes the joystick's
                 coordMean and applys it to the mouse.
-            +highlightFile("java","./tutorials/code/java/interactive/3.java")
+            +highlightFile('java','./tutorials/code/java/interactive/3.java')
             p.
                 When you put everything together you get the final code which is below:
-            +highlightFile("java","./tutorials/code/java/interactive/4.java")
+            +highlightFile('java','./tutorials/code/java/interactive/4.java')
         +bsTabItem('python', 'guide')
             h3 Prerequisites
             ol
@@ -141,37 +141,37 @@ block tutorialContent
                 li pip (Python Package Manager)
             p.
                 Once you have the prerequisites, install the following modules.
-                All three are available on pip and may be installed by using #[code pip install <module>].
+                All three are available on pip and may be installed by using #[code pip install MODULE].
             ol
-                li #[a(href="https://github.com/WatchBeam/beam-interactive-python") beam_interactive]
-                li #[a(href="https://github.com/kennethreitz/requests") requests]
-                li #[a(href="https://github.com/PyUserInput/PyUserInput") PyUserInput]
+                li #[a(href='https://github.com/WatchBeam/beam-interactive-python') beam_interactive]
+                li #[a(href='https://github.com/kennethreitz/requests') requests]
+                li #[a(href='https://github.com/PyUserInput/PyUserInput') PyUserInput]
             p.
                 Once installed, create a new file and add the required imports.
-            +highlightFile("python","./tutorials/code/python/interactive/1.py")
+            +highlightFile('python','./tutorials/code/python/interactive/1.py')
             p.
                 Next, we need to create a dictionary to store authentication details
                 and some functions to authenticate the user and retrieve some data from Beam.
-            +highlightFile("python","./tutorials/code/python/interactive/2.py")
+            +highlightFile('python','./tutorials/code/python/interactive/2.py')
             p.
                 After that, we'll write our error and report handlers. Our report handler
                 interacts with the mouse based on Interactive inputs.
-            +highlightFile("python","./tutorials/code/python/interactive/3.py")
+            +highlightFile('python','./tutorials/code/python/interactive/3.py')
             p.
                 The final step is to setup the coroutine that will run everything.
-            +highlightFile("python","./tutorials/code/python/interactive/4.py")
+            +highlightFile('python','./tutorials/code/python/interactive/4.py')
             p.
                 The full code is shown below.
-            +highlightFile("python","./tutorials/code/python/interactive/5.py")
+            +highlightFile('python','./tutorials/code/python/interactive/5.py')
 
     h2#stream Start Streaming
     p.
-        Head over to your channel page and click "Go Interactive" on the bottom
-        of the page. Now find your game and click the "Play" button. If everything
+        Head over to your channel page and click 'Go Interactive' on the bottom
+        of the page. Now find your game and click the 'Play' button. If everything
         has gone well you should now see a joystick underneath your channel’s stream.
         Move the joystick and your mouse should move in that direction.
 block tutorialMenu
-    li: a(href="#intro") Introduction
-    li: a(href="#controlEditor") Registering a Game On Beam
-    li: a(href="#code") Writing The Code
-    li: a(href="#stream") Start Streaming
+    li: a(href='#intro') Introduction
+    li: a(href='#controlEditor') Registering a Game On Beam
+    li: a(href='#code') Writing The Code
+    li: a(href='#stream') Start Streaming

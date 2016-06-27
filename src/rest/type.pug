@@ -1,9 +1,9 @@
 mixin type(key, type, skipRequired)
     h4 Type:
         = ' '
-        strong=type.type
+        strong= type.type
         if type.repeat
-            span.help(title="List") []
+            span.help(title='List') []
 
 mixin typeNameString(type)
     -
@@ -20,47 +20,46 @@ mixin typeNameString(type)
         | Array&lt;
     if type.enum
         if rest.types[name]
-            a(href='#' + name)= name
+            a(href=`#${name}`)= name
         else
-            =name
+            = name
         | (#{type.enum.join(', ')})
         if type.default
-            span.help(title="Default Value")=`=${type.default}`
+            span.help(title='Default Value')= `=${type.default}`
     else
         if type.minimum
-            span.help(title="Min value")= type.minimum
-            ='<'
+            span.help(title='Min value')= type.minimum
+            = '<'
         if rest.types[name]
-            a(href='#' + name)= name
+            a(href=`#${name}`)= name
         else
-            =name
+            = name
         if type.default
             | =
-            span.help(title="Default Value")= type.default
+            span.help(title='Default Value')= type.default
         if type.maximum
-            ='<'
-            span.help(title="Max value")= type.maximum
+            = '<'
+            span.help(title='Max value')= type.maximum
         if type.default
             | ]
     if isArray
         | &gt;
     if !type.default && !type.required
-        span.help(title="Optional") ?
+        span.help(title='Optional') ?
     if name === 'string'
         if type.minLength
             | minLength: #{type.minLength}
         if type.maxLength
             | maxLength: #{type.maxLength}
     if type.pattern
-        | pattern: #[kbd=type.pattern]
-
+        | pattern: #[kbd= type.pattern]
 
 mixin simpleType(key, type, skipRequired)
     - rootType = restUtil.getRootType(type)
     // rendering of scalar and 0.8 types
-    if rootType != 'object'
+    if rootType !== 'object'
         li
-            strong=type.displayName || key
+            strong= type.displayName || key
             = ': '
             em: +typeNameString(type)
             if type.description
@@ -70,13 +69,13 @@ mixin simpleType(key, type, skipRequired)
                     strong Schema
                     | :
                 pre
-                    code=type.schema
+                    code= type.schema
             if type.example
                 p
                     strong Example
                     | :
                 pre
-                    if type.type == 'string'
-                        =type.example
+                    if type.type === 'string'
+                        = type.example
                     else
-                        code=type.example
+                        code= type.example

@@ -4,7 +4,7 @@ block title
     | Beam Developers
 
 block navbar
-    .navbar-wrapper.dark(style="background-position: center center")
+    .navbar-wrapper.dark(style='background-position: center center')
         .container
             nav.navbar.navbar-inverse: +navbar()
 
@@ -17,8 +17,8 @@ block navbar
                         p Learn how to build awesome Interactive integrations, helpful chat bots, and anything else you can imagine on the Beam platform.
 
                     .intro-cta
-                        a.btn.btn-default(href="/reference/index.html") View Docs
-                        a.btn.btn-white(href="/tutorials.html") Check out our Tutorials
+                        a.btn.btn-default(href='/reference/index.html') View Docs
+                        a.btn.btn-white(href='/tutorials.html') Check out our Tutorials
 
 block content
     .slide
@@ -26,17 +26,17 @@ block content
             h1.slide-title #[span.muted #1] Get Educated
 
             .slide-features
-                a.col-sm-3.col-xs-6(href="#")
-                    object(type="image/svg+xml", data="/icons/bubble-chat-smiley-1.svg")
+                a.col-sm-3.col-xs-6(href='#')
+                    object(type='image/svg+xml' data='/icons/bubble-chat-smiley-1.svg')
                     p Build a Beam #[br] Chat Bot
-                a.col-sm-3.col-xs-6(href="#")
-                    object(type="image/svg+xml", data="/icons/game-controller-2.svg")
+                a.col-sm-3.col-xs-6(href='#')
+                    object(type='image/svg+xml' data='/icons/game-controller-2.svg')
                     p Create an Interactive #[br] Integration
-                a.col-sm-3.col-xs-6(href="#")
-                    object(type="image/svg+xml", data="/icons/computer-chip.svg")
+                a.col-sm-3.col-xs-6(href='#')
+                    object(type='image/svg+xml' data='/icons/computer-chip.svg')
                     p Talk to our #[br] RESTful API
-                a.col-sm-3.col-xs-6(href="#")
-                    object(type="image/svg+xml", data="/icons/book-open-2.svg")
+                a.col-sm-3.col-xs-6(href='#')
+                    object(type='image/svg+xml' data='/icons/book-open-2.svg')
                     p View API #[br] Reference
 
     .slide.slide-grab.gray.bar-transition-top.bar-transition-bottom
@@ -44,9 +44,13 @@ block content
             h1.slide-title #[span.muted #2] Grab n' Go
 
             .col-md-4.slide-grab-left
-                p Looking for the fastest way to get started building the next big thing? Grab one of our client libraries and dig in!
-                p If you find bugs, things that need improvement, or want to submit your own client library here, just open an issue on our Github repo.
-                div(style="flex:1")
-
+                p.
+                    Looking for the fastest way to get started building the next big thing?
+                    Grab one of our client libraries and dig in!
+                p.
+                    If you find bugs, things that need improvement,
+                    or want to submit your own client library here,
+                    just open an issue on our Github repo.
+                div(style='flex:1')
                 .slide-grab-stanbot
-                    img(src="/img/stanbot.png", alt="Stanbot says hi!")
+                    img(src='/img/stanbot.png' alt='Stanbot says hi!')

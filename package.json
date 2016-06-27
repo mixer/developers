@@ -4,7 +4,8 @@
   "description": "Centralized hub for all things related to Beam development",
   "main": "gulp",
   "scripts": {
-    "test": "eslint ."
+    "lint": "eslint .",
+    "lint-pug": "pug-lint src"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/WatchBeam/beam-developers#readme",
   "devDependencies": {
+    "@mcph/beam-common": "*",
+    "bluebird": "^3.4.1",
     "bootstrap": "^3.3.6",
     "config": "^1.21.0",
     "del": "^2.2.0",
@@ -42,11 +45,8 @@
     "js-yaml": "^3.6.1",
     "lodash": "^4.13.1",
     "marked": "^0.3.5",
+    "pug-lint": "^2.2.2",
     "raml-1-parser": "^0.2.25",
-    "sticky-kit": "^1.1.3",
-    "@mcph/beam-common": "*"
-  },
-  "dependencies": {
-    "bluebird": "^3.4.1"
+    "sticky-kit": "^1.1.3"
   }
 }

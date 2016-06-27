@@ -9,42 +9,70 @@ block navbar
             nav.navbar.navbar-inverse: +navbar()
             h1 Liveloading Reference
 block menu
-    .hidden-print.rest-sidebar(role="complementary")
+    .hidden-print.rest-sidebar(role='complementary')
         nav
             ul.nav.nav-stacked
-                li: a(href="#introduction") Introduction
-                li: a(href="#subscribing__unsubscribing") Subscribing &amp; Unsubscribing
-                li: a(href="#events") Events
-                li: a(href="#sunset_plan") Sunset Plan
+                li: a(href='#introduction') Introduction
+                li: a(href='#subscribing__unsubscribing') Subscribing &amp; Unsubscribing
+                li: a(href='#events') Events
+                li: a(href='#sunset_plan') Sunset Plan
 block reference
     .page-header
         h2#introduction Introduction
-        p Liveloading is the primary event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of, it's sent over liveloading. We implement the same protocol as in #[a(href="http://sailsjs.org/documentation/reference/web-sockets/socket-client") sails.io.js] (a socket.io scheme for calling HTTP endpoints over websockets) and use that in combination with the #[a(href="/rest.html#live") live endpoints] to implement a pubsub system.
+        p.
+            Liveloading is the primary event system on Beam. When models update,
+            users follow channels, or anything else happens that clients might want to be aware of,
+            it's sent over liveloading. We implement the same protocol as in
+            #[a(href='http://sailsjs.org/documentation/reference/web-sockets/socket-client') sails.io.js]
+            (a socket.io scheme for calling HTTP endpoints over websockets) and use that in
+            combination with the #[a(href='/rest.html#live') live endpoints] to implement a
+            pubsub system.
 
-        p If that sounds a bit overwhelming, don't worry! We'll go over it here and there are several off-the-shelf libraries you can use to handle the gritty details for you:
+        p.
+            If that sounds a bit overwhelming, don't worry!
+            We'll go over it here and there are several off-the-shelf libraries you can use to
+            handle the gritty details for you:
 
         ul
             li
                 strong JavaScript:
                 = ' '
-                a(href="https://github.com/ProbablePrime/wsabi-client-bacon") ProbablePrime/wsabi-client-bacon
+                a(href='https://github.com/ProbablePrime/wsabi-client-bacon') ProbablePrime/wsabi-client-bacon
             li
                 strong JavaScript:
                 = ' '
-                a(href="https://github.com/ExoZoneDev/wsabi-client") ExoZoneDev/wsabi-client
+                a(href='https://github.com/ExoZoneDev/wsabi-client') ExoZoneDev/wsabi-client
 
-        .alert.alert-info Pro tip: you can view liveloading in-action by #[a(href="http://blittle.github.io/chrome-dev-tools/network/websockets.html") viewing your websocket log] on #[a(href="https://beam.pro") beam.pro].
+        .alert.alert-info.
+            Pro tip: you can view liveloading in-action by
+            #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html') viewing your websocket log]
+            on #[a(href='https://beam.pro') beam.pro].
 
     h2#subscribing__unsubscribing Subscribing &amp; Unsubscribing
-    p To subscribe to or unsubscribe from events, you'll want to call the #[a(href="/rest.html#live") live endpoints] over a socket.io connection made to #[code wss://realtime.beam.pro]. A general exchange looks typical like this:
+    p.
+        To subscribe to or unsubscribe from events,
+        you'll want to call the #[a(href='/rest.html#live') live endpoints] over
+        a socket.io connection made to #[code wss://realtime.beam.pro].
+        A general exchange looks typical like this:
 
-    +highlightFile("js", "reference/liveloading/exchange.txt")
+    +highlightFile('js', 'reference/liveloading/exchange.txt')
 
-    p First, the client emits an event which calls an endpoint. The event name is the HTTP method we want to run, in this case #[code put], and the event body is a JSON object which contains the endpoint we intend to call, the method again (for backwards compatibility reasons), and a list of one or more events to subscribe to. The full list of events can be found #[a(href="#events") below].
+    p.
+        First, the client emits an event which calls an endpoint.
+        The event name is the HTTP method we want to run, in this case #[code put],
+        and the event body is a JSON object which contains the endpoint we intend to call,
+        the method again (for backwards compatibility reasons),
+        and a list of one or more events to subscribe to.
+        The full list of events can be found #[a(href='#events') below].
 
-    p When an event comes in, the server will emit an event corresponding to the slug on the socket, in this case #[code announcement:announce]. The client can listen to that event and respond to it.
+    p.
+        When an event comes in, the server will emit an event corresponding to the slug on
+        the socket, in this case #[code announcement:announce].
+        The client can listen to that event and respond to it.
 
-    p When the client no longer cares about an event, they can call #[code DELETE /live] over the socket to unsubscribe from the event.
+    p.
+        When the client no longer cares about an event, they can call #[code DELETE /live]
+        over the socket to unsubscribe from the event.
 
     h2#events Events
 
@@ -58,15 +86,31 @@ block reference
         tbody
             for description, name in liveEvents
                 tr
-                    td(style="white-space:nowrap;"): code= name
+                    td(style='white-space:nowrap;'): code= name
                     td!= marked(description)
 
     h2#sunset_plan Sunset Plan
 
-    p Liveloading and sails.io.js as it stands currently will be sunsetted in the upcoming weeks (likely late July 2016). At that time, liveloading will remain as it stands currently but will not receive updates or new development. After several months (November or December 2016) it will be removed from our API altogether.
+    p.
+        Liveloading and sails.io.js as it stands currently will be sunsetted in the upcoming weeks
+        (likely late July 2016). At that time,
+        liveloading will remain as it stands currently but will not receive updates
+        or new development.
+        After several months (November or December 2016) it will be removed from our API altogether.
 
-    p The general ability to call HTTP endpoints over websockets will be deprecated and removed entirely, in favor of HTTP/2 persistent connections. For this reason we haven't covered it much in the guide and we recommend that you avoid using it for new development.
+    p.
+        The general ability to call HTTP endpoints over websockets will be deprecated and removed
+        entirely, in favor of HTTP/2 persistent connections.
+        For this reason we haven't covered it much in the guide and we recommend that you avoid
+        using it for new development.
 
-    p Constellation, which is replacing liveloading, will not have a backwards-compatible protocol. However, client libraries will be developed for Constellation and, ideally, backwards compatibility will be maintained within existing clients' APIs. A technical draft of the protocol and its event system is #[a(href='/reference/liveloading/constellation-draft.pdf') available here]. You're always welcome to hop in #[a(href='https://gitter.im/MCProHosting/beam-dev', target='_blank') our Gitter] if you have suggestions or feedback to make!
-
-
+    p.
+        Constellation, which is replacing liveloading,
+        will not have a backwards-compatible protocol.
+        However, client libraries will be developed for Constellation and, ideally,
+        backwards compatibility will be maintained within existing clients' APIs.
+        A technical draft of the protocol and its event system is
+        #[a(href='/reference/liveloading/constellation-draft.pdf') available here].
+        You're always welcome to hop in
+        #[a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank') our Gitter]
+        if you have suggestions or feedback to make!

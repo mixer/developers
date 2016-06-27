@@ -9,13 +9,13 @@ block tutorialTitle
 block tutorialContent
     h1#guide Creating a Simple Chat Bot
     p.
-        In this guide, we will show you how to create a "ping-pong" chat bot using
-        our #[a(href="https://github.com/WatchBeam/beam-client-node") Node],
-        #[a(href="https://github.com/WatchBeam/beam-client-java") Java]
-        and #[a(href="https://github.com/WatchBeam/beam-client-python") Python]
+        In this guide, we will show you how to create a 'ping-pong' chat bot using
+        our #[a(href='https://github.com/WatchBeam/beam-client-node') Node],
+        #[a(href='https://github.com/WatchBeam/beam-client-java') Java]
+        and #[a(href='https://github.com/WatchBeam/beam-client-python') Python]
         libraries and some examples using the
-        the API directly with #[a(href="https://curl.haxx.se/") curl]
-        and #[a(href="https://github.com/websockets/wscat") wscat].
+        the API directly with #[a(href='https://curl.haxx.se/') curl]
+        and #[a(href='https://github.com/websockets/wscat') wscat].
 
         Please note that it is possible to create a passive bot as well,
         a passive bot will not require #[b any] authentication.
@@ -29,59 +29,59 @@ block tutorialContent
             h3 Prerequisites
             ol
                 li.
-                    Get #[a(href="https://nodejs.org/en/") NodeJS and NPM] for your platform.
+                    Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
                 li.
-                    Create a #[a(href="https://docs.npmjs.com/cli/init") new project] with npm.
+                    Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
                 li.
                     Run #[code npm i -S beam-client-node]
             h3 Usage
             p.
                 The node implementation is using
-                #[a(href="http://bluebirdjs.com/docs/api-reference.html") Bluebird]
+                #[a(href='http://bluebirdjs.com/docs/api-reference.html') Bluebird]
                 promises, so natively callbacks are not supported.
             p.
                 Before we can connect to the chat servers, we must authenticate
                 ourselves with the backend.
                 In our example we are going to use the simple login auth.
-            +highlightFile("javascript", "tutorials/code/node/chatbot/1.js")
+            +highlightFile('javascript', 'tutorials/code/node/chatbot/1.js')
             p.
                 The result should be something like this:
-            +highlightFile("javascript", "tutorials/code/node/chatbot/1_response.txt")
+            +highlightFile('javascript', 'tutorials/code/node/chatbot/1_response.txt')
             p.
                 In the next step we will use the response from the backend to connect
                 to the chat server, for that we have the #[code createChatSocket()] function.
-            +highlightFile("javascript", "tutorials/code/node/chatbot/2.js")
+            +highlightFile('javascript', 'tutorials/code/node/chatbot/2.js')
             p.
                 The result should look something like this:
-            +highlightFile("javascript", "tutorials/code/node/chatbot/2_response.txt")
+            +highlightFile('javascript', 'tutorials/code/node/chatbot/2_response.txt')
             p.
                 Now that we are more familiar with how we do things using the node client
                 lets bring on the ping-pong example.
-            +highlightFile("javascript", "tutorials/code/node/chatbot/3.js")
+            +highlightFile('javascript', 'tutorials/code/node/chatbot/3.js')
         +bsTabItem('java', 'guide')
             h3 Prerequisites
             ol
                 li
-                    a(href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html") Java
+                    a(href='http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html') Java
                 li
                     | A Java IDE such as:
                     ol
                         li
-                            a(href="https://www.eclipse.org/downloads/") Eclipse
+                            a(href='https://www.eclipse.org/downloads/') Eclipse
                         li
-                            a(href="https://www.jetbrains.com/idea/") IntelliJ
+                            a(href='https://www.jetbrains.com/idea/') IntelliJ
                         li
-                            a(href="https://netbeans.org/downloads/") NetBeans
+                            a(href='https://netbeans.org/downloads/') NetBeans
         +bsTabItem('python', 'guide')
             h3 Prerequisites
             ol
                 li.
-                    Get #[a(href="https://www.python.org/downloads/") Python 3] with pip
+                    Get #[a(href='https://www.python.org/downloads/') Python 3] with pip
                     for your platform.
                 li Create a new Python project.
                 li.
                     Install
-                    #[a(href="https://github.com/WatchBeam/beam-client-python") beam-client-python]
+                    #[a(href='https://github.com/WatchBeam/beam-client-python') beam-client-python]
                     via #[code pip install git+https://github.com/WatchBeam/beam-client-python].
             h3 Usage
             p.
@@ -91,22 +91,22 @@ block tutorialContent
                 Create a new folder for your chatbot. Inside this folder create a config file.
                 config.py which will contain user authentication data as well as your channel id
             include ./channelid.pug
-            +highlightFile("python", "tutorials/code/python/chat/1.py")
+            +highlightFile('python', 'tutorials/code/python/chat/1.py')
             p.
                 Next let's create another file called example.py and start by importing the required modules
                 as well as our config file with our authentication details
-            +highlightFile("python", "tutorials/code/python/chat/2.py")
+            +highlightFile('python', 'tutorials/code/python/chat/2.py')
             p.
                 Next we need to instantiate an instance of the chat class and pass it our config.
-            +highlightFile("python", "tutorials/code/python/chat/3.py")
+            +highlightFile('python', 'tutorials/code/python/chat/3.py')
             p.
                 The last thing to to is to hook up some events so the chatbot will actually do something.
                 In this case we will print incoming chat messages and periodically say Hi to the connected
                 channel on a loop. The last thing is to do is to start the IOLoop.
-            +highlightFile("python", "tutorials/code/python/chat/4.py")
+            +highlightFile('python', 'tutorials/code/python/chat/4.py')
             p.
                 The complete code can be found below:
-            +highlightFile("python", "tutorials/code/python/chat/5.py")
+            +highlightFile('python', 'tutorials/code/python/chat/5.py')
 
         +bsTabItem('raw', 'guide')
             h2 Raw API
@@ -118,31 +118,31 @@ block tutorialContent
                 li.
                     A bash shell
                 li
-                    a(href="https://curl.haxx.se/") curl
+                    a(href='https://curl.haxx.se/') curl
                 li
-                    a(href="https://github.com/websockets/wscat") wscat
+                    a(href='https://github.com/websockets/wscat') wscat
                 li
-                    a(href="https://stedolan.github.io/jq/") jq
+                    a(href='https://stedolan.github.io/jq/') jq
             h3 Usage
             p.
                 First, we want to show off how to connect to perform a simple
                 password auth with #[code curl].
                 We simply send our credentials and store the resulting json
                 in a variable for later use.
-            +highlightFile("bash", "tutorials/code/raw/chat/1.sh")
+            +highlightFile('bash', 'tutorials/code/raw/chat/1.sh')
             p.
                 In the next step we use the previously gathered info to request
                 the chat server auth info.
-            +highlightFile("bash", "tutorials/code/raw/chat/2.sh")
+            +highlightFile('bash', 'tutorials/code/raw/chat/2.sh')
             p.
                 Now that we have all required information, we can etablish a connection
                 to the chatserver with #[code wscat].
                 As shown in the next snippet, we send a authentication payload first.
                 #[i Please note that all previous steps are optional if you just want to listen to the chat].
-            +highlightFile("bash", "tutorials/code/raw/chat/3.sh")
+            +highlightFile('bash', 'tutorials/code/raw/chat/3.sh')
             p.
                 Typically the first messages we receive are our own
-                #[a(href="#chat-event-UserJoin") UserJoin] event
+                #[a(href='#chat-event-UserJoin') UserJoin] event
                 and an acknowledgement of our auth.
 block tutorialMenu
-    li: a(href="#guide") Guide
+    li: a(href='#guide') Guide

@@ -1,39 +1,43 @@
 mixin navbar
     .navbar-header
-        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#js-navbar')
+        button.navbar-toggle.collapsed(
+            type='button'
+            data-toggle='collapse'
+            data-target='#js-navbar'
+        )
             span.icon.icon-view-headline
         a.navbar-brand(href='/')
 
     #js-navbar.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
             li.dropdown
-                a.dropdown-toggle(href="#", data-toggle="dropdown") Tutorials
+                a.dropdown-toggle(href='#' data-toggle='dropdown') Tutorials
                 ul.dropdown-menu
-                    li: a(href="/tutorials/chatbot.html") Chat
-                    li: a(href="/tutorials/interactive.html") Interactive
+                    li: a(href='/tutorials/chatbot.html') Chat
+                    li: a(href='/tutorials/interactive.html') Interactive
             li.dropdown
-                a.dropdown-toggle(href="#", data-toggle="dropdown") Reference
+                a.dropdown-toggle(href='#' data-toggle='dropdown') Reference
                 ul.dropdown-menu
-                    li: a(href="/rest.html") Rest API
-                    li: a(href="/reference/oauth.html") OAuth
-                    li: a(href="/reference/liveloading/index.html") Live Loading
-                    li: a(href="/reference/chat/index.html") Chat
-                    li: a(href="/reference/interactive/index.html") Interactive
-            li: a(href="https://beam.pro/lab") Lab &amp; Apps
+                    li: a(href='/rest.html') Rest API
+                    li: a(href='/reference/oauth.html') OAuth
+                    li: a(href='/reference/liveloading/index.html') Live Loading
+                    li: a(href='/reference/chat/index.html') Chat
+                    li: a(href='/reference/interactive/index.html') Interactive
+            li: a(href='https://beam.pro/lab') Lab &amp; Apps
 
 mixin bsTabs(tabs, prefix)
     - prefix = prefix ? prefix + '-' : ''
     - isFirst = true
-    ul.nav.nav-tabs(role="tablist")
+    ul.nav.nav-tabs(role='tablist')
         for tabName, tabId in tabs
-            li(class=isFirst && 'active', role="presentation")
-                a(data-toggle="tab" href=`#${prefix}${tabId}`)= tabName
+            li(class=isFirst && 'active' role='presentation')
+                a(data-toggle='tab' href=`#${prefix}${tabId}`)= tabName
             - isFirst = false
     .tab-content
         block
     script.
         function hashUpdate() {
-            var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
+            var tab = $('.nav-tabs a[href='#' + location.hash.substr(1) + '']');
             tab.tab('show');
             var rawEl = tab.get(0);
             rawEl.scrollIntoView();
@@ -52,7 +56,7 @@ mixin bsTabs(tabs, prefix)
 
 mixin bsTabItem(tabId, prefix, active)
     - prefix = prefix ? prefix + '-' : ''
-    .tab-pane.fade(class=active && 'active in', id=`${prefix}${tabId}` role="tabpanel")
+    .tab-pane.fade(class=active && 'active in' id=`${prefix}${tabId}` role='tabpanel')
         block
 
 include ./mixins.pug
@@ -61,14 +65,14 @@ doctype html
 html
     head
         meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
-        link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/img/ico/apple-touch-icon-144x144.png')
-        link(rel='apple-touch-icon-precomposed', sizes='152x152', href='/img/ico/apple-touch-icon-152x152.png')
-        link(rel='icon', type='image/png', href='/img/ico/favicon-32x32.png', sizes='32x32')
-        link(rel='icon', type='image/png', href='/img/ico/favicon-16x16.png', sizes='16x16')
+        meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1')
+        link(rel='apple-touch-icon-precomposed' sizes='144x144' href='/img/ico/apple-touch-icon-144x144.png')
+        link(rel='apple-touch-icon-precomposed' sizes='152x152' href='/img/ico/apple-touch-icon-152x152.png')
+        link(rel='icon' type='image/png' href='/img/ico/favicon-32x32.png' sizes='32x32')
+        link(rel='icon' type='image/png' href='/img/ico/favicon-16x16.png' sizes='16x16')
 
         link(href='https://fonts.googleapis.com/css?family=Heebo:100,300|Inconsolata:400,700|Open+Sans:400,300' rel='stylesheet')
-        link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet' href='/css/style.css')
 
         block head
 
@@ -121,7 +125,7 @@ html
 
                     .col-sm-4.visible-lg-block
                         a.footer-logo(href='https://beam.pro')
-                            img(src='/img/footer-logo.png')
+                            img(src='/img/footer-logo.png' alt='Beam Logo')
 
                     .clearfix
                     .copyright Copyright #{new Date().getUTCFullYear()} Beam Interactive, Inc.
