@@ -42,7 +42,7 @@ function getRepo (addr) {
     const statPromise = fs.lstatAsync(target);
     // We have a repo override
     if (config.repos && config.repos[name]) {
-        return statPromise.then(stats => {
+        return statPromise.tap(stats => {
             // If it's a cloned copy, ripe it
             if (!stats.isSymbolicLink() && stats.isDirectory()) {
                 return del(target);
@@ -50,9 +50,11 @@ function getRepo (addr) {
         })
         // if it didn't exist, ignore.
         .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
-        .then(() => fs.symlinkAsync(path.join(__dirname, '../', config.repos[name]), target))
-        // if it existed already, ignore it.
-        .catch({ code: 'EEXIST' }, () => { /* do nothing */ });
+        .then(stats => {
+            if (stats && !stats.isSymbolicLink()) {
+                return fs.symlinkAsync(path.join(__dirname, '../', config.repos[name]), target);
+            }
+        });
     }
 
     return statPromise.tap(stats => {
@@ -67,12 +69,13 @@ function getRepo (addr) {
             return childProcess.execAsync(`cd ${target} && git pull`);
         }
     })
+    // if the symbolic link did not exist
     .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
     .then(stats => {
         if (stats.isDirectory()) {
             return;
         }
-        // Clone if not present
+        // Clone if not present or symbolic link was deleted.
         return childProcess.execAsync(`cd ${config.src.tmp} && git clone ${addr}`);
     });
 }
