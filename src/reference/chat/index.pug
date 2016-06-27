@@ -16,13 +16,14 @@ block reference
     h1(id="chat") Chat
     h2(id="chat__introduction") Introduction
     p.
-        Our chat servers use a standard secure websocket protocol #[code wss://] as defined
-        in #[a(href="https://tools.ietf.org/html/rfc6455") RFC6455]. Messages are sent
+        Our chat servers use a standard secure websocket protocol #[code wss://]. Messages are sent
         and received in standard JSON.
     h2(id="chat__connection") Connection
-        //- TODO: add a hyperlink to the chat endpoint here
     p.
-        To connect to the chat server, retrieve details from our Rest API by calling #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] where #[code id] is the channel id of the channel you wish to join. If you are authenticated in the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated, but you will not be able to participate in chat.
+        To connect to the chat server, retrieve details from our Rest API by calling #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] where #[code id] is the channel id of the channel you wish to join.
+    include ../../tutorials/channelid.pug
+    p.
+        If you are authenticated in the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated, but you will not be able to participate in chat.
     p.
         This is what a typical response from the #[a(href="/rest.html#chats__chat__get") GET /chats/{id}] endpoint looks like:
     +highlightFile("http", "reference/chat/chatEndpoint.json")
