@@ -19,16 +19,18 @@ block menu
 block reference
     .page-header
         h2#introduction Introduction
-        p Liveloading is the primary event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of, it's sent over liveloading. We implement the same protocol as in [sails.io.js](http://sailsjs.org/documentation/reference/web-sockets/socket-client) (a socket.io scheme for calling HTTP endpoints over websockets) and use that in combination with the #[a(href="/rest.html#live") live endpoints] to implement a pubsub system.
+        p Liveloading is the primary event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of, it's sent over liveloading. We implement the same protocol as in #[a(href="http://sailsjs.org/documentation/reference/web-sockets/socket-client") sails.io.js] (a socket.io scheme for calling HTTP endpoints over websockets) and use that in combination with the #[a(href="/rest.html#live") live endpoints] to implement a pubsub system.
 
         p If that sounds a bit overwhelming, don't worry! We'll go over it here and there are several off-the-shelf libraries you can use to handle the gritty details for you:
 
         ul
             li
                 strong JavaScript:
+                = ' '
                 a(href="https://github.com/ProbablePrime/wsabi-client-bacon") ProbablePrime/wsabi-client-bacon
             li
                 strong JavaScript:
+                = ' '
                 a(href="https://github.com/ExoZoneDev/wsabi-client") ExoZoneDev/wsabi-client
 
         .alert.alert-info Pro tip: you can view liveloading in-action by #[a(href="http://blittle.github.io/chrome-dev-tools/network/websockets.html") viewing your websocket log] on #[a(href="https://beam.pro") beam.pro].
