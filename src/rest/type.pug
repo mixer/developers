@@ -90,7 +90,7 @@ mixin simpleType(key, type, skipRequired)
         li
             strong= restUtil.prettifyPropertyName(type.displayName || key)
             = ': '
-            em: +typeNameString(type)
+            +typeNameString(type)
             if type.description
                 | !{marked(type.description)}
             if type.schema
