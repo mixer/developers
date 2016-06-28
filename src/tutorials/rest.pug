@@ -1,0 +1,142 @@
+extends ./tutorial_layout.pug
+
+block title
+    | REST Tutorial | Beam Developers
+
+block tutorialTitle
+    h1 Talking to our REST API
+
+block tutorialMenu
+    li: a(href='#introduction') Introduction
+    li: a(href='#what_is_rest') What is REST?
+    li: a(href='#code') Writing the Code
+
+block tutorialContent
+    .page-header#introduction
+        p This guide will walk you through the process of developing a bot which shows the tells the user their rank on Beam, based on how many total viewers they have.
+
+    h2#what_is_rest What is REST?
+
+    include ./rest_intro.pug
+
+    h2#code Writing the Code
+    p.
+        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node') Node], #[a(href='https://github.com/WatchBeam/beam-client-java') Java] and #[a(href='https://github.com/WatchBeam/beam-client-python') Python] clients to build this app. The user will call it by typing #[code ./rank &lt;username&gt; &lt;password&gt;] in their terminal, and it'll tell them how far they are from being the top streamer on Beam!
+
+    +bsTabs({
+        node: 'Node',
+        java:'Java',
+        python: 'Python'
+    }, 'guide')
+        +bsTabItem('node', 'guide', true)
+            h3 Prerequisites
+            ol
+                li Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
+                li Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
+                li Run #[code npm i -S beam-client-node]
+
+            h3 Usage
+            p Let's start by importing all of the modules which we'll need and pull the user's name and password off the command line.
+
+            +highlightFile('javascript','./tutorials/code/node/rest/1.js')
+
+            p To connect to Beam we need to authenticate as our user specified above using  #[code beam-client-node]. We can use password based authentication to do this. After authenticating we'll get back a HTTP response that includes #[a(href="/rest.html#User") a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+            +highlightFile('javascript','./tutorials/code/node/rest/2.js')
+
+            p You've already got working code that connects and talks to our API. Go ahead, try it! Run #[code node rank.js &lt;your_username&gt; &lt;your_password&gt;] in your terminal.
+            +highlightFile('text','./tutorials/code/node/rest/2_response.txt')
+
+            p Now it's time to dig up all that stuff you learned in your computer science course. We want to sort the channels on Beam by the number of viewers they have, and loop through until we find the first channel that has less viewers than we do. To do this we'll have to make several calls to the API, and in Node this kind of chaining is often done through recursion.
+
+            p We define a function simply called #[run] that we initially call with page #[code 0]. Each time it makes a request, it'll count up the channels it gets back and stop when it gets a channel less or as popular as we are.
+            +highlightFile('javascript','./tutorials/code/node/rest/3.js')
+
+            p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href="https://github.com/request/request") request] package. So, we'll pass options in that we read from the #[a(href="/rest.html#channels_get") channel endpoint docs] to do what we need:
+            +highlightFile('javascript','./tutorials/code/node/rest/4.js')
+
+            p Altogether now, you can put this together into a single script...
+
+            +highlightFile('javascript','./tutorials/code/node/rest/5.js')
+
+            p ...and run it to get your rank on Beam!
+
+            +highlightFile('text','./tutorials/code/node/rest/5_response.txt')
+        +bsTabItem('java', 'guide')
+            h3 Prerequisites
+            ol
+                li
+                    a(href='http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html') Java
+                li
+                    | A Java IDE such as:
+                    ol
+                        li
+                            a(href='https://www.eclipse.org/downloads/') Eclipse
+                        li
+                            a(href='https://www.jetbrains.com/idea/') IntelliJ
+                        li
+                            a(href='https://netbeans.org/downloads/') NetBeans
+                li
+                    | A Java Project Manager such as:
+                    ol
+                        li
+                            a(href='https://maven.apache.org/') Maven
+                        li
+                            a(href='gradle.org') Gradle
+            h3 Project Setup
+            p.
+                Setup a standard project for your environment and include
+                #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
+                and #[a(href='https://github.com/WatchBeam/beam-interactive-java') beam-interactive-java]
+                as dependancies.
+            h3 Usage
+            p.
+                Let's start by creating a Main class for the Java application and
+                importing all of the required packages. We'll also initialize a few
+                objects. A instance of the BeamAPI and an instance of the AWT Robot class
+                which will allow us to control the mouse.
+            +highlightFile('java','./tutorials/code/java/interactive/1.java')
+            p.
+                Next we need to setup a Beam Interactive robot and supply it with
+                valid beam account credentials and a channel id.
+            include ./channelid.pug
+
+            +highlightFile('java','./tutorials/code/java/interactive/2.java')
+            p.
+                The last thing to do is wire up a report handler that takes the joystick's
+                coordMean and applys it to the mouse.
+            +highlightFile('java','./tutorials/code/java/interactive/3.java')
+            p.
+                When you put everything together you get the final code which is below:
+            +highlightFile('java','./tutorials/code/java/interactive/4.java')
+        +bsTabItem('python', 'guide')
+            h3 Prerequisites
+            ol
+                li Python 3
+                li pip (Python Package Manager)
+            p.
+                Once you have the prerequisites, install the following modules.
+                All three are available on pip and may be installed by using #[code pip install MODULE].
+            ol
+                li #[a(href='https://github.com/WatchBeam/beam-interactive-python') beam_interactive]
+                li #[a(href='https://github.com/kennethreitz/requests') requests]
+                li #[a(href='https://github.com/PyUserInput/PyUserInput') PyUserInput]
+            p.
+                Once installed, create a new file and add the required imports.
+            +highlightFile('python','./tutorials/code/python/interactive/1.py')
+            p.
+                Next, we need to create a dictionary to store authentication details
+                and some functions to authenticate the user and retrieve some data from Beam.
+            +highlightFile('python','./tutorials/code/python/interactive/2.py')
+            p.
+                After that, we'll write our error and report handlers. Our report handler
+                interacts with the mouse based on Interactive inputs.
+            +highlightFile('python','./tutorials/code/python/interactive/3.py')
+            p.
+                The final step is to setup the coroutine that will run everything.
+            +highlightFile('python','./tutorials/code/python/interactive/4.py')
+            p.
+                The full code is shown below.
+            +highlightFile('python','./tutorials/code/python/interactive/5.py')
+
+    h2#help Need Help?
+    p We're always around on #[a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank') our Gitter] and are happy to help and answer questions if you're having trouble with anything.

@@ -28,7 +28,10 @@ function getLocals () {
         chat: require('../src/reference/chat/data'),
         rest: require('./tmp/raml-doc.json'),
         permissions: require('@mcph/beam-common').permissions,
-        highlight: (lang, str) => highlight.highlight(lang, str).value,
+        highlight: (lang, str) => {
+            if (lang === 'text') return str;
+            return highlight.highlight(lang, str).value;
+        },
         readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
 
         restUtil: {
