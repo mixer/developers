@@ -29,7 +29,7 @@ mixin typeNameString(type)
     else
         if type.minimum
             span.help(title='Min value')= type.minimum
-            = '<'
+            | &leq;
         if rest.types[name]
             a(href=`#${name}`)= name
         else
@@ -38,7 +38,7 @@ mixin typeNameString(type)
             | =
             span.help(title='Default Value')= type.default
         if type.maximum
-            = '<'
+            | &leq;
             span.help(title='Max value')= type.maximum
         if type.default
             | ]
