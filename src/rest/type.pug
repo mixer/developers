@@ -48,51 +48,29 @@ mixin typeNameString(type)
         | &gt;
     if !type.default && !type.required
         span.help(title='Optional') ?
-    if name === 'string' && (type.minLength || type.maxLength || type.pattern)
-        ul
-            if type.minLength
-                li
-                    span minLength: #{type.minLength}
-            if type.maxLength
-                li
-                    span maxLength: #{type.maxLength}
-            if type.pattern
-                li
-                    span pattern: #[pre.inline= type.pattern]
     if name === 'array' && type.items
-        ul
-            if type.minItems
-                li minItems: #{type.minItems}
-            if type.maxItems
-                li maxItems: #{type.maxItems}
-            if type.uniqueItems
-                li Items MUST be unique.
-            li items
-                - var parentType = type.items.type && type.items.type[0];
-                if parentType && !restUtil.isBaseType(parentType)
-                    = ' '
-                    small extends
-                        = ' '
-                        a(href=`#${parentType}`)= parentType
-                | :
-            if type.items.properties
-                li
-                    ul
-                        for property, propertyName in type.items.properties
-                            +simpleType(propertyName, property)
+        - var parentType = type.items.type && type.items.type[0];
+        if parentType && !restUtil.isBaseType(parentType)
+            = ' '
+            small extends
+                = ' '
+                a(href=`#${parentType}`)= parentType
+        | :
 mixin typeExample(type)
-    = log(typeof type.example)
     if typeof type.example === 'string'
         pre= type.example
     if typeof type.example === 'object'
         +highlightStr("json", JSON.stringify(type.example,null, 3))
 
-mixin describeSimpleType(key,type)
-    strong= restUtil.prettifyPropertyName(type.displayName || key)
+mixin simpleTypeHeading(key,type)
+    = restUtil.prettifyPropertyName(type.displayName || key)
     = ': '
     +typeNameString(type)
+
+mixin describeSimpleType(key,type)
     if type.description
-        | !{marked(type.description)}
+        if typeof type.description === 'string'
+            | !{marked(type.description)}
     if type.schema
         p
             strong Schema
@@ -106,15 +84,49 @@ mixin describeSimpleType(key,type)
             +typeExample(type)
 
 mixin simpleType(key, type, skipRequired)
+    +describeSimpleType(key,type)
+    //- based on the type of the type we can choose how to render its additional properties
     - rootType = restUtil.getRootType(type)
-    // rendering of scalar and 0.8 types
-    if rootType !== 'object'
-        li
-            +describeSimpleType(key,type)
-    else
-        li
-            +describeSimpleType(key,type)
-            if type.properties
-                ul
-                    for property, propertyName in type.properties
-                        +describeSimpleType(propertyName, property)
+    //- for strings check if we have min max and patterns
+    if rootType === 'string' && (type.minLength || type.maxLength || type.pattern)
+        //string
+        ul
+            if type.minLength
+                li
+                    span minLength: #{type.minLength}
+            if type.maxLength
+                li
+                    span maxLength: #{type.maxLength}
+            if type.pattern
+                li
+                    span pattern: #[pre.inline= type.pattern]
+    //- For arrays display min max etc, if the items have properties
+    //- display them using recursion
+    else if rootType === 'array'
+        //array
+        ul
+            if type.minItems
+                li minItems: #{type.minItems}
+            if type.maxItems
+                li maxItems: #{type.maxItems}
+            if type.uniqueItems
+                li Items MUST be unique.
+            li items
+            if type.items.properties
+                li
+                    ul
+                        for property, propertyName in type.items.properties
+                            li
+                                strong
+                                    +simpleTypeHeading(propertyName,property)
+                                +simpleType(propertyName, property)
+    //- for objects nest them together
+    else if rootType === 'object'
+        if type.properties
+            //nestin
+            ul
+                for property, propertyName in type.properties
+                    li
+                        strong
+                            +simpleTypeHeading(propertyName,property)
+                        +simpleType(propertyName, property)

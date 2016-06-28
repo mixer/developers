@@ -14,20 +14,11 @@ mixin typeDetails(typeName)
 
     if type.properties
         ul.rest-properties
-            for property, name in type.properties
+            for property, propertyName in type.properties
                 li
-                    -
-                        var ptype = property.type[0];
                     h5.title
-                        | #{property.name}
-                        //- The &nbsp; is used below rather than css-based
-                        //- spacing so that double clicking selects the
-                        //- property name without the type.
-                        small &nbsp;
-                            +typeNameString(property)
-
-                    if typeof property.description === 'string'
-                        p !{marked(property.description)}
+                        +simpleTypeHeading(propertyName, property)
+                +simpleType(propertyName, property)
 
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
