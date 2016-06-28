@@ -1,3 +1,5 @@
+include ../mixins.pug
+
 mixin type(key, type, skipRequired)
     h4 Type:
         = ' '
@@ -57,10 +59,6 @@ mixin typeNameString(type)
             if type.pattern
                 li
                     span pattern: #[pre.inline= type.pattern]
-    if name === 'object' && type.properties
-        ul
-            for property, propertyName in type.properties
-                +simpleType(propertyName, property)
     if name === 'array' && type.items
         ul
             if type.minItems
@@ -82,29 +80,41 @@ mixin typeNameString(type)
                     ul
                         for property, propertyName in type.items.properties
                             +simpleType(propertyName, property)
+mixin typeExample(type)
+    = log(typeof type.example)
+    if typeof type.example === 'string'
+        pre= type.example
+    if typeof type.example === 'object'
+        +highlightStr("json", JSON.stringify(type.example,null, 3))
+
+mixin describeSimpleType(key,type)
+    strong= restUtil.prettifyPropertyName(type.displayName || key)
+    = ': '
+    +typeNameString(type)
+    if type.description
+        | !{marked(type.description)}
+    if type.schema
+        p
+            strong Schema
+            | :
+        pre
+            code= type.schema
+    if type.example
+        p
+            strong Example
+            | :
+            +typeExample(type)
 
 mixin simpleType(key, type, skipRequired)
     - rootType = restUtil.getRootType(type)
     // rendering of scalar and 0.8 types
     if rootType !== 'object'
         li
-            strong= restUtil.prettifyPropertyName(type.displayName || key)
-            = ': '
-            +typeNameString(type)
-            if type.description
-                | !{marked(type.description)}
-            if type.schema
-                p
-                    strong Schema
-                    | :
-                pre
-                    code= type.schema
-            if type.example
-                p
-                    strong Example
-                    | :
-                pre
-                    if type.type === 'string'
-                        = type.example
-                    else
-                        code= type.example
+            +describeSimpleType(key,type)
+    else
+        li
+            +describeSimpleType(key,type)
+            if type.properties
+                ul
+                    for property, propertyName in type.properties
+                        +describeSimpleType(propertyName, property)

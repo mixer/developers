@@ -10,7 +10,7 @@ mixin typeDetails(typeName)
         p.top-resource-description !{marked(type.description)}
     if type.example
         h4 Example:
-        pre= type.example
+        +typeExample(type)
 
     if type.properties
         ul.rest-properties
