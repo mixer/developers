@@ -114,9 +114,10 @@ block reference
                 th Description
         tbody
             for data, name in permissions
-                tr
-                    td: code= name
-                    td= data.text
+                if !data.administrative
+                    tr
+                        td: code= name
+                        td= data.text
 
     h2 Need more help?
     p.
