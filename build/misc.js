@@ -68,6 +68,9 @@ function getLocals () {
                 ];
                 return _.includes(buildinTypes, type);
             },
+            isBaseType (type) {
+                return type === 'object' || type === 'type' || this.isChildType(type);
+            },
             securitySchemeWithName (name) {
                 if (name && name.oauth_2_0) {
                     // oauth_2_0 is a special snowflake if it has scopes :>
