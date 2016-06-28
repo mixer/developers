@@ -5,7 +5,8 @@
   "main": "gulp",
   "scripts": {
     "lint": "eslint .",
-    "lint-pug": "pug-lint src"
+    "lint-pug": "pug-lint src",
+    "test": "npm run lint && npm run lint-pug"
   },
   "repository": {
     "type": "git",

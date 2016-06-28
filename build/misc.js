@@ -109,7 +109,6 @@ function getLocals () {
                 return name;
             },
         },
-        log: console.log,
     };
 
     return out;

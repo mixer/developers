@@ -78,8 +78,6 @@ mixin typeNameString(type)
                         a(href=`#${parentType}`)= parentType
                 | :
             if type.items.properties
-                if parentType === 'Channel'
-                    =log(type)
                 li
                     ul
                         for property, propertyName in type.items.properties
