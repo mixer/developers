@@ -8,6 +8,9 @@ mixin typeDetails(typeName)
     - var type = rest.types[typeName]
     if type.description
         p.top-resource-description !{marked(type.description)}
+    if type.example
+        h4 Example:
+        pre= type.example
 
     if type.properties
         ul.rest-properties
@@ -52,7 +55,7 @@ mixin method(method, resource)
                                 if restUtil.isSecurityOAuth(securedBy)
                                     |  Scopes:
                                     for scope in restUtil.getOAuthScopes(securedBy)
-                                        kbd.oauth-scope= scope
+                                        pre.oauth-scope= scope
                                 if securityScheme.description
                                     | !{marked(securityScheme.description)}
                     ul.nav.nav-tabs
@@ -133,7 +136,9 @@ mixin method(method, resource)
                                             ul
                                                 li #[strong Media Type]: #{key}
                                                 if b.type
-                                                    li #[strong Data Type]: #[+typeNameString(b)]
+                                                    li
+                                                        strong Data Type:
+                                                        +typeNameString(b)
                                             if b.schema
                                                 p
                                                     strong Schema

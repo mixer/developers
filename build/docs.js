@@ -282,22 +282,21 @@ module.exports = (gulp) => {
             return fetch(`https://api.github.com/repos/${lib.name}`)
             .then(response => {
                 if (response.status !== 200) {
-                    throw new Error(`Errorful response getting ${lib.name}: ${response.statusText}`);
+                    throw new Error(
+                        `Errorful response getting ${lib.name}: ${response.statusText}`
+                    );
                 }
 
                 return response.json();
-            }).then(json => {
-                const updated = new Date(json.pushed_at);
-
-                return {
-                    language: lib.language,
-                    official: lib.official,
-                    name: lib.alias || lib.name.split('/').pop(),
-                    updatedAt: `${updated.getFullYear()}-${updated.getMonth() + 1}-${updated.getDate()}`,
-                    stars: json.stargazers_count,
-                    url: json.html_url,
-                };
-            });
+            })
+            .then(json => ({
+                language: lib.language,
+                official: lib.official,
+                name: lib.alias || lib.name.split('/').pop(),
+                updatedAt: new Date(json.pushed_at).toDateString(),
+                stars: json.stargazers_count,
+                url: json.html_url,
+            }));
         });
 
         return Promise.all(todo).then(result => {

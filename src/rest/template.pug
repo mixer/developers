@@ -82,6 +82,12 @@ include ./resource.pug
                 a.panel-reference.icon.icon-link-1(href=`#${name}`)
                 .panel-heading
                     h3.panel-title= type.displayName
+                        - var parentType = type.type && type.type[0];
+                        if parentType && !restUtil.isBaseType(parentType)
+                            = ' '
+                            small extends
+                                = ' '
+                                a(href=`#${parentType}`)= parentType
                 .panel-body
                     +typeDetails(name)
 

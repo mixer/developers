@@ -26,17 +26,17 @@ block content
             h1.slide-title #[span.muted #1] Get Educated
 
             .slide-features
-                a.col-sm-3.col-xs-6(href='#')
-                    object(type='image/svg+xml' data='/icons/bubble-chat-smiley-1.svg')
+                a.col-sm-3.col-xs-6(href='/reference/chat/index.html')
+                    img(src='/img/icon/bubble-chat-smiley-1.svg' alt='Chat Bot')
                     p Build a Beam #[br] Chat Bot
-                a.col-sm-3.col-xs-6(href='#')
-                    object(type='image/svg+xml' data='/icons/game-controller-2.svg')
+                a.col-sm-3.col-xs-6(href='/reference/interactive/index.html')
+                    img(src='/img/icon/game-controller-2.svg' alt='Interactive Integration')
                     p Create an Interactive #[br] Integration
                 a.col-sm-3.col-xs-6(href='#')
-                    object(type='image/svg+xml' data='/icons/computer-chip.svg')
+                    img(src='/img/icon/computer-chip.svg' alt='RestAPI Docs')
                     p Talk to our #[br] RESTful API
-                a.col-sm-3.col-xs-6(href='#')
-                    object(type='image/svg+xml' data='/icons/book-open-2.svg')
+                a.col-sm-3.col-xs-6(href='/rest.html')
+                    img(src='/img/icon/book-open-2.svg' alt='RestAPI Docs')
                     p View API #[br] Reference
 
     .slide.slide-grab.gray.bar-transition-top.bar-transition-bottom
@@ -61,19 +61,25 @@ block content
                         .col-md-6
                             .slide-library(onclick=`window.location.href = '${options.url}'`)
                                 .slide-library-icon
-                                    object(type="image/svg+xml", data=`/img/icon/lang-${options.language}.svg`)
+                                    img(
+                                        src=`/img/icon/lang-${options.language}.svg`
+                                        alt=options.language
+                                    )
                                 .slide-library-name
                                     h3
                                         = options.name
                                         small
                                             span.slide-library-updated
                                                 | Updated
-                                                = ' ' + options.updatedAt
+                                                = ` ${options.updatedAt}`
                                             if options.official
                                                 span.slide-library-official &nbsp;•&nbsp;Official
 
                                 .slide-library-meta
-                                    object(type="image/svg+xml", data="/img/icon/rank-army-star-1.svg")
+                                    img(
+                                        src='/img/icon/rank-army-star-1.svg'
+                                        alt='Star'
+                                    )
                                     span= options.stars
-                                    a(href=options.url, alt=options.name)
-                                        object(type="image/svg+xml", data="/img/icon/download-circle.svg")
+                                    a(href=options.url alt=options.name)
+                                        img(src='/img/icon/download-circle.svg' alt='Download')
