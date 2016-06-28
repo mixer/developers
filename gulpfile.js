@@ -18,6 +18,6 @@ gulp.task('watch', () => {
     gulp.watch(config.src.html, ['html-quick']);
     gulp.watch(config.src.js, ['js']);
     if (config.repos && config.repos.backend) {
-        gulp.watch(path.join(config.repos.backend, '**/*.raml'), ['html']);
+        gulp.watch(path.join(config.repos.backend, '**/*.raml'), ['html-raml']);
     }
 });

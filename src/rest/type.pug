@@ -61,6 +61,29 @@ mixin typeNameString(type)
         ul
             for property, propertyName in type.properties
                 +simpleType(propertyName, property)
+    if name === 'array' && type.items
+        ul
+            if type.minItems
+                li minItems: #{type.minItems}
+            if type.maxItems
+                li maxItems: #{type.maxItems}
+            if type.uniqueItems
+                li Items MUST be unique.
+            li items
+                - var parentType = type.items.type && type.items.type[0];
+                if parentType && !restUtil.isBaseType(parentType)
+                    = ' '
+                    small extends
+                        = ' '
+                        a(href=`#${parentType}`)= parentType
+                | :
+            if type.items.properties
+                if parentType === 'Channel'
+                    =log(type)
+                li
+                    ul
+                        for property, propertyName in type.items.properties
+                            +simpleType(propertyName, property)
 
 mixin simpleType(key, type, skipRequired)
     - rootType = restUtil.getRootType(type)
