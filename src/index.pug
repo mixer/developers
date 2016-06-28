@@ -61,19 +61,19 @@ block content
                         .col-md-6
                             .slide-library(onclick=`window.location.href = '${options.url}'`)
                                 .slide-library-icon
-                                    object(type="image/svg+xml", data=`/img/icon/lang-${options.language}.svg`)
+                                    object(type='image/svg+xml' data=`/img/icon/lang-${options.language}.svg`)
                                 .slide-library-name
                                     h3
                                         = options.name
                                         small
                                             span.slide-library-updated
                                                 | Updated
-                                                = ' ' + options.updatedAt
+                                                = ` ${options.updatedAt}`
                                             if options.official
                                                 span.slide-library-official &nbsp;•&nbsp;Official
 
                                 .slide-library-meta
-                                    object(type="image/svg+xml", data="/img/icon/rank-army-star-1.svg")
+                                    object(type='image/svg+xml' data='/img/icon/rank-army-star-1.svg')
                                     span= options.stars
-                                    a(href=options.url, alt=options.name)
-                                        object(type="image/svg+xml", data="/img/icon/download-circle.svg")
+                                    a(href=options.url alt=options.name)
+                                        object(type='image/svg+xml' data='/img/icon/download-circle.svg')

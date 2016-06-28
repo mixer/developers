@@ -7,7 +7,6 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
-const common = require('@mcph/beam-common');
 
 /**
  * Generates locals required for templating.
@@ -15,7 +14,7 @@ const common = require('@mcph/beam-common');
  * @return {Object}
  */
 function getLocals () {
-    const restDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'tmp/raml-doc.json')));
+    const restDoc = require('./tmp/raml-doc.json');
     marked.setOptions({
         highlight (code) {
             return require('highlight.js').highlightAuto(code).value;
@@ -27,10 +26,11 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
-        rest: restDoc,
-        permissions: common.permissions,
+        rest: require('./tmp/raml-doc.json'),
+        permissions: require('@mcph/beam-common').permissions,
         highlight: (lang, str) => highlight.highlight(lang, str).value,
         readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
+
         restUtil: {
             /**
             * Get the root type of a type.
@@ -90,8 +90,25 @@ function getLocals () {
             getStatusMessage (code) {
                 return http.STATUS_CODES[code];
             },
+            /**
+             * Special handling for property names that have non alphanumeric names
+             * such as regex wildcards and `//`.
+             * @param  {String} name
+             * @return {String}
+             */
+            prettifyPropertyName (name) {
+                if (name === '//') {
+                    return 'All keys';
+                }
+                if (name.startsWith('/') && name.endsWith('/')) {
+                    return `Keys matching the RegEx ${name}`;
+                }
+                return name;
+            },
         },
+        log: console.log,
     };
+
     return out;
 }
 
@@ -113,7 +130,6 @@ function getPugOpts () {
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
-
     gulp.task('html', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
         .pipe($.pug(getPugOpts()))

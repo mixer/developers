@@ -46,20 +46,28 @@ mixin typeNameString(type)
         | &gt;
     if !type.default && !type.required
         span.help(title='Optional') ?
-    if name === 'string'
-        if type.minLength
-            | minLength: #{type.minLength}
-        if type.maxLength
-            | maxLength: #{type.maxLength}
-    if type.pattern
-        | pattern: #[kbd= type.pattern]
+    if name === 'string' && (type.minLength || type.maxLength || type.pattern)
+        ul
+            if type.minLength
+                li
+                    span minLength: #{type.minLength}
+            if type.maxLength
+                li
+                    span maxLength: #{type.maxLength}
+            if type.pattern
+                li
+                    span pattern: #[pre.inline= type.pattern]
+    if name === 'object' && type.properties
+        ul
+            for property, propertyName in type.properties
+                +simpleType(propertyName, property)
 
 mixin simpleType(key, type, skipRequired)
     - rootType = restUtil.getRootType(type)
     // rendering of scalar and 0.8 types
     if rootType !== 'object'
         li
-            strong= type.displayName || key
+            strong= restUtil.prettifyPropertyName(type.displayName || key)
             = ': '
             em: +typeNameString(type)
             if type.description
