@@ -58,6 +58,14 @@ include ./resource.pug
                     td: code GET /resources/{id}/data
                     td Gets some nested information about a 'resource'.
                     td: code GET /users/314/avatar
+                tr
+                    td: code DELETE /resources/{id}
+                    td Delete a resource from the server.
+                    td: code DELETE /channels/314/streamKey
+                tr
+                    td: code PATCH /resources/{id}
+                    td Partially update a resource.
+                    td: code PATCH /channels/314/emoticons
 
         h2 Endpoints
         for resource in rest.resources
