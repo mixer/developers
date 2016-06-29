@@ -21,7 +21,7 @@ block tutorialContent
 
     h2#code Writing the Code
     p.
-        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node') Node], #[a(href='https://github.com/WatchBeam/beam-client-java') Java] and #[a(href='https://github.com/WatchBeam/beam-client-python') Python] clients to build this app. The user will call it by typing #[code ./rank &lt;username&gt; &lt;password&gt;] in their terminal, and it'll tell them how far they are from being the top streamer on Beam!
+        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node') Node] and #[a(href='https://github.com/WatchBeam/beam-client-java') Java] clients to build this app. The user will call it by typing #[code ./rank &lt;username&gt; &lt;password&gt;] in their terminal, and it'll tell them how far they are from being the top streamer on Beam!
 
     +bsTabs({
         node: 'Node',
@@ -48,13 +48,13 @@ block tutorialContent
 
             p Now it's time to dig up all that stuff you learned in your computer science course. We want to sort the channels on Beam by the number of viewers they have, and loop through until we find the first channel that has less viewers than we do. To do this we'll have to make several calls to the API, and in Node this kind of chaining is often done through recursion.
 
-            p We define a function simply called #[run] that we initially call with page #[code 0]. Each time it makes a request, it'll count up the channels it gets back and stop when it gets a channel less or as popular as we are.
+            p We define a function simply called #[code run] that we initially call with page #[code 0]. Each time it makes a request, it'll count up the channels it gets back and stop when it gets a channel less or as popular as we are.
             +highlightFile('javascript','./tutorials/code/node/rest/3.js')
 
             p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href="https://github.com/request/request") request] package. So, we'll pass options in that we read from the #[a(href="/rest.html#channels_get") channel endpoint docs] to do what we need:
             +highlightFile('javascript','./tutorials/code/node/rest/4.js')
 
-            p Altogether now, you can put this together into a single script...
+            p All together now, you can put this together into a single script...
 
             +highlightFile('javascript','./tutorials/code/node/rest/5.js')
 
@@ -113,30 +113,31 @@ block tutorialContent
             ol
                 li Python 3
                 li pip (Python Package Manager)
-            p.
-                Once you have the prerequisites, install the following modules.
-                All three are available on pip and may be installed by using #[code pip install MODULE].
-            ol
-                li #[a(href='https://github.com/WatchBeam/beam-interactive-python') beam_interactive]
-                li #[a(href='https://github.com/kennethreitz/requests') requests]
-                li #[a(href='https://github.com/PyUserInput/PyUserInput') PyUserInput]
-            p.
-                Once installed, create a new file and add the required imports.
-            +highlightFile('python','./tutorials/code/python/interactive/1.py')
-            p.
-                Next, we need to create a dictionary to store authentication details
-                and some functions to authenticate the user and retrieve some data from Beam.
-            +highlightFile('python','./tutorials/code/python/interactive/2.py')
-            p.
-                After that, we'll write our error and report handlers. Our report handler
-                interacts with the mouse based on Interactive inputs.
-            +highlightFile('python','./tutorials/code/python/interactive/3.py')
-            p.
-                The final step is to setup the coroutine that will run everything.
-            +highlightFile('python','./tutorials/code/python/interactive/4.py')
-            p.
-                The full code is shown below.
-            +highlightFile('python','./tutorials/code/python/interactive/5.py')
+
+            p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href="https://github.com/kennethreitz/requests") requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
+
+            p First off, lets import what we need and make a login request to the API. We'll use #[code requests.Session] since we may want to expand this app later and the session cookie created when we log in.
+            +highlightFile('python','./tutorials/code/python/rest/1.py')
+
+            p After authenticating we'll get back a HTTP response that includes #[a(href="/rest.html#User") a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+
+            +highlightFile('python','./tutorials/code/python/rest/2.py')
+
+            p You've already got working code that connects and talks to our API. Go ahead, try it! Run #[code python rank.py &lt;your_username&gt; &lt;your_password&gt;] in your terminal.
+
+            +highlightFile('text','./tutorials/code/node/rest/2_response.txt')
+
+            p Next, let's make a function that loops the #[a(href="/rest.html#channels_get") channel endpoint] in descending order by total viewers, until it gets to a channel that equal to or lower than you're rank. When it finds such a channel, it'll return it.
+
+            +highlightFile('python','./tutorials/code/python/rest/3.py')
+
+            p All together now, you can put this together into a single script...
+
+            +highlightFile('python','./tutorials/code/python/rest/4.py')
+
+            p ...and run it to get your rank on Beam!
+
+            +highlightFile('text','./tutorials/code/python/rest/4_response.txt')
 
     h2#help Need Help?
     p We're always around on #[a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank') our Gitter] and are happy to help and answer questions if you're having trouble with anything.
