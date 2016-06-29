@@ -10,14 +10,12 @@ mixin typeDetails(typeName)
         p.top-resource-description !{marked(type.description)}
     if type.example
         h4 Example:
-        pre= type.example
+        +typeExample(type)
 
     if type.properties
         ul.rest-properties
-            for property, name in type.properties
+            for property, propertyName in type.properties
                 li
-                    -
-                        var ptype = property.type[0];
                     h5.title
                         span.text-monospace= property.name
                         //- The &nbsp; is used below rather than css-based
