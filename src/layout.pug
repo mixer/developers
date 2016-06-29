@@ -36,9 +36,9 @@ mixin bsTabs(tabs, prefix)
             - isFirst = false
     .tab-content
         block
-    script.
+    script(type='text/javascript').
         function hashUpdate() {
-            var tab = $('.nav-tabs a[href='#' + location.hash.substr(1) + '']');
+            var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
             tab.tab('show');
             var rawEl = tab.get(0);
             rawEl.scrollIntoView();

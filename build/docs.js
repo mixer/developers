@@ -73,7 +73,7 @@ function getRepo (addr) {
     // if the symbolic link did not exist
     .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
     .then(stats => {
-        if (stats.isDirectory()) {
+        if (stats && stats.isDirectory()) {
             return;
         }
         // Clone if not present or symbolic link was deleted.
