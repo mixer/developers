@@ -19,7 +19,7 @@ mixin typeDetails(typeName)
                     -
                         var ptype = property.type[0];
                     h5.title
-                        | #{property.name}
+                        span.text-monospace= property.name
                         //- The &nbsp; is used below rather than css-based
                         //- spacing so that double clicking selects the
                         //- property name without the type.

@@ -37,7 +37,7 @@
     margin: 0;
     padding: 0;
 
-    li {
+    > li {
         list-style-type: none;
 
         + li {
@@ -45,9 +45,53 @@
         }
     }
 
+    ul {
+        margin: 5px 0;
+    }
+
     h5 {
-        font-family: @font-family-monospace;
         font-size: 1.3em;
+    }
+}
+
+.rest-nested-properties {
+    padding: 0px;
+
+    > li {
+        @padding-top: 0.5em;
+        @tree-color: #aaa;
+        @tree-middle: @padding-top + 0.5em;
+
+        position: relative;
+        list-style-type: none;
+        padding: @padding-top 10px 1px 0;
+
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            left: -1em;
+            border-left: 1px solid @tree-color;
+        }
+
+        &:before {
+            top: 0;
+            height: @tree-middle;
+            border-bottom: 1px solid @tree-color;
+            width: 0.75em;
+        }
+
+        &:after {
+            top: @tree-middle;
+            height: ~"calc(100% - @{tree-middle})";
+        }
+
+        &:last-child:after {
+            display: none;
+        }
+
+        > p {
+            margin: 5px 0;
+        }
     }
 }
 

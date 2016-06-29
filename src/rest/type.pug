@@ -8,10 +8,18 @@ mixin type(key, type, skipRequired)
 mixin typeNameString(type)
     -
         var name = Array.isArray(type.type) ? type.type[0] : type.type;
-        var isArray = false;
+        var isArray = true;
+
         if (name.slice(-2) === '[]') {
-            isArray = true;
             name = name.slice(0, -2);
+        } else if (type.items) {
+            if (type.items.type.length > 0) {
+                name = type.items.type[0];
+            } else {
+                name = 'object';
+            }
+        } else {
+            isArray = false;
         }
 
     if type.default
@@ -58,28 +66,20 @@ mixin typeNameString(type)
                 li
                     span pattern: #[pre.inline= type.pattern]
     if name === 'object' && type.properties
-        ul
+        ul.rest-nested-properties
             for property, propertyName in type.properties
                 +simpleType(propertyName, property)
-    if name === 'array' && type.items
+    if isArray && type.items
         ul
             if type.minItems
-                li minItems: #{type.minItems}
+                li Minimum length: #{type.minItems}
             if type.maxItems
-                li maxItems: #{type.maxItems}
+                li Maximum length: #{type.maxItems}
             if type.uniqueItems
                 li Items MUST be unique.
-            li items
-                - var parentType = type.items.type && type.items.type[0];
-                if parentType && !restUtil.isBaseType(parentType)
-                    = ' '
-                    small extends
-                        = ' '
-                        a(href=`#${parentType}`)= parentType
-                | :
-            if type.items.properties
-                li
-                    ul
+            li Item properties:
+                if type.items.properties
+                    ul.rest-nested-properties
                         for property, propertyName in type.items.properties
                             +simpleType(propertyName, property)
 
@@ -88,11 +88,11 @@ mixin simpleType(key, type, skipRequired)
     // rendering of scalar and 0.8 types
     if rootType !== 'object'
         li
-            strong= restUtil.prettifyPropertyName(type.displayName || key)
+            span.text-monospace= restUtil.prettifyPropertyName(type.displayName || key)
             = ': '
             +typeNameString(type)
             if type.description
-                | !{marked(type.description)}
+                != marked(type.description)
             if type.schema
                 p
                     strong Schema
