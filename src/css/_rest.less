@@ -55,13 +55,15 @@
 }
 
 .rest-nested-properties {
-    padding: 0px;
+    padding-left: 30px;
 
     > li {
+        @line-height: 1.2em;
         @padding-top: 0.5em;
         @tree-color: #aaa;
-        @tree-middle: @padding-top + 0.5em;
+        @tree-middle: @padding-top + @line-height / 2;
 
+        line-height: @line-height;
         position: relative;
         list-style-type: none;
         padding: @padding-top 10px 1px 0;
