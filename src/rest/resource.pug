@@ -74,19 +74,28 @@ mixin method(method, resource)
                             .tab-pane.active(id=`${resource.uniqueId}_${method.method}_request`)
                                 if resource.allUriParameters.length
                                     h3 URI Parameters
-                                    ul
+                                    ul.rest-properties
                                         for item, key in resource.allUriParameters
-                                            +simpleType(key, item)
+                                            li
+                                                h5.title
+                                                    +simpleTypeHeading(key, item)
+                                                +simpleType(key, item, true)
                                 if method.headers
                                     h3 Headers
-                                    ul
+                                    ul.rest-properties
                                         for item, key in method.headers
-                                            +simpleType(key, item)
+                                            li
+                                                h5.title
+                                                    +simpleTypeHeading(key, item)
+                                                +simpleType(key, item, true)
                                 if method.queryParameters
                                     h3 Query Parameters
-                                    ul
+                                    ul.rest-properties
                                         for item, key in method.queryParameters
-                                            +simpleType(key, item)
+                                            li
+                                                h5.title
+                                                    +simpleTypeHeading(key, item)
+                                                +simpleType(key, item, true)
                                 if method.body
                                     h3 Body
                                     for b, key in method.body
@@ -117,10 +126,13 @@ mixin method(method, resource)
                                         != marked(response.description)
                                     if response.headers
                                         h3 Headers
-                                        ul
+                                        ul.rest-properties
                                             if Array.isArray(response.headers)
                                                 for item, key in response.headers
-                                                    +simpleType(key, item, true)
+                                                    li
+                                                        h5.title
+                                                            +simpleTypeHeading(key, item)
+                                                        +simpleType(key, item, true)
                                     if response.body
                                         h3 Body
                                         for b, key in response.body
@@ -151,9 +163,12 @@ mixin method(method, resource)
                                     if securityScheme.describedBy
                                         if securityScheme.describedBy.headers
                                             h3 Headers
-                                            ul
+                                            ul.rest-properties
                                                 for item, key in securityScheme.describedBy.headers
-                                                    +simpleType(key, item)
+                                                    li
+                                                        h5.title
+                                                            +simpleTypeHeading(key, item)
+                                                        +simpleType(key, item, true)
                                         for response, key in securityScheme.describedBy.responses
                                             h2 HTTP status code
                                                 = ' '
@@ -162,9 +177,12 @@ mixin method(method, resource)
 
                                             if response.headers
                                                 h3 Headers
-                                                ul
+                                                ul.rest-properties
                                                     for item, key in response.headers
-                                                        +simpleType(key, item, true)
+                                                        li
+                                                            h5.title
+                                                                +simpleTypeHeading(key, item)
+                                                            +simpleType(key, item, true)
 
 mixin resourceModals(resource)
     if resource.methods
