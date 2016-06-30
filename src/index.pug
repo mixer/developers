@@ -18,10 +18,10 @@ block navbar
 
                     .intro-cta
                         a.btn.btn-default(href='/reference/index.html') View Docs
-                        a.btn.btn-white(href='/tutorials.html') Check out our Tutorials
+                        a.btn.btn-white.js-smooth-anchor(href='#tutorials') Check out our Tutorials
 
 block content
-    .slide
+    .slide#tutorials
         .container
             h1.slide-title #[span.muted #1] Get Educated
 
@@ -32,7 +32,7 @@ block content
                 a.col-sm-3.col-xs-6(href='/reference/interactive/index.html')
                     img(src='/img/icon/game-controller-2.svg' alt='Interactive Integration')
                     p Create an Interactive #[br] Integration
-                a.col-sm-3.col-xs-6(href='#')
+                a.col-sm-3.col-xs-6(href='/tutorials/rest.html')
                     img(src='/img/icon/computer-chip.svg' alt='RestAPI Docs')
                     p Talk to our #[br] RESTful API
                 a.col-sm-3.col-xs-6(href='/rest.html')
@@ -41,7 +41,7 @@ block content
 
     .slide.slide-grab.gray.bar-transition-top.bar-transition-bottom
         .container
-            h1.slide-title #[span.muted #2] Grab n' Go
+            h1.slide-title #[span.muted #2] Start Building
 
             .col-md-4.slide-grab-left
                 p.
@@ -83,3 +83,30 @@ block content
                                     span= options.stars
                                     a(href=options.url alt=options.name)
                                         img(src='/img/icon/download-circle.svg' alt='Download')
+
+                .text-center
+                    a.btn.btn-primary(href="https://github.com/WatchBeam/developers/issues/new")
+                        .icon.icon-github-1
+                        | Submit Your Own
+
+    .slide
+        .container
+            h1.slide-title #[span.muted #3] Get Involved
+
+            p.slide-focal We're always around in our Gitter chat and on social media if you have questions or hit snags. Or simply if you're really proud of what you build. Connect with us, and other Beam developers!
+
+            .slide-features
+                a.col-sm-3.col-xs-6(href='https://gitter.im/MCProHosting/beam-dev')
+                    img(src='/img/icon/bubble-chat-typing-3.svg' alt='Chat with us on Gitter')
+                    p Chat with us #[br] on Gitter
+                a.col-sm-3.col-xs-6(href='https://forums.beam.pro/category/10/developer-discussion')
+                    img(src='/img/icon/chat-double-bubble-1.svg' alt='Go to our Dev Forums')
+                    p Go to our #[br] Dev Forums
+                a.col-sm-3.col-xs-6(href='https://twitter.com/Beam')
+                    img(src='/img/icon/logo-twitter-bird.svg' alt='Find us on Twitter')
+                    p Find us on #[br] Twitter
+                a.col-sm-3.col-xs-6(href='https://github.com/WatchBeam')
+                    img(src='/img/icon/logo-github.svg' alt='View our Projects on Github')
+                    p View our Projects #[br] on Github
+
+

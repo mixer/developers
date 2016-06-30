@@ -21,7 +21,7 @@
     text-align: center;
 
     a + a {
-        border-left: 1px solid #ccc;
+        border-left: 1px solid #ddd;
     }
 
     a {
@@ -30,12 +30,17 @@
         height: initial;
         font-size: 1.2em;
         font-weight: 300;
-        color: #000;
+        color: @brand-primary;
         cursor: pointer;
 
         &:hover {
             background: #eee;
             text-decoration: none;
+            border-left-color: #eee;
+
+            + a {
+                border-left-color: #eee;
+            }
         }
     }
 
@@ -135,4 +140,12 @@
             height: 1em;
         }
     }
+}
+
+.slide-focal {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 10px auto 30px;
 }
