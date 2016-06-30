@@ -1,5 +1,6 @@
 {
     "channel:{id}:followed": "Sent when a user follows or unfollows a channel. The body will contain an attribute `following` - boolean set to true `true` if the user just followed the channel, `false` if they unfollowed, and user - the [User](/rest.html#User) who just followed the channel.",
+    "channel:{id}:hosted": "Sent when another user hosts the channel with the provided `id`. The body will contain the `hosterId`, a number, and `hoster`, the full [Channel](/rest.html#Channel) model who started hosting this channel. Note that this event is not subject to the spam prevention that the chat message is.",
     "channel:{id}:status": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`.",
     "channel:{id}:subscribed": "Sent when a user subscribes to the channel. The body will contain the [User](/rest.html#User) object who just subscribed to the channel.",
     "channel:{id}:resubscribed": "Sent when an automatic resubscription to a channel happens. The body will contain the [User](/rest.html#User) object who just resubscribed. Additionally there is a `since` and `until` property. The are the dates for when the user first subscribed and when the subscription expires.",
