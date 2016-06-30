@@ -86,28 +86,28 @@ block tutorialContent
             p.
                 Setup a standard project for your environment and include
                 #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
-                and #[a(href='https://github.com/WatchBeam/beam-interactive-java') beam-interactive-java]
-                as dependancies.
+                as a dependancy.
             h3 Usage
             p.
-                Let's start by creating a Main class for the Java application and
-                importing all of the required packages. We'll also initialize a few
-                objects. A instance of the BeamAPI and an instance of the AWT Robot class
-                which will allow us to control the mouse.
-            +highlightFile('java','./tutorials/code/java/interactive/1.java')
+                Let's start by creating a Main class for the Java application and importing all of the required packages. We'll also initialize an instance of the BeamAPI and pull the user's username and password off the command line for authentication.
+            +highlightFile('java','./tutorials/code/java/rest/1.java')
             p.
-                Next we need to setup a Beam Interactive robot and supply it with
-                valid beam account credentials and a channel id.
-            include ./channelid.pug
+                Next let's authenticate with the Beam API. The Java Client uses a service orientated approach which means all user related functions are on the #[code UserService]. So we need to #[code use] that to login. Most methods that talk to the API return a #[a(href='http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html') Java Future]. These are a form of asyncronous operation in Java. For this tutorial however we'll use the #[code get] method of a future to wait for the Future to complete. It returns a #[code BeamUser] object which also contains a #[code BeamChannel] object. On the channel we can find the #[code viewersTotal] property which we can then print.
+            +highlightFile('java','./tutorials/code/java/rest/2.java')
+            p Now you've already got some working code! To run it you can use your Java IDE to create a run configuration that supplies the username and password as #[code Program Arguments]. If you're using IntelliJ it should look like this:
+            img(src='/img/tutorials/rest/java/runconfig.png' alt='IntelliJ Run Configuration')
+            p.
+                Next let's make a function which gets a page of channels from the API sorted in descending order based on total views.
+            +highlightFile('java', './tutorials/code/java/rest/3.java')
+            p Finally, we can make a function that loops through the #[code BeamChannel] objects on the #[code ShowChannelsResponse], until it gets to a channel that equal to or lower than you're rank. If this is not found we request the next page recursively.
+            p When it finds such a channel, it'll log it to the console.
+            +highlightFile('java','./tutorials/code/java/rest/4.java')
+            p To start the ranking process we just need to call #[code run(0, viewers, 1)] in the #[code main] method. All together you can put the code together into one Java Class...
+            +highlightFile('java','./tutorials/code/java/rest/5.java')
 
-            +highlightFile('java','./tutorials/code/java/interactive/2.java')
-            p.
-                The last thing to do is wire up a report handler that takes the joystick's
-                coordMean and applys it to the mouse.
-            +highlightFile('java','./tutorials/code/java/interactive/3.java')
-            p.
-                When you put everything together you get the final code which is below:
-            +highlightFile('java','./tutorials/code/java/interactive/4.java')
+            p ... and run it to get your Rank on Beam!
+            +highlightFile('text', './tutorials/code/java/rest/5_response.txt')
+
         +bsTabItem('python', 'guide')
             h3 Prerequisites
             ol
