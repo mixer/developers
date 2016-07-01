@@ -21,11 +21,42 @@ body {
         background: none;
     }
 
-    .navbar-nav a {
+    .navbar-nav > li > a {
+        position: relative;
+        z-index: 0;
         font-family: 'Heebo';
-        font-size: 1em;
+        font-size: 1.1em;
         padding-left: @grid-gutter-width * 2 / 3;
         padding-right: @grid-gutter-width * 2 / 3;
+
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            transform: scale(0.8, 0.6);
+            transition: transform 0.1s;
+            visibility: hidden;
+        }
+
+        &:hover:after {
+            visibility: visible;
+        }
+    }
+
+    .navbar-nav > li.dropdown.open > a,
+    .navbar-nav > li > a:active {
+        color: #000;
+
+        &:after {
+            visibility: visible;
+            transform: scale(1, 1);
+        }
+
     }
 
     .navbar-brand {
@@ -33,8 +64,18 @@ body {
         min-width: 196px;
     }
 
-    .dropdown-menu {
+    .dropdown.open .dropdown-menu {
+        @keyframes dropdown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0px); }
+        }
+
+        opacity: 0;
         border: transparent;
+        animation-delay: 0.2s;
+        animation-duration: 0.2s;
+        animation-name: dropdown;
+        animation-fill-mode: forwards;
     }
 
     h1 {
