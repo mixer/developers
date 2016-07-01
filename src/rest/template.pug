@@ -11,7 +11,7 @@ include ./resource.pug
         include ../tutorials/rest_intro.pug
 
         p If you want some more information about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
-
+        include ../snippets/help.pug
         h2 Endpoints
         for resource in rest.resources
             .panel.panel-default.panel-rest

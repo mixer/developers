@@ -12,7 +12,7 @@ block tutorialMenu
     li: a(href='#code') Writing the Code
 
 block tutorialContent
-    .page-header#introduction
+    #introduction.page-header
         p This guide will walk you through the process of developing a bot which shows the tells the user their rank on Beam, based on how many total viewers they have.
 
     h2#what_is_rest What is REST?
@@ -40,7 +40,7 @@ block tutorialContent
 
             +highlightFile('javascript','./tutorials/code/node/rest/1.js')
 
-            p To connect to Beam we need to authenticate as our user specified above using  #[code beam-client-node]. We can use password based authentication to do this. After authenticating we'll get back a HTTP response that includes #[a(href="/rest.html#User") a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+            p To connect to Beam we need to authenticate as our user specified above using  #[code beam-client-node]. We can use password based authentication to do this. After authenticating we'll get back a HTTP response that includes #[a(href='/rest.html#User') a bunch of details] about the user. We'll print out how many viewers the have on their channel.
             +highlightFile('javascript','./tutorials/code/node/rest/2.js')
 
             p You've already got working code that connects and talks to our API. Go ahead, try it! Run #[code node rank.js &lt;your_username&gt; &lt;your_password&gt;] in your terminal.
@@ -51,7 +51,7 @@ block tutorialContent
             p We define a function simply called #[code run] that we initially call with page #[code 0]. Each time it makes a request, it'll count up the channels it gets back and stop when it gets a channel less or as popular as we are.
             +highlightFile('javascript','./tutorials/code/node/rest/3.js')
 
-            p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href="https://github.com/request/request") request] package. So, we'll pass options in that we read from the #[a(href="/rest.html#channels_get") channel endpoint docs] to do what we need:
+            p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href='https://github.com/request/request') request] package. So, we'll pass options in that we read from the #[a(href='/rest.html#channels_get') channel endpoint docs] to do what we need:
             +highlightFile('javascript','./tutorials/code/node/rest/4.js')
 
             p All together now, you can put this together into a single script...
@@ -115,12 +115,12 @@ block tutorialContent
                 li Python 3
                 li pip (Python Package Manager)
 
-            p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href="https://github.com/kennethreitz/requests") requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
+            p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href='https://github.com/kennethreitz/requests') requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
 
             p First off, lets import what we need and make a login request to the API. We'll use #[code requests.Session] since we may want to expand this app later and the session cookie created when we log in.
             +highlightFile('python','./tutorials/code/python/rest/1.py')
 
-            p After authenticating we'll get back a HTTP response that includes #[a(href="/rest.html#User") a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+            p After authenticating we'll get back a HTTP response that includes #[a(href='/rest.html#User') a bunch of details] about the user. We'll print out how many viewers the have on their channel.
 
             +highlightFile('python','./tutorials/code/python/rest/2.py')
 
@@ -128,7 +128,7 @@ block tutorialContent
 
             +highlightFile('text','./tutorials/code/node/rest/2_response.txt')
 
-            p Next, let's make a function that loops the #[a(href="/rest.html#channels_get") channel endpoint] in descending order by total viewers, until it gets to a channel that equal to or lower than you're rank. When it finds such a channel, it'll return it.
+            p Next, let's make a function that loops the #[a(href='/rest.html#channels_get') channel endpoint] in descending order by total viewers, until it gets to a channel that equal to or lower than you're rank. When it finds such a channel, it'll return it.
 
             +highlightFile('python','./tutorials/code/python/rest/3.py')
 
@@ -140,5 +140,7 @@ block tutorialContent
 
             +highlightFile('text','./tutorials/code/python/rest/4_response.txt')
 
-    h2#help Need Help?
-    p We're always around on #[a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank') our Gitter] and are happy to help and answer questions if you're having trouble with anything.
+    h2 Want More Info?
+    p.
+        If you'd like more information on our Rest API, checkout the #[a(href='/rest.html') rest reference docs].
+    include ../snippets/help.pug

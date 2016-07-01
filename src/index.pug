@@ -17,19 +17,18 @@ block navbar
                         p Learn how to build awesome Interactive integrations, helpful chat bots, and anything else you can imagine on the Beam platform.
 
                     .intro-cta
-                        a.btn.btn-default(href='/reference/index.html') View Docs
+                        a.btn.btn-default(href='/rest.html') View API Docs
                         a.btn.btn-white.js-smooth-anchor(href='#tutorials') Check out our Tutorials
 
 block content
-    .slide#tutorials
+    #tutorials.slide
         .container
             h1.slide-title #[span.muted #1] Get Educated
-
             .slide-features
-                a.col-sm-3.col-xs-6(href='/reference/chat/index.html')
+                a.col-sm-3.col-xs-6(href='/tutorials/chatbot.html')
                     img(src='/img/icon/bubble-chat-smiley-1.svg' alt='Chat Bot')
                     p Build a Beam #[br] Chat Bot
-                a.col-sm-3.col-xs-6(href='/reference/interactive/index.html')
+                a.col-sm-3.col-xs-6(href='/tutorials/interactive.html')
                     img(src='/img/icon/game-controller-2.svg' alt='Interactive Integration')
                     p Create an Interactive #[br] Integration
                 a.col-sm-3.col-xs-6(href='/tutorials/rest.html')
@@ -85,7 +84,7 @@ block content
                                         img(src='/img/icon/download-circle.svg' alt='Download')
 
                 .text-center
-                    a.btn.btn-primary(href="https://github.com/WatchBeam/developers/issues/new")
+                    a.btn.btn-primary(href='https://github.com/WatchBeam/developers/issues/new')
                         .icon.icon-github-1
                         | Submit Your Own
 
@@ -108,5 +107,3 @@ block content
                 a.col-sm-3.col-xs-6(href='https://github.com/WatchBeam')
                     img(src='/img/icon/logo-github.svg' alt='View our Projects on Github')
                     p View our Projects #[br] on Github
-
-
