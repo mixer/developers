@@ -13,7 +13,7 @@ function createChatSocket (userId, channelId, endpoints, authkey) {
         console.log('Oh no! An error occurred!', error);
     });
 
-    // Listen to chat messages, not that you will also receive your own!
+    // Listen to chat messages, note that you will also receive your own!
     socket.on('ChatMessage', data => {
         console.log('We got a ChatMessage packet!');
         console.log(data);

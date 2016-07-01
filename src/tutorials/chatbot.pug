@@ -9,15 +9,13 @@ block tutorialTitle
 block tutorialContent
     h1#guide Creating a Simple Chat Bot
     p.
-        In this guide, we will show you how to create a 'ping-pong' chat bot using
+        For this tutorial, we will show you how to create a 'ping-pong' chat bot using either
         our #[a(href='https://github.com/WatchBeam/beam-client-node') Node],
         #[a(href='https://github.com/WatchBeam/beam-client-java') Java]
-        and #[a(href='https://github.com/WatchBeam/beam-client-python') Python]
-        libraries and some examples using the
+        or #[a(href='https://github.com/WatchBeam/beam-client-python') Python]
+        libraries to communicate with the Beam API. We'll also take a look at how you can talk to
         the API directly with #[a(href='https://curl.haxx.se/') curl]
         and #[a(href='https://github.com/websockets/wscat') wscat].
-    p.
-        Once setup the bot will greet people in chat with a message and respond to a #[code !ping] command.
     +bsTabs('chatbot_guide', {
         node: 'Node',
         java:'Java',
@@ -35,27 +33,23 @@ block tutorialContent
                     Run #[code npm i -S beam-client-node]
             h3 Writing the Code
             p.
-                The node implementation is using
-                #[a(href='http://bluebirdjs.com/docs/api-reference.html') Bluebird]
-                promises, so natively callbacks are not supported.
+                Our Node implementation uses Bluebird promises, you can find out more about them #[a(href='http://bluebirdjs.com/docs/api-reference.html') here]. For this tutorial we'll also be using some ES2015 concepts. If you're new to ES2015 there's a great guide #[a(href='https://babeljs.io/docs/learn-es2015/') here] on the changes.
             p.
                 Before we can connect to the chat servers, we must authenticate
                 ourselves with the backend.
                 In our example we are going to use the simple login authication.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1.js')
             p.
-                The result should be something like this:
+                The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1_response.txt')
             p.
-                In the next step we will use the response from the backend to connect
-                to the chat server, for that we have the #[code createChatSocket()] function.
+                Next we will use this response to connect to the chat server, for that we have the #[code createChatSocket()] function. This takes the information from the response and creates a Beam chat socket from it.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2.js')
             p.
-                The result should look something like this:
+                Running this code will now connect you to chat and you'll see something like this in the console. The JSON object on the 3rd line is the chat message packet your bot sent to the server when it connected.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2_response.txt')
             p.
-                Now that we are more familiar with how we do things using the node client
-                lets bring on the ping-pong example.
+                Now that we have a chat connection with authentication working we can add the rest of the bot code. When a user joins the channel it will greet them. If a user types #[code !ping] into chat then it will response with their name and "PONG!".
             +highlightFile('javascript', 'tutorials/code/node/chatbot/3.js')
         +bsTabItem('chatbot_guide', 'java')
             h3 Prerequisites
