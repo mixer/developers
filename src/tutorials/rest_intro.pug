@@ -1,8 +1,16 @@
-p Beam's API is RESTful. This means that the URL contains a #[em noun], and the request type is a #[em verb] which takes an action on that noun. If you go to google.com, your browser is making a #[code GET] request to Google&mdash;it's asking for information about that page.
+p If your friend was going to the store and you needed something, you might ask them to "get" something for you. After they get back, they might "put" that item away for you. These are the constructs we use in everyday life, and REST APIs attempt to build on those, but, rather than operating on physical items, you're dealing with objects on the computer.
 
-p When you're talking to our API, you won't be asking about pages, but rather about resources. For instance, you might want to get information about a user with ID #[code 314], so you might call #[code GET http://beam.pro/api/v1/users/314] (we'll abbreviate this as #[code GET /users/314] from here on).
+p When you send HTTP requests to webpages, each request contains a verb. Most browsing you do involves your web browser making #[code GET] requests&mdash;asking for this page, for instance! But there are several other verbs your browser uses:
 
-p #[code GET] isn't the only verb available&mdash;Beam wouldn't be very useful if no one could sign up or chat! In general, the API adheres to the following blueprint:
+ul
+    li #[code GET] looks something up, as we've said
+    li #[code POST] creates something
+    li #[code PUT] updates something
+    li #[code DELETE] destroys something
+
+p On our RESTful API, you make requests by calling #[code VERB https://beam.pro/api/v1/resources]. We'll abbreviate this as #[code VERB /resources] from now on. For instance, to create a new user, you would call #[code POST /users] (the endpoints are always plural). If you want to operate on a particular user object, you would append their ID to that URL, such as #[code GET /users/344] to return information about user ID #[code 344].
+
+p You can also run actions on a particular user by chaining on "actions", such as #[code PUT /users/344/confirm], which is used to verify an account. Here's a full blueprint with some examples:
 
 table.table
     thead
@@ -39,7 +47,3 @@ table.table
             td: code DELETE /resources/{id}
             td Delete a resource from the server.
             td: code DELETE /channels/314/streamKey
-        tr
-            td: code PATCH /resources/{id}
-            td Partially update a resource.
-            td: code PATCH /channels/314/emoticons
