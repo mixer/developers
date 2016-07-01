@@ -62,7 +62,7 @@ block content
                 .row
                     for options in libraries
                         .col-md-6
-                            .slide-library(onclick=`window.location.href = '${options.url}'`)
+                            .slide-library(onclick=`window.open('${options.url}', '_blank')`)
                                 .slide-library-icon
                                     img(
                                         src=`/img/icon/lang-${options.language}.svg`
@@ -84,11 +84,11 @@ block content
                                         alt='Star'
                                     )
                                     span= options.stars
-                                    a(href=options.url alt=options.name)
+                                    a(href=options.url alt=options.name target='_blank')
                                         img(src='/img/icon/download-circle.svg' alt='Download')
 
                 .text-center
-                    a.btn.btn-primary(href='https://github.com/WatchBeam/developers/issues/new')
+                    a.btn.btn-primary(href='https://github.com/WatchBeam/developers/issues/new' target='_blank')
                         .icon.icon-logo-github
                         | Submit Your Own
 
@@ -99,19 +99,19 @@ block content
             p.slide-focal We're always around in our Gitter chat and on social media if you have questions or hit snags. Or simply if you're really proud of what you build. Connect with us, and other Beam developers!
 
             .slide-features
-                .col-md-3.col-sm-6.col-xs-12: a(href='https://gitter.im/MCProHosting/beam-dev')
+                .col-md-3.col-sm-6.col-xs-12: a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank')
                     .slide-features-img
-                        img(src='/img/icon/bubble-chat-typing-3.svg' alt='Chat with us on Gitter')
+                        img(src='/img/icon/bubble-chat-typing-3.svg' alt='Chat with us on Gitter' target='_blank')
                     p Chat with us #[br] on Gitter
-                .col-md-3.col-sm-6.col-xs-12: a(href='https://forums.beam.pro/category/10/developer-discussion')
+                .col-md-3.col-sm-6.col-xs-12: a(href='https://forums.beam.pro/category/10/developer-discussion' target='_blank')
                     .slide-features-img
-                        img(src='/img/icon/chat-double-bubble-1.svg' alt='Go to our Dev Forums')
-                    p Go to our #[br] Developer Forums
-                .col-md-3.col-sm-6.col-xs-12: a(href='https://twitter.com/Beam')
+                        img(src='/img/icon/chat-double-bubble-1.svg' alt='Go to our Dev Forums' target='_blank')
+                    p Checkout our #[br] Developer Forums
+                .col-md-3.col-sm-6.col-xs-12: a(href='https://twitter.com/Beam' target='_blank')
                     .slide-features-img
-                        img(src='/img/icon/logo-twitter-bird.svg' alt='Find us on Twitter')
+                        img(src='/img/icon/logo-twitter-bird.svg' alt='Find us on Twitter' target='_blank')
                     p Find us on #[br] Twitter
-                .col-md-3.col-sm-6.col-xs-12: a(href='https://github.com/WatchBeam')
+                .col-md-3.col-sm-6.col-xs-12: a(href='https://github.com/WatchBeam' target='_blank')
                     .slide-features-img
                         img(src='/img/icon/logo-github.svg' alt='View our Projects on Github')
                     p View our Projects #[br] on Github

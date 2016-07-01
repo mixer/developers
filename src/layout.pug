@@ -24,7 +24,7 @@ mixin navbar
                     li: a(href='/reference/liveloading/index.html') Live Loading
                     li: a(href='/reference/chat/index.html') Chat
                     li: a(href='/reference/interactive/index.html') Interactive
-            li: a(href='https://beam.pro/lab') Lab &amp; Apps
+            li: a(href='https://beam.pro/lab' target='_blank') Lab &amp; Apps
 
 include ./mixins.pug
 
@@ -62,40 +62,39 @@ html
                     .col-lg-2.col-md-3.col-xs-6
                         h3 Beam
                         ul
-                            li: a(href='https://beam.pro') Home
-                            li: a(href='https://beam.pro/browse/streamers') Browse
-                            li: a(href='https://beam.pro/about/features') About
-                            li: a(href='https://beam.pro/contact') Contact Us
+                            li: a(href='https://beam.pro' target='_blank') Home
+                            li: a(href='https://beam.pro/browse/streamers' target='_blank') Browse
+                            li: a(href='https://beam.pro/about/features' target='_blank') About
+                            li: a(href='https://beam.pro/contact' target='_blank') Contact Us
 
                     .col-lg-2.col-md-3.col-xs-6
                         h3 Social
                         ul
-                            li: a(href='https://twitter.com/Beam') Twitter
-                            li: a(href='https://github.com/WatchBeam') Github
-                            li: a(href='https://gitter.im/MCProHosting/beam-dev') Gitter.im
-                            li: a(href='https://facebook.com/watchbeam') Facebook
+                            li: a(href='https://twitter.com/Beam' target='_blank') Twitter
+                            li: a(href='https://github.com/WatchBeam' target='_blank') Github
+                            li: a(href='https://gitter.im/MCProHosting/beam-dev' target='_blank') Gitter.im
+                            li: a(href='https://facebook.com/watchbeam' target='_blank') Facebook
 
                     .col-lg-2.col-md-3.col-xs-6
                         h3 Network
                         ul
-                            li: a(href='https://beam.pro') Beam.pro
-                            li: a(href='/') Beam Developers
-                            li: a(href='http://forums.beam.pro/') Beam Forums
-                            li: a(href='https://blog.beam.pro/') Blog
+                            li: a(href='https://beam.pro' target='_blank') Beam.pro
+                            li: a(href='http://forums.beam.pro/' target='_blank') Beam Forums
+                            li: a(href='https://blog.beam.pro/' target='_blank') Blog
 
                     .col-lg-2.col-md-3.col-xs-6
                         h3 Legal
                         ul
-                            li: a(href='https://beam.pro/legal/privacy') Privacy Policy
-                            li: a(href='https://beam.pro/legal/tos') Terms of Service
-                            li: a(href='https://beam.pro/legal/abuse') DMCA/Abuse
+                            li: a(href='https://beam.pro/legal/privacy' target='_blank') Privacy Policy
+                            li: a(href='https://beam.pro/legal/tos' target='_blank') Terms of Service
+                            li: a(href='https://beam.pro/legal/abuse' target='_blank') DMCA/Abuse
 
                     .col-sm-4.visible-lg-block
-                        a.footer-logo(href='https://beam.pro')
+                        a.footer-logo(href='https://beam.pro' target='_blank')
                             img(src='/img/footer-logo.png' alt='Beam Logo')
 
                     .clearfix
-                    .copyright Copyright #{new Date().getUTCFullYear()} Beam Interactive, Inc. #[a(href="https://github.com/WatchBeam/developers/issues/new") Spot an issue]?
+                    .copyright Copyright #{new Date().getUTCFullYear()} Beam Interactive, Inc. #[a(href='https://github.com/WatchBeam/developers/issues/new' target='_blank') Spot an issue]?
 
         block scripts
             script(src='//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
