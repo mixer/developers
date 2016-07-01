@@ -142,6 +142,25 @@
     .icon-lock-3 {
         margin-left: 0.5em;
     }
+
+    @media (max-width: @screen-xs-min) {
+        display: flex; // stop width-locking the columns
+        margin: 0 (@grid-gutter-width / -2);
+        width: inherit;
+
+        &-description {
+            display: none;
+        }
+
+        &-path {
+            flex-grow: 1;
+            width: initial;
+        }
+
+        &-method {
+            width: initial;
+        }
+    }
 }
 
 .rest-sidebar {
@@ -187,6 +206,10 @@
                 color: @brand-secondary;
             }
         }
+    }
+
+    @media (max-width: @screen-md-min) {
+        display: none;
     }
 }
 

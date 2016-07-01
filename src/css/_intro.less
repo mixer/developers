@@ -34,4 +34,11 @@
     .btn {
         margin-right: 1em;
     }
+
+    @media (max-width: @screen-xs-min) {
+        .btn {
+            display: block;
+            margin: 0 0 (@grid-gutter-width / 2) 0;
+        }
+    }
 }

@@ -14,6 +14,18 @@
             color: #ccc;
         }
     }
+
+
+    @media (max-width: @screen-sm-min) {
+        .slide-title {
+            text-align: center;
+
+            .muted {
+                display: block;
+                font-size: 0.6em;
+            }
+        }
+    }
 }
 
 .clickable-box() {
@@ -40,6 +52,7 @@
         font-weight: 300;
         color: @brand-primary;
         background: #fafafa;
+        margin: (@grid-gutter-width / 2) 0;
     }
 
     &-img {
