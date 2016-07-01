@@ -103,16 +103,13 @@ block tutorialContent
                     via #[code pip install git+https://github.com/WatchBeam/beam-client-python].
             h3 Writing the Code
             p.
-                The python client only supports password auth at the moment, using
-                an account with 2 factor authentication is not possible.
-            p.
                 Create a new folder for your chatbot. Inside this folder create a config file.
                 config.py which will contain user authentication data as well as your channel id
             include ./channelid.pug
             +highlightFile('python', 'tutorials/code/python/chat/1.py')
             p.
                 Next let's create another file called example.py and start by importing the required modules
-                as well as our config file with our authentication details
+                as well as our config file with our authentication details.
             +highlightFile('python', 'tutorials/code/python/chat/2.py')
             p.
                 Next we need to instantiate an instance of the chat class and pass it our config.
