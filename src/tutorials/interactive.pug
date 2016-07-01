@@ -89,25 +89,7 @@ block tutorialContent
             +highlightFile('java','./tutorials/code/node/interactive/5.js')
         +bsTabItem('java', 'guide')
             h3 Prerequisites
-            ol
-                li
-                    a(href='http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html') Java
-                li
-                    | A Java IDE such as:
-                    ol
-                        li
-                            a(href='https://www.eclipse.org/downloads/') Eclipse
-                        li
-                            a(href='https://www.jetbrains.com/idea/') IntelliJ
-                        li
-                            a(href='https://netbeans.org/downloads/') NetBeans
-                li
-                    | A Java Project Manager such as:
-                    ol
-                        li
-                            a(href='https://maven.apache.org/') Maven
-                        li
-                            a(href='gradle.org') Gradle
+            include ./java_prereqs.pug
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
