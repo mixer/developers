@@ -33,8 +33,13 @@
         margin: 0 0 @grid-gutter-width / 2;
         text-align: center;
 
-        @media (min-width: @screen-md-min) {
-            text-align: right;
+        a {
+            color: #aaa;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
         }
     }
 }
