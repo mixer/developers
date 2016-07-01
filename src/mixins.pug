@@ -5,3 +5,37 @@ mixin highlightStr(language, str)
     pre
         code(class=language)
             != highlight(language, str)
+
+mixin bsTabs(tabs, prefix)
+    - prefix = prefix ? prefix + '-' : ''
+    - isFirst = true
+    ul.nav.nav-tabs(role='tablist')
+        for tabName, tabId in tabs
+            li(class=isFirst && 'active' role='presentation')
+                a(data-toggle='tab' href=`#${prefix}${tabId}`)= tabName
+            - isFirst = false
+    .tab-content
+        block
+    script(type='text/javascript').
+        function hashUpdate() {
+            var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
+            tab.tab('show');
+            var rawEl = tab.get(0);
+            rawEl.scrollIntoView();
+        }
+        addEventListener('hashchange', hashUpdate);
+        $(document).ready(function() {
+            if (location.hash !== '') {
+                hashUpdate();
+            }
+
+            // Change hash for page-reload
+            $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
+                history.pushState( null, null, $(this).attr('href') );
+            });
+        });
+
+mixin bsTabItem(tabId, prefix, active)
+    - prefix = prefix ? prefix + '-' : ''
+    .tab-pane.fade(class=active && 'active in' id=`${prefix}${tabId}` role='tabpanel')
+        block

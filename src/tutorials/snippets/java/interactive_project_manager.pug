@@ -1,0 +1,16 @@
+include ../../../mixins.pug
++bsTabs({
+    maven: 'Maven',
+    gradle:'Gradle'
+}, 'projectManager')
+    +bsTabItem('maven', 'projectManager', true)
+        p To setup #[code beam-client-java] and #[code beam-interactive-java], first add the Beam repo to your pom.xml as a #[code repository] as follows:
+        +highlightFile('xml','./tutorials/snippets/java/maven_chat_repo.xml')
+
+        p And secondly, add this project as a #[code dependency] in your pom.xml:
+        +highlightFile('xml','./tutorials/snippets/java/maven_interactive_dependancy.xml')
+    +bsTabItem('gradle', 'projectManager', true)
+        p To setup #[code beam-client-java] and #[code beam-interactive-java], first add the Beam repo to your build.gradle as a #[code repository] as follows:
+        +highlightFile('xml','./tutorials/snippets/java/gradle_chat_repo.gradle')
+        p And secondly, add this project as a #[code dependency] in your build.gradle:
+        +highlightFile('xml','./tutorials/snippets/java/gradle_interactive_dependancy.gradle')

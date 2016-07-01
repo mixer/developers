@@ -1,0 +1,6 @@
+<repositories>
+  <repository>
+    <id>beam-snapshots</id>
+    <url>https://maven.beam.pro/content/repositories/snapshots/</url>
+  </repository>
+</repositories>
