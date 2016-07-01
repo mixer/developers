@@ -302,7 +302,7 @@ module.exports = (gulp) => {
         return Promise.all(todo).then(result => {
             fs.writeFileSync(
                 path.join(config.src.tmp, 'libraries.json'),
-                JSON.stringify(result, null, '   ')
+                JSON.stringify(_.sortBy(result, 'language'), null, '   ')
             );
         });
     });
