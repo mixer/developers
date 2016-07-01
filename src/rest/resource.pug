@@ -49,29 +49,27 @@ mixin method(method, resource)
                                         pre.oauth-scope= scope
                                 if securityScheme.description
                                     | !{marked(securityScheme.description)}
-                    ul.nav.nav-tabs
-                        if method.allUriParameters.length || method.queryParameters || method.headers || method.body
-                            li.active
-                                a(
-                                    href=`#${resource.uniqueId}_${method.method}_request`
-                                    data-toggle='tab'
-                                ) Request
-                        if method.responses
-                            li(class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
-                                a(
-                                    href=`#${resource.uniqueId}_${method.method}_response`
-                                    data-toggle='tab'
-                                ) Response
 
-                        if method.securedBy
-                            li
-                                a(
-                                    href=`#${resource.uniqueId}_${method.method}_securedby`
-                                    data-toggle='tab'
-                                ) Security
+                    ul.nav.nav-tabs
+                        -
+                            var tabsItems = {};
+                            if (method.allUriParameters.length || method.queryParameters || method.headers || method.body) {
+                                tabsItems.request = 'Request';
+                            }
+
+                            if (method.securedBy) {
+                                tabsItems.security = 'Security';
+                            }
+
+                            if (method.responses) {
+                                tabsItems.response = 'Response';
+                            }
+
+                        +bsTabs(`${resource.uniqueId}_tabs`, tabsItems)
+
                     .tab-content
                         if method.allUriParameters.length || method.queryParameters || method.headers || method.body
-                            .tab-pane.active(id=`${resource.uniqueId}_${method.method}_request`)
+                            +bsTabItem(`${resource.uniqueId}_tabs`, 'request')
                                 if resource.allUriParameters.length
                                     h3 URI Parameters
                                     ul.rest-properties
@@ -117,9 +115,7 @@ mixin method(method, resource)
                                             pre
                                                 code b.example
                         if method.responses
-                            .tab-pane(
-                                id=`${resource.uniqueId}_${method.method}_response`
-                                class=!method.allUriParameters.length && !method.queryParameters && !method.headers && !method.body ? 'active' : '')
+                            +bsTabItem(`${resource.uniqueId}_tabs`, 'response')
                                 for response, key in method.responses
                                     h2: +statusCode(key)
                                     if (response.description)
@@ -155,7 +151,7 @@ mixin method(method, resource)
                                                 pre
                                                     code= b.example
                         if method.securedBy
-                            .tab-pane(id=`${resource.uniqueId}_${method.method}_securedby`)
+                            +bsTabItem(`${resource.uniqueId}_tabs`, 'security')
                                 for securedBy in method.securedBy
                                     - securityScheme = restUtil.securitySchemeWithName(securedBy)
                                     h2
@@ -170,9 +166,7 @@ mixin method(method, resource)
                                                             +simpleTypeHeading(key, item)
                                                         +simpleType(key, item, true)
                                         for response, key in securityScheme.describedBy.responses
-                                            h2 HTTP status code
-                                                = ' '
-                                                +statusCode(response.code)
+                                            h3: +statusCode(response.code)
                                             | !{marked(response.description)}
 
                                             if response.headers

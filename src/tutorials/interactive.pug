@@ -37,12 +37,12 @@ block tutorialContent
         Users will be able to visit your channel on Beam, and control the mouse
         movement on your screen.
 
-    +bsTabs({
+    +bsTabs('interactive_guide', {
         node: 'Node',
         java:'Java',
         python: 'Python'
-    }, 'guide')
-        +bsTabItem('node', 'guide', true)
+    })
+        +bsTabItem('interactive_guide', 'node')
             h3 Prerequisites
             ol
                 li.
@@ -87,7 +87,7 @@ block tutorialContent
 
                 The final code can be found below:
             +highlightFile('java','./tutorials/code/node/interactive/5.js')
-        +bsTabItem('java', 'guide')
+        +bsTabItem('interactive_guide', 'java')
             h3 Prerequisites
             include ./java_prereqs.pug
             h3 Project Setup
@@ -117,7 +117,7 @@ block tutorialContent
             p.
                 When you put everything together you get the final code which is below:
             +highlightFile('java','./tutorials/code/java/interactive/4.java')
-        +bsTabItem('python', 'guide')
+        +bsTabItem('interactive_guide', 'python')
             h3 Prerequisites
             ol
                 li Python 3

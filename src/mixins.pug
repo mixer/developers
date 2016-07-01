@@ -6,36 +6,50 @@ mixin highlightStr(language, str)
         code(class=language)
             != highlight(language, str)
 
-mixin bsTabs(tabs, prefix)
-    - prefix = prefix ? prefix + '-' : ''
-    - isFirst = true
-    ul.nav.nav-tabs(role='tablist')
-        for tabName, tabId in tabs
-            li(class=isFirst && 'active' role='presentation')
-                a(data-toggle='tab' href=`#${prefix}${tabId}`)= tabName
-            - isFirst = false
-    .tab-content
-        block
-    script(type='text/javascript').
-        function hashUpdate() {
-            var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
-            tab.tab('show');
-            var rawEl = tab.get(0);
-            rawEl.scrollIntoView();
-        }
-        addEventListener('hashchange', hashUpdate);
-        $(document).ready(function() {
-            if (location.hash !== '') {
-                hashUpdate();
-            }
-
-            // Change hash for page-reload
-            $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
-                history.pushState( null, null, $(this).attr('href') );
-            });
+mixin bsTabs(name, tabs)
+    -
+        bsTabs[name] = tabs;
+        Object.defineProperty(tabs, '$active', {
+            value: Object.keys(tabs).shift(),
         });
 
-mixin bsTabItem(tabId, prefix, active)
-    - prefix = prefix ? prefix + '-' : ''
-    .tab-pane.fade(class=active && 'active in' id=`${prefix}${tabId}` role='tabpanel')
+    ul.nav.nav-tabs(role='tablist')
+        for tabName, tabId in tabs
+            li(class=(tabs.$active === tabId ? 'active' : null), role='presentation')
+                a(data-toggle='tab' href=`#${name}_${tabId}`)= tabName
+    if block
+        .tab-content
+            block
+    //- script(type='text/javascript').
+    //-     function hashUpdate() {
+    //-         var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
+    //-         tab.tab('show');
+    //-         var rawEl = tab.get(0);
+    //-         rawEl.scrollIntoView();
+    //-     }
+    //-     addEventListener('hashchange', hashUpdate);
+    //-     $(document).ready(function() {
+    //-         if (location.hash !== '') {
+    //-             hashUpdate();
+    //-         }
+
+    //-         // Change hash for page-reload
+    //-         $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
+    //-             history.pushState( null, null, $(this).attr('href') );
+    //-         });
+    //-     });
+
+mixin bsTabItem(parent, name)
+    -
+        if (!bsTabs[parent]) {
+            throw new Error(`Attempted to define child tab of unknown bsTab ${parent}`)
+        }
+        if (!bsTabs[parent][name]) {
+            throw new Error(`${name} not found in bsTabs ${parent}`);
+        }
+
+    .tab-pane.fade(
+        class=(bsTabs[parent].$active === name ? 'active' : null) && 'active in',
+        data-name=bsTabs[parent][name],
+        id=`${parent}_${name}`, role='tabpanel')
         block

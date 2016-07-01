@@ -23,12 +23,12 @@ block tutorialContent
     p.
         We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node') Node] and #[a(href='https://github.com/WatchBeam/beam-client-java') Java] clients to build this app. The user will run it and it'll tell them how far they are from being the top streamer on Beam!
 
-    +bsTabs({
+    +bsTabs('rest_guide', {
         node: 'Node',
         java:'Java',
         python: 'Python'
-    }, 'guide')
-        +bsTabItem('node', 'guide', true)
+    })
+        +bsTabItem('rest_guide', 'node')
             h3 Prerequisites
             ol
                 li Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
@@ -61,7 +61,7 @@ block tutorialContent
             p ...and run it to get your rank on Beam!
 
             +highlightFile('text','./tutorials/code/node/rest/5_response.txt')
-        +bsTabItem('java', 'guide')
+        +bsTabItem('rest_guide', 'java')
             h3 Prerequisites
             ol
                 li
@@ -109,7 +109,7 @@ block tutorialContent
             p ... and run it to get your Rank on Beam!
             +highlightFile('text', './tutorials/code/java/rest/5_response.txt')
 
-        +bsTabItem('python', 'guide')
+        +bsTabItem('rest_guide', 'python')
             h3 Prerequisites
             ol
                 li Python 3

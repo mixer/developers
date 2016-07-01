@@ -28,6 +28,7 @@ function getLocals () {
         chat: require('../src/reference/chat/data'),
         rest: require('./tmp/raml-doc.json'),
         permissions: require('@mcph/beam-common').permissions,
+        bsTabs: {},
         highlight: (lang, str) => {
             if (lang === 'text') return str;
             return highlight.highlight(lang, str).value;
