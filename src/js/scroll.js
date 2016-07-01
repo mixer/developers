@@ -14,8 +14,9 @@ $(document).ready(function () {
         $(el).stick_in_parent(json ? JSON.parse(json) : defaults);
     });
 
-    $('.js-smooth-anchor').click(function () {
+    $('.js-smooth-anchor').on('mousedown', function (e) {
         $('html, body').animate({ scrollTop: $(this.hash).offset().top }, 400);
+        e.preventDefault();
         return false;
     });
 });
