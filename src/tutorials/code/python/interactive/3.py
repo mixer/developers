@@ -1,12 +1,12 @@
 MOUSE = PyMouse()
 
 
-def on_error(error, connection):
+def on_error(error):
     """Handle error packets."""
     print("Oh no, there was an error!", error.message)
 
 
-def on_report(report, connection):
+def on_report(report):
     """Handle report packets."""
 
     # Tactile Mouse Click Control

@@ -8,7 +8,6 @@ from math import isnan
 
 from beam_interactive import start, proto
 from requests import Session
-from random import random
 from pymouse import PyMouse
 
 URL = "https://beam.pro/api/v1/"
@@ -40,12 +39,12 @@ def join_interactive(channel, *, session=SESSION):
         channel=channel)).json()
 
 
-def on_error(error, connection):
+def on_error(error):
     """Handle error packets."""
     print("Oh no, there was an error!", error.message)
 
 
-def on_report(report, connection):
+def on_report(report):
     """Handle report packets."""
 
     # Tactile Mouse Click Control
@@ -99,7 +98,7 @@ def run():
 
         # Handle the packet with the proper handler, if its type is known.
         if packet_id in handlers:
-            handlers[packet_id](decoded, connection)
+            handlers[packet_id](decoded)
         elif decoded is None:
             print("Unknown bytes were received. Uh oh!", packet_id)
         else:
@@ -108,9 +107,10 @@ def run():
     connection.close()
 
 
-loop = asyncio.get_event_loop()
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
 
-try:
-    loop.run_until_complete(run())
-finally:
-    loop.close()
+    try:
+        loop.run_until_complete(run())
+    finally:
+        loop.close()
