@@ -31,7 +31,7 @@ def run():
 
         # Handle the packet with the proper handler, if its type is known.
         if packet_id in handlers:
-            handlers[packet_id](decoded, connection)
+            handlers[packet_id](decoded)
         elif decoded is None:
             print("Unknown bytes were received. Uh oh!", packet_id)
         else:
