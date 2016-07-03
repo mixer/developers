@@ -9,7 +9,7 @@ block tutorialTitle
 block tutorialContent
     h2#intro Introduction
     p.
-        Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/') Google's Protocol Buffer]
+        Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/' target='_blank') Google's Protocol Buffer]
         specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
         server, which analyzes them for you, before being sent to your Robot.
 
@@ -34,9 +34,9 @@ block tutorialContent
 
     h2#code Writing the Code
     p.
-        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-interactive-node') Node],
-        #[a(href='https://github.com/WatchBeam/beam-interactive-java') Java]
-        and #[a(href='https://github.com/WatchBeam/beam-interactive-python') Python] to build a simple Robot.
+        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-interactive-node' target='_blank') Node],
+        #[a(href='https://github.com/WatchBeam/beam-interactive-java' target='_blank') Java]
+        and #[a(href='https://github.com/WatchBeam/beam-interactive-python' target='_blank') Python] to build a simple Robot.
         Users will be able to visit your channel on Beam, and control the mouse
         movement on your screen.
 
@@ -49,9 +49,9 @@ block tutorialContent
             h3 Prerequisites
             ol
                 li.
-                    Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
+                    Get #[a(href='https://nodejs.org/en/' target='_blank') NodeJS and NPM] for your platform.
                 li.
-                    Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
+                    Create a #[a(href='https://docs.npmjs.com/cli/init' target='_blank') new project] with npm.
                 li.
                     Run #[code npm i -S beam-client-node beam-interactive-node robotjs]
             h3 Usage
@@ -96,8 +96,8 @@ block tutorialContent
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
-                #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
-                and #[a(href='https://github.com/WatchBeam/beam-interactive-java') beam-interactive-java]
+                #[a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java]
+                and #[a(href='https://github.com/WatchBeam/beam-interactive-java' target='_blank') beam-interactive-java]
                 as dependancies.
             include ./snippets/java/interactive_project_manager.pug
             h3 Usage
@@ -129,9 +129,9 @@ block tutorialContent
                 Once you have the prerequisites, install the following modules.
                 All three are available on pip and may be installed by using #[code pip install MODULE].
             ol
-                li #[a(href='https://github.com/WatchBeam/beam-interactive-python') beam_interactive]
-                li #[a(href='https://github.com/kennethreitz/requests') requests]
-                li #[a(href='https://github.com/PyUserInput/PyUserInput') PyUserInput]
+                li #[a(href='https://github.com/WatchBeam/beam-interactive-python' target='_blank') beam_interactive]
+                li #[a(href='https://github.com/kennethreitz/requests' target='_blank') requests]
+                li #[a(href='https://github.com/PyUserInput/PyUserInput' target='_blank') PyUserInput]
             p.
                 Once installed, create a new file and add the required imports.
             +highlightFile('python','./tutorials/code/python/interactive/1.py')
