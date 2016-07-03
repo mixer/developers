@@ -21,7 +21,7 @@ block tutorialContent
 
     h2#code Writing the Code
     p.
-        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node') Node] and #[a(href='https://github.com/WatchBeam/beam-client-java') Java] clients to build this app. The user will run it and it'll tell them how far they are from being the top streamer on Beam!
+        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-client-node' target='_blank') Node] and #[a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') Java] clients to build this app. The user will run it and it'll tell them how far they are from being the top streamer on Beam!
 
     +bsTabs('rest_guide', {
         node: 'Node',
@@ -31,8 +31,8 @@ block tutorialContent
         +bsTabItem('rest_guide', 'node')
             h3 Prerequisites
             ol
-                li Get #[a(href='https://nodejs.org/en/') NodeJS and NPM] for your platform.
-                li Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
+                li Get #[a(href='https://nodejs.org/en/' target='_blank') NodeJS and NPM] for your platform.
+                li Create a #[a(href='https://docs.npmjs.com/cli/init' target='_blank') new project] with npm.
                 li Run #[code npm i -S beam-client-node]
 
             h3 Usage
@@ -51,7 +51,7 @@ block tutorialContent
             p We define a function simply called #[code run] that we initially call with page #[code 0]. Each time it makes a request, it'll count up the channels it gets back and stop when it gets a channel less or as popular as we are.
             +highlightFile('javascript','./tutorials/code/node/rest/3.js')
 
-            p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href='https://github.com/request/request') request] package. So, we'll pass options in that we read from the #[a(href='/rest.html#channels_get') channel endpoint docs] to do what we need:
+            p Now we just need to fill in that mysterious #[code getChannelsDescending(page)] function with a call on the Beam client. The client has several helpers here that are essentially light wrappers around the #[a(href='https://github.com/request/request' target='_blank') request] package. So, we'll pass options in that we read from the #[a(href='/rest.html#channels_get') channel endpoint docs] to do what we need:
             +highlightFile('javascript','./tutorials/code/node/rest/4.js')
 
             p All together now, you can put this together into a single script...
@@ -63,29 +63,11 @@ block tutorialContent
             +highlightFile('text','./tutorials/code/node/rest/5_response.txt')
         +bsTabItem('rest_guide', 'java')
             h3 Prerequisites
-            ol
-                li
-                    a(href='http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html') Java
-                li
-                    | A Java IDE such as:
-                    ol
-                        li
-                            a(href='https://www.eclipse.org/downloads/') Eclipse
-                        li
-                            a(href='https://www.jetbrains.com/idea/') IntelliJ
-                        li
-                            a(href='https://netbeans.org/downloads/') NetBeans
-                li
-                    | A Java Project Manager such as:
-                    ol
-                        li
-                            a(href='https://maven.apache.org/') Maven
-                        li
-                            a(href='gradle.org') Gradle
+            include ./java_prereqs.pug
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
-                #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
+                #[a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java]
                 as a dependancy.
             include ./snippets/java/chat_project_manager.pug
             h3 Usage
@@ -93,7 +75,7 @@ block tutorialContent
                 Let's start by creating a Main class for the Java application and importing all of the required packages. We'll also initialize an instance of the BeamAPI and pull the user's username and password off the command line for authentication.
             +highlightFile('java','./tutorials/code/java/rest/1.java')
             p.
-                Next let's authenticate with the Beam API. The Java Client uses a service orientated approach which means all user related functions are on the #[code UserService]. So we need to #[code use] that to login. Most methods that talk to the API return a #[a(href='http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html') Java Future]. These are a form of asyncronous operation in Java. For this tutorial however we'll use the #[code get] method of a future to wait for the Future to complete. It returns a #[code BeamUser] object which also contains a #[code BeamChannel] object. On the channel we can find the #[code viewersTotal] property which we can then print.
+                Next let's authenticate with the Beam API. The Java Client uses a service orientated approach which means all user related functions are on the #[code UserService]. So we need to #[code use] that to login. Most methods that talk to the API return a #[a(href='http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html' target='_blank') Java Future]. These are a form of asyncronous operation in Java. For this tutorial however we'll use the #[code get] method of a future to wait for the Future to complete. It returns a #[code BeamUser] object which also contains a #[code BeamChannel] object. On the channel we can find the #[code viewersTotal] property which we can then print.
             +highlightFile('java','./tutorials/code/java/rest/2.java')
             p Now you've already got some working code!
             include ./run_config.pug
@@ -115,7 +97,7 @@ block tutorialContent
                 li Python 3
                 li pip (Python Package Manager)
 
-            p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href='https://github.com/kennethreitz/requests') requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
+            p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href='https://github.com/kennethreitz/requests' target='_blank') requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
 
             p First off, lets import what we need and make a login request to the API. We'll use #[code requests.Session] since we may want to expand this app later and the session cookie created when we log in.
             +highlightFile('python','./tutorials/code/python/rest/1.py')

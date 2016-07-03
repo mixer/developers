@@ -8,5 +8,8 @@ beam.use('password', {
 .then(robot => performRobotHandShake(robot))
 .then(robot => setupRobotEvents(robot))
 .catch(err => {
-    throw new Error('Error connecting to Beam Interactive', err);
+    if (err.res) {
+        throw new Error('Error connecting to Interactive:' + err.res.body.mesage);
+    }
+    throw new Error('Error connecting to Interactive', err);
 });
