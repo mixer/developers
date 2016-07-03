@@ -9,19 +9,19 @@ function performRobotHandShake (robot) {
     });
 }
 
-function setupRobotEvents(robot) {
+function setupRobotEvents (robot) {
+    function setupRobotEvents (robot) {
     robot.on('report', report => {
         const mouse = rjs.getMousePos();
-        // If we have joystick information in the report
         if (report.joystick.length > 0) {
-            // Apply the joystick to the current mouse position
-            rjs.moveMouse(
-                Math.round(mouse.x + 300 * report.joystick[0].coordMean.X),
-                Math.round(mouse.y + 300 * report.joystick[0].coordMean.Y)
-            );
+            if (!isNaN(report.joystick[0].coordMean.x) && !isNaN(report.joystick[0].coordMean.y)) {
+                rjs.moveMouse(
+                    Math.round(mouse.x + 300 * report.joystick[0].coordMean.x),
+                    Math.round(mouse.y + 300 * report.joystick[0].coordMean.y)
+                );
+            }
         }
     });
-
     robot.on('error', err => {
         throw new Error('There was an error in the Interactive connection', err);
     });

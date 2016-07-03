@@ -18,7 +18,10 @@ beam.use('password', {
 .then(robot => performRobotHandShake(robot))
 .then(robot => setupRobotEvents(robot))
 .catch(err => {
-    throw new Error('Error connecting to Beam Interactive', err);
+    if (err.res) {
+        throw new Error('Error connecting to Interactive:' + err.res.body.mesage);
+    }
+    throw new Error('Error connecting to Interactive', err);
 });
 
 function createRobot (res) {
@@ -39,14 +42,15 @@ function performRobotHandShake (robot) {
         });
     });
 }
+
 function setupRobotEvents (robot) {
     robot.on('report', report => {
         const mouse = rjs.getMousePos();
         if (report.joystick.length > 0) {
-            if (!isNan(report.joystick[0].coordMean.X) && !isNan(report.joystick[0].coordMean.Y)) {
+            if (!isNaN(report.joystick[0].coordMean.x) && !isNaN(report.joystick[0].coordMean.y)) {
                 rjs.moveMouse(
-                    Math.round(mouse.x + 300 * report.joystick[0].coordMean.X),
-                    Math.round(mouse.y + 300 * report.joystick[0].coordMean.Y)
+                    Math.round(mouse.x + 300 * report.joystick[0].coordMean.x),
+                    Math.round(mouse.y + 300 * report.joystick[0].coordMean.y)
                 );
             }
         }
