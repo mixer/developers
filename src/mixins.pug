@@ -15,7 +15,10 @@ mixin bsTabs(name, tabs)
 
     ul.nav.nav-tabs(role='tablist')
         for tabName, tabId in tabs
-            li(class=(tabs.$active === tabId ? 'active' : null), role='presentation')
+            li(
+                class=(tabs.$active === tabId ? 'active' : null)
+                role='presentation'
+            )
                 a(data-toggle='tab' href=`#${name}_${tabId}`)= tabName
     if block
         .tab-content
@@ -49,7 +52,9 @@ mixin bsTabItem(parent, name)
         }
 
     .tab-pane.fade(
-        class=(bsTabs[parent].$active === name ? 'active' : null) && 'active in',
-        data-name=bsTabs[parent][name],
-        id=`${parent}_${name}`, role='tabpanel')
+        class=(bsTabs[parent].$active === name ? 'active' : null) && 'active in'
+        data-name=bsTabs[parent][name]
+        id=`${parent}_${name}`
+        role='tabpanel'
+    )
         block
