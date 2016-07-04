@@ -235,7 +235,6 @@ module.exports = (gulp) => {
         );
     });
     gulp.task('java-doc', ['java-mvn-gen'], () => {
-        return gulp.src(path.join(config.src.tmp, 'beam-client-java/target/site/apidocs'))
         return gulp.src(path.join(config.src.tmp, 'beam-client-java/target/site/**/*'))
         .pipe(gulp.dest(config.dist.javadoc));
     });
