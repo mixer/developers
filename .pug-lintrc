@@ -12,7 +12,7 @@
     "requireLowerCaseTags": true,
     "requireSpaceAfterCodeOperator": true,
     "requireSpecificAttributes": [{
-        "img": ["alt"]
+        "img": ["alt", "src"]
     }],
     "requireStrictEqualityOperators": true,
     "validateAttributeQuoteMarks": "'",
