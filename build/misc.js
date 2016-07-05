@@ -26,7 +26,7 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
-        rest: require('./tmp/raml-doc.json'),
+        rest: JSON.parse(fs.readFileSync(path.join(__dirname, '/tmp/raml-doc.json'))),
         permissions: require('@mcph/beam-common').permissions,
         bsTabs: {},
         highlight: (lang, str) => {
