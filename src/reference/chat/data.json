@@ -331,7 +331,7 @@
       ]
     },
     "UserJoin": {
-      "description": "Sent when a user left the chat.",
+      "description": "Sent when a user joins the chat.",
       "example": {
         "username": "USERNAME",
         "roles": [
@@ -341,7 +341,7 @@
       }
     },
     "UserLeave": {
-      "description": "Sent when a user left the chat.",
+      "description": "Sent when a user leaves the chat.",
       "example": {
         "username": "USERNAME",
         "id": 12345
