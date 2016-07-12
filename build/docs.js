@@ -34,9 +34,10 @@ function orderObject (obj) {
  * Ensures that the repo cloneable at the provided address is downloaded
  * and up-to-date.
  * @param  {String} addr
+ * @param  {String} branch Name of the branch to clone
  * @return {Promise}
  */
-function getRepo (addr) {
+function getRepo (addr, branch) {
     // extract everything after the last slash of the path, excluding .git:
     const name = (/\/([^/]*?)(\.git)?$/).exec(addr)[1];
     const target = path.join(config.src.tmp, name);
@@ -76,8 +77,9 @@ function getRepo (addr) {
         if (stats && stats.isDirectory()) {
             return;
         }
+        const branchString = branch ? `-b ${branch}` : '';
         // Clone if not present or symbolic link was deleted.
-        return childProcess.execAsync(`cd ${config.src.tmp} && git clone ${addr}`);
+        return childProcess.execAsync(`cd ${config.src.tmp} && git clone ${branchString} ${addr}`);
     });
 }
 
@@ -239,7 +241,7 @@ module.exports = (gulp) => {
         .pipe(gulp.dest(config.dist.javadoc));
     });
 
-    gulp.task('backend-clone', () => getRepo('git@github.com:WatchBeam/backend.git'));
+    gulp.task('backend-clone', () => getRepo('git@github.com:WatchBeam/backend.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
