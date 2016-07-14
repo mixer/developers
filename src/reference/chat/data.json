@@ -2,52 +2,49 @@
   "methods": {
     "auth": {
       "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
-      "examples":[
-        {
-          "description": "Authenticating as a User.",
-          "data": {
-            "request": {
-              "type": "method",
-              "method": "auth",
-              "arguments": [
-                12345,
-                54321,
-                "key"
-              ],
-              "id": 0
-            },
-            "response": {
-              "type": "reply",
-              "error": null,
-              "id": 0,
-              "data": {
-                "authenticated": true,
-                "roles": ["Owner"]
-              }
-            }
-          }
-        },
-        {
-          "description": "Authenticating anonymously",
-          "data": {
-            "request": {
-              "type": "method",
-              "method": "auth",
-              "arguments": [12345],
-              "id": 0
-            },
-            "response": {
-              "type": "reply",
-              "error": null,
-              "id": 0,
-              "data": {
-                "authenticated": false,
-                "roles": []
-              }
+      "examples": [{
+        "description": "Authenticating as a User.",
+        "data": {
+          "request": {
+            "type": "method",
+            "method": "auth",
+            "arguments": [
+              12345,
+              54321,
+              "key"
+            ],
+            "id": 0
+          },
+          "response": {
+            "type": "reply",
+            "error": null,
+            "id": 0,
+            "data": {
+              "authenticated": true,
+              "roles": ["Owner"]
             }
           }
         }
-      ]
+      }, {
+        "description": "Authenticating anonymously",
+        "data": {
+          "request": {
+            "type": "method",
+            "method": "auth",
+            "arguments": [12345],
+            "id": 0
+          },
+          "response": {
+            "type": "reply",
+            "error": null,
+            "id": 0,
+            "data": {
+              "authenticated": false,
+              "roles": []
+            }
+          }
+        }
+      }]
     },
     "msg": {
       "description": "Send a chat message to the server, the server will reply with data identical to a [ChatMessage](#chat__events__) event.",
@@ -61,17 +58,22 @@
           "id": 2
         },
         "response": {
-          "type":"reply",
-          "error":null,
-          "id":2,
-          "data":{
-            "channel":12345,
-            "id":"06cba8a0-3a4a-11e6-b410-e9a72fcede64",
-            "user_name":"username","user_id":12345,
-            "user_roles":["User"],
-            "message":{
-              "message":[{"type":"text","data":"Hello World!","text":"Hello World!"}],
-              "meta":{}
+          "type": "reply",
+          "error": null,
+          "id": 2,
+          "data": {
+            "channel": 12345,
+            "id": "06cba8a0-3a4a-11e6-b410-e9a72fcede64",
+            "user_name": "username",
+            "user_id": 12345,
+            "user_roles": ["User"],
+            "message": {
+              "message": [{
+                "type": "text",
+                "data": "Hello World!",
+                "text": "Hello World!"
+              }],
+              "meta": {}
             }
           }
         }
@@ -81,26 +83,35 @@
       "description": "Send a whisper to another user in the chat.",
       "example": {
         "request": {
-          "type":"method",
-          "method":"whisper",
-          "arguments":["username","message"],
-          "id":5
+          "type": "method",
+          "method": "whisper",
+          "arguments": [
+            "targetUsername",
+            "message"
+          ],
+          "id": 5
         },
-        "response":{
-          "type":"reply",
-          "error":null,
-          "id":5,
-          "data":{
-            "channel":12345,
-            "id":"077e31c0-3a34-11e6-89dd-6363b2f3be15",
-            "user_name":"username",
-            "user_id":12345,
-            "user_roles":["User"],
-            "message":{
-              "message":[{"type":"text","data":"hi","text":"hi"}],
-              "meta":{"whisper":true}
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 5,
+          "data": {
+            "channel": 12345,
+            "id": "077e31c0-3a34-11e6-89dd-6363b2f3be15",
+            "user_name": "username",
+            "user_id": 12345,
+            "user_roles": ["User"],
+            "message": {
+              "message": [{
+                "type": "text",
+                "data": "hi",
+                "text": "hi"
+              }],
+              "meta": {
+                "whisper": true
+              }
             },
-              "target":"username"
+            "target": "username"
           }
         }
       }
@@ -127,68 +138,70 @@
     "timeout": {
       "description": "Times a User out, they cannot send messages until the duration is over.",
       "example": {
-          "request": {
-              "type": "method",
-              "method":"timeout",
-              "arguments": [
-                  "username",
-                  "duration"
-              ],
-              "id": 4
-          },
-          "response": {
-              "type":"reply",
-              "error":null,
-              "id":4,
-              "data":"Username has been timed out for duration."
-          }
+        "request": {
+          "type": "method",
+          "method": "timeout",
+          "arguments": [
+            "username",
+            "duration"
+          ],
+          "id": 4
+        },
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 4,
+          "data": "Username has been timed out for duration."
+        }
       }
     },
     "deleteMessage": {
-        "description": "Deletes a message from chat by. First argument must be the message ID you want to delete.",
-        "example": {
-            "request": {
-                "type": "method",
-                "method": "deleteMessage",
-                "arguments": [
-                    "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd"
-                ],
-                "id":10
-            },
-            "response": {
-                "type": "reply",
-                "error": null,
-                "id": 10,
-                "data": "Message deleted."
-            }
+      "description": "Deletes a message from chat by. First argument must be the message ID you want to delete.",
+      "example": {
+        "request": {
+          "type": "method",
+          "method": "deleteMessage",
+          "arguments": [
+            "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd"
+          ],
+          "id": 10
+        },
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 10,
+          "data": "Message deleted."
         }
+      }
     },
     "history": {
       "description": "Request previous messages from this chat from before you joined. The argument controls how many messages are requested. 100 is the maximum.",
       "example": {
         "request": {
-          "type":"method",
-          "method":"history",
-          "arguments":[1],
-          "id":1
+          "type": "method",
+          "method": "history",
+          "arguments": [1],
+          "id": 1
         },
         "response": {
-          "type":"reply",
-          "error":null,
-          "id":1,
-          "data":[
-            {
-              "channel":12345,
-              "id":"8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd",
-              "user_name":"username",
-              "user_id":186526,
-              "user_roles":["User"],
-              "message":{
-                "message":[{"type":"text","data":"historic message","text":"historic message"}],
-                "meta":{}
-              }
+          "type": "reply",
+          "error": null,
+          "id": 1,
+          "data": [{
+            "channel": 12345,
+            "id": "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd",
+            "user_name": "username",
+            "user_id": 186526,
+            "user_roles": ["User"],
+            "message": {
+              "message": [{
+                "type": "text",
+                "data": "historic message",
+                "text": "historic message"
+              }],
+              "meta": {}
             }
-          ]
+          }]
         }
       }
     },
@@ -196,158 +209,157 @@
       "description": "Start a giveaway in the channel.",
       "example": {
         "request": {
-          "type":"method",
-          "method":"giveaway:start",
-          "arguments":[],
-          "id":11
+          "type": "method",
+          "method": "giveaway:start",
+          "arguments": [],
+          "id": 11
         },
-        "response": {"type":"reply","error":null,"id":11,"data":"Starting a giveaway"}
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 11,
+          "data": "Starting a giveaway"
+        }
       }
     },
     "ping": {
-        "description": "A ping method, used in environments where websocket implementations do not natively support pings.",
-        "example": {
-            "request": {
-              "type":"method",
-              "method":"ping",
-              "arguments":[],
-              "id":12
-            },
-            "response": {
-                "type":"reply",
-                "error":null,
-                "id":12
-            }
+      "description": "A ping method, used in environments where websocket implementations do not natively support pings.",
+      "example": {
+        "request": {
+          "type": "method",
+          "method": "ping",
+          "arguments": [],
+          "id": 12
+        },
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 12
         }
+      }
     }
   },
   "events": {
     "ChatMessage": {
       "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
-      "examples": [
-        {
-          "title": "Regular Message",
-          "description": "A regular channel message seen by all users",
+      "examples": [{
+        "title": "Regular Message",
+        "description": "A regular channel message seen by all users",
+        "data": {
+          "channel": 12345,
+          "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
+          "user_name": "Username",
+          "user_id": 12345,
+          "user_roles": [
+            "User"
+          ],
+          "message": {
+            "message": [{
+              "type": "text",
+              "data": "Hello! ",
+              "text": "Hello! "
+            }, {
+              "type": "emoticon",
+              "text": ":)",
+              "path": "default/1F604"
+            }, {
+              "type": "text",
+              "text": " ",
+              "data": " "
+            }, {
+              "type": "link",
+              "url": "https://beam.pro/Beam",
+              "text": "beam.pro/Beam"
+            }, {
+              "type": "emoticon",
+              "source": "external",
+              "pack": "https://uploads.beam.pro/emoticons/x.png",
+              "coords": {
+                "x": 24,
+                "y": 48,
+                "width": 24,
+                "height": 24
+              },
+              "text": ":coolpartneremote"
+            }],
+            "meta": {}
+          }
+        }
+      }, {
+        "title": "Whisper",
+        "description": "A private whisper from one user to another which is only sent to the recipient. The `meta` object contains a `whisper` attribute which is `true`.",
+        "data": {
+          "type": "event",
+          "event": "ChatMessage",
           "data": {
             "channel": 12345,
-            "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
-            "user_name": "Username",
+            "id": "eaf6e9b0-3a25-11e6-b410-e9a72fcede64",
+            "user_name": "username",
             "user_id": 12345,
             "user_roles": [
               "User"
             ],
             "message": {
-              "message": [
-                {
-                  "type": "text",
-                  "text": "Hello!"
-                },
-                {
-                  "type": "emoticon",
-                  "text": ":)",
-                  "path": "default/1F604"
-                },
-                {
-                  "type": "link",
-                  "url": "http://beam.pro/awesome_channel",
-                  "text": "Check out mychannel, yo!"
-                },
-                {
-                  "type":"emoticon",
-                  "source":"external",
-                  "pack":"https://uploas.beam.pro/emoticons/x.png",
-                  "coords":{"x":24,"y":48,"width":24,"height":24},
-                  "text":":coolpartneremote"
-                }
-              ],
-              "meta": {}
-            }
+              "message": [{
+                "type": "text",
+                "data": "hi",
+                "text": "hi"
+              }],
+              "meta": {
+                "whisper": true
+              }
+            },
+            "target": "recipient username"
           }
-        },
-        {
-          "title":"Whisper",
-          "description":"A private whisper from one user to another which is only sent to the recipient. The `meta` object contains a `whisper` attribute which is `true`.",
-          "data": {
-            "type": "event",
-            "event": "ChatMessage",
-            "data": {
-                "channel": 12345,
-                "id": "eaf6e9b0-3a25-11e6-b410-e9a72fcede64",
-                "user_name": "username",
-                "user_id": 12345,
-                "user_roles": [
-                    "User"
-                ],
-                "message": {
-                    "message": [
-                        {
-                            "type": "text",
-                            "data": "hi",
-                            "text": "hi"
-                        }
-                    ],
-                    "meta": {
-                        "whisper": true
-                    }
-                },
-                "target": "recipient username"
-            }
-          }
-        },
-        {
-          "title": "Action",
-          "description": "When a user uses `/me` in chat. The `meta` object contains a `me` attribute which is `true`.",
-          "data": {
-            "type": "event",
-            "event": "ChatMessage",
-            "data": {
-                "channel": 12345,
-                "id": "c46148d0-3a30-11e6-b368-2953589298fa",
-                "user_name": "username",
-                "user_id": 12345,
-                "user_roles": [
-                    "User"
-                ],
-                "message": {
-                    "message": [
-                        {
-                            "type": "text",
-                            "data": "waves",
-                            "text": "waves"
-                        }
-                    ],
-                    "meta": {
-                        "me": true
-                    }
-                }
-            }
-          }
-        },
-        {
-            "title": "Tag",
-            "description": "When a user tags another user with `@` e.g. `@username`",
-            "data": {
-                "channel": 12345,
-                "id": "c46148d0-3a30-11e6-b368-2953589298fa",
-                "user_name": "username",
-                "user_id": 12345,
-                "user_roles": [
-                    "User"
-                ],
-                "message": {
-                    "message": [
-                        {
-                            "text": "@username",
-                            "type": "tag",
-                            "username": "username",
-                            "id": 12345
-                        }
-                    ],
-                    "meta": {}
-                }
-            }
         }
-      ]
+      }, {
+        "title": "Action",
+        "description": "When a user uses `/me` in chat. The `meta` object contains a `me` attribute which is `true`.",
+        "data": {
+          "type": "event",
+          "event": "ChatMessage",
+          "data": {
+            "channel": 12345,
+            "id": "c46148d0-3a30-11e6-b368-2953589298fa",
+            "user_name": "username",
+            "user_id": 12345,
+            "user_roles": [
+              "User"
+            ],
+            "message": {
+              "message": [{
+                "type": "text",
+                "data": "waves",
+                "text": "waves"
+              }],
+              "meta": {
+                "me": true
+              }
+            }
+          }
+        }
+      }, {
+        "title": "Tag",
+        "description": "When a user tags another user with `@` e.g. `@username`",
+        "data": {
+          "channel": 12345,
+          "id": "c46148d0-3a30-11e6-b368-2953589298fa",
+          "user_name": "username",
+          "user_id": 12345,
+          "user_roles": [
+            "User"
+          ],
+          "message": {
+            "message": [{
+              "text": "@username",
+              "type": "tag",
+              "username": "username",
+              "id": 12345
+            }],
+            "meta": {}
+          }
+        }
+      }]
     },
     "UserJoin": {
       "description": "Sent when a user joins the chat.",
@@ -417,47 +429,58 @@
     "DeleteMessage": {
       "description": "Sent when a message has been deleted from chat.",
       "example": {
-        "type":"event",
-        "event":"DeleteMessage",
-        "data":{
-          "id":"b6661250-3a31-11e6-830a-a1d867c5621f"
+        "type": "event",
+        "event": "DeleteMessage",
+        "data": {
+          "id": "b6661250-3a31-11e6-830a-a1d867c5621f"
         }
       }
     },
     "PurgeMessage": {
       "description": "Sent when a user's messages are purged.",
       "example": {
-        "type":"event",
-        "event":"PurgeMessage",
-        "data":{
-          "user_id":12345
+        "type": "event",
+        "event": "PurgeMessage",
+        "data": {
+          "user_id": 12345
         }
       }
     },
     "ClearMessages": {
-        "description": "Sent when the server clears all messages in chat.",
-        "example": {
-            "type":"event",
-            "event":"ClearMessages",
-            "data":{}
-        }
+      "description": "Sent when the server clears all messages in chat.",
+      "example": {
+        "type": "event",
+        "event": "ClearMessages",
+        "data": {}
+      }
     },
     "UserUpdate": {
       "description": "Sent when a user is updated, usually on status change. E.g. Modding, Subscribing, Banning.",
-      "example":{
-        "type":"event",
-        "event":"UserUpdate",
-        "data":{
-          "user":12345,
-          "roles":["Banned","Pro","User"],
-          "permissions":[],
-          "username":"username"
+      "example": {
+        "type": "event",
+        "event": "UserUpdate",
+        "data": {
+          "user": 12345,
+          "roles": ["Banned", "Pro", "User"],
+          "permissions": [],
+          "username": "username"
         }
       }
     },
     "UserTimeout": {
-        "description": "Sent only to a user when they are timed out.",
-        "example": {"type":"event","event":"UserTimeout","data":{"user":{"user_name":"username","user_id":102534,"user_roles":["Pro","User"]},"duration":59998}}
+      "description": "Sent only to a user when they are timed out.",
+      "example": {
+        "type": "event",
+        "event": "UserTimeout",
+        "data": {
+          "user": {
+            "user_name": "username",
+            "user_id": 102534,
+            "user_roles": ["Pro", "User"]
+          },
+          "duration": 59998
+        }
+      }
     }
   }
 }
