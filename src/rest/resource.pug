@@ -19,6 +19,9 @@ mixin typeDetails(typeName)
                     h5.title
                         +simpleTypeHeading(propertyName, property)
                     +simpleType(propertyName, property)
+mixin methodAnnotations(annotations)
+    if annotations.deprecated
+        .alert.alert-danger This method is deprecated. !{annotations.deprecated.structuredValue}
 
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
@@ -34,6 +37,8 @@ mixin method(method, resource)
                         = resource.relativeUri
 
                 .modal-body
+                    if method.annotations
+                        +methodAnnotations(method.annotations)
                     if method.description
                         != marked(method.description)
                     if method.securedBy
