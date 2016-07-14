@@ -144,6 +144,25 @@
           }
       }
     },
+    "deleteMessage": {
+        "description": "Deletes a message from chat by. First argument must be the message ID you want to delete.",
+        "example": {
+            "request": {
+                "type": "method",
+                "method": "deleteMessage",
+                "arguments": [
+                    "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd"
+                ],
+                "id":10
+            },
+            "response": {
+                "type": "reply",
+                "error": null,
+                "id": 10,
+                "data": "Message deleted."
+            }
+        }
+    },
     "history": {
       "description": "Request previous messages from this chat from before you joined. The argument controls how many messages are requested. 100 is the maximum.",
       "example": {
