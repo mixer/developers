@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Attributions &amp; Licenses
+
+block content
+    .container
+        .page-header
+            p Here at Beam we use a significant amount of code from the open source community, and we try to #[a(href='https://github.com/WatchBeam') give back] when we can too! Listed below are licenses for many of the modules and submodules used in various places across the Beam platform.
+
+        +highlightFile('text', 'legal/licenses.txt')
