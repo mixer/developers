@@ -28,17 +28,10 @@ ol
 
 h2(id='interactive__packets') Packets
 p.
-    Protocol Buffer Packets start with their length followed by their packet ID,
-    formatted as variable length unsigned integers.
-    (Note that the length refers to the encoded protobuf data, not including the
-     packet ID or the length itself.) Variable integers are described in the
-    #[a(href='https://developers.google.com/protocol-buffers/docs/encoding#varints') protocol buffer specification].
+    Protocol Buffer packets are encoded in a binary websocket frame. They start with their their packet ID, formatted as variable length unsigned integers. Variable-length integers are described in the #[a(href='https://developers.google.com/protocol-buffers/docs/encoding#varints') protocol buffer specification].
 
 p A single packet can be represented as follows:
 pre.
-    ┌───────────────────────┐
-    │Packet Length (varuint)│
-    └───────────────────────┘
     ┌───────────────────────┐
     │  Packet ID (varuint)  │
     └───────────────────────┘
