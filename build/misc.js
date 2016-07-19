@@ -39,7 +39,7 @@ function getLocals () {
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
         rest: readJSONFile(path.join(__dirname, '/tmp/raml-doc.json')),
-        beConfig: require(path.join(__dirname, '/tmp/backend/config/default.js')),
+        beConfig: require('./tmp/backend/config/default.js'),
         permissions: require('@mcph/beam-common').permissions,
         bsTabs: {},
         highlight: (lang, str) => {
