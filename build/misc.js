@@ -7,6 +7,16 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
+const orderObject = require('./util').orderObject;
+
+/**
+ * Reads a json file
+ * @param  {String} filePath
+ * @return {Object}
+ */
+function readJSONFile (filePath) {
+    return JSON.parse(fs.readFileSync(filePath));
+}
 
 /**
  * Generates locals required for templating.
@@ -22,11 +32,14 @@ function getLocals () {
     });
 
     const out = {
+        _,
+        orderObject,
         marked,
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/liveloading/events'),
         chat: require('../src/reference/chat/data'),
-        rest: JSON.parse(fs.readFileSync(path.join(__dirname, '/tmp/raml-doc.json'))),
+        rest: readJSONFile(path.join(__dirname, '/tmp/raml-doc.json')),
+        beConfig: require(path.join(__dirname, '/tmp/backend/config/default.js')),
         permissions: require('@mcph/beam-common').permissions,
         bsTabs: {},
         highlight: (lang, str) => {
@@ -36,6 +49,16 @@ function getLocals () {
         readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
 
         restUtil: {
+            /**
+             * Finds and extracts a trait definition from the `is` property of a method.
+             * @param  {Object} method
+             * @param  {String} type
+             * @return {Object?}
+             */
+            getTraitInfo (method, type) {
+                const temp = _.find(method.is, value => value[type]);
+                return temp && temp[type];
+            },
             /**
             * Get the root type of a type.
             * This is one of the types:
