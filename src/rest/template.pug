@@ -11,6 +11,26 @@ include ./resource.pug
         include ../tutorials/rest_intro.pug
 
         p If you want some more information about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
+        h2 Rate Limiting
+        p.
+            In order to garantuee API stability there are a few rate limits in place,
+            all endpoints that are rate limited have their #[code bucket] noted below.
+        p Here is a list of all rate limiting buckets and their attributes.
+        table.table.table-condensed
+            caption Each endpoint can be called #[code Request Count] times per #[code Time Interval].
+            thead
+                tr
+                    th Name
+                    th Request Count
+                    th Time Interval (in Seconds)
+            tbody
+                - orderered = orderObject(beConfig.ratelimit.buckets)
+                for bucket, name in orderered
+                    tr
+                        td= name
+                        td= bucket.max
+                        td= bucket.interval/1000
+
         include ../snippets/help.pug
         h2 Endpoints
         for resource in rest.resources

@@ -10,25 +10,12 @@ const del = require('del');
 
 const fs = Bluebird.promisifyAll(require('fs'));
 const childProcess = Bluebird.promisifyAll(require('child_process'));
+const orderObject = require('./util').orderObject;
 
 // Function which returns the raml parser. We don't load this on require-time
 // since it has a lot of dependencies and slows down development builds when
 // unneeded.
 const ramlParser = () => require('raml-1-parser');
-
-/**
- * Creates a new object with all values from the passed object ordered by keys.
- * @param  {Object} obj
- * @return {Object}
- */
-function orderObject (obj) {
-    const ret = {};
-    const orderedKeys = Object.keys(obj).sort();
-    for (const key of orderedKeys) {
-        ret[key] = obj[key];
-    }
-    return ret;
-}
 
 /**
  * Ensures that the repo cloneable at the provided address is downloaded
