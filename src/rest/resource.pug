@@ -56,7 +56,6 @@ mixin method(method, resource)
                                     | !{marked(securityScheme.description)}
                     if method.is
                         - rateLimitInfo = restUtil.getTraitInfo(method, 'rateLimited')
-                        - console.log(rateLimitInfo)
                         if rateLimitInfo
                             .alert.alert-warning.
                                 This endpoint is rate-limited with the #[b= rateLimitInfo.bucket] bucket.
