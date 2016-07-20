@@ -199,10 +199,7 @@ mixin resourceModals(resource)
 mixin resourceRows(resource)
     if resource.methods
         for method in resource.methods
-            if method.annotations && method.annotations.deprecated
-                - deprecated = true
-            else
-                - deprecated = false
+            - deprecated = method.annotations && method.annotations.deprecated
             tr.rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'` class={ 'bg-danger':deprecated})
                 td.rest-endpoint-method= method.method
                 td.rest-endpoint-path
