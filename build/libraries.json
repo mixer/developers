@@ -18,6 +18,12 @@
         "official": true
     },
     {
+        "language": "swift",
+        "name": "WatchBeam/beam-client-swift",
+        "alias": "client-swift",
+        "official": true
+    },
+    {
         "language": "java",
         "name": "WatchBeam/beam-interactive-java",
         "alias": "interactive-java",
