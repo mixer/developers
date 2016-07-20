@@ -199,12 +199,21 @@ mixin resourceModals(resource)
 mixin resourceRows(resource)
     if resource.methods
         for method in resource.methods
-            tr.rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'`)
+            - deprecated = method.annotations && method.annotations.deprecated
+            tr.rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'` class={ 'bg-danger':deprecated})
                 td.rest-endpoint-method= method.method
                 td.rest-endpoint-path
                     = resource.parentUrl + resource.relativeUri
                     if method.securedBy && method.securedBy.length > 0
                         span.icon.icon-lock-3(title='Authentication required')
+
+                    if method.is
+                        - rateLimitInfo = restUtil.getTraitInfo(method, 'rateLimited')
+                        if rateLimitInfo
+                            span.icon.icon-time-1(title='Rate Limited')
+                    if deprecated
+                        span.icon.icon-minus-5(title='Deprecated')
+
                 td.rest-endpoint-description.hidden-xs
                     = method.description.slice(0, method.description.indexOf('.'))
 
