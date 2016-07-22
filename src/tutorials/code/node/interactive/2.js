@@ -4,6 +4,7 @@ beam.use('password', {
     password,
 })
 .attempt()
+.then(() => beam.game.join(channelId))
 .then(res => createRobot(res))
 .then(robot => performRobotHandShake(robot))
 .then(robot => setupRobotEvents(robot))
