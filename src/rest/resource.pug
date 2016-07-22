@@ -75,11 +75,11 @@ mixin method(method, resource)
                                 tabsItems.response = 'Response';
                             }
 
-                        +bsTabs(`${resource.uniqueId}_tabs`, tabsItems)
+                        +bsTabs(`${resource.uniqueId}_${method.method}_tabs`, tabsItems)
 
                     .tab-content
                         if method.allUriParameters.length || method.queryParameters || method.headers || method.body
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'request')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'request')
                                 if resource.allUriParameters.length
                                     h3 URI Parameters
                                     ul.rest-properties
@@ -125,7 +125,7 @@ mixin method(method, resource)
                                             pre
                                                 code b.example
                         if method.responses
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'response')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'response')
                                 for response, key in method.responses
                                     h2: +statusCode(key)
                                     if (response.description)
@@ -161,7 +161,7 @@ mixin method(method, resource)
                                                 pre
                                                     code= b.example
                         if method.securedBy
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'security')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'security')
                                 for securedBy in method.securedBy
                                     - securityScheme = restUtil.securitySchemeWithName(securedBy)
                                     h2
