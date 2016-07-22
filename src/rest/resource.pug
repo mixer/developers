@@ -75,11 +75,11 @@ mixin method(method, resource)
                                 tabsItems.response = 'Response';
                             }
 
-                        +bsTabs(`${resource.uniqueId}_tabs`, tabsItems)
+                        +bsTabs(`${resource.uniqueId}_${method.method}_tabs`, tabsItems)
 
                     .tab-content
                         if method.allUriParameters.length || method.queryParameters || method.headers || method.body
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'request')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'request')
                                 if resource.allUriParameters.length
                                     h3 URI Parameters
                                     ul.rest-properties
@@ -110,8 +110,12 @@ mixin method(method, resource)
                                         ul
                                             li #[strong Media Type]: #{key}
                                             if b.type
-                                                li #[strong Data Type]: #[+typeNameString(b)]
-
+                                                li
+                                                    strong Data Type
+                                                    | :
+                                                    = ' '
+                                                    +typeNameString(b)
+                                                    +simpleType(key, b)
                                         if b.schema
                                             p
                                                 strong Schema
@@ -125,7 +129,7 @@ mixin method(method, resource)
                                             pre
                                                 code b.example
                         if method.responses
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'response')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'response')
                                 for response, key in method.responses
                                     h2: +statusCode(key)
                                     if (response.description)
@@ -143,25 +147,32 @@ mixin method(method, resource)
                                         h3 Body
                                         for b, key in response.body
                                             ul
-                                                li #[strong Media Type]: #{key}
+                                                li
+                                                    strong Media Type
+                                                    | :
+                                                    = ' '
+                                                    = key
                                                 if b.type
                                                     li
-                                                        strong Data Type:
+                                                        strong Data Type
+                                                        | :
+                                                        = ' '
                                                         +typeNameString(b)
+                                                        +simpleType(key, b)
                                             if b.schema
-                                                p
+                                                li
                                                     strong Schema
                                                     | :
                                                 pre
                                                     code= b.schema
                                             if b.example
-                                                p
+                                                li
                                                     strong Example
                                                     | :
                                                 pre
                                                     code= b.example
                         if method.securedBy
-                            +bsTabItem(`${resource.uniqueId}_tabs`, 'security')
+                            +bsTabItem(`${resource.uniqueId}_${method.method}_tabs`, 'security')
                                 for securedBy in method.securedBy
                                     - securityScheme = restUtil.securitySchemeWithName(securedBy)
                                     h2
