@@ -40,10 +40,5 @@
         "name": "WatchBeam/beam-interactive-python",
         "alias": "interactive-python",
         "official": true
-    },
-    {
-        "language": "haxe",
-        "name": "DragOnGamer626/beam_api_core",
-        "alias": "api_core"
     }
 ]
