@@ -38,6 +38,10 @@ include ./resource.pug
 
         p.
             CSRF tokens must be passed to the server in the X-CSRF-Token header when making requests which use cookie-based authentication. Failing to pass a valid CSRF token will cause the request to return in a #[code 461 CSRF Token Invalid] response. The server will include an X-CSRF-Token header in the response, which contains a CSRF token that the client can use to retry the request.
+        a(href='#csrfExample' data-toggle='collapse') Example
+        #csrfExample.collapse
+            .well
+                +highlightFile('text','./rest/csrf.txt')
 
         include ../snippets/help.pug
         h2 Endpoints

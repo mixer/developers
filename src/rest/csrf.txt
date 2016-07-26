@@ -1,0 +1,17 @@
+$ # Without passing a CSRF token:
+$ http get https://beam.pro/api/v1/chats/129
+
+HTTP/1.1 461 CSRF token invalid
+Content-Type: application/json
+X-CSRF-Token: dca5130a5a6390bd83c077a902e1edf8d052bcc8
+
+{
+    "error": "Invalid CSRF header",
+    "statusCode": 461
+}
+
+$ # Now we have a CSRF token to use:
+$ http get https://beam.pro/api/v1/chats/129 X-CSRF-Token:dca5130a5a6390bd83c077a902e1edf8d052bcc8
+
+HTTP/1.1 200 OK
+...
