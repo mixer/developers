@@ -1,6 +1,4 @@
-# Developers
-
-[![Join the chat at https://gitter.im/WatchBeam/developers](https://badges.gitter.im/WatchBeam/developers.svg)](https://gitter.im/WatchBeam/developers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Developers [![Join the chat at https://gitter.im/WatchBeam/developers](https://badges.gitter.im/WatchBeam/developers.svg)](https://gitter.im/WatchBeam/developers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Project used to generate contents of the [Developer Lab](http://beam.pro/lab).
 
 ## Requirements
