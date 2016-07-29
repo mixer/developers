@@ -90,19 +90,17 @@ block reference
                     td!= marked(description)
 
     h2#sunset_plan Sunset Plan
-
     p.
-        Liveloading and sails.io.js as it stands currently will be sunsetted in the upcoming weeks
-        (likely late July 2016). At that time,
-        liveloading will remain as it stands currently but will not receive updates
-        or new development.
-        After several months (November or December 2016) it will be removed from our API altogether.
+        Liveloading and sails.io.js as it stands currently will be sunsetted on #[strong August 1st]. At that time, liveloading will remain as it stands currently but will not receive updates or new development. In #[strong  October] it will be removed from our API altogether. It is being replaced by a new service called #[strong Constellation].
 
+    h3 Technical Details
+    ul
+        li.
+            The ability to call HTTP endpoints over websockets will be deprecated and removed entirely in #[strong October], in favor of HTTP/2 persistent connections.
+        li.
+            Constellation does #[strong not] have a backwards-compatible protocol. However, client libraries will be developed for Constellation and backwards compatibility will be maintained within existing clients' APIs.
+
+    h3 Specification
     p.
-        The general ability to call HTTP endpoints over websockets will be deprecated and removed
-        entirely, in favor of HTTP/2 persistent connections.
-        For this reason we haven't covered it much in the guide and we recommend that you avoid
-        using it for new development.
-
-    p Constellation, which is replacing liveloading, will not have a backwards-compatible protocol. However, client libraries will be developed for Constellation and, ideally, backwards compatibility will be maintained within existing clients' APIs. A technical draft of the protocol and its event system is #[a(href='/reference/liveloading/constellation-draft.pdf') available here].
+        The specification for Constellation is #[a(href='/reference/liveloading/constellation.pdf') available here]. We'll be converting the specification to a reference page on the developer site in the coming months.
     include ../../snippets/help.pug
