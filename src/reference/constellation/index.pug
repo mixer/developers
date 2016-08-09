@@ -1,0 +1,160 @@
+extends ../reference_layout.pug
+
+block title
+    | Constellation Reference | Beam Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Constellation Reference
+block menu
+    .hidden-print.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                li: a(href='#introduction') Introduction
+                li: a(href='#session') Session
+                li: a(href='#protocol') Protocol
+                li: a(href='#packets') Packets
+                li: a(href='#errors') Error Codes
+                li: a(href='#messages') Messages
+                li: a(href='#events') Events
+block reference
+    .page-header
+        h2#introduction Introduction
+    p.
+        Constellation is the new daemon whose purpose is to unite all stateful function of the website, such as liveloading. This involves:
+    ul
+        li Deprecating the loved/hated Sails socket on realtime.beam.pro and using good ol’ HTTP (well, HTTP/2) for API calls. This drastically simplifies many parts of our stack and debugging.
+        li Creating a new websocket service on constellation.beam.pro which handles liveloading and other statefulness.
+
+    p.
+        The current liveloading socket on realtime.beam.pro will remain in place until #[strong October 1st], at which point it will be removed from Beam.
+
+    h2#session Session
+    p.
+        Users authenticate to Constellation by sending their existing cookies in their socket handshake. No external API endpoints needed.
+    p.
+        Users remain connected to Constellation throughout their session on the site. During the session, they may subscribe to events happening on the site and get notifications when those events occur.
+
+    h2#protocol Protocol
+    p.
+        Constellation is based on JSON-RPC with additional support for an event system. Initially a user handshakes with #[strong constellation.beam.pro]. Aside from the usual handshake headers, following headers may be passed:
+    ul
+        li #[code cookie]: may contain the Beam session cookie. Its presence will cause Constellation to attempt to authenticate the user.
+        li #[code authorization]: may contain an OAuth Bearer token to authenticate with for 3rd party apps, rather than using a cookie. This will indicate to Constellation that the user is a bot.
+        li
+            p.
+                #[code x-sec-websocket-protocol]: if set to cnstl-gzip, Constellation may choose to send websocket frames down as binary, gzipped JSON rather than plain text. Passing this is generally handled by websocket clients themselves, and are usually configured by specifying a preferred subprotocol.
+
+            p.
+                The client may detect gzipped frames by the fact that they are binary messages and begin with the magic bytes 0x1f and 0x8b as the first and second payload byte, respectively.
+        li #[code x-is-bot]: this must be set to true if the client is an automated bot rather than a human user and you are not using an authorization header. Failure to set this may cause the account to be banned.
+    h2#packets Packets
+    p.
+        There are three packet types: request, reply, and event. These are sent over the websocket as JSON messages. Messages to the client may be gzipped if x-supports-gzip was passed in the handshake, and messages sent to Constellation are always allowed to be gzipped.
+    h3#packets_method Method
+    p.
+        Method packets are sent from the client in a way very similar to JSON-RPC. This is the only packet the client may send to the server. A packet may look like the following:
+    p.
+        {"type": "method", "method": "divide", "params": {"numerator": 16, "denominator": 4}, "id": 123}
+    ul
+        li #[code type] is always set to "method"
+        li #[code method] should be the name of the method to call
+        li #[code params] should be an object, not an array, of named arguments to pass into the method.
+        li #[code id] may be any uint32. It’s included in the reply packet and used to correlate replies from the socket.
+    h3#packets_reply Reply
+    p.
+        Reply packets are sent in response to method packets. Replies are always sent in response to methods unless the socket closes before they may be sent. Some reply packets may look like the following:
+    +highlightStr('json','{"type": "reply", "result": 4, "error": null, "id": 123}')
+    +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 1000, "message": "Cannot divide by zero"}, "id": 124}')
+    ul
+        li #[code type] is always set to "reply"
+        li #[code id] is set to the id passed in the corresponding method packet
+        li #[code result] is the unstructured result of the method, or null
+        li
+            p.
+                #[code error] is an error which occurred, or null. If present it will always contain a "code" and an associated "message"
+            p.
+                Note that if fatal errors occur as a result of a method call, a websocket close frame will be sent instead of a reply. The close frame’s code and associated message will be the same as that which otherwise would have been sent in reply.error.
+    h3#packets_event Event
+    p.
+        Event packets are sent when an action occurs which a client as asked to be notified about. Event packets look like the following:
+
+    +highlightStr('json','{"type": "event", "event": "math_result", "data": 4}')
+    ul
+        li #[code type] is always set to "event"
+        li #[code event] is the string name of the event
+        li #[code data] is unstructured information associated with the event. Usually this is the same as found within the liveloading/sails event of the same type.
+    h2#errors Error Codes
+    p.
+        Constellation uses the 4xxx error code range reserved for use by applications in addition to the standard 1xxx codes. The following codes are in use:
+    ul
+        li #[code 1011] - Sent in a close or method reply if an unknown internal error occurs.
+        li #[code 1012] - Sent in a close frame when we deploy or restart Constellation; clients should attempt to reconnect.
+        li #[code 4000] - Error parsing payload as JSON
+        li #[code 4001] - Error decompressing a supposedly-gzipped payload
+        li #[code 4002] - Unknown packet type
+        li #[code 4003] - Unknown method name call
+        li #[code 4004] - Error parsing method arguments (not the right type or structure)
+        li #[code 4005] - The user session has expired; if using a cookie, they should log in again, or get a bearer auth token if using an authorization header.
+        li #[code 4100] - Unknown event used in a livesubscribe call
+        li #[code 4101] - You do not have access to subscribe to that livesubscribe event
+        li #[code 4102] - You are already subscribed to that livesubscribe event (during livesubscribe)
+        li #[code 4103] - You are not subscribed to that livesubscribe event (during liveunsubscribe)
+    h2#messages Messages
+    h3#messages_hello hello
+    p.
+        A hello event is sent down to the client when they first connect.
+    +highlightStr('json','{"type": "event", "event": "hello", "data": {"authenticated": true}}')
+    ul
+        li authenticated is true if the socket consumer authenticated as a user rather than a guest
+    h3#messages_livesubscribe livesubscribe
+    p.
+        A livesubscribe method is made available for users to listen to #[a(href='#events') liveloading events].
+
+    +highlightStr('json','{"type": "method", "method": "livesubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
+    ul
+        li #[code events] is an array of events to subscribe to. Note that either all events are successfully subscribed to, or a failure occurs and no events are subscribed to. Either do or do not, there is no try.
+    p.
+        A livesubscribe reply looks like one of the following:
+    ul
+        li.
+            A successful reply:
+        +highlightStr('json','{"type": "reply", "result": null, "error": null, "id": 42}')
+        li.
+            A reply with an invalid event:
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4100, "message": "Unknown event \"my silly event\" "}, "id": 42}')
+        li.
+            A reply for an event you do not have permission to see:
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4107, "message": "You do not have permission to subscribe to \"user:1:secrets\""}, "id": 42}')
+        li.
+            A reply for an event you are already subscribed to:
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4102, "message": "Attempt to duplicate subscription to \"user:1:update\""}, "id": 42}')
+    h3#messages_liveunsubscribe liveunsubscribe
+    p.
+        A liveunsubscribe method can be used to stop listening to previously-subscribed-to events:
+    +highlightStr('json','{"type": "method", "method": "livesubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
+    ul
+        li #[code events] is an array of events to unsubscribe from. Note that if you are not subscribed to one or more of the events, no error is returned.
+    p.
+        A liveunsubcribe reply looks like the following:
+    +highlightStr('json','{"type": "reply", "result": null, "error": null, "id": 42}')
+
+    h3#messages_liveevent live event
+    p.
+        A live event looks like the following. Do note the socket event names are not liveloading events. Events you ask for over liveloading are always "live" events which contain the liveloading information. This separation is added so that other kinds of events can be distinguished from liveloading events.
+    +highlightStr('json','{"type": "event", "event": "live", "data": {"channel": "user:1:update", "payload": {"sparks": 10000}}')
+    h2#events Events
+    table.table
+        thead
+            tr
+                th Event
+                th Description
+        tbody
+            for description, name in liveEvents
+                tr
+                    td(style='white-space:nowrap;'): code= name
+                    td!= marked(description)
+
+    include ../../snippets/help.pug
