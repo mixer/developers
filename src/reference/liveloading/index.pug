@@ -13,14 +13,15 @@ block menu
         nav
             ul.nav.nav-stacked
                 li: a(href='#introduction') Introduction
+                li: a(href='#sunset_plan') Sunset Plan
                 li: a(href='#subscribing__unsubscribing') Subscribing &amp; Unsubscribing
                 li: a(href='#events') Events
-                li: a(href='#sunset_plan') Sunset Plan
+
 block reference
     .page-header
         h2#introduction Introduction
         p.
-            Liveloading is the primary event system on Beam. When models update,
+            Liveloading is an event system on Beam. When models update,
             users follow channels, or anything else happens that clients might want to be aware of,
             it's sent over liveloading. We implement the same protocol as in
             #[a(href='http://sailsjs.org/documentation/reference/web-sockets/socket-client' target='_blank') sails.io.js]
@@ -47,6 +48,20 @@ block reference
             Pro tip: you can view liveloading in-action by
             #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log]
             on #[a(href='https://beam.pro' target='_blank') beam.pro].
+        h2#sunset_plan Sunset Plan
+        p.
+            Liveloading and sails.io.js as it stands currently will be sunsetted on #[strong August 1st]. At that time, liveloading will remain as it stands currently but will not receive updates or new development. In #[strong  October] it will be removed from our API altogether. It is being replaced by a new service called #[strong Constellation].
+
+        h3 Technical Details
+        ul
+            li.
+                The ability to call HTTP endpoints over websockets will be deprecated and removed entirely in #[strong October], in favor of HTTP/2 persistent connections.
+            li.
+                Constellation does #[strong not] have a backwards-compatible protocol. However, client libraries will be developed for Constellation and backwards compatibility will be maintained within existing clients' APIs.
+
+        h3 More Infomation
+        p.
+            For more information on constellation checkout it's #[a(href='/constellation/index.html') reference guide]
 
     h2#subscribing__unsubscribing Subscribing &amp; Unsubscribing
     p.
@@ -89,18 +104,4 @@ block reference
                     td(style='white-space:nowrap;'): code= name
                     td!= marked(description)
 
-    h2#sunset_plan Sunset Plan
-    p.
-        Liveloading and sails.io.js as it stands currently will be sunsetted on #[strong August 1st]. At that time, liveloading will remain as it stands currently but will not receive updates or new development. In #[strong  October] it will be removed from our API altogether. It is being replaced by a new service called #[strong Constellation].
-
-    h3 Technical Details
-    ul
-        li.
-            The ability to call HTTP endpoints over websockets will be deprecated and removed entirely in #[strong October], in favor of HTTP/2 persistent connections.
-        li.
-            Constellation does #[strong not] have a backwards-compatible protocol. However, client libraries will be developed for Constellation and backwards compatibility will be maintained within existing clients' APIs.
-
-    h3 Specification
-    p.
-        The specification for Constellation is #[a(href='/reference/liveloading/constellation.pdf') available here]. We'll be converting the specification to a reference page on the developer site in the coming months.
     include ../../snippets/help.pug
