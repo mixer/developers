@@ -43,7 +43,7 @@ block reference
     ul
         li #[strong cookie]: may contain the Beam session cookie. Its presence will cause Constellation to attempt to authenticate the user.
         li #[strong authorization]: may contain and OAuth Bearer token to authenticate with for 3rd party apps, rather than using a cookie. This will indicate to Constellation that the user is a bot.
-        li.
+        li
             p.
                 #[strong x-sec-websocket-protocol]: if set to cnstl-gzip, Constellation may choose to send websocket frames down as binary, gzipped JSON rather than plain text. Passing this is generally handled by websocket clients themselves, and are usually configured by specifying a preferred subprotocol.
 
