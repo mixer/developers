@@ -35,7 +35,7 @@ def login(username, password, code='', *, session=SESSION):
 
 def join_interactive(channel, *, session=SESSION):
     """Retrieve interactive connection information."""
-    return session.get(_build("/tetris/{channel}/robot").format(
+    return session.get(_build("/interactive/{channel}/robot").format(
         channel=channel)).json()
 
 
