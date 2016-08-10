@@ -6,7 +6,7 @@
     "channel:{id}:resubscribed": "Sent when an automatic resubscription to a channel happens. The body will contain the [User](/rest.html#User) object of the channel the user just resubscribed to. Additionally there are `since` and `until` properties. These are the dates for when the user first subscribed (from the start of recurring billing period) and when the subscription expires. Finally there's a `totalMonths` property, which is an integer indicating how many months the user has been subscribed since the beginning of time.",
     "channel:{id}:update": "You'll get an event sent down that matches the slug, containing changes on the [Channel model](/rest.html#Channel). The event may not necessarily include the entire channel resource. For example, when a channel goes online, an event with the key online going to true is sent.",
     "interactive:{id}:connect": "Sent when an interactive app connects to this channel",
-    "interactive:{id}:connect": "Sent when an interactive app disconnects from this channel",
+    "interactive:{id}:disconnected": "Sent when an interactive app disconnects from this channel",
     "team:{id}:deleted": "Sent when a [Team](/rest.html#Team) is deleted. The body will contain the team's old record.",
     "team:{id}:memberAccepted": "Sent when an invitee accepts their team invitation. The body will contain the accepting user's record.",
     "team:{id}:memberInvited": "Sent when a member is invited to a team. The body will contain the invited user's record.",
