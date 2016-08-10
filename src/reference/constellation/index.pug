@@ -134,7 +134,7 @@ block reference
     h3#messages_liveunsubscribe liveunsubscribe
     p.
         A liveunsubscribe method can be used to stop listening to previously-subscribed-to events:
-    +highlightStr('json','{"type": "method", "method": "livesubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
+    +highlightStr('json','{"type": "method", "method": "liveunsubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
     ul
         li #[code events] is an array of events to unsubscribe from. Note that if you are not subscribed to one or more of the events, no error is returned.
     p.
