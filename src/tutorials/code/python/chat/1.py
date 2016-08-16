@@ -1,12 +1,12 @@
 # Address of the beam website.
 # No trailing slash.
-beam_addr = 'https://beam.pro'
+BEAM_ADDR = 'https://beam.pro'
 
 # Username of the account.
-username = 'username'
+USERNAME = 'username'
 
 # Password of the account.
-password = 'password'
+PASSWORD = 'password'
 
 # The id of the channel you want to connect to.
-channel = 12345
+CHANNEL = 12345
