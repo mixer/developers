@@ -31,6 +31,8 @@ function getLocals () {
         },
     });
 
+    const permissions = require('@mcph/beam-common').permissions;
+    const permissionKeys = Object.keys(permissions).sort();
     const out = {
         _,
         orderObject,
@@ -40,7 +42,8 @@ function getLocals () {
         chat: require('../src/reference/chat/data'),
         rest: readJSONFile(path.join(__dirname, '/tmp/raml-doc.json')),
         beConfig: require('./tmp/backend/config/default.js'),
-        permissions: require('@mcph/beam-common').permissions,
+        permissions,
+        permissionKeys,
         bsTabs: {},
         highlight: (lang, str) => {
             if (lang === 'text') return str;

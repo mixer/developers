@@ -113,10 +113,11 @@ block reference
                 th Scope
                 th Description
         tbody
-            for data, name in permissions
+            for key in permissionKeys
+                - data = permissions[key]
                 if !data.administrative
                     tr
-                        td: code= name
+                        td: code= key
                         td= data.text
 
     include ../../snippets/help.pug
