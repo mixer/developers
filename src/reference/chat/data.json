@@ -135,6 +135,23 @@
         }
       }
     },
+    "vote:start": {
+        "description": "Starts a poll in the channel, requires apropriate permissions.",
+        "example":{
+            "request": {
+                "type": "method",
+                "method": "vote:start",
+                "arguments":["Turkey or Ham?",["Turkey","Ham"],30],
+                "id":3
+            },
+            "response": {
+                "type":"reply",
+                "error":null,
+                "id":3,
+                "data":"Poll started."
+            }
+        }
+    },
     "timeout": {
       "description": "Times a User out, they cannot send messages until the duration is over.",
       "example": {
