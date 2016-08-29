@@ -38,7 +38,7 @@ function getLocals () {
         orderObject,
         marked,
         libraries: require('./tmp/libraries'),
-        liveEvents: require('../src/reference/liveloading/events'),
+        liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
         rest: readJSONFile(path.join(__dirname, '/tmp/raml-doc.json')),
         beConfig: require('./tmp/backend/config/default.js'),
