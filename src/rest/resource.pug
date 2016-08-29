@@ -204,8 +204,8 @@ mixin resourceModals(resource)
         for method in resource.methods
             +method(method, resource)
     if resource.resources
-        for resource in resource.resources
-            +resourceModals(resource)
+        for subResource in resource.resources
+            +resourceModals(subResource)
 
 mixin resourceRows(resource)
     if resource.methods
@@ -229,5 +229,5 @@ mixin resourceRows(resource)
                     = method.description.slice(0, method.description.indexOf('.'))
 
     if resource.resources
-        for resource in resource.resources
-            +resourceRows(resource)
+        for subResource in resource.resources
+            +resourceRows(subResource)
