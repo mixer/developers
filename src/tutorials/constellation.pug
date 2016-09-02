@@ -1,0 +1,59 @@
+extends ./tutorial_layout.pug
+
+block title
+    | Constellation Tutorial | Beam Developers
+
+block tutorialTitle
+    h1 Constellation Tutorial
+
+block tutorialContent
+    h2#intro Introduction
+    p.
+        Constellation is our daemon responsible for stateful aspects of Beam. One of it's features is Live Loading. Live Loading let's you recieve realtime updates of models and resources as they change on beam.
+    p.
+        In this tutorial we're going to connect to Constellation and subscribe to live loading updates of your channel. If your viewer number or channel title change you'll recieve an update within your code that you can respond to.
+
+    h2#code Writing the Code
+    p Select a language below.
+
+    +bsTabs('constellation_guide', {
+        node: 'Node & TypeScript'
+    })
+        +bsTabItem('constellation_guide', 'node')
+            h3 Prerequisites
+            ol
+                li.
+                    Get #[a(href='https://nodejs.org/en/' target='_blank') NodeJS and NPM] for your platform.
+                li.
+                    Create a #[a(href='https://docs.npmjs.com/cli/init' target='_blank') new project] with npm.
+                li.
+                    Run #[code npm i -S carina ws]
+            h3 Usage
+            p.
+                #[a(href='https://github.com/WatchBeam/carina') Carina] is Beam's Node Constellation client. It makes talking to Constellation super easy.
+            p Let's start by importing and setting up all of the modules which we'll need and defining our channel id.
+            include ./channelid.pug
+
+            +highlightFile('javascript','./tutorials/code/node/constellation/1.js')
+            p Next we'll create an instance of carina to use for our code. We pass an object of arguments to the constructor. #[code isBot] must be set if you're writing an automated bot.
+            +highlightFile('javascript','./tutorials/code/node/constellation/2.js')
+            p To recieve live loading events you need to subscribe to them. We'll just need #[code channel:{id}:update]. For a full list of events check our #[a(href='/reference/constellation/index.html#events_live_events') Constellation reference guide]. You subscribe to events within carina by using the #[code subscribe] method.
+            +highlightFile('javascript','./tutorials/code/node/constellation/3.js')
+            p The second argument to the subscribe method is a function which will be called with the data when the event is sent. #[strong Inside] the function you can do a lot with the data but for now we'll just log it to the console.
+            +highlightFile('javascript','./tutorials/code/node/constellation/4.js')
+            p.
+                That's it! Save the file as 'constellation.js' and run it with #[code node constellation.js] from your terminal.
+            p The final code can be found below:
+            +highlightFile('java','./tutorials/code/node/constellation/5.js')
+            p Carina also works with TypeScript and the Browser. For more information on it checkout its #[a(href='https://github.com/watchbeam/carina') Github page]
+    h2 Further Ideas
+    ul
+        li Why not combine Constellation with our #[a(href='/tutorials/rest.html') REST API] and make something cool.
+        li Use some of the other #[a(href='/reference/constellation/index.html#events_live_events') Constellation events]
+    h2 Want More Info?
+    p.
+        If you'd like more information on Constellation system, checkout the #[a(href='/reference/constellation/index.html') reference guide].
+    include ../snippets/help.pug
+block tutorialMenu
+    li: a(href='#intro') Introduction
+    li: a(href='#code') Writing The Code
