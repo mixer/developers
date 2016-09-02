@@ -35,7 +35,7 @@ block tutorialContent
             include ./channelid.pug
 
             +highlightFile('javascript','./tutorials/code/node/constellation/1.js')
-            p Next we'll create an instance of carina to use for our code. We pass an object of arguments to the constructor. #[code isBot] must be set if you're writing an automated bot.
+            p Next we'll create an instance of carina to use for our code. We pass an object of options to the constructor. #[code isBot] must be set to true if you're writing an automated bot.
             +highlightFile('javascript','./tutorials/code/node/constellation/2.js')
             p To recieve live loading events you need to subscribe to them. We'll just need #[code channel:{id}:update]. For a full list of events check our #[a(href='/reference/constellation/index.html#events_live_events') Constellation reference guide]. You subscribe to events within carina by using the #[code subscribe] method.
             +highlightFile('javascript','./tutorials/code/node/constellation/3.js')
@@ -45,7 +45,7 @@ block tutorialContent
                 That's it! Save the file as 'constellation.js' and run it with #[code node constellation.js] from your terminal.
             p The final code can be found below:
             +highlightFile('java','./tutorials/code/node/constellation/5.js')
-            p Carina also works with TypeScript and the Browser. For more information on it checkout its #[a(href='https://github.com/watchbeam/carina') Github page]
+            p Carina also works with TypeScript and your Browser. For more information on it checkout its #[a(href='https://github.com/watchbeam/carina') Github page]
     h2 Further Ideas
     ul
         li Why not combine Constellation with our #[a(href='/tutorials/rest.html') REST API] and make something super cool.
