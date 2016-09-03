@@ -22,7 +22,7 @@ function readJSONFile (filePath) {
     }
 }
 
-function wrappedRequire(filepath) {
+function wrappedRequire (filepath) {
     try {
         return require(filepath);
     } catch (e) {

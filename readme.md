@@ -22,7 +22,7 @@ You need to specify the `repos` section in the config such as this:
 
 ## Build
 Run `gulp` for a full build.
-Run `gulp recompile` for a build without JavaDoc and RAMLDoc.
+Run `gulp recompile` for a build without JavaDoc and RAMLDoc. This will also work for 3rd parties looking to contribute.
 Run `gulp watch` for development.
 
 ## Contribute
