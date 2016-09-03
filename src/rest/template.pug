@@ -24,7 +24,7 @@ include ./resource.pug
                     th Request Count
                     th Time Interval (in Seconds)
             tbody
-                if beConfig.ratelimt && beConfig.ratelimt.buckets
+                if beConfig.ratelimit && beConfig.ratelimit.buckets
                     - orderered = orderObject(beConfig.ratelimit.buckets)
                     for bucket, name in orderered
                         tr
