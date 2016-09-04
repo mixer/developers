@@ -10,7 +10,8 @@ const _ = require('lodash');
 const orderObject = require('./util').orderObject;
 
 /**
- * Reads a json file
+ * Reads a json file, if there is a problem reading 
+ * the file return an empty Object
  * @param  {String} filePath
  * @return {Object}
  */
@@ -22,9 +23,15 @@ function readJSONFile (filePath) {
     }
 }
 
-function wrappedRequire (filepath) {
+/**
+ * Wraps a require so that if there is a problem reading
+ * the file it returns an empty object.
+ * @param {String} filePath
+ * @return {Object}
+ */
+function wrappedRequire (filePath) {
     try {
-        return require(filepath);
+        return require(filePath);
     } catch (e) {
         return {};
     }
