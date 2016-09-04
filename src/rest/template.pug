@@ -24,7 +24,7 @@ include ./resource.pug
                     th Request Count
                     th Time Interval (in Seconds)
             tbody
-                if beConfig.ratelimit && beConfig.ratelimit.buckets
+                if beConfig
                     - orderered = orderObject(beConfig.ratelimit.buckets)
                     for bucket, name in orderered
                         tr
@@ -46,7 +46,7 @@ include ./resource.pug
 
         include ../snippets/help.pug
         h2 Endpoints
-        if rest.resources
+        if rest
             for resource in rest.resources
                 .panel.panel-default.panel-rest
                     a(name=resource.uniqueId id=resource.uniqueId)
@@ -63,7 +63,7 @@ include ./resource.pug
                                     +resourceRows(resource)
 
         h2 Models &amp; Types
-        if rest.types
+        if rest
             for type, name in rest.types
                 .panel.panel-default.panel-rest
                     a(name=name id=name)
@@ -84,6 +84,6 @@ include ./resource.pug
             h3 Endpoints
             nav
                 ul.nav.nav-stacked
-                    if rest.resources
+                    if rest
                         for r in rest.resources
                             li: a(href=`#${r.uniqueId}`)= r.relativeUri
