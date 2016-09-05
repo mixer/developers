@@ -22,8 +22,11 @@ You need to specify the `repos` section in the config such as this:
 
 ## Build
 Run `gulp` for a full build.
+
 Run `gulp recompile` for a build without JavaDoc and RAMLDoc. This will also work for 3rd parties looking to contribute.
+
 Run `gulp watch` for development.
 
 ## Contribute
+If you don't have access to our internal repositories, just use `gulp recompile` to build the reference and tutorial sections.
 Run `npm test` before pull requesting any changes.
