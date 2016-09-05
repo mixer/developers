@@ -24,12 +24,13 @@ include ./resource.pug
                     th Request Count
                     th Time Interval (in Seconds)
             tbody
-                - orderered = orderObject(beConfig.ratelimit.buckets)
-                for bucket, name in orderered
-                    tr
-                        td= name
-                        td= bucket.max
-                        td= bucket.interval/1000
+                if beConfig
+                    - orderered = orderObject(beConfig.ratelimit.buckets)
+                    for bucket, name in orderered
+                        tr
+                            td= name
+                            td= bucket.max
+                            td= bucket.interval/1000
         h2(id='csrf') CSRF Tokens
         p.
             Beam's REST API requires the use of CSRF Tokens when using cookie-base authentication.
@@ -45,41 +46,44 @@ include ./resource.pug
 
         include ../snippets/help.pug
         h2 Endpoints
-        for resource in rest.resources
-            .panel.panel-default.panel-rest
-                a(name=resource.uniqueId id=resource.uniqueId)
-                a.panel-reference.icon.icon-link-1(href=`#${resource.uniqueId}`)
-                .panel-heading
-                    h3.panel-title= resource.displayName || resource.relativeUri
-                .panel-body
-                    if resource.description
-                        .top-resource-description!= marked(resource.description)
-                    .panel-group
-                        +resourceModals(resource)
-                        table(style='width:100%')
-                            tbody
-                                +resourceRows(resource)
+        if rest
+            for resource in rest.resources
+                .panel.panel-default.panel-rest
+                    a(name=resource.uniqueId id=resource.uniqueId)
+                    a.panel-reference.icon.icon-link-1(href=`#${resource.uniqueId}`)
+                    .panel-heading
+                        h3.panel-title= resource.displayName || resource.relativeUri
+                    .panel-body
+                        if resource.description
+                            .top-resource-description!= marked(resource.description)
+                        .panel-group
+                            +resourceModals(resource)
+                            table(style='width:100%')
+                                tbody
+                                    +resourceRows(resource)
 
         h2 Models &amp; Types
-        for type, name in rest.types
-            .panel.panel-default.panel-rest
-                a(name=name id=name)
-                a.panel-reference.icon.icon-link-1(href=`#${name}`)
-                .panel-heading
-                    h3.panel-title= type.displayName
-                        - var parentType = type.type && type.type[0];
-                        if parentType && !restUtil.isBaseType(parentType)
-                            = ' '
-                            small extends
+        if rest
+            for type, name in rest.types
+                .panel.panel-default.panel-rest
+                    a(name=name id=name)
+                    a.panel-reference.icon.icon-link-1(href=`#${name}`)
+                    .panel-heading
+                        h3.panel-title= type.displayName
+                            - var parentType = type.type && type.type[0];
+                            if parentType && !restUtil.isBaseType(parentType)
                                 = ' '
-                                a(href=`#${parentType}`)= parentType
-                .panel-body
-                    +typeDetails(name)
+                                small extends
+                                    = ' '
+                                    a(href=`#${parentType}`)= parentType
+                    .panel-body
+                        +typeDetails(name)
 
     .col-md-3
         .hidden-print.rest-sidebar(role='complementary' style='padding:1px')
             h3 Endpoints
             nav
                 ul.nav.nav-stacked
-                    for r in rest.resources
-                        li: a(href=`#${r.uniqueId}`)= r.relativeUri
+                    if rest
+                        for r in rest.resources
+                            li: a(href=`#${r.uniqueId}`)= r.relativeUri

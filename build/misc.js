@@ -10,12 +10,31 @@ const _ = require('lodash');
 const orderObject = require('./util').orderObject;
 
 /**
- * Reads a json file
+ * Reads a json file, if there is a problem reading
+ * the file it returns null.
  * @param  {String} filePath
  * @return {Object}
  */
 function readJSONFile (filePath) {
-    return JSON.parse(fs.readFileSync(filePath));
+    try {
+        return JSON.parse(fs.readFileSync(filePath));
+    } catch (e) {
+        return null;
+    }
+}
+
+/**
+ * Wraps a require so that if there is a problem reading
+ * the file it returns null.
+ * @param {String} filePath
+ * @return {Object}
+ */
+function wrappedRequire (filePath) {
+    try {
+        return require(filePath);
+    } catch (e) {
+        return null;
+    }
 }
 
 /**
@@ -24,7 +43,7 @@ function readJSONFile (filePath) {
  * @return {Object}
  */
 function getLocals () {
-    const restDoc = require('./tmp/raml-doc.json');
+    const restDoc = readJSONFile(path.join(__dirname, '/tmp/raml-doc.json'));
     marked.setOptions({
         highlight (code) {
             return require('highlight.js').highlightAuto(code).value;
@@ -40,8 +59,8 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
-        rest: readJSONFile(path.join(__dirname, '/tmp/raml-doc.json')),
-        beConfig: require('./tmp/backend/config/default.js'),
+        rest: restDoc,
+        beConfig: wrappedRequire('./tmp/backend/config/default.js'),
         permissions,
         permissionKeys,
         bsTabs: {},

@@ -7,13 +7,13 @@ block navbar
     .navbar-wrapper
         .container
             nav.navbar.navbar-inverse: +navbar()
-
-            h1
-                | #{rest.title} API documentation
-                if rest.version
-                    = ' '
-                    small version
-                        = ` ${rest.version}`
+            if rest
+                h1
+                    | #{rest.title} API documentation
+                    if rest.version
+                        = ' '
+                        small version
+                            = ` ${rest.version}`
 
 block content
     .container
