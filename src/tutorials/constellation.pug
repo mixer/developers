@@ -35,12 +35,19 @@ block tutorialContent
             include ./channelid.pug
 
             +highlightFile('javascript','./tutorials/code/node/constellation/1.js')
+
             p Next we'll create an instance of Carina to use for our code. We pass an object of options to the constructor. #[code isBot] must be set to true if you're writing an automated bot.
+
             +highlightFile('javascript','./tutorials/code/node/constellation/2.js')
+
             p To recieve Live Loading events you need to subscribe to them. We'll just need #[code channel:{id}:update]. For a full list of events check our #[a(href='/reference/constellation/index.html#events_live_events') Constellation reference guide]. You subscribe to events within Carina by using the #[code subscribe] method.
+
             +highlightFile('javascript','./tutorials/code/node/constellation/3.js')
+
             p The second argument to the subscribe method is a function which will be called with the data when the event is sent. #[strong Inside] the function you can do a lot with the data but for now we'll just log it to the console.
+
             +highlightFile('javascript','./tutorials/code/node/constellation/4.js')
+
             p.
                 That's it! Save the file as 'constellation.js' and run it with #[code node constellation.js] from your terminal. Try updating your channel details.
             p.
@@ -48,8 +55,11 @@ block tutorialContent
             +highlightFile('javascript','./tutorials/code/node/constellation/example_data.js')
             p.
                 Try updating your channel description, age rating or selected game for more examples.
+
             p The final code can be found below:
+
             +highlightFile('javascript','./tutorials/code/node/constellation/5.js')
+
             p Carina also works with TypeScript and your Browser. For more information on it checkout its #[a(href='https://github.com/watchbeam/carina') Github page].
     h2 Further Ideas
     ul
