@@ -1,1 +1,1 @@
-const ca = new Carina({ isBot: true });
+const ca = new Carina({ isBot: true }).open();

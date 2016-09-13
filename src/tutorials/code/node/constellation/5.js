@@ -5,7 +5,7 @@ Carina.WebSocket = ws;
 
 const channelId = 1234;
 
-const ca = new Carina({ isBot: true });
+const ca = new Carina({ isBot: true }).open();
 
 ca.subscribe(`channel:${channelId}:update`, data => {
     console.log(data);
