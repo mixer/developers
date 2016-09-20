@@ -1,3 +1,41 @@
+const BeamClient = require('beam-client-node');
+const BeamSocket = require('beam-client-node/lib/ws');
+
+let userInfo;
+
+const client = new BeamClient();
+
+client.use('password', {
+    username: 'your_username',
+    password: 'your_password',
+})
+.attempt()
+.then(response => {
+    console.log(response.body);
+    // Store the logged in user's details for later refernece
+    userInfo = response.body;
+    // Returns a promise that resolves with our chat connection details.
+    return client.chat.join(response.body.channel.id);
+})
+.then(response => {
+    const body = response.body;
+    console.log(body);
+    return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
+})
+.catch(error => {
+    console.log('Something went wrong:', error);
+});
+
+
+/**
+ * Creates a beam chat socket and sets up listeners to various chat events.
+ * @param {any} userId The user to authenticate as
+ * @param {any} channelId The channel id to join
+ * @param {any} endpoints An endpoints array from a beam.chat.join call.
+ * @param {any} authkey An authentication key from a beam.chat.join call.
+ * @returns Promise.<>
+
+ */
 function createChatSocket (userId, channelId, endpoints, authkey) {
     const socket = new BeamSocket(endpoints).boot();
 

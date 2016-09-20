@@ -15,8 +15,17 @@ client.use('password', {
     return client.chat.join(response.body.channel.id);
 })
 .then(response => {
-    // Chat connection
-    const socket = new BeamSocket(response.body.endpoints).boot();
+    const body = response.body;
+    return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
+})
+.catch(error => {
+    console.log('Something went wrong:', error);
+});
+
+
+function createChatSocket (userId, channelId, endpoints, authkey) {
+      // Chat connection
+    const socket = new BeamSocket(endpoints).boot();
 
     // Greet a joined user
     socket.on('UserJoin', data => {
@@ -36,12 +45,9 @@ client.use('password', {
         console.error('Socket error', error);
     });
 
-    return socket.auth(userInfo.channel.id, userInfo.id, response.body.authkey)
+    return socket.auth(channelId, userId, authkey)
     .then(() => {
         console.log('Login successful');
         return socket.call('msg', ['Hi! I\'m pingbot! Write !ping and I will pong back!']);
     });
-})
-.catch(error => {
-    console.log('Something went wrong:', error);
-});
+}
