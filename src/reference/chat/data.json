@@ -413,7 +413,7 @@
       }
     },
     "PollStart": {
-      "description": "Sent when a new poll is started.",
+      "description": "Initially sent when a new poll is started. Then over the course of a poll it is re-sent with information about the polls progress.",
       "example": {
         "q": "How's the weather?",
         "answers": [
