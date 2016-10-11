@@ -55,6 +55,7 @@ function getLocals () {
     const out = {
         _,
         orderObject,
+        log: console.log,
         marked,
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/constellation/events'),

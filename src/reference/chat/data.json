@@ -274,6 +274,16 @@
     }
   },
   "events": {
+    "WelcomeEvent": {
+        "description": "Sent by the server once you're fully connected to chat.",
+        "example": {
+            "type":"event",
+            "event":"WelcomeEvent",
+            "data": {
+                "server":"cb4fce87-cd05-44db-830e-cccc53a33fab"
+            }
+        }
+    },
     "ChatMessage": {
       "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
       "examples": [{

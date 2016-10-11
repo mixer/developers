@@ -43,13 +43,14 @@ block tutorialContent
                 The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1_response.txt')
             p.
-                Next we will use this response to connect to the chat server, for that we have the #[code createChatSocket()] function. This takes the information from the response and creates a Beam chat socket from it.
+                Next we will use this response to connect to the chat server, Let's write a #[code createChatSocket()] function and connect to chat.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2.js')
             p.
                 Running this code will now connect you to chat and you'll see something like this in the console. The JSON object on the 3rd line is the chat message packet your bot sent to the server when it connected.
+
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2_response.txt')
             p.
-                Now that we have a chat connection with authentication working we can add the rest of the bot code. When a user joins the channel it will greet them. If a user types #[code !ping] into chat then it will response with their name and "PONG!".
+                Now that we have a chat connection with authentication working we can add the rest of the bot code. When a user joins the channel it will greet them. If a user types #[code !ping] into chat then it will response with their name and "PONG!". To do this we'll re-write parts of the #[code createChatSocket()] function. The final code is below, check it out!
             +highlightFile('javascript', 'tutorials/code/node/chatbot/3.js')
         +bsTabItem('chatbot_guide', 'java')
             h3 Prerequisites
