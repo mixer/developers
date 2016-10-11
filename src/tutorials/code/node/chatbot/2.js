@@ -33,8 +33,7 @@ client.use('password', {
  * @param {any} channelId The channel id to join
  * @param {any} endpoints An endpoints array from a beam.chat.join call.
  * @param {any} authkey An authentication key from a beam.chat.join call.
- * @returns Promise.<>
-
+ * @returns {Promise.<>}
  */
 function createChatSocket (userId, channelId, endpoints, authkey) {
     const socket = new BeamSocket(endpoints).boot();

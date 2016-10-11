@@ -22,9 +22,16 @@ client.use('password', {
     console.log('Something went wrong:', error);
 });
 
-
+/**
+ * Creates a beam chat socket and sets up listeners to various chat events.
+ * @param {any} userId The user to authenticate as
+ * @param {any} channelId The channel id to join
+ * @param {any} endpoints An endpoints array from a beam.chat.join call.
+ * @param {any} authkey An authentication key from a beam.chat.join call.
+ * @returns {Promise.<>}
+ */
 function createChatSocket (userId, channelId, endpoints, authkey) {
-      // Chat connection
+    // Chat connection
     const socket = new BeamSocket(endpoints).boot();
 
     // Greet a joined user

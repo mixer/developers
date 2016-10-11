@@ -20,7 +20,7 @@ client.use('password', {
 .then(response => {
     const body = response.body;
     console.log(body);
-    // return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
+    // TODO: Connect to chat.
 })
 .catch(error => {
     console.log('Something went wrong:', error);

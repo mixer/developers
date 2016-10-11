@@ -43,8 +43,7 @@ block tutorialContent
                 The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1_response.txt')
             p.
-                Next we will use this response to connect to the chat server,
-                Let's write the #[code createChatSocket()] function and uncomment its use in the previous code.
+                Next we will use this response to connect to the chat server, Let's write a #[code createChatSocket()] function and connect to chat.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2.js')
             p.
                 Running this code will now connect you to chat and you'll see something like this in the console. The JSON object on the 3rd line is the chat message packet your bot sent to the server when it connected.
