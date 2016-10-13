@@ -136,21 +136,21 @@
       }
     },
     "vote:start": {
-        "description": "Starts a poll in the channel, requires apropriate permissions.",
-        "example":{
-            "request": {
-                "type": "method",
-                "method": "vote:start",
-                "arguments":["Turkey or Ham?",["Turkey","Ham"],30],
-                "id":3
-            },
-            "response": {
-                "type":"reply",
-                "error":null,
-                "id":3,
-                "data":"Poll started."
-            }
+      "description": "Starts a poll in the channel, requires apropriate permissions.",
+      "example": {
+        "request": {
+          "type": "method",
+          "method": "vote:start",
+          "arguments": ["Turkey or Ham?", ["Turkey", "Ham"], 30],
+          "id": 3
+        },
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 3,
+          "data": "Poll started."
         }
+      }
     },
     "timeout": {
       "description": "Times a User out, they cannot send messages until the duration is over.",
@@ -275,14 +275,14 @@
   },
   "events": {
     "WelcomeEvent": {
-        "description": "Sent by the server once you're fully connected to chat.",
-        "example": {
-            "type":"event",
-            "event":"WelcomeEvent",
-            "data": {
-                "server":"cb4fce87-cd05-44db-830e-cccc53a33fab"
-            }
+      "description": "Sent by the server once you're fully connected to chat.",
+      "example": {
+        "type": "event",
+        "event": "WelcomeEvent",
+        "data": {
+          "server": "cb4fce87-cd05-44db-830e-cccc53a33fab"
         }
+      }
     },
     "ChatMessage": {
       "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
@@ -290,43 +290,56 @@
         "title": "Regular Message",
         "description": "A regular channel message seen by all users",
         "data": {
-          "channel": 12345,
-          "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
-          "user_name": "Username",
-          "user_id": 12345,
-          "user_roles": [
-            "User"
-          ],
-          "message": {
-            "message": [{
-              "type": "text",
-              "data": "Hello! ",
-              "text": "Hello! "
-            }, {
-              "type": "emoticon",
-              "text": ":)",
-              "path": "default/1F604"
-            }, {
-              "type": "text",
-              "text": " ",
-              "data": " "
-            }, {
-              "type": "link",
-              "url": "https://beam.pro/Beam",
-              "text": "beam.pro/Beam"
-            }, {
-              "type": "emoticon",
-              "source": "external",
-              "pack": "https://uploads.beam.pro/emoticons/x.png",
-              "coords": {
-                "x": 24,
-                "y": 48,
-                "width": 24,
-                "height": 24
-              },
-              "text": ":coolpartneremote"
-            }],
-            "meta": {}
+          "type": "event",
+          "event": "ChatMessage",
+          "data": {
+            "type": "event",
+            "event": "ChatMessage",
+            "data": {
+              "channel": 12345,
+              "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
+              "user_name": "Username",
+              "user_id": 12345,
+              "user_roles": ["User"],
+              "message": {
+                "message": [{
+                  "type": "text",
+                  "data": "Hello! ",
+                  "text": "Hello! "
+                }, {
+                  "type": "emoticon",
+                  "source": "builtin",
+                  "pack": "default",
+                  "coords": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 24,
+                    "height": 24
+                  },
+                  "text": ":)"
+                }, {
+                  "type": "text",
+                  "data": " ",
+                  "text": " "
+                }, {
+                  "type": "link",
+                  "url": "http://beam.pro/Beam",
+                  "text": "beam.pro/Beam"
+                }, {
+                  "type": "emoticon",
+                  "source": "external",
+                  "pack": "https://uploads.beam.pro/emoticons/x.png",
+                  "coords": {
+                    "x": 24,
+                    "y": 48,
+                    "width": 24,
+                    "height": 24
+                  },
+                  "text": ":coolpartneremote"
+                }],
+                "meta": {}
+              }
+            }
           }
         }
       }, {
