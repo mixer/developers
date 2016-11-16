@@ -2,49 +2,56 @@
   "methods": {
     "auth": {
       "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
-      "examples": [{
-        "description": "Authenticating as a User.",
-        "data": {
-          "request": {
-            "type": "method",
-            "method": "auth",
-            "arguments": [
-              12345,
-              54321,
-              "key"
-            ],
-            "id": 0
-          },
-          "response": {
-            "type": "reply",
-            "error": null,
-            "id": 0,
-            "data": {
-              "authenticated": true,
-              "roles": ["Owner"]
+      "examples": [
+        {
+          "description": "Authenticating as a User.",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [
+                12345,
+                54321,
+                "key"
+              ],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": null,
+              "id": 0,
+              "data": {
+                "authenticated": true,
+                "roles": [
+                  "Owner"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "description": "Authenticating anonymously",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [
+                12345
+              ],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": null,
+              "id": 0,
+              "data": {
+                "authenticated": false,
+                "roles": []
+              }
             }
           }
         }
-      }, {
-        "description": "Authenticating anonymously",
-        "data": {
-          "request": {
-            "type": "method",
-            "method": "auth",
-            "arguments": [12345],
-            "id": 0
-          },
-          "response": {
-            "type": "reply",
-            "error": null,
-            "id": 0,
-            "data": {
-              "authenticated": false,
-              "roles": []
-            }
-          }
-        }
-      }]
+      ]
     },
     "msg": {
       "description": "Send a chat message to the server, the server will reply with data identical to a [ChatMessage](#chat__events__) event.",
@@ -66,13 +73,17 @@
             "id": "06cba8a0-3a4a-11e6-b410-e9a72fcede64",
             "user_name": "username",
             "user_id": 12345,
-            "user_roles": ["User"],
+            "user_roles": [
+              "User"
+            ],
             "message": {
-              "message": [{
-                "type": "text",
-                "data": "Hello World!",
-                "text": "Hello World!"
-              }],
+              "message": [
+                {
+                  "type": "text",
+                  "data": "Hello World!",
+                  "text": "Hello World!"
+                }
+              ],
               "meta": {}
             }
           }
@@ -100,13 +111,17 @@
             "id": "077e31c0-3a34-11e6-89dd-6363b2f3be15",
             "user_name": "username",
             "user_id": 12345,
-            "user_roles": ["User"],
+            "user_roles": [
+              "User"
+            ],
             "message": {
-              "message": [{
-                "type": "text",
-                "data": "hi",
-                "text": "hi"
-              }],
+              "message": [
+                {
+                  "type": "text",
+                  "data": "hi",
+                  "text": "hi"
+                }
+              ],
               "meta": {
                 "whisper": true
               }
@@ -141,7 +156,14 @@
         "request": {
           "type": "method",
           "method": "vote:start",
-          "arguments": ["Turkey or Ham?", ["Turkey", "Ham"], 30],
+          "arguments": [
+            "Turkey or Ham?",
+            [
+              "Turkey",
+              "Ham"
+            ],
+            30
+          ],
           "id": 3
         },
         "response": {
@@ -214,28 +236,36 @@
         "request": {
           "type": "method",
           "method": "history",
-          "arguments": [1],
+          "arguments": [
+            1
+          ],
           "id": 1
         },
         "response": {
           "type": "reply",
           "error": null,
           "id": 1,
-          "data": [{
-            "channel": 12345,
-            "id": "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd",
-            "user_name": "username",
-            "user_id": 186526,
-            "user_roles": ["User"],
-            "message": {
-              "message": [{
-                "type": "text",
-                "data": "historic message",
-                "text": "historic message"
-              }],
-              "meta": {}
+          "data": [
+            {
+              "channel": 12345,
+              "id": "8e07a0b0-3a2e-11e6-a9ef-0b7037d1fbdd",
+              "user_name": "username",
+              "user_id": 186526,
+              "user_roles": [
+                "User"
+              ],
+              "message": {
+                "message": [
+                  {
+                    "type": "text",
+                    "data": "historic message",
+                    "text": "historic message"
+                  }
+                ],
+                "meta": {}
+              }
             }
-          }]
+          ]
         }
       }
     },
@@ -271,6 +301,69 @@
           "id": 12
         }
       }
+    },
+    "attachEmotes": {
+      "description": "Enables an enhancement to the `ChatMessage` event. Will populate the `meta` property of the event with a hash containing the emoticon text mapped to the base64 PNG representation.",
+      "examples": [
+        {
+          "description": "To enable, call the api method.",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "attachEmotes",
+              "arguments": [],
+              "id": 12
+            },
+            "response": {
+              "type": "reply",
+              "error": null,
+              "id": 12
+            }
+          }
+        },
+        {
+          "description": "The `ChatMessage` event will now look as follows:",
+          "data": {
+            "request": {},
+            "response": {
+              "type": "event",
+              "event": "ChatMessage",
+              "data": [
+                {
+                  "channel": 143,
+                  "id": "f1e092c0-9c8c-11e6-91dd-55a101b33e4e",
+                  "user_name": "Jamy",
+                  "user_id": 162,
+                  "user_roles": [
+                    "Owner"
+                  ],
+                  "message": {
+                    "message": [
+                      {
+                        "type": "emoticon",
+                        "source": "builtin",
+                        "pack": "default",
+                        "coords": {
+                          "x": 96,
+                          "y": 0,
+                          "width": 24,
+                          "height": 24
+                        },
+                        "text": ":)"
+                      }
+                    ],
+                    "meta": {
+                      "emoticons": {
+                        ":)": "iVBORw0KGgoAAAANSUhE...AAAElFTkSuQmCC"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   },
   "events": {
@@ -286,95 +379,134 @@
     },
     "ChatMessage": {
       "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
-      "examples": [{
-        "title": "Regular Message",
-        "description": "A regular channel message seen by all users",
-        "data": {
-          "type": "event",
-          "event": "ChatMessage",
+      "examples": [
+        {
+          "title": "Regular Message",
+          "description": "A regular channel message seen by all users",
+          "data": {
+            "type": "event",
+            "event": "ChatMessage",
+            "data": {
+              "type": "event",
+              "event": "ChatMessage",
+              "data": {
+                "channel": 12345,
+                "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
+                "user_name": "Username",
+                "user_id": 12345,
+                "user_roles": [
+                  "User"
+                ],
+                "message": {
+                  "message": [
+                    {
+                      "type": "text",
+                      "data": "Hello! ",
+                      "text": "Hello! "
+                    },
+                    {
+                      "type": "emoticon",
+                      "source": "builtin",
+                      "pack": "default",
+                      "coords": {
+                        "x": 96,
+                        "y": 0,
+                        "width": 24,
+                        "height": 24
+                      },
+                      "text": ":)"
+                    },
+                    {
+                      "type": "text",
+                      "data": " ",
+                      "text": " "
+                    },
+                    {
+                      "type": "link",
+                      "url": "http://beam.pro/Beam",
+                      "text": "beam.pro/Beam"
+                    },
+                    {
+                      "type": "emoticon",
+                      "source": "external",
+                      "pack": "https://uploads.beam.pro/emoticons/x.png",
+                      "coords": {
+                        "x": 24,
+                        "y": 48,
+                        "width": 24,
+                        "height": 24
+                      },
+                      "text": ":coolpartneremote"
+                    }
+                  ],
+                  "meta": {}
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Whisper",
+          "description": "A private whisper from one user to another which is only sent to the recipient. The `meta` object contains a `whisper` attribute which is `true`.",
           "data": {
             "type": "event",
             "event": "ChatMessage",
             "data": {
               "channel": 12345,
-              "id": "cfa8a5b0-2ec5-11e6-1234-f3d652ffec28",
-              "user_name": "Username",
+              "id": "eaf6e9b0-3a25-11e6-b410-e9a72fcede64",
+              "user_name": "username",
               "user_id": 12345,
-              "user_roles": ["User"],
+              "user_roles": [
+                "User"
+              ],
               "message": {
-                "message": [{
-                  "type": "text",
-                  "data": "Hello! ",
-                  "text": "Hello! "
-                }, {
-                  "type": "emoticon",
-                  "source": "builtin",
-                  "pack": "default",
-                  "coords": {
-                    "x": 96,
-                    "y": 0,
-                    "width": 24,
-                    "height": 24
-                  },
-                  "text": ":)"
-                }, {
-                  "type": "text",
-                  "data": " ",
-                  "text": " "
-                }, {
-                  "type": "link",
-                  "url": "http://beam.pro/Beam",
-                  "text": "beam.pro/Beam"
-                }, {
-                  "type": "emoticon",
-                  "source": "external",
-                  "pack": "https://uploads.beam.pro/emoticons/x.png",
-                  "coords": {
-                    "x": 24,
-                    "y": 48,
-                    "width": 24,
-                    "height": 24
-                  },
-                  "text": ":coolpartneremote"
-                }],
-                "meta": {}
+                "message": [
+                  {
+                    "type": "text",
+                    "data": "hi",
+                    "text": "hi"
+                  }
+                ],
+                "meta": {
+                  "whisper": true
+                }
+              },
+              "target": "recipient username"
+            }
+          }
+        },
+        {
+          "title": "Action",
+          "description": "When a user uses `/me` in chat. The `meta` object contains a `me` attribute which is `true`.",
+          "data": {
+            "type": "event",
+            "event": "ChatMessage",
+            "data": {
+              "channel": 12345,
+              "id": "c46148d0-3a30-11e6-b368-2953589298fa",
+              "user_name": "username",
+              "user_id": 12345,
+              "user_roles": [
+                "User"
+              ],
+              "message": {
+                "message": [
+                  {
+                    "type": "text",
+                    "data": "waves",
+                    "text": "waves"
+                  }
+                ],
+                "meta": {
+                  "me": true
+                }
               }
             }
           }
-        }
-      }, {
-        "title": "Whisper",
-        "description": "A private whisper from one user to another which is only sent to the recipient. The `meta` object contains a `whisper` attribute which is `true`.",
-        "data": {
-          "type": "event",
-          "event": "ChatMessage",
-          "data": {
-            "channel": 12345,
-            "id": "eaf6e9b0-3a25-11e6-b410-e9a72fcede64",
-            "user_name": "username",
-            "user_id": 12345,
-            "user_roles": [
-              "User"
-            ],
-            "message": {
-              "message": [{
-                "type": "text",
-                "data": "hi",
-                "text": "hi"
-              }],
-              "meta": {
-                "whisper": true
-              }
-            },
-            "target": "recipient username"
-          }
-        }
-      }, {
-        "title": "Action",
-        "description": "When a user uses `/me` in chat. The `meta` object contains a `me` attribute which is `true`.",
-        "data": {
-          "type": "event",
-          "event": "ChatMessage",
+        },
+        {
+          "title": "Tag",
+          "description": "When a user tags another user with `@` e.g. `@username`",
           "data": {
             "channel": 12345,
             "id": "c46148d0-3a30-11e6-b368-2953589298fa",
@@ -384,39 +516,19 @@
               "User"
             ],
             "message": {
-              "message": [{
-                "type": "text",
-                "data": "waves",
-                "text": "waves"
-              }],
-              "meta": {
-                "me": true
-              }
+              "message": [
+                {
+                  "text": "@username",
+                  "type": "tag",
+                  "username": "username",
+                  "id": 12345
+                }
+              ],
+              "meta": {}
             }
           }
         }
-      }, {
-        "title": "Tag",
-        "description": "When a user tags another user with `@` e.g. `@username`",
-        "data": {
-          "channel": 12345,
-          "id": "c46148d0-3a30-11e6-b368-2953589298fa",
-          "user_name": "username",
-          "user_id": 12345,
-          "user_roles": [
-            "User"
-          ],
-          "message": {
-            "message": [{
-              "text": "@username",
-              "type": "tag",
-              "username": "username",
-              "id": 12345
-            }],
-            "meta": {}
-          }
-        }
-      }]
+      ]
     },
     "UserJoin": {
       "description": "Sent when a user joins the chat.",
@@ -518,7 +630,11 @@
         "event": "UserUpdate",
         "data": {
           "user": 12345,
-          "roles": ["Banned", "Pro", "User"],
+          "roles": [
+            "Banned",
+            "Pro",
+            "User"
+          ],
           "permissions": [],
           "username": "username"
         }
@@ -533,7 +649,10 @@
           "user": {
             "user_name": "username",
             "user_id": 102534,
-            "user_roles": ["Pro", "User"]
+            "user_roles": [
+              "Pro",
+              "User"
+            ]
           },
           "duration": 59998
         }

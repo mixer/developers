@@ -226,7 +226,8 @@ mixin resourceRows(resource)
                         span.icon.icon-minus-5(title='Deprecated')
 
                 td.rest-endpoint-description.hidden-xs
-                    = method.description.slice(0, method.description.indexOf('.'))
+                    if method.description
+                        = method.description.slice(0, method.description.indexOf('.'))
 
     if resource.resources
         for subResource in resource.resources
