@@ -306,7 +306,7 @@
       "description": "Enables an enhancement to the `ChatMessage` event. Will populate the `meta` property of the event with a hash containing the emoticon text mapped to the base64 PNG representation.",
       "examples": [
         {
-          "description": "To enable, call the api method.",
+          "description": "Tells the chat server that you want emotes to be attached to chat messages.",
           "data": {
             "request": {
               "type": "method",
