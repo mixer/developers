@@ -211,4 +211,15 @@ module.exports = (gulp, $) => {
         .pipe($.if(config.minify, $.uglify()))
         .pipe(gulp.dest(config.dist.js));
     });
+
+    gulp.task('lint-json', () => {
+        const files = [
+            'src/reference/chat/data.json',
+        ];
+
+        files.forEach(file => {
+            const linted = JSON.stringify(readJSONFile(file), null, '  ');
+            fs.writeFileSync(file, `${linted}\n`);
+        });
+    });
 };
