@@ -131,6 +131,9 @@ function getLocals () {
             isSecurityOAuth (security) {
                 return !!security.oauth_2_0;
             },
+            hasOAuthScopes (security) {
+                return security.oauth_2_0.scopes.filter(scope => scope.length).length > 0;
+            },
             getOAuthScopes (security) {
                 return security.oauth_2_0.scopes;
             },

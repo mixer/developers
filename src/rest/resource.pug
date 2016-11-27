@@ -25,7 +25,7 @@ mixin methodAnnotations(annotations)
 
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
-        .modal-dialog
+        .modal-dialog.modal-lg
             .modal-content
                 .modal-header
                     button.close(type='button' data-dismiss='modal' aria-hidden='true')!= '&times'
@@ -49,9 +49,10 @@ mixin method(method, resource)
                                 = ' '
                                 |  Secured by #{securityScheme.displayName || securityScheme.name}
                                 if restUtil.isSecurityOAuth(securedBy)
-                                    |  Scopes:
-                                    for scope in restUtil.getOAuthScopes(securedBy)
-                                        pre.oauth-scope= scope
+                                    if restUtil.hasOAuthScopes(securedBy)
+                                        |  Scopes:
+                                        for scope in restUtil.getOAuthScopes(securedBy)
+                                            pre.oauth-scope= scope
                                 if securityScheme.description
                                     | !{marked(securityScheme.description)}
                     if method.is
@@ -177,6 +178,12 @@ mixin method(method, resource)
                                     - securityScheme = restUtil.securitySchemeWithName(securedBy)
                                     h2
                                         | #{securityScheme.displayName || securityScheme.name} Authentication
+                                    if restUtil.isSecurityOAuth(securedBy)
+                                        if restUtil.hasOAuthScopes(securedBy)
+                                            h3 Scopes
+                                            p Requires the following OAuth Scopes:
+                                            for scope in restUtil.getOAuthScopes(securedBy)
+                                                pre.oauth-scope= scope
                                     if securityScheme.describedBy
                                         if securityScheme.describedBy.headers
                                             h3 Headers
