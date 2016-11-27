@@ -20,11 +20,12 @@ mixin navbar
             li.dropdown
                 a.dropdown-toggle(href='#' data-toggle='dropdown') Reference
                 ul.dropdown-menu
-                    li: a(href='/rest.html') REST API
-                    li: a(href='/reference/oauth/index.html') OAuth
-                    li: a(href='/reference/constellation/index.html') Constellation
                     li: a(href='/reference/chat/index.html') Chat
                     li: a(href='/reference/interactive/index.html') Interactive
+                    li: a(href='/rest.html') REST API
+                    li: a(href='/reference/constellation/index.html') Constellation
+                    li: a(href='/reference/oauth/index.html') OAuth
+
             li: a(href='https://beam.pro/lab' target='_blank') Lab &amp; Apps
 
 include ./mixins.pug
