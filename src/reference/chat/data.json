@@ -328,38 +328,36 @@
             "response": {
               "type": "event",
               "event": "ChatMessage",
-              "data": [
-                {
-                  "channel": 143,
-                  "id": "f1e092c0-9c8c-11e6-91dd-55a101b33e4e",
-                  "user_name": "Jamy",
-                  "user_id": 162,
-                  "user_roles": [
-                    "Owner"
+              "data": {
+                "channel": 143,
+                "id": "f1e092c0-9c8c-11e6-91dd-55a101b33e4e",
+                "user_name": "Jamy",
+                "user_id": 162,
+                "user_roles": [
+                  "Owner"
+                ],
+                "message": {
+                  "message": [
+                    {
+                      "type": "emoticon",
+                      "source": "builtin",
+                      "pack": "default",
+                      "coords": {
+                        "x": 96,
+                        "y": 0,
+                        "width": 24,
+                        "height": 24
+                      },
+                      "text": ":)"
+                    }
                   ],
-                  "message": {
-                    "message": [
-                      {
-                        "type": "emoticon",
-                        "source": "builtin",
-                        "pack": "default",
-                        "coords": {
-                          "x": 96,
-                          "y": 0,
-                          "width": 24,
-                          "height": 24
-                        },
-                        "text": ":)"
-                      }
-                    ],
-                    "meta": {
-                      "emoticons": {
-                        ":)": "iVBORw0KGgoAAAANSUhE...AAAElFTkSuQmCC"
-                      }
+                  "meta": {
+                    "emoticons": {
+                      ":)": "iVBORw0KGgoAAAANSUhE...AAAElFTkSuQmCC"
                     }
                   }
                 }
-              ]
+              }
             }
           }
         }
