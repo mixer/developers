@@ -21,3 +21,9 @@ dist:
   font: dist/font
   images: dist
   javadoc: dist/java-doc
+
+# Location of locally stored repositories. If these are not enabled, we'll
+# try to clone them into a temp directory for building.
+# repos:
+#   backend: ../backend
+#   beam-client-java: ../beam-client-java
