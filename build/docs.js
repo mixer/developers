@@ -220,6 +220,7 @@ module.exports = (gulp) => {
     gulp.task('java-mvn-gen', ['java-clone'], (callback) => {
         childProcess.exec(
             `cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`,
+            { maxBuffer: 1024 * 1024 * 10 },
             callback
         );
     });
