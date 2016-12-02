@@ -143,16 +143,19 @@ function traverseResources (ramlObj, parentUrl, allUriParameters) {
     return orderObject(ramlObj);
 }
 
-function transverseTypes (ramlObj) {
-    if (!ramlObj.hasOwnProperty('types')) {
-        return ramlObj;
-    }
-
+/**
+ * Flattens types into name: type associative object
+ * @param  {Types[]} types
+ * @return {{string:Type}}
+ */
+function transverseTypes (types) {
     const newTypes = {};
-    ramlObj.types.forEach(type => _.assign(newTypes, type));
-    ramlObj.types = orderObject(newTypes);
+    types
+    .forEach(type => _.assign(newTypes, type));
 
-    return ramlObj;
+    return orderObject(_.omitBy(newTypes, type =>
+        (type.annotations && type.annotations.internal))
+    );
 }
 
 /**
@@ -176,36 +179,32 @@ function addUniqueIdsToDocs (ramlObj) {
 function enhanceRamlObj (ramlObj) {
     ramlObj = parseBaseUri(ramlObj);
     ramlObj = traverseResources(ramlObj);
-    ramlObj = transverseTypes(ramlObj);
+    ramlObj.types = transverseTypes(ramlObj.types);
     return addUniqueIdsToDocs(ramlObj);
 }
 
 /**
  * Generates a custom raml2html config object, injecting some of our own logic
  * to add features raml2html doesn't provide by default.
+ * @param {Resource[]} resource
+ * @param {Function} callback
+ * @param {absUrl} string
  * @return {Object}
  */
 function traverseRAMLResourceTree (resources, callback, absURL) {
     absURL = absURL || '';
+    resources = resources.filter(res => callback(res, false, absURL));
 
-    resources.forEach((resource, idx) => {
+    resources.forEach(resource => {
         const currUrl = absURL + resource.relativeUri;
-        if (!callback(resource, false, absURL)) {
-            resources.splice(idx, 1);
-            return;
-        }
         if (resource.methods) {
-            resource.methods.forEach((method, methodIdx) => {
-                if (!callback(method, true, currUrl)) {
-                    resource.methods.splice(methodIdx, 1);
-                    return;
-                }
-            });
+            resource.methods = resource.methods.filter(method => callback(method, true, currUrl));
         }
         if (resource.resources) {
-            traverseRAMLResourceTree(resource.resources, callback, currUrl);
+            resource.resources = traverseRAMLResourceTree(resource.resources, callback, currUrl);
         }
     });
+    return resources;
 }
 
 /**
@@ -254,15 +253,17 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            const tree = enhanceRamlObj(api.expand().toJSON());
+            let tree = api.expand().toJSON();
 
-            traverseRAMLResourceTree(tree.resources, resource => {
-                return !(resource.annotations && resource.annotations.internal);
-            });
+            tree.resources = traverseRAMLResourceTree(tree.resources, resource =>
+                !(resource.annotations && resource.annotations.internal)
+            );
+
+            tree = enhanceRamlObj(tree);
 
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
-                JSON.stringify(tree, null, '   ')
+                JSON.stringify(tree, null, '    ')
             );
         });
     });
