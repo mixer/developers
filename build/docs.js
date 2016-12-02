@@ -111,10 +111,10 @@ function makeUniqueId (resource) {
     return leftTrim(fullUrl.replace(/\W/g, '_'), '_');
 }
 
-function traverseResources (ramlObj, parentUrl, allUriParameters) {
+function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
     // Add unique id's and parent URL's plus parent URI parameters to resources
     _.forIn(ramlObj.resources, resource => {
-        resource.parentUrl = parentUrl || '';
+        resource.parentUrl = parentUrl;
         resource.uniqueId = makeUniqueId(resource);
         resource.allUriParameters = [];
 
@@ -187,21 +187,20 @@ function enhanceRamlObj (ramlObj) {
  * Generates a custom raml2html config object, injecting some of our own logic
  * to add features raml2html doesn't provide by default.
  * @param {Resource[]} resource
- * @param {Function} callback
- * @param {absUrl} string
+ * @param {RamlTraverseCallback} predicate
+ * @param {string} [absURL='']
  * @return {Object}
  */
-function traverseRAMLResourceTree (resources, callback, absURL) {
-    absURL = absURL || '';
-    resources = resources.filter(res => callback(res, false, absURL));
+function traverseRAMLResourceTree (resources, predicate, absURL = '') {
+    resources = resources.filter(res => predicate(res, false, absURL));
 
     resources.forEach(resource => {
         const currUrl = absURL + resource.relativeUri;
         if (resource.methods) {
-            resource.methods = resource.methods.filter(method => callback(method, true, currUrl));
+            resource.methods = resource.methods.filter(method => predicate(method, true, currUrl));
         }
         if (resource.resources) {
-            resource.resources = traverseRAMLResourceTree(resource.resources, callback, currUrl);
+            resource.resources = traverseRAMLResourceTree(resource.resources, predicate, currUrl);
         }
     });
     return resources;
