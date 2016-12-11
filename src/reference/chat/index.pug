@@ -20,24 +20,17 @@ block reference
         and received in standard JSON.
     h2(id='chat__connection') Connection
     p.
-        To connect to the chat server, retrieve details from our Rest API by
-        calling #[a(href='/rest.html#chats__chat__get') GET /chats/{id}] where
-        #[code id] is the channel id of the channel you wish to join.
+        To connect to the chat server, you first need to retrieve some connection details from our Rest API. You can do this by calling the #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}] REST endpoint where #[code channelId] is the channel id of the channel you wish to join and chat in.
     include ../../tutorials/channelid.pug
     p.
-        If you are authenticated in the request you will recieve an #[code authkey]
-        in the response for authentication purposes.
-        You may join chat and read messages without being authenticated,
+        If you are authenticated when you make the request you will recieve an #[code authkey] in the response for authentication purposes. You may join chat and read messages without being authenticated,
         but you will not be able to participate in chat.
     p.
         This is what a typical response from the
-        #[a(href='/rest.html#chats__chat__get') GET /chats/{id}] endpoint looks like:
+        #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}] endpoint looks like:
     +highlightFile('http', 'reference/chat/chatEndpoint.json')
     p.
-        To connect to a chat, you should randomly chose an address from the endpoints array.
-        If you lose connection to a server,
-        you should re-connect to a different server
-        (this can be chosen randomly or via round-robining strategy).
+        Once you have the details, you'll need to use them to connect to a chat server. The reponse's #[code endpoint] array contains a list of chat servers. You should choose one randomly to connect to. If you lose connection to this address, you should re-connect to a different server (you can be chosen randomly or via a round-robin strategy of your choosing).
     p.
         After connecting to a server you must call the #[a(href='#chat__methods__auth') auth] method.
 
@@ -163,4 +156,16 @@ block reference
                 +highlightStr('json', JSON.stringify(example.data, null, 3))
         else
             +highlightStr('json', JSON.stringify(data.example, null, 3))
+    h1(id='chat__troubleshooting') Troubleshooting
+    h3 Getting #[code UNOTFOUND] a lot?
+    p This error means that the chat server you're connecting to can't find a record of you when you try to authenticate. This can be caused by a number of reasons so make sure to check the following things.
+    ul
+        li That you're not confusing channelIds and userIds. These are two different numbers.
+        li That the channel you're trying to connect to is valid.
+        li That you've retrieved an authentication key from the #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}] endpoint recently. Authentication keys expire after a short period.
+        li That you're calling the auth method with 3 arguments that are not null in the following order:
+            ol
+                li The #[strong channel id] of the channel you wish to chat in encoded as a #[strong Number].
+                li The #[strong user id] of the user you wish to chat as encoded as a #[strong Number].
+                li An #[strong authentication key] retrieved from #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}]. Where #[strong channelId] matches the first argument. It should be encoded as a #[strong String].
     include ../../snippets/help.pug

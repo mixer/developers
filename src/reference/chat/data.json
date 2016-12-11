@@ -4,7 +4,7 @@
       "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
       "examples": [
         {
-          "description": "Authenticating as a User.",
+          "description": "Authenticating as a User successfully.",
           "data": {
             "request": {
               "type": "method",
@@ -50,6 +50,31 @@
               }
             }
           }
+        },
+        {
+            "description": "An unsuccessful authentication attempt.",
+            "data": {
+                "request": {
+                    "type": "method",
+                    "method": "auth",
+                    "arguments":[
+                        12345,
+                        12345,
+                        "Not an AuthKey"
+                    ],
+                    "id": 0
+                },
+                "response": {
+                    "type":"reply",
+                    "error":{
+                        "code":1,
+                        "message":"UNOTFOUND",
+                        "stacktrace":[],
+                        "data":{}
+                    },
+                    "id":0
+                }
+            }
         }
       ]
     },
