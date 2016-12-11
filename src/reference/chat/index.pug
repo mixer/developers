@@ -160,11 +160,12 @@ block reference
     h3 Getting #[code UNOTFOUND] a lot?
     p This error means that the chat server you're connecting to can't find a record of you when you try to authenticate. This can be caused by a number of reasons so make sure to check the following things.
     ul
+        li That you're not confusing channelIds and userIds. These are two different numbers.
         li That the channel you're trying to connect to is valid.
         li That you've retrieved an authentication key from the #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}] endpoint recently. Authentication keys expire after a short period.
         li That you're calling the auth method with 3 arguments that are not null in the following order:
             ol
-                li The #[strong channel id] of the channel you wish to chat in.
-                li The #[strong user id] of the user you wish to chat as.
-                li An #[strong authentication key] retrieved from #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}]. Where #[strong channelId] matches the first argument.
+                li The #[strong channel id] of the channel you wish to chat in encoded as a #[strong Number].
+                li The #[strong user id] of the user you wish to chat as encoded as a #[strong Number].
+                li An #[strong authentication key] retrieved from #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}]. Where #[strong channelId] matches the first argument. It should be encoded as a #[strong String].
     include ../../snippets/help.pug
