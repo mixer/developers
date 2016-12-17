@@ -47,3 +47,9 @@ jspm_packages
 *.sublime-workspace
 
 .DS_Store
+
+.vscode
+
+#config files
+/config/*
+!/config/default.yaml
