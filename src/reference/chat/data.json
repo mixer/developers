@@ -219,6 +219,24 @@
         }
       }
     },
+    "purge": {
+      "description": "Purges a user's message from that chat but does not time them out.",
+      "example": {
+        "request": {
+          "type": "method",
+          "method": "purge",
+          "arguments": [
+            "username"
+          ],
+          "id": 5
+        },
+        "response": {
+          "type": "reply",
+          "error": null,
+          "id": 5
+        }
+      }
+    },
     "deleteMessage": {
       "description": "Deletes a message from chat by. First argument must be the message ID you want to delete.",
       "example": {
