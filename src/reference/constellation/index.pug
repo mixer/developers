@@ -12,7 +12,7 @@ block menu
     .hidden-print.rest-sidebar(role='complementary')
         nav
             ul.nav.nav-stacked
-                li 
+                li
                     a(href='#introduction') Introduction
                     ul.nav.nav-stacked
                         li: a(href='#introduction__liveloading') Liveloading
@@ -22,7 +22,7 @@ block menu
                 li: a(href='#packets') Packets
                 li: a(href='#errors') Error Codes
                 li
-                    a(href='#methods') Methods 
+                    a(href='#methods') Methods
                     ul.nav.nav-stacked
                         li: a(href='#methods_livesubscribe') livesubscribe
                         li: a(href='#methods_liveunsubscribe') liveunsubscribe
@@ -54,7 +54,7 @@ block reference
             on #[a(href='https://beam.pro' target='_blank') beam.pro].
 
     h3#introduction__clients Clients
-    p A number of clients already support Constellation. Try them out for a jump start into Constellation. 
+    p A number of clients already support Constellation. Try them out for a jump start into Constellation.
     ul
             li
                 strong JavaScript:
@@ -63,7 +63,7 @@ block reference
             li
                 strong Java:
                 = ' '
-                a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java 
+                a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java
             li
                 strong Swift:
                 = ' '
@@ -129,16 +129,16 @@ block reference
     ul
         li #[code 1011] - Sent in a close or method reply if an unknown internal error occurs.
         li #[code 1012] - Sent in a close frame when we deploy or restart Constellation; clients should attempt to reconnect.
-        li #[code 4000] - Error parsing payload as JSON
-        li #[code 4001] - Error decompressing a supposedly-gzipped payload
-        li #[code 4002] - Unknown packet type
-        li #[code 4003] - Unknown method name call
-        li #[code 4004] - Error parsing method arguments (not the right type or structure)
-        li #[code 4005] - The user session has expired; if using a cookie, they should log in again, or get a bearer auth token if using an authorization header.
-        li #[code 4100] - Unknown event used in a livesubscribe call
-        li #[code 4101] - You do not have access to subscribe to that livesubscribe event
-        li #[code 4102] - You are already subscribed to that livesubscribe event (during livesubscribe)
-        li #[code 4103] - You are not subscribed to that livesubscribe event (in response to a liveunsubscribe #[a(href='#packets_method') method])
+        li #[code 4006] - Error parsing payload as JSON
+        li #[code 4007] - Error decompressing a supposedly-gzipped payload
+        li #[code 4008] - Unknown packet type
+        li #[code 4009] - Unknown method name call
+        li #[code 4010] - Error parsing method arguments (not the right type or structure)
+        li #[code 4011] - The user session has expired; if using a cookie, they should log in again, or get a bearer auth token if using an authorization header.
+        li #[code 4106] - Unknown event used in a livesubscribe call
+        li #[code 4107] - You do not have access to subscribe to that livesubscribe event
+        li #[code 4108] - You are already subscribed to that livesubscribe event (during livesubscribe)
+        li #[code 4109] - You are not subscribed to that livesubscribe event (in response to a liveunsubscribe #[a(href='#packets_method') method])
     h2#methods Methods
     h3#methods_livesubscribe livesubscribe
     p.
@@ -155,13 +155,13 @@ block reference
         +highlightStr('json','{"type": "reply", "result": null, "error": null, "id": 42}')
         li.
             A reply with an invalid event:
-        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4100, "message": "Unknown event \"my silly event\" "}, "id": 42}')
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4106, "message": "Unknown event \\"my silly event\\" "}, "id": 42}')
         li.
             A reply for an event you do not have permission to see:
-        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4107, "message": "You do not have permission to subscribe to \"user:1:secrets\""}, "id": 42}')
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4107, "message": "You do not have permission to subscribe to \\"user:1:secrets\\""}, "id": 42}')
         li.
             A reply for an event you are already subscribed to:
-        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4102, "message": "Attempt to duplicate subscription to \"user:1:update\""}, "id": 42}')
+        +highlightStr('json','{"type": "reply", "result": null, "error": {"code": 4108, "message": "Attempt to duplicate subscription to \\"user:1:update\\""}, "id": 42}')
     h3#methods_liveunsubscribe liveunsubscribe
     p.
         A liveunsubscribe method can be used to stop listening to previously-subscribed-to events:
@@ -178,7 +178,7 @@ block reference
 
     p A ping reply is a blank #[a(href='#packets_reply') reply] packet with a matching id.
     +highlightStr('json','{"id":1,"type":"reply","result":{},"error":null}')
-    
+
     h2#events Events
     h3#events_hello hello
     p.
@@ -186,7 +186,7 @@ block reference
     +highlightStr('json','{"type": "event", "event": "hello", "data": {"authenticated": true}}')
     ul
         li #[code authenticated] is true if the session is authenticated as a user.
-    
+
     h3#events_live live
     p.
         A live event looks like the following. Do note the socket event names are not liveloading events. Events you ask for over liveloading are always "live" events which contain the liveloading information. This separation is added so that other kinds of events can be distinguished from liveloading events.
