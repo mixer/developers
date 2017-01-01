@@ -19,9 +19,10 @@ mixin typeDetails(typeName)
                     h5.title
                         +simpleTypeHeading(propertyName, property)
                     +simpleType(propertyName, property)
-mixin methodAnnotations(annotations)
+
+mixin describeAnnotations(type, annotations)
     if annotations.deprecated
-        .alert.alert-danger This method is deprecated. !{annotations.deprecated.structuredValue}
+        .alert.alert-danger This !{type} is deprecated. !{annotations.deprecated.structuredValue}
 
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
@@ -38,7 +39,7 @@ mixin method(method, resource)
 
                 .modal-body
                     if method.annotations
-                        +methodAnnotations(method.annotations)
+                        +describeAnnotations('method', method.annotations)
                     if method.description
                         != marked(method.description)
                     if method.securedBy
@@ -178,6 +179,10 @@ mixin method(method, resource)
                                     - securityScheme = restUtil.securitySchemeWithName(securedBy)
                                     h2
                                         | #{securityScheme.displayName || securityScheme.name} Authentication
+                                    if securityScheme.annotations
+                                        +describeAnnotations('authentication method', securityScheme.annotations)
+                                    if securityScheme.description
+                                        | !{marked(securityScheme.description)}
                                     if restUtil.isSecurityOAuth(securedBy)
                                         if restUtil.hasOAuthScopes(securedBy)
                                             h3 Scopes
