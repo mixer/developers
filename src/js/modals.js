@@ -9,6 +9,10 @@ $(document).ready(function () {
         }
 
         var anchorId = document.location.hash.substr(1); // strip #
+        //Don't do this when
+        if (anchorId.search('access_token') !== -1) {
+            return;
+        }
         var element = $('#' + anchorId);
 
         // do we have such element + is it a modal?  --> show it

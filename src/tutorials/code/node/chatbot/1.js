@@ -5,11 +5,14 @@ let userInfo;
 
 const client = new BeamClient();
 
-client.use('password', {
-    username: 'your_username',
-    password: 'your_password',
+client.use('oauth', {
+    token: {
+        access: 'AUTH_TOKEN',
+        expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
+    },
 })
-.attempt()
+
+
 .then(response => {
     console.log(response.body);
     // Store the logged in user's details for later refernece
