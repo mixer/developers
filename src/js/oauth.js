@@ -61,3 +61,9 @@ function handleOAuthResponse () {
 function replaceToken (token) {
     $('.auth-token').html(token).addClass('retrieved');
 }
+
+function oauthClickHandler (scopes) {
+    $('.auth-token').off('click').on('click', function () {
+        openImplicitOAuthWindow(scopes);
+    });
+}
