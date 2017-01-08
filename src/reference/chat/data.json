@@ -176,7 +176,7 @@
       }
     },
     "vote:start": {
-      "description": "Starts a poll in the channel, requires apropriate permissions.",
+      "description": "Starts a poll in the channel, requires appropriate permissions.",
       "example": {
         "request": {
           "type": "method",
