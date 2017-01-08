@@ -16,14 +16,14 @@
     "type": "git",
     "url": "git+https://github.com/WatchBeam/beam-developers.git"
   },
-  "author": "Connor Peet <connor@peet.io>",
+  "author": "Beam Interactive, Inc.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/WatchBeam/beam-developers/issues"
   },
   "homepage": "https://github.com/WatchBeam/beam-developers#readme",
   "devDependencies": {
-    "@mcph/beam-common": "^3.0.0",
+    "@mcph/beam-common": "^4.4.0",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.6",
     "config": "^1.21.0",
