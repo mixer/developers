@@ -8,7 +8,7 @@ const client = new BeamClient();
 // With OAuth we don't need to login, the OAuth Provider will attach
 // the required information to all of our requests after this call.
 client.use('oauth', {
-    token: {
+    tokens: {
         access: 'AUTH_TOKEN',
         expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
     },
