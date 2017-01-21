@@ -63,7 +63,10 @@ function replaceToken (token) {
 }
 
 function registerOAuthClickHandler (scopes) {
-    $('.auth-token').off('click').on('click', function () {
+    $('.auth-token').off('click').on('click', function (e) {
+        if (e.currentTarget.classList.contains('retrieved')) {
+            return;
+        }
         openImplicitOAuthWindow(scopes);
     });
 }
