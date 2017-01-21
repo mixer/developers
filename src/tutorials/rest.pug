@@ -36,11 +36,11 @@ block tutorialContent
                 li Run #[code npm i -S beam-client-node]
 
             h3 Usage
-            p Let's start by importing all of the modules which we'll need and pull the user's name and password off the command line.
+            p Let's start by importing all of the modules which we'll need.
 
             +highlightFile('javascript','./tutorials/code/node/rest/1.js')
 
-            p To connect to Beam we need to authenticate as our user specified above using  #[code beam-client-node]. We can use password based authentication to do this. After authenticating we'll get back a HTTP response that includes #[a(href='/rest.html#User') a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+            p To get the user's channel name we'll ask for it from the command line and use this to make a REST request that will provide a response with their channel details. We'll then print out how many viewers the have on their channel.
             +highlightFile('javascript','./tutorials/code/node/rest/2.js')
 
             p You've already got working code that connects and talks to our API. Go ahead, try it! Run #[code node rank.js &lt;your_username&gt; &lt;your_password&gt;] in your terminal.

@@ -8,7 +8,7 @@ const channelName = process.argv[2];
 
 beam.request('GET', `channels/${channelName}`)
 .then(res => {
-    const viewers = res.body.channel.viewersTotal;
+    const viewers = res.body.viewersTotal;
     console.log(`You have ${viewers} total viewers...`);
 
     let rank = 1;
