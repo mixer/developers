@@ -41,7 +41,7 @@ block tutorialContent
             p.
                 Before we can connect to the chat servers, we must authenticate
                 ourselves with the backend.
-                In our example we are going to use the simple login authication.
+                In our example we are going to use an implicit OAuth token for authentication. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1.js')
             p.
                 The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
@@ -67,7 +67,7 @@ block tutorialContent
             include ./snippets/java/chat_project_manager.pug
             h3 Writing the Code
             p.
-                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object with an implicit OAuth token.
+                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object with an implicit OAuth token. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('java', 'tutorials/code/java/chatbot/1.java')
             p.
                 Next we need to get a reference to a #[code BeamChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code BeamUser] object to get their #[code BeamChannel]. We can then pass this to the #[code ChatService] to get a #[code BeamChatConnectable] object. This object allows us to connect to chat!
