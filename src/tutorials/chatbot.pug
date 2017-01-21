@@ -67,7 +67,7 @@ block tutorialContent
             include ./snippets/java/chat_project_manager.pug
             h3 Writing the Code
             p.
-                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object and grab authentication details from the command line.
+                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object with an implicit OAuth token.
             +highlightFile('java', 'tutorials/code/java/chatbot/1.java')
             p.
                 Next we need to get a reference to a #[code BeamChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code BeamUser] object to get their #[code BeamChannel]. We can then pass this to the #[code ChatService] to get a #[code BeamChatConnectable] object. This object allows us to connect to chat!
