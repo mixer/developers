@@ -11,11 +11,9 @@ import java.util.concurrent.ExecutionException;
 public class Tutorial {
     public static BeamAPI beam;
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        String username = args[0];
-        String password = args[1];
-        beam = new BeamAPI();
+        beam = new BeamAPI("AUTH_TOKEN");
 
-        BeamUser user = beam.use(UsersService.class).login(username, password).get();
+        BeamUser user = beam.use(UsersService.class).getCurrent().get();
 
         int viewers = user.channel.viewersTotal;
         System.out.format("You have %d total viewers...\n", viewers);

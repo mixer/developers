@@ -1,5 +1,5 @@
 //...
-BeamUser user = beam.use(UsersService.class).login(username, password).get();
+BeamUser user = beam.use(UsersService.class).getCurrent().get();
 
 int viewers = user.channel.viewersTotal;
 System.out.format("You have %d total viewers...\n", viewers);
