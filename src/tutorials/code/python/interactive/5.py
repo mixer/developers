@@ -12,14 +12,10 @@ from pymouse import PyMouse
 
 URL = "https://beam.pro/api/v1/"
 
-AUTHENTICATION = {
-    "username": "USERNAME",
-    "password": "PASSWORD",
-    "code": "2FA-CODE"  # Unnecessary if two-factor authentication is disabled.
-}
+
+headers = {'Authorization': 'Bearer AUTH_TOKEN'}
 
 SESSION = Session()
-MOUSE = PyMouse()
 
 
 def _build(endpoint, *, url=URL):
@@ -27,15 +23,14 @@ def _build(endpoint, *, url=URL):
     return urljoin(url, endpoint.lstrip('/'))
 
 
-def login(username, password, code='', *, session=SESSION):
+def get_current(session=SESSION):
     """Log into Beam via the API."""
-    auth = dict(username=username, password=password, code=code)
-    return session.post(_build("/users/login"), data=auth).json()
+    return session.get(_build("/users/current"), headers=headers).json()
 
 
 def join_interactive(channel, *, session=SESSION):
     """Retrieve interactive connection information."""
-    return session.get(_build("/interactive/{channel}/robot").format(
+    return session.get(_build("/interactive/{channel}/robot", headers=headers).format(
         channel=channel)).json()
 
 
@@ -70,11 +65,7 @@ def run():
     """Run the interactive app."""
 
     # Authenticate with Beam and retrieve the channel id from the response.
-    channel_id = login(  # **AUTHENTICATION is a cleaner way of doing this.
-        AUTHENTICATION["username"],
-        AUTHENTICATION["password"],
-        AUTHENTICATION["code"]
-    )["channel"]["id"]
+    channel_id = get_current()["channel"]["id"]
 
     # Get Interactive connection information.
     data = join_interactive(channel_id)

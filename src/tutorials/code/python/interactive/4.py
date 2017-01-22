@@ -3,11 +3,7 @@ def run():
     """Run the interactive app."""
 
     # Authenticate with Beam and retrieve the channel id from the response.
-    channel_id = login(  # **AUTHENTICATION is a cleaner way of doing this.
-        AUTHENTICATION["username"],
-        AUTHENTICATION["password"],
-        AUTHENTICATION["code"]
-    )["channel"]["id"]
+    channel_id = get_current()["channel"]["id"]
 
     # Get Interactive connection information.
     data = join_interactive(channel_id)
