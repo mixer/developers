@@ -11,13 +11,14 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 
     public static void main(String[] args) throws AWTException {
-        BeamAPI beam = new BeamAPI();
+        BeamAPI beam = new BeamAPI("AUTH_TOKEN");
         Robot controller = new Robot();
+        BeamUser user = beam.use(UsersService.class).getCurrent().get();
         try {
             pro.beam.interactive.robot.Robot robot = new RobotBuilder()
-                    .username("username")
-                    .password("password")
-                    .channel(1234).build(beam).get();
+                .channel(user.channel)
+                .build(beam, false)
+                .get();
 
             robot.on(Protocol.Report.class, report -> {
                 // If we have any joysticks in the report
