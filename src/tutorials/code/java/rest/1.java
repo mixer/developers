@@ -12,6 +12,6 @@ public class Tutorial {
     public static BeamAPI beam;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        beam = new BeamAPI("AUTH_TOKEN");
+        beam = new BeamAPI();
     }
 }

@@ -1,5 +1,5 @@
 //...
-BeamUser user = beam.use(UsersService.class).getCurrent().get();
+BeamChannel channel = beam.use(ChannelsService.class).findOneByToken(args[0]).get();
 
 int viewers = user.channel.viewersTotal;
 System.out.format("You have %d total viewers...\n", viewers);
