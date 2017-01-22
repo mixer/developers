@@ -1,2 +1,2 @@
-$ python rank.py connor4312 l337hax0r
+$ python rank.py connor4312
 You have 595 total viewers...
