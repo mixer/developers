@@ -72,10 +72,10 @@ block tutorialContent
             include ./snippets/java/chat_project_manager.pug
             h3 Usage
             p.
-                Let's start by creating a Main class for the Java application and importing all of the required packages. We'll also initialize an instance of the BeamAPI and pull the user's username and password off the command line for authentication.
+                Let's start by creating a Main class for the Java application and importing all of the required packages. We'll also initialize an instance of the BeamAPI and pull the user's username off the command line.
             +highlightFile('java','./tutorials/code/java/rest/1.java')
             p.
-                Next let's authenticate with the Beam API. The Java Client uses a service orientated approach which means all user related functions are on the #[code UserService]. So we need to #[code use] that to login. Most methods that talk to the API return a #[a(href='http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html' target='_blank') Java Future]. These are a form of asyncronous operation in Java. For this tutorial however we'll use the #[code get] method of a future to wait for the Future to complete. It returns a #[code BeamUser] object which also contains a #[code BeamChannel] object. On the channel we can find the #[code viewersTotal] property which we can then print.
+                Next let's fetch the user's channel. The Java Client uses a service orientated approach which means all channel related functions are on the #[code ChannelService]. So we need to #[code use] that service to get the data. Most methods that talk to the API return a #[a(href='http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html' target='_blank') Java Future]. These are a form of asyncronous operation in Java. For this tutorial however we'll use the #[code get] method of a future to wait for the Future to complete. It returns a #[code BeamChannel] object. On the channel we can find the #[code viewersTotal] property which we can then print.
             +highlightFile('java','./tutorials/code/java/rest/2.java')
             p Now you've already got some working code!
             include ./run_config.pug
