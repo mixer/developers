@@ -10,7 +10,6 @@ const del = require('del');
 
 const fs = Bluebird.promisifyAll(require('fs'));
 const childProcess = Bluebird.promisifyAll(require('child_process'));
-const orderObject = require('./util').orderObject;
 
 // Function which returns the raml parser. We don't load this on require-time
 // since it has a lot of dependencies and slows down development builds when
@@ -90,15 +89,13 @@ function getRepo (addr, branch) {
 /**
  * Parses the base url by adding the version
  * @param  {RamlJSONObject} ramlObj
- * @return {String}
  */
-function parseBaseUri (ramlObj) {
+function fixupDisplayVersion (ramlObj) {
   // I have no clue what kind of variables the RAML spec allows in the baseUri.
   // For now keep it super super simple.
     if (ramlObj.baseUri) {
         ramlObj.baseUri = ramlObj.baseUri.replace('{version}', ramlObj.version);
     }
-    return ramlObj;
 }
 
 function leftTrim (str, chr) {
@@ -111,9 +108,18 @@ function makeUniqueId (resource) {
     return leftTrim(fullUrl.replace(/\W/g, '_'), '_');
 }
 
+/**
+ * Traverses the raml resources and adds the properties:
+ *     `parentUrl`
+ *     `uniqueId`
+ *     `allUriParameters`
+ * @param  {RamlObject} ramlObj
+ * @param  {String} parentUrl
+ * @param  {string[]} allUriParameters
+ */
 function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
     // Add unique id's and parent URL's plus parent URI parameters to resources
-    _.forIn(ramlObj.resources, resource => {
+    _.forOwn(ramlObj.resources, resource => {
         resource.parentUrl = parentUrl;
         resource.uniqueId = makeUniqueId(resource);
         resource.allUriParameters = [];
@@ -139,8 +145,6 @@ function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
             resource.allUriParameters
         );
     });
-
-    return orderObject(ramlObj);
 }
 
 /**
@@ -150,12 +154,8 @@ function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
  */
 function transverseTypes (types) {
     const newTypes = {};
-    types
-    .forEach(type => _.assign(newTypes, type));
-
-    return orderObject(_.omitBy(newTypes, type =>
-        (type.annotations && type.annotations.internal))
-    );
+    types.forEach(type => _.assign(newTypes, type));
+    return newTypes;
 }
 
 /**
@@ -167,43 +167,46 @@ function addUniqueIdsToDocs (ramlObj) {
     _.forEach(ramlObj.documentation, docSection => {
         docSection.uniqueId = docSection.title.replace(/\W/g, '-');
     });
+}
 
-    return ramlObj;
+/**
+ * Filters all sub trees that have the `internal` annotation.
+ * @param  {RamlObject} node
+ */
+function filterRaml (node) {
+    _.forOwn(node, (subNode, index) => {
+        if (typeof subNode !== 'object' || subNode === null) {
+            return;
+        }
+        if (subNode.annotations && subNode.annotations.internal) {
+            if (_.isArray(node)) {
+                node.splice(index, 1);
+            } else {
+                delete node[index];
+            }
+        }
+        filterRaml(subNode);
+        // After filtering nodes may be empty, to prevent
+        if (_.isEmpty(subNode)) {
+            if (_.isArray(node)) {
+                node.splice(index, 1);
+            } else {
+                delete node[index];
+            }
+        }
+    });
 }
 
 /**
  * Makes the raml object more usable.
  * @param  {RAMLJSONObject} ramlObj
- * @return {RAMLJSONObject}
  */
 function enhanceRamlObj (ramlObj) {
-    ramlObj = parseBaseUri(ramlObj);
-    ramlObj = traverseResources(ramlObj);
+    filterRaml(ramlObj);
+    fixupDisplayVersion(ramlObj);
+    traverseResources(ramlObj);
     ramlObj.types = transverseTypes(ramlObj.types);
-    return addUniqueIdsToDocs(ramlObj);
-}
-
-/**
- * Generates a custom raml2html config object, injecting some of our own logic
- * to add features raml2html doesn't provide by default.
- * @param {Resource[]} resource
- * @param {RamlTraverseCallback} predicate
- * @param {string} [absURL='']
- * @return {Object}
- */
-function traverseRAMLResourceTree (resources, predicate, absURL = '') {
-    resources = resources.filter(res => predicate(res, false, absURL));
-
-    resources.forEach(resource => {
-        const currUrl = absURL + resource.relativeUri;
-        if (resource.methods) {
-            resource.methods = resource.methods.filter(method => predicate(method, true, currUrl));
-        }
-        if (resource.resources) {
-            resource.resources = traverseRAMLResourceTree(resource.resources, predicate, currUrl);
-        }
-    });
-    return resources;
+    addUniqueIdsToDocs(ramlObj);
 }
 
 /**
@@ -252,17 +255,11 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            let tree = api.expand().toJSON();
-
-            tree.resources = traverseRAMLResourceTree(tree.resources, resource =>
-                !(resource.annotations && resource.annotations.internal)
-            );
-
-            tree = enhanceRamlObj(tree);
-
+            const tree = api.expand().toJSON();
+            enhanceRamlObj(tree);
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
-                JSON.stringify(tree, null, '    ')
+                JSON.stringify(tree)
             );
         });
     });

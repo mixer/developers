@@ -38,7 +38,7 @@ mixin typeNameString(type)
             a(href=`#${name}`)= name
         else
             = name
-        | (#{type.enum.join(', ')})
+        != ` (${type.enum.map(val => `<code>${val}</code>`).join()})`
         if type.default
             span.help(title='Default Value')= `=${type.default}`
     else if union
@@ -139,10 +139,15 @@ mixin simpleType(key, type, skipRequired)
                 li Maximum length: #{type.maxItems}
             if type.uniqueItems
                 li Items MUST be unique.
-            li Item properties:
-                if type.items.properties
-                    ul.rest-nested-properties
-                        for property, propertyName in type.items.properties
-                            li
-                                +simpleTypeHeading(propertyName, property)
-                                +simpleType(propertyName, property)
+            if type.items.properties
+                li Item properties:
+                        ul.rest-nested-properties
+                            for property, propertyName in type.items.properties
+                                li
+                                    +simpleTypeHeading(propertyName, property)
+                                    +simpleType(propertyName, property)
+            else
+                li Item type:
+                    = ' '
+                    +typeNameString(type.items)
+
