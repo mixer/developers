@@ -9,6 +9,7 @@
     "lint-json": "gulp lint-json",
     "test": "npm run lint && npm run lint-pug",
     "build": "gulp",
+    "rebuild": "gulp recompile",
     "start": "http-server -p 8000 dist",
     "watch": "gulp watch"
   },
