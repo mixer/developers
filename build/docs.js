@@ -186,7 +186,7 @@ function filterRaml (node) {
             }
         }
         filterRaml(subNode);
-        // After filtering nodes may be empty, to prevent
+        // After filtering nodes may be empty
         if (_.isEmpty(subNode)) {
             if (_.isArray(node)) {
                 node.splice(index, 1);
