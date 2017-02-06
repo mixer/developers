@@ -17,7 +17,7 @@ public class Chat {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         BeamAPI beam = new BeamAPI("AUTH_TOKEN");
 
-        BeamUser user = beam.use(UsersService.class)..getCurrent().get();
+        BeamUser user = beam.use(UsersService.class).getCurrent().get();
         BeamChat chat = beam.use(ChatService.class).findOne(user.channel.id).get();
         BeamChatConnectable chatConnectable = chat.connectable(beam);
 

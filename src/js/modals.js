@@ -9,8 +9,8 @@ $(document).ready(function () {
         }
 
         var anchorId = document.location.hash.substr(1); // strip #
-        //Don't do this when
-        if (anchorId.search('access_token') !== -1) {
+        // Don't do this when we're retrieving an OAuth Token
+        if (anchorId.indexOf('access_token') !== -1) {
             return;
         }
         var element = $('#' + anchorId);

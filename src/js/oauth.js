@@ -37,7 +37,6 @@
     function openImplicitOAuthWindow (scopes) {
         var clientId = 'fa54866255ea641235e596e5659fa726a4aa9f7ecc72758f';
         var redirectURI = 'https://dev.beam.pro/oauthreturn.html';
-        // var redirectURI = 'http://localhost:3000/oauthreturn.html';
         var url = 'https://beam.pro/oauth/authorize?response_type=token&' +
             'redirect_uri=' + redirectURI + '&' +
             'scope=' + scopes + '&' +
