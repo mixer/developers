@@ -67,11 +67,16 @@ function getAccessToken () {
 
 function handleOAuthResponse () {
     var token = getAccessToken();
+
     window.opener.replaceToken(token);
     window.close();
 }
 
 function replaceToken (token) {
+    if (!token) {
+        $('.auth-token').html('Error retrieving token');
+        return;
+    }
     $('.auth-token').html(token).addClass('retrieved');
 }
 
