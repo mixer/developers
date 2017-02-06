@@ -46,7 +46,6 @@ block tutorialContent
     +bsTabs('interactive_guide', {
         node: 'Node',
         java:'Java',
-        python: 'Python'
     })
         +bsTabItem('interactive_guide', 'node')
             h3 Prerequisites
@@ -123,35 +122,6 @@ block tutorialContent
             p.
                 When you put everything together you get the final code which is below:
             +highlightFile('java','./tutorials/code/java/interactive/4.java')
-        +bsTabItem('interactive_guide', 'python')
-            h3 Prerequisites
-            ol
-                li Python 3
-                li pip (Python Package Manager)
-            p.
-                Once you have the prerequisites, install the following modules.
-                All three are available on pip and may be installed by using #[code pip install MODULE].
-            ol
-                li #[a(href='https://github.com/WatchBeam/beam-interactive-python' target='_blank') beam_interactive]
-                li #[a(href='https://github.com/kennethreitz/requests' target='_blank') requests]
-                li #[a(href='https://github.com/PyUserInput/PyUserInput' target='_blank') PyUserInput]
-            p.
-                Once installed, create a new file and add the required imports.
-            +highlightFile('python','./tutorials/code/python/interactive/1.py')
-            p.
-                Next, we need to create a dictionary to store authentication details
-                and some functions to authenticate the user and retrieve some data from Beam.
-            +highlightFile('python','./tutorials/code/python/interactive/2.py')
-            p.
-                After that, we'll write our error and report handlers. Our report handler
-                interacts with the mouse based on Interactive inputs.
-            +highlightFile('python','./tutorials/code/python/interactive/3.py')
-            p.
-                The final step is to setup the coroutine that will run everything.
-            +highlightFile('python','./tutorials/code/python/interactive/4.py')
-            p.
-                The full code is shown below.
-            +highlightFile('python','./tutorials/code/python/interactive/5.py')
 
     h2#stream Start Streaming
     p.

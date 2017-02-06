@@ -23,7 +23,6 @@ block tutorialContent
     +bsTabs('chatbot_guide', {
         node: 'Node',
         java:'Java',
-        python: 'Python',
         raw: 'Raw'
     })
         +bsTabItem('chatbot_guide', 'node')
@@ -87,38 +86,6 @@ block tutorialContent
             p.
                 Putting everything together into one file you get a completed ping-pong Java Beam Bot!
             +highlightFile('java', 'tutorials/code/java/chatbot/6.java')
-        +bsTabItem('chatbot_guide', 'python')
-            h3 Prerequisites
-            ol
-                li.
-                    Get #[a(href='https://www.python.org/downloads/') Python 3] with pip
-                    for your platform.
-                li Create a new Python project.
-                li.
-                    Install
-                    #[a(href='https://github.com/WatchBeam/beam-client-python') beam-client-python]
-                    via #[code pip install git+https://github.com/WatchBeam/beam-client-python].
-            h3 Writing the Code
-            p.
-                Create a new folder for your chatbot. Inside this folder create a config file.
-                config.py which will contain user authentication data as well as your channel id
-            include ./channelid.pug
-            +highlightFile('python', 'tutorials/code/python/chat/1.py')
-            p.
-                Next let's create another file called example.py and start by importing the required modules
-                as well as our config file with our authentication details.
-            +highlightFile('python', 'tutorials/code/python/chat/2.py')
-            p.
-                Next we need to instantiate an instance of the chat class and pass it our config.
-            +highlightFile('python', 'tutorials/code/python/chat/3.py')
-            p.
-                The last thing to to is to hook up some events so the chatbot will actually do something.
-                In this case we will print incoming chat messages and periodically say Hi to the connected
-                channel on a loop. The last thing is to do is to start the IOLoop.
-            +highlightFile('python', 'tutorials/code/python/chat/4.py')
-            p.
-                The complete code can be found below:
-            +highlightFile('python', 'tutorials/code/python/chat/5.py')
 
         +bsTabItem('chatbot_guide', 'raw')
             h2 Raw API
