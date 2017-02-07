@@ -62,5 +62,5 @@ mixin bsTabItem(parent, name)
 mixin oauthLinks(scopes)
     script.
         $(document).ready(function () {
-            registerOAuthClickHandler('#{scopes}');
+            oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
