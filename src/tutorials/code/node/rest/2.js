@@ -1,17 +1,13 @@
 'use strict';
 
 const Beam = require('beam-client-node');
-const username = process.argv[2];
-const password = process.argv[3];
 
 const beam = new Beam();
 
-beam.use('password', {
-    username,
-    password,
-})
-.attempt()
+const channelName = process.argv[2];
+
+beam.request('GET', `channels/${channelName}`)
 .then(res => {
-    const viewers = res.body.channel.viewersTotal;
+    const viewers = res.body.viewersTotal;
     console.log(`You have ${viewers} total viewers...`);
 });

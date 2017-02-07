@@ -1,5 +1,5 @@
 //...
-BeamUser user = beam.use(UsersService.class).login(username, password).get();
+BeamUser user = beam.use(UsersService.class).getCurrent().get();
 BeamChat chat = beam.use(ChatService.class).findOne(user.channel.id).get();
 BeamChatConnectable chatConnectable = chat.connectable(beam);
 //...

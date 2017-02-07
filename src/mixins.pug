@@ -58,3 +58,9 @@ mixin bsTabItem(parent, name)
         role='tabpanel'
     )
         block
+
+mixin oauthLinks(scopes)
+    script.
+        $(document).ready(function () {
+            oauthUtils.registerOAuthClickHandler('#{scopes}');
+        });

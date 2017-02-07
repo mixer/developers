@@ -29,11 +29,30 @@ block reference
 
         ul
             li
-                | Authorize endpoint:
+                | #[a(href='https://tools.ietf.org/html/rfc6749#section-3.1') Authorize endpoint]:
                 code https://beam.pro/oauth/authorize
             li
-                | Token endpoint:
+                | #[a(href='https://tools.ietf.org/html/rfc6749#section-3.2') Token endpoint]:
                 code https://beam.pro/api/v1/oauth/token
+        h3 Token Expiry
+        table.table
+            tr
+                th Type
+                th Expiry Time
+                th Notes
+            tr
+                td #[a(href='https://tools.ietf.org/html/rfc6749#section-1.4') Access Token]
+                td 6 Hours
+                td
+            tr
+                td #[a(href='https://tools.ietf.org/html/rfc6749#section-1.5') Refresh Token]
+                td 1 Year
+                td This is single use, if used a new refresh token is issued with the new access token.
+            tr
+                td Implicit Token
+                td 1 Year
+                td These are only given out by an #[a(href='https://tools.ietf.org/html/rfc6749#section-1.3.2') Implicit Grant]
+
 
     h2#introduction Introduction
     p.
@@ -71,7 +90,7 @@ block reference
 
     h2#using_oauth Using OAuth
     p.
-        The OAuth 2.0 protocol is simple enough,
+        The #[a(href='https://tools.ietf.org/html/rfc6749') OAuth 2.0 protocol] is simple enough,
         but that doesn't mean you should implement it from scratch.
         Most popular languages will have a library to easily interface with an OAuth server.
         A partial list of suggested clients

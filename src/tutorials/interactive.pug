@@ -1,5 +1,8 @@
 extends ./tutorial_layout.pug
 
+block append scripts
+    +oauthLinks('interactive:robot:self channel:details:self')
+
 block title
     | Interactive Tutorial | Beam Developers
 
@@ -40,10 +43,11 @@ block tutorialContent
         Users will be able to visit your channel on Beam, and control the mouse
         movement on your screen.
 
+    include ./snippets/oauth_introduction.pug
+
     +bsTabs('interactive_guide', {
         node: 'Node',
         java:'Java',
-        python: 'Python'
     })
         +bsTabItem('interactive_guide', 'node')
             h3 Prerequisites
@@ -57,13 +61,13 @@ block tutorialContent
             h3 Usage
             p.
                 Let's start by importing all of the modules which we'll need and define
-                our channel id, username and password.
+                our channel id.
             include ./channelid.pug
 
             +highlightFile('javascript','./tutorials/code/node/interactive/1.js')
             p.
                 To connect to Beam Interactive we need to authenticate as our user specified above
-                using  #[code beam-client-node] we can use password based authentication to do this.
+                using  #[code beam-client-node] we'll use an implicit OAuth token to do this. The required scopes are #[code interactive:robot:self].
                 Once authenticated we're asking the api to join a channel as a robot with #[code beam.game.join].
                 We'll use the response from this to create a robot in the next step.
             +highlightFile('javascript','./tutorials/code/node/interactive/2.js')
@@ -120,35 +124,6 @@ block tutorialContent
             p.
                 When you put everything together you get the final code which is below:
             +highlightFile('java','./tutorials/code/java/interactive/4.java')
-        +bsTabItem('interactive_guide', 'python')
-            h3 Prerequisites
-            ol
-                li Python 3
-                li pip (Python Package Manager)
-            p.
-                Once you have the prerequisites, install the following modules.
-                All three are available on pip and may be installed by using #[code pip install MODULE].
-            ol
-                li #[a(href='https://github.com/WatchBeam/beam-interactive-python' target='_blank') beam_interactive]
-                li #[a(href='https://github.com/kennethreitz/requests' target='_blank') requests]
-                li #[a(href='https://github.com/PyUserInput/PyUserInput' target='_blank') PyUserInput]
-            p.
-                Once installed, create a new file and add the required imports.
-            +highlightFile('python','./tutorials/code/python/interactive/1.py')
-            p.
-                Next, we need to create a dictionary to store authentication details
-                and some functions to authenticate the user and retrieve some data from Beam.
-            +highlightFile('python','./tutorials/code/python/interactive/2.py')
-            p.
-                After that, we'll write our error and report handlers. Our report handler
-                interacts with the mouse based on Interactive inputs.
-            +highlightFile('python','./tutorials/code/python/interactive/3.py')
-            p.
-                The final step is to setup the coroutine that will run everything.
-            +highlightFile('python','./tutorials/code/python/interactive/4.py')
-            p.
-                The full code is shown below.
-            +highlightFile('python','./tutorials/code/python/interactive/5.py')
 
     h2#stream Start Streaming
     p.
