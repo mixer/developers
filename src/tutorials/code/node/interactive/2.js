@@ -7,7 +7,7 @@ beam.use('oauth', {
     },
 });
 
-client.request('GET', `users/current`)
+beam.request('GET', `users/current`)
 .then(() => beam.game.join(channelId))
 .then(res => createRobot(res))
 .then(robot => performRobotHandShake(robot))
