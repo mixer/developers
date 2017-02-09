@@ -32,7 +32,7 @@ block reference
     p.
         Once you have the details, you'll need to use them to connect to a chat server. The reponse's #[code endpoint] array contains a list of chat servers. You should choose one randomly to connect to. If you lose connection to this address, you should re-connect to a different server (you can be chosen randomly or via a round-robin strategy of your choosing).
     p.
-        After connecting to a server you must call the #[a(href='#chat__methods__auth') auth] method.
+        After connecting to a server you must call the #[a(href='#chat__methods__auth') auth] method. You should use an #[code authkey] key if you received one from the #[code /chats/{channelId}] endpoint. These keys are single use only and expire after 5 minutes. If you lose your connection to chat you'll need to get a new one.
 
     h2(id='chat__packets') Packets
     p.
