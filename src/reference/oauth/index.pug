@@ -117,6 +117,29 @@ block reference
         To use our OAuth implementation you'll just need the URLs which can be found at the top of
         this page and your token from the
         #[a(href='https://beam.pro/lab/oauth' target='_blank') OAuth Clients] page.
+    
+    h3#shortcode Authenticating with a short code
+    p.
+        For convenience, we also provide an alternative authentication method where the user is prompted
+        to enter a temporary code to approve your application. This method makes sense for situations
+        where it is more difficult to embed a browser or require keyboard input from the user.
+    ol
+        li.
+            Your application sends a #[code POST] request to the
+            #[a(href='/rest.html#oauth_shortcode_post' target='_blank') /oauth/shortcode] endpoint to
+            receive a short-lived, six-digit #[code code] and a longer #[code handle].
+        li.
+            Your application asks the user to go to
+            #[a(href='https://beam.pro/go' target='_blank') beam.pro/go] and enter the #[code code].
+        li.
+            Your application polls
+            #[a(href='/rest.html#oauth_shortcode_check__handle__get' target='_blank') /oauth/shortcode/check/{handle}]
+            with the value of #[code handle] to check if the code has been used.
+        li.
+            If the user entered the code and accepted your application, you will receive a new
+            #[code code] which you will then pass to the
+            #[a(href='/rest.html#oauth_token_post' target='_blank') /oauth/token] endpoint through the
+            standard OAuth #[code authorization_code] process.
 
     h2#oauth_scopes OAuth Scopes
     p.
