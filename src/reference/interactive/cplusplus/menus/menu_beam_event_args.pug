@@ -1,0 +1,27 @@
+h4 #[a(href='../index.html') C++ API overview]
+li
+    a(href=`#${interactive.api[4].name}__declaration`) Declaration
+    
+if interactive.api[4].constructor_class
+    li
+        a(href=`#${interactive.api[4].name}__constructor`) Constructor
+if interactive.api[4].destructor_class    
+    li
+        a(href=`#${interactive.api[4].name}_destructor`) Destructor
+if interactive.api[4].methods
+    li
+        a(href=`#${interactive.api[4].name}__methods`) Methods
+        ul.nav.nav-stacked
+        for key in interactive.api[4].methods
+            if key.description
+                li: a(href=`#${interactive.api[4].name}__${key.name}`)= key.name
+if interactive.api[4].properties    
+    li
+        a(href=`#${interactive.api[4].name}__properties`) Properties
+        ul.nav.nav-stacked
+        for key in interactive.api[4].properties
+            if key.description
+                li: a(href=`#${interactive.api[4].name}__${key.name}`)= key.name
+if interactive.api[4].enums   
+    li
+        a(href=`#${interactive.api[4].name}__fields`) Fields

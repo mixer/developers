@@ -60,6 +60,7 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
+        interactive: require('../src/reference/interactive/cplusplus/data.json'),
         rest: restDoc,
         beConfig: wrappedRequire('./tmp/backend/config/default.js'),
         permissions,
@@ -218,6 +219,7 @@ module.exports = (gulp, $) => {
     gulp.task('lint-json', () => {
         const files = [
             'src/reference/chat/data.json',
+            'src/reference/interactive/cplusplus/data.json',
         ];
 
         files.forEach(file => {

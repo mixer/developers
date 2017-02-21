@@ -1,0 +1,113 @@
+extends ../../../reference_layout.pug
+block title
+    | Interactive API Reference | Beam Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Interactive Reference Documentation
+block menu
+    .hidden-print.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                include ../menus/menu_beam_participant_state.pug
+block reference
+    h1(id=`${interactive.api[13].name}__${interactive.api[13].type}`)= interactive.api[13].name+" "+interactive.api[13].type
+    p= interactive.api[13].description 
+
+    h2(id=`${interactive.api[13].name}__declaration`) Declaration
+    
+        if interactive.api[13].syntax
+        .panel.panel-default.panel-rest
+                    .panel-body
+                        h3.panel-title= interactive.api[13].syntax.code
+                        
+    if interactive.api[13].constructor_class
+         h2(id=`${interactive.api[13].name}__constructor`) Constructor
+        
+         for key in interactive.api[13].constructor_class
+             if key.description
+                 h3(id=`${interactive.api[13].name}__${key.name}`)= key.name
+                
+                 table.table
+                     tr
+                         td= key.description
+                        
+                 .panel.panel-default.panel-rest
+                     .panel-body
+                         h3.panel-title= key.code
+
+    if interactive.api[13].destructor_class
+        h2(id=`${interactive.api[13].name}__destructor`) Destructor
+        
+        for key in interactive.api[13].destructor_class
+            if key.name
+                h3(id=`${interactive.api[13].name}__${key.name}`)= key.name
+                
+                table.table
+                    tr
+                        td= key.description
+                        
+                .panel.panel-default.panel-rest
+                    .panel-body
+                        h3.panel-title= key.code
+                          
+    if interactive.api[13].methods
+        h2(id=`${interactive.api[13].name}__methods`) Methods
+    
+        for key in interactive.api[13].methods
+            if key.description
+                h3(id=`${interactive.api[13].name}__${key.name}`)= key.name
+            
+                table.table
+                    tr
+                        td= key.description
+                    
+                .panel.panel-default.panel-rest
+                    .panel-body
+                        h3.panel-title= key.code
+                
+                if key.params
+                    h4 Parameters
+                    table.table
+                        for parameter in key.params
+                            tr
+                                td.col-xs-4: code= parameter.param_name
+                                td.col-xs-8= parameter.param_type
+                            tr
+                                td(colspan='2')= parameter.param_description
+
+                if key.return_type
+                    h4 Returns
+                    p: code= key.return_type
+                    p= key.return_description
+
+    if interactive.api[13].properties
+            h2(id=`${interactive.api[13].name}__properties`) Properties
+        
+            for key in interactive.api[13].properties
+                if key.description
+                    h3(id=`${interactive.api[13].name}__${key.name}`)= key.name
+                
+                    table.table
+                        tr
+                            td= key.description
+                        
+                    .panel.panel-default.panel-rest
+                        .panel-body
+                            h3.panel-title= key.code
+                    if key.property_type
+                        h4 Returns
+                        p: code= key.property_type
+                        p= key.property_description
+
+    if interactive.api[13].enums
+            h2(id=`${interactive.api[13].name}__fields`) Fields
+    
+            table.table
+                for key in interactive.api[13].enums
+                    if key.description
+                        tr  
+                            td= key.name
+                            td= key.description
