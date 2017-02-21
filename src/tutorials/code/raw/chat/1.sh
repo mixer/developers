@@ -8,9 +8,8 @@
 userInfo=$(curl -X POST \
 -s \
 -H "Content-Type: application/json" \
--d '{"username": "USERNAME OR EMAIL", "password": "PASSWORD"}' \
--c cookies.jar \
-https://beam.pro/api/v1/users/login )
+-H "Authorization: Bearer AUTH_TOKEN"
+https://beam.pro/api/v1/users/current )
 
 # jq . <<< $userInfo # use for inspection of data
 

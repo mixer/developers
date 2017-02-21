@@ -26,12 +26,9 @@ def channels_with_more_viewers(viewers):
         page += 1
 
 
-login_response = s.post('https://beam.pro/api/v1/users/login', data={
-    'username': sys.argv[1],
-    'password': sys.argv[2]
-})
+channel_response = s.get('https://beam.pro/api/v1/channels/{}'.format(sys.argv[1]))
 
-viewers = login_response.json()['channel']['viewersTotal']
+viewers = channel_response.json()['viewersTotal']
 print("You have {} viewers...".format(viewers))
 
 rank = channels_with_more_viewers(viewers)

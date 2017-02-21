@@ -1,2 +1,2 @@
-$ node rank.js connor4312 l337hax0r
+$ node rank.js connor4312
 You have 595 total viewers...

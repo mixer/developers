@@ -3,7 +3,7 @@
 chatJoinInfo=$(curl \
 -s \
 -H "Content-Type: application/json" \
--b cookies.jar \
+-H "Authorization: Bearer AUTH_TOKEN"
 https://beam.pro/api/v1/chats/$channelId )
 
 wsServer=$(jq -r .endpoints[0] <<< $chatJoinInfo)

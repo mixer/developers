@@ -3,23 +3,24 @@ const Interactive = require('beam-interactive-node');
 const rjs = require('robotjs');
 
 const channelId = 1234;
-const username = 'username';
-const password = 'password';
 
 const beam = new Beam();
 
-beam.use('password', {
-    username,
-    password,
-})
-.attempt()
+beam.use('oauth', {
+    tokens: {
+        access: 'AUTH_TOKEN',
+        expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
+    },
+});
+
+beam.request('GET', `users/current`)
 .then(() => beam.game.join(channelId))
 .then(res => createRobot(res))
 .then(robot => performRobotHandShake(robot))
 .then(robot => setupRobotEvents(robot))
 .catch(err => {
     if (err.res) {
-        throw new Error('Error connecting to Interactive:' + err.res.body.mesage);
+        throw new Error('Error connecting to Interactive:' + err.res.body.message);
     }
     throw new Error('Error connecting to Interactive', err);
 });

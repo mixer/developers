@@ -15,8 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 public class Chat {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        String username = args[0];
-        String password = args[1];
-        BeamAPI beam = new BeamAPI();
+        BeamAPI beam = new BeamAPI("AUTH_TOKEN");
     }
 }

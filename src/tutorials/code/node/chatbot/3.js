@@ -5,11 +5,17 @@ let userInfo;
 
 const client = new BeamClient();
 
-client.use('password', {
-    username: 'your_username',
-    password: 'your_password',
-})
-.attempt()
+// With OAuth we don't need to login, the OAuth Provider will attach
+// the required information to all of our requests after this call.
+client.use('oauth', {
+    tokens: {
+        access: 'AUTH_TOKEN',
+        expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
+    },
+});
+
+// Get's the user we have access to with the token
+client.request('GET', `users/current`)
 .then(response => {
     userInfo = response.body;
     return client.chat.join(response.body.channel.id);

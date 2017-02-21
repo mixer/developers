@@ -1,4 +1,8 @@
 extends ./tutorial_layout.pug
+include ../mixins.pug
+
+block append scripts
+    +oauthLinks('chat:connect chat:chat')
 
 block title
     | Chatbot Tutorial | Beam Developers
@@ -16,10 +20,12 @@ block tutorialContent
         libraries to communicate with the Beam API. We'll also take a look at how you can talk to
         the API directly with #[a(href='https://curl.haxx.se/') curl]
         and #[a(href='https://github.com/websockets/wscat') wscat].
+
+    include ./snippets/oauth_introduction.pug
+
     +bsTabs('chatbot_guide', {
         node: 'Node',
         java:'Java',
-        python: 'Python',
         raw: 'Raw'
     })
         +bsTabItem('chatbot_guide', 'node')
@@ -37,7 +43,7 @@ block tutorialContent
             p.
                 Before we can connect to the chat servers, we must authenticate
                 ourselves with the backend.
-                In our example we are going to use the simple login authication.
+                In our example we are going to use an implicit OAuth token for authentication. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1.js')
             p.
                 The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
@@ -63,7 +69,7 @@ block tutorialContent
             include ./snippets/java/chat_project_manager.pug
             h3 Writing the Code
             p.
-                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object and grab authentication details from the command line.
+                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object with an implicit OAuth token. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('java', 'tutorials/code/java/chatbot/1.java')
             p.
                 Next we need to get a reference to a #[code BeamChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code BeamUser] object to get their #[code BeamChannel]. We can then pass this to the #[code ChatService] to get a #[code BeamChatConnectable] object. This object allows us to connect to chat!
@@ -84,40 +90,6 @@ block tutorialContent
                 Putting everything together into one file you get a completed ping-pong Java Beam Bot!
             +highlightFile('java', 'tutorials/code/java/chatbot/6.java')
 
-            include ./run_config.pug
-        +bsTabItem('chatbot_guide', 'python')
-            h3 Prerequisites
-            ol
-                li.
-                    Get #[a(href='https://www.python.org/downloads/') Python 3] with pip
-                    for your platform.
-                li Create a new Python project.
-                li.
-                    Install
-                    #[a(href='https://github.com/WatchBeam/beam-client-python') beam-client-python]
-                    via #[code pip install git+https://github.com/WatchBeam/beam-client-python].
-            h3 Writing the Code
-            p.
-                Create a new folder for your chatbot. Inside this folder create a config file.
-                config.py which will contain user authentication data as well as your channel id
-            include ./channelid.pug
-            +highlightFile('python', 'tutorials/code/python/chat/1.py')
-            p.
-                Next let's create another file called example.py and start by importing the required modules
-                as well as our config file with our authentication details.
-            +highlightFile('python', 'tutorials/code/python/chat/2.py')
-            p.
-                Next we need to instantiate an instance of the chat class and pass it our config.
-            +highlightFile('python', 'tutorials/code/python/chat/3.py')
-            p.
-                The last thing to to is to hook up some events so the chatbot will actually do something.
-                In this case we will print incoming chat messages and periodically say Hi to the connected
-                channel on a loop. The last thing is to do is to start the IOLoop.
-            +highlightFile('python', 'tutorials/code/python/chat/4.py')
-            p.
-                The complete code can be found below:
-            +highlightFile('python', 'tutorials/code/python/chat/5.py')
-
         +bsTabItem('chatbot_guide', 'raw')
             h2 Raw API
             p.
@@ -135,9 +107,9 @@ block tutorialContent
                     a(href='https://stedolan.github.io/jq/') jq
             h3 Usage
             p.
-                First, we want to show off how to connect to perform a simple
-                password auth with #[code curl].
-                We simply send our credentials and store the resulting json
+                First, we'll show how to perform a simple
+                request with #[code curl].
+                We simply send our OAuth token and store the resulting json
                 in a variable for later use.
             +highlightFile('bash', 'tutorials/code/raw/chat/1.sh')
             p.
