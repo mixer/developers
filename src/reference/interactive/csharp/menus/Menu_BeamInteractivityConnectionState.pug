@@ -1,0 +1,27 @@
+h4 #[a(href='../index.html') C# API overview]
+li
+    a(href=`#${interactive_csharp.api[16].name}__declaration`) Declaration
+    
+if interactive_csharp.api[16].constructor_class
+    li
+        a(href=`#${interactive_csharp.api[16].name}__constructor`) Constructor
+if interactive_csharp.api[16].destructor_class    
+    li
+        a(href=`#${interactive_csharp.api[16].name}_destructor`) Destructor
+if interactive_csharp.api[16].methods    
+    li
+        a(href=`#${interactive_csharp.api[16].name}__methods`) Methods
+        ul.nav.nav-stacked
+        for key in interactive_csharp.api[16].methods
+            if key.description
+                li: a(href=`#${interactive_csharp.api[16].name}__${key.name}`)= key.name
+if interactive_csharp.api[16].properties    
+    li
+        a(href=`#${interactive_csharp.api[16].name}__properties`) Properties
+        ul.nav.nav-stacked
+        for key in interactive_csharp.api[16].properties
+            if key.description
+                li: a(href=`#${interactive_csharp.api[16].name}__${key.name}`)= key.name
+if interactive_csharp.api[16].enums   
+    li
+        a(href=`#${interactive_csharp.api[16].name}__fields`) Fields

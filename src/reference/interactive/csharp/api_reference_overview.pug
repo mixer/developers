@@ -1,0 +1,65 @@
+include ../../../mixins.pug
+h1#api__reference__csharp_overview C# API Overview
+
+h2(id='api__reference__csharp__classes') Classes
+p.
+
+table.table
+    tr
+        td #[a(href='./apis/BeamParticipant.html') BeamParticipant]
+        td Represents a user who is currently viewing a Beam Interactive stream.
+    tr
+        td #[a(href='./apis/BeamScene.html') BeamScene]
+        td Represents a Beam Interactive scene. These scenes are configured using the Beam Lab.
+    tr
+        td #[a(href='./apis/BeamManager.html') BeamManager]
+        td The manager service class that handles the Beam Interactive event experience between Beam service and the title.
+    tr
+        td #[a(href='./apis/BeamEventArgs.html') BeamEventArgs]
+        td Base class for all Beam event args. Contains information for Beam Interactive events.   
+    tr
+        td #[a(href='./apis/ParticipantJoinEventArgs.html') ParticipantJoinEventArgs]
+        td Contains information about the event that is triggered when a participant (BeamParticipant) joins the Beam channel.
+    tr
+        td #[a(href='./apis/ParticipantLeaveEventArgs.html') ParticipantLeaveEventArgs]
+        td Contains information about the event that is triggered when a participant (BeamParticipant) leaves the Beam channel.
+    tr
+        td #[a(href='./apis/BeamButtonEventArgs.html') BeamButtonEventArgs]
+        td Contains information for a button event.       
+    tr
+        td #[a(href='./apis/BeamJoystickControlEventArgs.html') BeamJoystickControlEventArgs]
+        td Contains information for a joystick event.
+    tr
+        td #[a(href='./apis/BeamScreenClickEvent.html') BeamScreenClickEvent]
+        td Contains information for a screen click event.
+    tr
+        td #[a(href='./apis/BeamScreenCoordinateEvent.html') BeamScreenCoordinateEvent]
+        td Contains information for an event that combines screen clicks to produce an averaged click result.     
+    tr
+        td #[a(href='./apis/BeamControl.html') BeamControl]
+        td Base class for all Beam Interactive controls. All controls are created and configured using the Beam Lab.
+    tr
+        td #[a(href='./apis/BeamButton.html') BeamButton]
+        td Represents a Beam Interactive button control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.   
+    tr
+        td #[a(href='./apis/BeamButtonControl.html') BeamButtonControl]
+        td Represents a Beam Interactive button control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.       
+    tr
+        td #[a(href='./apis/BeamJoystickControl.html') BeamJoystickControl]
+        td Represents a Beam Interactive joystick control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.
+    tr
+        td #[a(href='./apis/BeamScreenControl.html') BeamScreenControl]
+        td Represents a Beam Interactive screen control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.
+   
+   
+        
+h2(id='api__reference__csharp__enums') Enums
+p.
+    
+table.table
+    tr
+        td #[a(href='./apis/BeamEventType.html') BeamEventType]
+        td Describes the types of Beam events.
+    tr
+        td #[a(href='./apis/BeamInteractivityConnectionState.html') BeamInteractivityConnectionState]
+        td Describes the current state of the connection to Beam Interactive service.

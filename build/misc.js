@@ -61,6 +61,7 @@ function getLocals () {
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
         interactive: require('../src/reference/interactive/cplusplus/data.json'),
+        interactive_csharp: require('../src/reference/interactive/csharp/data.json'),
         rest: restDoc,
         beConfig: wrappedRequire('./tmp/backend/config/default.js'),
         permissions,
@@ -220,6 +221,7 @@ module.exports = (gulp, $) => {
         const files = [
             'src/reference/chat/data.json',
             'src/reference/interactive/cplusplus/data.json',
+            'src/reference/interactive/csharp/data.json',
         ];
 
         files.forEach(file => {

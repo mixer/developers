@@ -1,0 +1,837 @@
+{
+
+  "api": [
+    
+    {
+      "name": "BeamParticipant",
+      "index":"0",
+      "description": "This class represents a user who is currently viewing a Beam Interactive stream. This user (also known as a BeamParticipant) can have both a Beam account and a Microsoft Security Account (MSA).",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamParticipant"
+      },
+      "constructor_class":[
+        {
+          "code": " public class BeamParticipant()",
+          "description": "Creates the Beam participant class.",
+          "name": "BeamParticipant()"         
+        }
+      ],
+      "properties":[
+        {
+          "code": "public uint Id { get; }",
+          "description": "Gets the Beam ID of the user.",
+          "name": "Id",
+          "property_type": "uint",
+          "property_description": "The Beam ID of the user."
+        },
+        {
+          "code": "public string BeamUserName { get; }",
+          "description": "Gets the Beam username of the user.",
+          "name": "BeamUserName",
+          "property_type": "string",
+          "property_description": "The Beam username of the user."
+        },
+        {
+          "code": "public string BeamLevel { get; }",
+          "description": "Gets the Beam level of the user.",
+          "name": "BeamLevel",
+          "property_type": "string",
+          "property_description": "The Beam level of the user."
+        },
+        {
+          "code": "public bool InputDisabled { get; }",
+          "description": "Gets the value that indicates whether or not the user input is disabled.",
+          "name": "InputDisabled",
+          "property_type": "bool",
+          "property_description": "Boolean value that indicates whether or not the user input is disabled. If TRUE, user input has been disabled."
+        },
+        {
+          "code": "public DateTime LastInputAt { get; }",
+          "description": "Gets the time (in UTC) at which the user last used the interactive control input.",
+          "name": "LastInputAt",
+          "property_type": "DateTime",
+          "property_description": "The time (in UTC) at which the user last used the interactive control input."
+        },
+        {
+          "code": " public DateTime ConnectedAt { get; }",
+          "description": "Gets the time (in UTC) at which the user connected to the Beam Interactive stream.",
+          "name": "ConnectedAt",
+          "property_type": "DateTime",
+          "property_description": "The time (in UTC) at which the user connected to the Beam Interactive stream."
+        }       
+        
+      ]
+  
+    },
+    {
+      "name": "BeamScene",
+      "index":"1",
+      "description": "Represents a Beam Interactive scene. These scenes are configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamScene"
+      },
+      "properties":[
+        {
+          "code": "public string SceneId { get; }",
+          "description": "Gets the unique string identifier for the scene.",
+          "name": "SceneId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for the scene."
+        },
+        {
+          "code": "public bool Enabled { get; }",
+          "description": "Gets the value that indicates whether this scene is enabled or disabled. If the value is TRUE, the scene is enabled. Note that a scene can be an active but disabled. This means that users are unable to interact with the controls in the scene because they have been disabled.",
+          "name": "Enabled",
+          "property_type": "bool",
+          "property_description": "The state of the scene."
+        },
+        {
+          "code": "public bool IsCurrent { get; }",
+          "description": "Gets the value that indicates whether this scene is the current scene that is being displayed to participant.",
+          "name": "IsCurrent",
+          "property_type": "bool",
+          "property_description": "Boolean value that indicates whether this scene is the current scene that is being displayed."
+        },
+        {
+          "code": "public IList<BeamControl> Controls { get; }",
+          "description": "Gets all the controls in this scene.",
+          "name": "Controls",
+          "property_type": "IList<BeamControl>",
+          "property_description": "A list of controls."
+         }
+      ]
+
+    },
+    {
+      "name": "BeamManager",
+      "index":"2",
+      "description": "The manager service class that handles the Beam Interactive event experience between Beam service and the title.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamManager"
+      },
+      "constructor_class":[
+        {
+          "code": " public class BeamManager()",
+          "description": "Creates the Beam manager class.",
+          "name": "BeamManager()"         
+        }
+      ],
+      "properties":[
+        {
+          "code": "public static BeamManager SingletonInstance { get; }",
+          "description": "Gets the singleton instance of the Beam manager.",
+          "name": "SingletonInstance",
+          "property_type": "BeamManager",
+          "property_description": "The singleton instance of the Beam manager."
+        },
+        {
+          "code": "public uint ChannelId { get; }",
+          "description": "Gets the channel ID of the streamer who is broadcasting and receiving interactive input.",
+          "name": "ChannelId",
+          "property_type": "uint",
+          "property_description": "The channel ID."
+         },
+         {
+          "code": "public string ExperiencelId { get; }",
+          "description": "Gets the ID of the Beam Interactive experience created for the title.",
+          "name": "ExperiencelId",
+          "property_type": "string",
+          "property_description": "The experience ID."
+         },
+         {
+          "code": "public string ExperiencelVersion { get; }",
+          "description": "Gets the version of the Beam Interactive experience created for the title.",
+          "name": "ExperiencelVersion",
+          "property_type": "string",
+          "property_description": "The version identifier."
+         },
+         {
+          "code": "public string AppId { get; }",
+          "description": "Gets the Xbox app ID associated with the title.",
+          "name": "AppId",
+          "property_type": "string",
+          "property_description": "The Xbox app ID."
+         },
+         {
+          "code": "public bool IsInteractive { get; }",
+          "description": "Gets the value that indicates whether or not the BeamManager has enabled or disabled interactivity.",
+          "name": "IsInteractive",
+          "property_type": "string",
+          "property_description": "The Boolean value that indicates whether or not the BeamManager has enabled or disabled interactivity."
+         },
+         {
+          "code": "public IList<BeamScene> Scenes { get; }",
+          "description": "Gets all the scenes associated with the current interactive instance.",
+          "name": "Scenes",
+          "property_type": "IList<BeamScene>",
+          "property_description": "A list of scenes."
+         },
+         {
+          "code": "public BeamScene CurrentScene { get; }",
+          "description": "Gets the current interactive scene.",
+          "name": "CurrentScene",
+          "property_type": "string",
+          "property_description": "The current interactive scene."
+         }
+      ],
+      "methods":[
+         {
+          "code": "public void Initialize(uint channelId, string experienceId, string experienceVersion, string appId)",
+          "description": "Sets up the connection for the Beam Interactive event experience by initializing a background task.",
+          "name": "Initialize(uint, string, string, string)",
+          "params": [
+            {
+              "param_name": "channelId",
+              "param_type": "uint",
+              "param_description": "The channel ID of the streamer who is broadcasting and receiving interactive input."        
+            },
+            {
+              "param_name": "experienceId",
+              "param_type": "string",
+              "param_description": "The ID of the Beam Interactive experience created for the title."        
+            },
+            {
+              "param_name": "experienceVersion",
+              "param_type": "string",
+              "param_description": "The version of the Beam Interactive experience created for the title."        
+            },
+            {
+              "param_name": "appId",
+              "param_type": "string",
+              "param_description": "The Xbox app ID associated with the title."        
+            }
+          ]
+         },
+         {
+          "code": "public void SetChannelId(uint channelId)",
+          "description": "Sets the channel ID of the streamer that the title wants to be connected to. If the title needs switch to a different channel after interactivity has been initialized, the following call sequence can be used to make the switch. Call StopInteractive, use SetChannelId to update to the new desired channel id, then restart by calling StartInteractive.",
+          "name": "SetChannelId(uint)",
+          "params": [
+            {
+              "param_name": "channelId",
+              "param_type": "uint",
+              "param_description": "The ID of the user whose interactive stream we are connected to."        
+            }
+          ]
+         },
+         {
+          "code": "public void StartInteractive()",
+          "description": "Used by the title to inform the Beam service that it is ready to receive interactive input. Returns a soft failure if initialization has not yet been completed. Returns a descriptive error message if initialization fails.",
+          "name": "StartInteractive()"
+         },
+         {
+          "code": "public void StopInteractive()",
+          "description": "Used by the title to inform the Beam service that it is no longer receiving interactive input.",
+          "name": "StopInteractive()"
+         },
+         {
+          "code": "public void SetCurrentScene(string sceneId)",
+          "description": "Sets a particular scene as the current interactive scene.",
+          "name": "SetCurrentScene(string)",
+          "params": [
+            {
+              "param_name": "sceneId",
+              "param_type": "string",
+              "param_description": "The scene to set as the current interactive scene."        
+            }
+          ]
+         },
+         {
+          "code": "public void DoWork()",
+          "description": "Manages and maintains proper state updates between the title and the Beam Service. To ensure best performance, DoWork() must be called frequently, such as once per frame. Title needs to be thread safe when calling DoWork() since this is when states are changed.",
+          "name": "DoWork()"
+         },
+         {
+          "code": "public void Dispose()",
+          "description": "Closes the web socket.",
+          "name": "Dispose()"
+         },
+         {
+          "code": "public void SendMockWebSocketMessage(string rawText)",
+          "description": "Sends the specified text message as a mock web socket message.",
+          "name": "SendMockWebSocketMessage(string)",
+          "params": [
+            {
+              "param_name": "rawText",
+              "param_type": "string",
+              "param_description": "The text message to send."        
+            }
+          ]
+         }   
+      ]
+      
+    },
+    {
+      "name": "BeamEventArgs",
+      "index":"3",
+      "description": "Base class for all Beam Interactive events. Contains info about the Beam event. Beam Interactive is an event-driven service.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamEventArgs"
+      },
+      "constructor_class":[
+        {
+          "code": "public BeamEventArgs()",
+          "description": "Creates the Beam event args class.",
+          "name": "BeamEventArgs()"         
+        }
+        
+      ],
+      "properties":[
+        {
+          "code": "public DateTime Time { get; }",
+          "description": "Gets the time (in UTC) when this event is raised.",
+          "name": "time()",
+          "property_type": "DateTime",
+          "property_description": "The time (in UTC)."
+        },
+        {
+          "code": "public int ErrorCode { get; }",
+          "description": "Gets the error code indicating the result of the operation.",
+          "name": "ErrorCode",
+          "property_type": "int",
+          "property_description": "The error code."
+        },
+        {
+          "code": "public string ErrorMessage { get; }",
+          "description": "Gets a call specific error message with debug information. Message is not localized as it is meant to be used for debugging only.",
+          "name": "ErrorMessage",
+          "property_type": "string",
+          "property_description": "The error message."
+        },
+        {
+          "code": "public BeamEventType EventType { get; }",
+          "description": "Gets the type of event raised.",
+          "name": "EventType",
+          "property_type": "BeamEventType",
+          "property_description": "The type of event raised."
+        }
+      ]      
+    },
+    {
+      "name": "ParticipantJoinEventArgs",
+      "index": "4",
+      "description": "Event is raised when a participant joins the Beam channel.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class ParticipantJoinEventArgs"
+      },
+      "properties":[
+        {
+          "code": "public BeamParticipant Participant { get; }",
+          "description": "Gets the user who has just joined the Beam channel.",
+          "name": "Participant",
+          "property_type": "BeamParticipant",
+          "property_description": "The Beam participant who has just joined the Beam channel."
+        }
+      ]
+     },
+     {
+      "name": "ParticipantLeaveEventArgs",
+      "index": "5",
+      "description": "Event is raised when a participant leaves the Beam channel.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class ParticipantLeaveEventArgs"
+      },
+      "properties":[
+        {
+          "code": "public BeamParticipant Participant { get; }",
+          "description": "Gets the user who has just left the Beam channel.",
+          "name": "Participant",
+          "property_type": "BeamParticipant",
+          "property_description": "The Beam participant who has just left the Beam channel."
+        }
+      ]
+     },
+     {
+      "name": "BeamButtonEventArgs",
+      "index": "6",
+      "description": "Contains information for a button event.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamButtonEventArgs"
+      },
+      "properties": [
+        {
+          "code": "public string ControlId { get; }",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "ControlId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "public BeamParticipant Participant { get; }",
+          "description": "Gets the user who triggered this event.",
+          "name": "Participant",
+          "property_type": "BeamParticipant",
+          "property_description": "The user who triggered this event."
+        },
+        {
+          "code": "public bool IsPressed { get; }",
+          "description": "Get the value that indicates if the button is down or not. Returns TRUE if button is down.",
+          "name": "IsPressed",
+          "property_type": "bool",
+          "property_description": "Boolean value that indicates whether the button is down or not."
+        }       
+      ]
+    },
+    {
+      "name": "BeamJoystickControlEventArgs",
+      "index": "7",
+      "description": "Contains information for a joystick event. These events are sent at an interval frequency configured via the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamJoystickControlEventArgs"
+      },
+      "properties": [
+        {
+          "code": "public string ControlId { get; }",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "ControlId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "public BeamParticipant Participant { get; }",
+          "description": "Gets the user who triggered this event.",
+          "name": "Participant",
+          "property_type": "BeamParticipant",
+          "property_description": "The user who triggered this event."
+        },
+        {
+          "code": "public double X { get; }",
+          "description": "Gets the X coordinate of the joystick, in the range of [-1, 1].",
+          "name": "X",
+          "property_type": "double",
+          "property_description": "The X coordinate of the joystick."
+        },
+        {
+          "code": "public double Y { get; }",
+          "description": "Gets the Y coordinate of the joystick, in the range of [-1, 1].",
+          "name": "Y",
+          "property_type": "double",
+          "property_description": "The Y coordinate of the joystick."
+        }
+      ]
+            
+    },
+    {
+      "name": "BeamScreenClickEvent",
+      "index": "8",
+      "description": "Contains information for a screen click event. These events are sent at an interval frequency configured via the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class PartcipantJoinEventArgs"
+      },
+      "properties":[
+        {
+          "code": "public string ControlId { get; }",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "ControlId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "public double X { get; }",
+          "description": "Gets the X coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "X",
+          "property_type": "double",
+          "property_description": "The X coordinate of the screen."
+        },
+        {
+          "code": "public double Y { get; }",
+          "description": "Gets the Y coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "Y",
+          "property_type": "double",
+          "property_description": "The Y coordinate of the screen."
+        },
+        {
+          "code": "public IList<BeamParticipant> Players { get; }",
+          "description": "Gets the list of users who triggered this event.",
+          "name": "Players",
+          "property_type": "IList<BeamParticipant>",
+          "property_description": "The list of users who triggered this event."
+        }
+      ]
+     },
+     {
+      "name": "BeamScreenCoordinateEvent",
+      "index": "9",
+      "description": "Contains information for an event that combines screen clicks to produce an averaged click result. These events are sent at an interval frequency configured via the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamScreenCoordinateEvent"
+      },
+      "properties":[
+        {
+          "code": "public string ControlId { get; }",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "ControlId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "public double X { get; }",
+          "description": "Gets the averaged X coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "X",
+          "property_type": "double",
+          "property_description": "The X coordinate of the screen."
+        },
+        {
+          "code": "public double Y { get; }",
+          "description": "Gets the averaged Y coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "Y",
+          "property_type": "double",
+          "property_description": "The Y coordinate of the screen."
+        },
+        {
+          "code": "public IList<BeamParticipant> Players { get; }",
+          "description": "Gets the list of users who have contributed to this event.",
+          "name": "Players",
+          "property_type": "IList<BeamParticipant>",
+          "property_description": "The list of users who have contributed to this event."
+        }
+      ]
+     },
+     {
+      "name": "BeamControl",
+      "index": "10",
+      "description": "Base class for all Beam Interactive controls. All controls are created and configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamControl"
+      },
+      "properties":[
+        {
+          "code": "public string ControlId { get; }",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "ControlId",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "public bool Enabled { get; }",
+          "description": "Gets the value that indicates whether the control is enabled or disabled.",
+          "name": "Enabled",
+          "property_type": "bool",
+          "property_description": "Boolean value that indicates whether the control is enabled or disabled."
+        },
+        {
+          "code": "public string HelpText { get; }",
+          "description": "Gets the help text that displays when a participant hovers over the control.",
+          "name": "HelpText",
+          "property_type": "string",
+          "property_description": "The help text."
+        }
+      ],
+      "methods": [
+       {
+          "code": "public void SetFired()",
+          "description": "This method must be called to indicate that this control has been triggered. Controls can be configured to trigger a variety of actions, including rendering visual effects on screen. Actions triggered are authored through the Beam Lab.",
+          "name": "SetFired()"
+        },
+        {
+          "code": "public void SetEnabled(bool isEnabled)",
+          "description": "Function to enable or disable this control.",
+          "name": "SetEnabled(bool)",
+          "params": [
+            {
+              "param_name": "isEnabled",
+              "param_type": "bool",
+              "param_description": "Boolean value to enable or disable the control. Set this value to TRUE to enable the control."        
+            }
+          ]
+         }       
+      ]      
+    },
+    {
+      "name": "BeamButton",
+      "index": "11",
+      "description": "Represents a Beam Interactive button control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamButton"
+      },
+      "properties":[
+        {
+          "code": "public BeamParticipant Participant { get; }",
+          "description": "Gets the user who clicked the button.",
+          "name": "Participant",
+          "property_type": "BeamParticipant",
+          "property_description": "The user who clicked the button."
+        },
+        {
+          "code": "public bool IsPressed { get; }",
+          "description": "Get the value that indicates if the button is down or not. Returns TRUE if button is down.",
+          "name": "IsPressed",
+          "property_type": "bool",
+          "property_description": "Boolean value that indicates whether the button is down or not."
+        }      
+      ]     
+    },
+    {
+      "name": "BeamButtonControl",
+      "index": "12",
+      "description": "Represents a Beam Interactive button control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamButtonControl"
+      },
+      "properties": [
+        {
+          "code": "public string ButtonText",
+          "description": "Gets the text displayed on the button control.",
+          "name": "ButtonText",
+          "property_type": "string",
+          "property_description": "The text displayed on the button control."
+        },
+        {
+          "code": "public uint Cost",
+          "description": "Gets the spark cost assigned to the button control.",
+          "name": "Cost",
+          "property_type": "uint",
+          "property_description": "The spark cost."
+        },
+        {
+          "code": "public TimeSpan Cooldown",
+          "description": "Gets the cooldown duration (in milliseconds) required between clicks",
+          "name": "Cooldown",
+          "property_type": "TimeSpan",
+          "property_description": "The cooldown duration (in milliseconds) required between clicks."
+        },
+        {
+          "code": "public TimeSpan RemainingCooldown",
+          "description": "Gets the time remaining (in milliseconds) before this button can be clicked again.",
+          "name": "RemainingCooldown",
+          "property_type": " TimeSpan",
+          "property_description": "The time remaining (in milliseconds)."
+        },
+        {
+          "code": "public float Progress",
+          "description": "Gets the current progress of this button control.",
+          "name": "Progress",
+          "property_type": "float",
+          "property_description": "Current progress."
+        }
+      ],
+      "methods":[
+        {
+          "code": "public void SetProgress(float progress)",
+          "description": "Sets the progress value for this button control.",
+          "name": "SetProgress(float)",
+          "params": [
+            {
+              "param_name": "progress",
+              "param_type": "float",
+              "param_description": "The progress value, in the range of 0.0 to 1.0."        
+            }
+          ]
+        }                   
+      ]      
+    },
+    {
+      "name": "BeamJoystickControl",
+      "index":"13",
+      "description": "Represents a Beam Interactive joystick control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamJoystickControl"
+      },
+      "properties":[
+        {
+          "code": "public double X { get; }",
+          "description": "Gets the current X coordinate of the joystick, in the range of [-1, 1].",
+          "name": "X",
+          "property_type": "double",
+          "property_description": "The current X coordinate of the joystick."
+        },
+        {
+          "code": "public double Y { get; }",
+          "description": "Gets the current Y coordinate of the joystick, in the range of [-1, 1].",
+          "name": "Y",
+          "property_type": "double",
+          "property_description": "The current Y coordinate of the joystick."
+        }       
+      ],
+      "methods":[
+        {
+          "code": "public void SetCoordinates(double x, double y)",
+          "description": "Updates the joystick coordinates for this control. This can be used to set the coordinates to an average value. The average value is obtained by using the values provided by all connected participants through incoming events.",
+          "name": "SetCoordinates(double, double)",
+          "params": [
+            {    
+              "param_name": "x",
+              "param_type": "double",
+              "param_description": "The X coordinate, in the range of -1.0 to 1.0."        
+            },
+            {    
+              "param_name": "y",
+              "param_type": "double",
+              "param_description": "The Y coordinate, in the range of -1.0 to 1.0."        
+            }
+          ]
+        },
+        {
+          "code": "public void SetIntensity(double intensity)",
+          "description": "Sets the intensity value of the joystick control.",
+          "name": "SetIntensity(double)",
+          "params": [
+            {    
+              "param_name": "intensity",
+              "param_type": "double",
+              "param_description": "The intensity value, in the range of 0.0 to 1.0."        
+            }
+          ]
+        }      
+      ]
+      
+    },
+    {
+      "name": "BeamScreenControl",
+      "index":"14",
+      "description": "Represents a Beam Interactive screen control. This class is derived from BeamControl. All controls are created and configured using the Beam Lab.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class BeamScreenControl"
+      },
+      "properties":[
+        {
+          "code": "public double X { get; }",
+          "description": "Gets the X coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "X",
+          "property_type": "double",
+          "property_description": "The X coordinate of the screen."
+        },
+        {
+          "code": "public double Y { get; }",
+          "description": "Gets the Y coordinate where the screen was clicked, in the range of [-1, 1].",
+          "name": "Y",
+          "property_type": "double",
+          "property_description": "The Y coordinate of the screen."
+        },
+        {
+          "code": "public uint Clicks { get; }",
+          "description": "Gets the number of clicks.",
+          "name": "Clicks ",
+          "property_type": "uint",
+          "property_description": "The number of clicks."
+        }
+      ],
+      "methods":[
+        {
+          "code": "public void SetX(double x)",
+          "description": "Sets the X coordinate of the screen control.",
+          "name": "SetX(double)",
+          "params": [
+            {    
+              "param_name": "x",
+              "param_type": "double",
+              "param_description": "The X coordinate."        
+            }
+          ]
+        },
+        {
+          "code": "public void SetY(double y)",
+          "description": "Sets the Y coordinate of the screen control.",
+          "name": "SetY(double)",
+          "params": [
+            {    
+              "param_name": "y",
+              "param_type": "double",
+              "param_description": "The Y coordinate."        
+            }
+          ]
+        },
+        {
+          "code": "public void SetIntensity(double y)",
+          "description": "Sets the intensity the pointer should appear at. This can be used to indicate how strongly the connected participants are in agreement.",
+          "name": "SetIntensity(double)",
+          "params": [
+            {    
+              "param_name": "y",
+              "param_type": "double",
+              "param_description": "The intensity value, in the range of 0.0 to 1.0."        
+            }
+          ]
+        }      
+      ]
+      
+    },
+    {
+      "name": "BeamEventType",
+      "index": "15",
+      "description": "Describes the types of Beam events.",
+      "type": "Enum",
+      "syntax": {
+        "code": "public enum BeamEventType"
+      },
+      "enums":[
+        {
+          "name": "error",
+          "description": "This event is raised when the service or manager encounters an error. The err and err_message members will contain pertinent info."
+        },
+        {
+          "name": "InteractivityInitialized",
+          "description": "This event is raised when interactivity has been initialized."
+        },
+        {
+          "name": "InteractivityStarted",
+          "description": "This event is raised when the interactive session is acknowledged by the server."
+        },
+        {
+          "name": "InteractivityStopped",
+          "description": "This event is raised when the interactive session is stopped."
+        },
+        {
+          "name": "ParticipantJoined",
+          "description": "This event is raised when a participant joins the interactive stream."
+        },
+        {
+          "name": "ParticipantLeft",
+          "description": "This event is raised when a participant leaves the interactive stream."
+        },
+        {
+          "name": "Joystick",
+          "description": "This event is raised when a joystick is used."
+        },
+        {
+          "name": "Button",
+          "description": "This event is raised when a button is clicked."
+        }
+      
+      ]
+      
+    },
+    {
+      "name": "BeamInteractivityConnectionState",
+      "index": "16",
+      "description": "Describes the current state of the connection to Beam Interactive service.",
+      "type": "Enum",
+      "syntax": {
+        "code": "public enum BeamInteractivityConnectionState"
+      },
+      "enums": [
+        {
+          "name": "connected",
+          "description": "Connected to the Beam Interactive service."
+        },
+        {
+          "name": "connecting",
+          "description": "Still connecting to the Beam Interactive service."
+        },
+        {
+          "name": "disconnected",
+          "description": "Disconnected from the Beam Interactive service."
+        }
+        
+      ]
+      
+    }
+
+
+  ]
+}
