@@ -222,7 +222,7 @@
             {
               "param_name": "goInteractive",
               "param_type": "bool",
-              "param_description": "Value that indicates whether or not to start interactivity immediately. If TRUE, after initialization and it enters interactivity."        
+              "param_description": "Value that indicates whether or not to start interactivity immediately. If TRUE, it enters interactivity after initialization."        
             }
             
           ],
@@ -427,10 +427,10 @@
       "methods":[
          {
           "code": "beam_participant& participant() const",
-          "description": "Returns the beam_participant object of the user whose state has changed.",
+          "description": "Returns the participant whose state has changed.",
           "name": "participant()",
           "return_type": "beam_participant&",
-          "return_description": "The Beam participant."
+          "return_description": "The participant whose state has changed."
         },
         {
           "code": "const beam_participant_state& state() const",
