@@ -1,0 +1,26 @@
+h4 #[a(href='../index.html') JavaScript API overview]
+li
+    a(href=`#${interactive_javascript.api[1].name}__declaration`) Declaration
+    
+if interactive_javascript.api[1].constructor_class
+    li
+        a(href=`#${interactive_javascript.api[1].name}__constructor`) Constructor
+if interactive_javascript.api[1].destructor_class    
+    li
+        a(href=`#${interactive_javascript.api[1].name}_destructor`) Destructor
+if interactive_javascript.api[1].methods
+    li
+        a(href=`#${interactive_javascript.api[1].name}__methods`) Methods
+        ul.nav.nav-stacked
+        for key in interactive_javascript.api[1].methods
+            if key.description
+                li: a(href=`#${interactive_javascript.api[1].name}__${key.name}`)= key.name
+if interactive_javascript.api[1].properties    
+    li
+        a(href=`#${interactive_javascript.api[1].name}__properties`) Properties
+        ul.nav.nav-stacked
+        for key in interactive_javascript.api[1].properties
+            if key.description
+                li: a(href=`#${interactive_javascript.api[1].name}__${key.name}`)= key.name
+if interactive_javascript.api[1].enums   
+    li

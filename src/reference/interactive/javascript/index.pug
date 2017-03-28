@@ -1,0 +1,19 @@
+extends ../../reference_layout.pug
+include ../../../rest/type.pug
+block title
+    | Interactive Reference | Beam Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Interactive Reference Documentation
+block menu
+    .hidden-print.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                include ./menu.pug
+block reference  
+    include ./api_reference_overview.pug    
+    include ../../../snippets/help.pug
+    

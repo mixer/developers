@@ -1,0 +1,895 @@
+{
+
+  "api": [
+    
+    {
+      "name": "BeamParticipant",
+      "index":"0",
+      "description": "This object represents a user who is currently viewing a Beam Interactive stream. This user (also known as a Participant) can have both a Beam account and a Microsoft Security Account (MSA).",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamParticipant = new BeamParticipant(sessionID, beamID, beamUserName, beamLevel, lastInputAt, connectedAt, inputDisabled, state)"
+      },
+      "properties":[
+        {
+          "code": "beamID = object.beamID",
+          "description": "Gets the Beam ID of the user.",
+          "name": "beamID",
+          "property_type": "string",
+          "property_description": "The Beam ID of the user."
+        },
+        {
+          "code": "beamUserName = object.beamUserName",
+          "description": "Gets the Beam username of the user.",
+          "name": "beamUserName",
+          "property_type": "string",
+          "property_description": "The Beam username of the user."
+        },
+        {
+          "code": "beamLevel = object.beamLevel",
+          "description": "Gets the Beam level of the user.",
+          "name": "BeamLevel",
+          "property_type": "number",
+          "property_description": "The Beam level of the user."
+        },
+        {
+          "code": "lastInputAt = object.lastInputAt",
+          "description": "Gets the time (in UTC) at which the user last used the interactive control input.",
+          "name": "lastInputAt",
+          "property_type": "number",
+          "property_description": "The time (in UTC) at which the user last used the interactive control input."
+        },
+        {
+          "code": "connectedAt = object.connectedAt",
+          "description": "Gets the time (in UTC) at which the user connected to the Beam Interactive stream.",
+          "name": "connectedAt",
+          "property_type": "number",
+          "property_description": "The time (in UTC) at which the user connected to the Beam Interactive stream."
+        },   
+        {
+          "code": "inputDisabled = object.inputDisabled",
+          "description": "Gets the value that indicates whether or not the user input is disabled.",
+          "name": "InputDisabled",
+          "property_type": "Boolean",
+          "property_description": "Boolean value that indicates whether or not the user input is disabled. If TRUE, user input has been disabled."
+        },
+        {
+          "code": "state = object.state",
+          "description": "Gets the current state of the participant.",
+          "name": "state",
+          "property_type": "string",
+          "property_description": "The current state of the participant."
+        },
+        {
+          "code": "controls = object.controls",
+          "description": "Gets an array of unique string identifiers for the controls (both buttons and joysticks) that the participant has interacted with. This property is enumerable and configurable.",
+          "name": "controls",
+          "property_type": "string array",
+          "property_description": "An array of unique string identifiers for the controls."
+        },
+        {
+          "code": "buttons = object.buttons",
+          "description": "Gets an array of unique string identifiers for the buttons that the participant has interacted with. This property is enumerable and configurable.",
+          "name": "buttons",
+          "property_type": "string array",
+          "property_description": "An array of unique string identifiers for the buttons."
+        },
+        {
+          "code": "buttons = object.joysticks",
+          "description": "Gets an array of unique string identifiers for the joysticks that the participant has interacted with. This property is enumerable and configurable.",
+          "name": "joysticks",
+          "property_type": "string array",
+          "property_description": "An array of unique string identifiers for the joysticks."
+        }       
+        
+      ],
+      "methods":[
+         {
+          "code": "var retval = getButtonDown(controlID)",
+          "description": "Indicates whether the participant has triggered a button down on a particular button since the last call to DoWork().",
+          "name": "getButtonDown(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether the participant has triggered a button down.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getButton(controlID)",
+          "description": "Indicates whether the participant has triggered a button press for a particular button since the last call to DoWork().",
+          "name": "getButton(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether the participant has triggered a button press.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getButtonUp(controlID)",
+          "description": "Indicates whether the participant has triggered a button up on a particular button since the last call to DoWork().",
+          "name": "getButtonUp(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether the participant has triggered a button up.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonDowns(controlID)",
+          "description": "Gets the number of button downs on a particular button by the participant since the last call to DoWork().",
+          "name": "getCountOfButtonDowns(string)",
+          "return_type": "number",
+          "return_description": "The number of button downs.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonPresses(controlID)",
+          "description": "Gets the number of button presses on a particular button by the participant since the last call to DoWork().",
+          "name": "getCountOfButtonPresses(string)",
+          "return_type": "number",
+          "return_description": "The number of button presses.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonUps(controlID)",
+          "description": "Gets the number of button ups on a particular button by the participant since the last call to DoWork().",
+          "name": "getCountOfButtonUps(string)",
+          "return_type": "number",
+          "return_description": "The number of button ups.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getJoystickX(controlID)",
+          "description": "Gets the X coordinate of the participant's joystick since the last call to DoWork().",
+          "name": "getJoystickX(string)",
+          "return_type": "number",
+          "return_description": "The X coordinate of the joystick.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the joystick."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getJoystickY(controlID)",
+          "description": "Gets the Y coordinate of the participant's joystick since the last call to DoWork().",
+          "name": "getJoystickY(string)",
+          "return_type": "number",
+          "return_description": "The Y coordinate of the joystick.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the joystick."        
+            }
+          ]
+         }
+      ]
+  
+    },
+    {
+      "name": "BeamScene",
+      "index":"1",
+      "description": "Represents a Beam Interactive scene. These scenes are configured using the Beam Lab.",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamScene = new BeamScene(sceneID, enabled, current, controls)"
+      },
+      "properties":[
+        {
+          "code": "sceneID = object.sceneID",
+          "description": "Gets the unique string identifier for the scene.",
+          "name": "sceneID",
+          "property_type": "string",
+          "property_description": "The unique string identifier for the scene."
+        },
+        {
+          "code": "enabled = object.enabled",
+          "description": "Gets the value that indicates whether this scene is enabled or disabled. If the value is TRUE, the scene is enabled. Note that a scene can be an active but disabled. This means that users are unable to interact with the controls in the scene because they have been disabled.",
+          "name": "enabled",
+          "property_type": "Boolean",
+          "property_description": "The state of the scene."
+        },
+        {
+          "code": "current = object.current ",
+          "description": "Gets the value that indicates whether this scene is the current scene that is being displayed to participant.",
+          "name": "current",
+          "property_type": "Boolean",
+          "property_description": "Boolean value that indicates whether this scene is the current scene that is being displayed."
+        },
+        {
+          "code": "controls = object.controls",
+          "description": "Gets all the controls in this scene.",
+          "name": "controls",
+          "property_type": "array of objects",
+          "property_description": "A list of controls."
+         }
+      ],
+      "methods":[
+         {
+          "code": "var retval = getControl(controlID)",
+          "description": "Gets the reference to the specified control, if it exists.",
+          "name": "getControl(string)",
+          "return_type": "string",
+          "return_description": "Reference to a specified control.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the control."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getButton(controlID)",
+          "description": "Gets the reference to the specified button, if it exists.",
+          "name": "getButton(string)",
+          "return_type": "string",
+          "return_description": "Reference to a specified button.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the button."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getJoystick(controlID)",
+          "description": "Gets the reference to the specified joystick, if it exists.",
+          "name": "getButton(string)",
+          "return_type": "string",
+          "return_description": "Reference to a specified joystick.",
+          "params": [
+            {
+              "param_name": "controlID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the joystick."        
+            }
+          ]
+         },
+         {
+          "code": "setEnabled()",
+          "description": "Enable this scene.",
+          "name": "setEnabled()",
+          "return_description": "This method does not return a value."
+         },
+         {
+          "code": "setCurrent()",
+          "description": "Sets this scene as the current active scene.",
+          "name": "setEnabled()",
+          "return_description": "This method does not return a value."
+         }
+       ]
+    },
+    {
+      "name": "BeamManager",
+      "index":"2",
+      "description": "The manager service class that handles the Beam Interactive event experience between Beam service and the title.",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamManager = new BeamManager()"
+      },
+      "properties":[
+        {
+          "code": "appID = object.appID",
+          "description": "Gets the Xbox app ID associated with the title.",
+          "name": "appID",
+          "property_type": "string",
+          "property_description": "The Xbox app ID."
+        },
+        {
+          "code": "buttons = object.buttons",
+          "description": "Gets all the buttons associated with the title.",
+          "name": "buttons",
+          "property_type": "string array",
+          "property_description": "An array of button references."
+        },
+        {
+          "code": "joysticks = object.joysticks",
+          "description": "Gets all the joysticks associated with the title.",
+          "name": "joysticks",
+          "property_type": "string array",
+          "property_description": "An array of joystick references."
+        },
+        {
+          "code": "participants = object.participants",
+          "description": "Gets all the participants who are watching the interactive stream.",
+          "name": "participants",
+          "property_type": "string array",
+          "property_description": "An array of participant references."
+        },
+        {
+          "code": "pin = object.pin",
+          "description": "Gets the pin associated with the title.",
+          "name": "pin",
+          "property_type": "string",
+          "property_description": "The pin."
+        },
+        {
+          "code": "experienceID = object.experienceID",
+          "description": "Gets the ID of the Beam Interactive experience created for the title.",
+          "name": "experienceID",
+          "property_type": "string",
+          "property_description": "The experience ID."
+        },
+        {
+          "code": "experiencelVersion = object.experiencelVersion",
+          "description": "Gets the version of the Beam Interactive experience created for the title.",
+          "name": "experiencelVersion",
+          "property_type": "string",
+          "property_description": "The version identifier."
+        },
+        {
+          "code": "interactivityState = object.interactivityState",
+          "description": "Gets the state of the Beam Interactive experience created for the title.",
+          "name": "interactivityState",
+          "property_type": "string",
+          "property_description": "The state of the interactive experience."
+        },
+        {
+          "code": "scenes = object.scenes",
+          "description": "Gets all the Beam Interactive scenes created for the title.",
+          "name": "scenes",
+          "property_type": "string array",
+          "property_description": "An array of interactive scenes references."
+        },
+        {
+          "code": "currentScenes = object.currentScene",
+          "description": "Gets the current interactive scene.",
+          "name": "currentScene",
+          "property_type": "string",
+          "property_description": "The current interactive scene."
+        },
+        {
+          "code": "singletonInstance = object.singletonInstance",
+          "description": "Gets the singleton instance of the Beam manager. This property is enumerable and configurable.",
+          "name": "singletonInstance",
+          "property_type": "BeamManager",
+          "property_description": "The singleton instance of the Beam manager."
+         } 
+      ],
+      "methods":[
+         {
+          "code": "var Promise(resolve, reject) = initializeAsync(shouldNotGoInteractive)",
+          "description": "Initializes the interactive broadcast session.",
+          "name": "initializeAsync(Boolean)",
+          "return_type": "Promise object",
+          "return_description": "Value that indicates whether the interactive session should start. If the Promise object is rejected, then the interactive session should not start.",
+          "params": [
+            {
+              "param_name": "shouldNotGoInteractive",
+              "param_type": "Boolean",
+              "param_description": "Value that determines whether to start interactivity as part of initialization. Value defaults to FALSE."        
+            }
+          ]
+         },
+         {
+          "code": "startInteractive()",
+          "description": "Used by the title to inform the Beam service that it is ready to receive interactive input.",
+          "name": "startInteractive()",
+          "return_description": "This method does not return a value."
+         },
+         {
+          "code": "stopInteractive()",
+          "description": "Used by the title to inform the Beam service that it is no longer receiving interactive input.",
+          "name": "stopInteractive()",
+          "return_description": "This method does not return a value."
+         },
+         {
+          "code": "setCurrentScene(sceneID)",
+          "description": "Sets a particular scene as the current interactive scene.",
+          "name": "setCurrentScene(string)",
+          "params": [
+            {
+              "param_name": "sceneId",
+              "param_type": "string",
+              "param_description": "The scene to set as the current interactive scene."        
+            }
+          ]
+         },
+         {
+          "code": "doWork()",
+          "description": "Informs the Beam manager to process outstanding messages, handle events, and update its internal state. To ensure best performance, DoWork() must be called frequently, typically once per frame. Title needs to be thread safe when calling doWork() since this is when states are changed.",
+          "name": "doWork()"
+         },
+         {
+          "code": "dispose()",
+          "description": "Free the Beam manager's resources.",
+          "name": "dispose()"
+         }
+      ]
+      
+    },
+    {
+      "name": "BeamControl",
+      "index": "3",
+      "description": "Object for all Beam Interactive controls. All controls are created and configured using the Beam Lab.",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamControl = new BeamControl(controlID, enabled, helpText)"
+      },
+      "properties":[
+        {
+          "code": "controlID = object.controlID",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "controlID",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "enabled = object.enabled",
+          "description": "Gets the value that indicates whether the control is enabled or disabled.",
+          "name": "enabled",
+          "property_type": "Boolean",
+          "property_description": "Boolean value that indicates whether the control is enabled or disabled."
+        },
+        {
+          "code": "helpText = object.helpText",
+          "description": "Gets the help text that displays when a participant hovers over the control.",
+          "name": "helpText",
+          "property_type": "string",
+          "property_description": "The help text."
+        }
+      ],
+      "methods": [
+        {
+          "code": "setEnabled(enabled)",
+          "description": "Function to allow game client to enable or disable this control.",
+          "name": "setEnabled(Boolean)",
+          "params": [
+            {
+              "param_name": "enabled",
+              "param_type": "Boolean",
+              "param_description": "Boolean value to allow game client to enable or disable the control. Set this value to TRUE to enable the control."        
+            }
+          ]
+         }       
+      ]      
+    },
+    {
+      "name": "BeamButtonControl",
+      "index": "4",
+      "description": "Represents a Beam Interactive button control. All controls are created and configured using the Beam Lab.",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamButtonControl = new BeamButtonControl(controlID, enabled, helpText)"
+      },
+      "properties": [
+        {
+          "code": "controlID = object.controlID",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "controlID",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "enabled = object.enabled",
+          "description": "Gets the value that indicates whether the control is enabled or disabled.",
+          "name": "enabled",
+          "property_type": "Boolean",
+          "property_description": "Boolean value that indicates whether the control is enabled or disabled."
+        },
+        {
+          "code": "helpText = object.helpText",
+          "description": "Gets the help text that displays when a participant hovers over the control.",
+          "name": "helpText",
+          "property_type": "string",
+          "property_description": "The help text."
+        },
+        {
+          "code": "buttonText = object.buttonText",
+          "description": "Gets the text displayed on the button control.",
+          "name": "buttonText",
+          "property_type": "string",
+          "property_description": "The text displayed on the button control."
+        },
+        {
+          "code": "cost  = object.cost",
+          "description": "Gets the spark cost assigned to the button control.",
+          "name": "cost",
+          "property_type": "number",
+          "property_description": "The spark cost."
+        },
+        {
+          "code": "cooldown = object.cooldown",
+          "description": "Gets the cooldown duration (in milliseconds) required between clicks",
+          "name": "cooldown",
+          "property_type": "number",
+          "property_description": "The cooldown duration (in milliseconds) required between clicks."
+        },
+        {
+          "code": "remainingCooldown = object.remainingCooldown",
+          "description": "Gets the time remaining (in milliseconds) before this button can be clicked again.",
+          "name": "remainingCooldown",
+          "property_type": "number",
+          "property_description": "The time remaining (in milliseconds)."
+        },
+        {
+          "code": "progress = object.progress",
+          "description": "Gets the current progress of this button control.",
+          "name": "progress",
+          "property_type": "number",
+          "property_description": "Current progress."
+        },
+        {
+          "code": "buttonDown = object.buttonDown",
+          "description": "Indicates whether the button has transitioned from up to down since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "buttonDown",
+          "property_type": "Boolean",
+          "property_description": "The state of the button, whether it is down or not."
+        },
+        {
+          "code": "buttonPressed = object.buttonPressed",
+          "description": "Indicates whether the button is pressed since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "buttonPressed",
+          "property_type": "Boolean",
+          "property_description": "The state of the button, whether it was pressed."
+        },
+        {
+          "code": "buttonUp = object.buttonUp",
+          "description": "Indicates whether the button has transitioned from down to up since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "buttonUp",
+          "property_type": "Boolean",
+          "property_description": "The state of the button, whether it was up or not."
+        },
+        {
+          "code": "countOfButtonDowns = object.countOfButtonDowns",
+          "description": "Gets the number of button downs on a particular button since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "countOfButtonDowns",
+          "property_type": "number",
+          "property_description": "The number of button downs."
+        },
+        {
+          "code": "countOfButtonPresses = object.countOfButtonPresses",
+          "description": "Gets the number of button presses on a particular button since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "countOfButtonPresses",
+          "property_type": "number",
+          "property_description": "The number of button presses."
+        },
+        {
+          "code": "countOfButtonUps = object.countOfButtonUps",
+          "description": "Gets the number of button ups on a particular button since the last call to DoWork(). This property is enumerable and configurable.",
+          "name": "countOfButtonUps",
+          "property_type": "number",
+          "property_description": "The number of button ups."
+        }
+      ],
+      "methods":[
+        {
+          "code": "setProgress(progress)",
+          "description": "Sets the progress value for this button control.",
+          "name": "setProgress(number)",
+          "return_description": "This method does not return a value.",
+          "params": [
+            {
+              "param_name": "progress",
+              "param_type": "number",
+              "param_description": "The progress value, in the range of 0.0 to 1.0."        
+            }
+          ]
+        },
+        {
+          "code": "var retval = getButtonDown(beamID)",
+          "description": "Indicates whether a particular participant has triggered a button down for this button control since the last call to DoWork().",
+          "name": "getButtonDown(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether a particular participant has triggered a button down.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getButton(beamID)",
+          "description": "Indicates whether a particular participant has triggered a button press for this button control since the last call to DoWork().",
+          "name": "getButton(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether a particular participant has triggered a button press.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getButtonUp(beamID)",
+          "description": "Indicates whether a particular participant has triggered a button up for this button control since the last call to DoWork().",
+          "name": "getButtonUp(string)",
+          "return_type": "Boolean",
+          "return_description": "Value that indicates whether a particular participant has triggered a button up.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonDowns(beamID)",
+          "description": "Gets the number of button downs from a particular participant since the last call to DoWork().",
+          "name": "getCountOfButtonDown(string)",
+          "return_type": "number",
+          "return_description": "The number of button downs.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonPresses(beamID)",
+          "description": "Gets the number of button presses from a particular participant since the last call to DoWork().",
+          "name": "getCountOfButtonPresses(string)",
+          "return_type": "number",
+          "return_description": "The number of button presses.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         },
+         {
+          "code": "var retval = getCountOfButtonUps(beamID)",
+          "description": "Gets the number of button ups from a particular participant since the last call to DoWork().",
+          "name": "getCountOfButtonUps(string)",
+          "return_type": "number",
+          "return_description": "The number of button ups.",
+          "params": [
+            {
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+         }                         
+      ]      
+    },
+    {
+      "name": "BeamJoystickControl",
+      "index":"5",
+      "description": "Represents a Beam Interactive joystick control. All controls are created and configured using the Beam Lab.",
+      "type": "Object",
+      "syntax": {
+        "code": "var BeamJoystickControl = new BeamJoystickControl(controlID, enabled, helpText)"
+      },
+      "properties":[
+         {
+          "code": "controlID = object.controlID",
+          "description": "Gets the unique string identifier for this control.",
+          "name": "controlID",
+          "property_type": "string",
+          "property_description": "The unique string identifier for this control."
+        },
+        {
+          "code": "enabled = object.enabled",
+          "description": "Gets the value that indicates whether the control is enabled or disabled.",
+          "name": "enabled",
+          "property_type": "Boolean",
+          "property_description": "Boolean value that indicates whether the control is enabled or disabled."
+        },
+        {
+          "code": "helpText = object.helpText",
+          "description": "Gets the help text that displays when a participant hovers over the control.",
+          "name": "helpText",
+          "property_type": "string",
+          "property_description": "The help text."
+        },
+        {
+          "code": "intensity = object.intensity",
+          "description": "Gets the intensity used to move the joystick control.",
+          "name": "intensity",
+          "property_type": "number",
+          "property_description": "The intensity used."
+        },
+        {
+          "code": "x = object.x",
+          "description": "Gets the current X coordinate of the joystick, in the range of [-1, 1]. This property is enumerable and configurable.",
+          "name": "x",
+          "property_type": "number",
+          "property_description": "The current X coordinate of the joystick."
+        },
+        {
+          "code": "y = object.y",
+          "description": "Gets the current Y coordinate of the joystick, in the range of [-1, 1]. This property is enumerable and configurable.",
+          "name": "y",
+          "property_type": "number",
+          "property_description": "The current Y coordinate of the joystick."
+        }      
+      ],
+      "methods":[
+        {
+          "code": "setCoordinates(x, y)",
+          "description": "Updates the joystick coordinates for this control. This can be used to set the coordinates to an average value. The average value is obtained by using the values provided by all connected participants through incoming events.",
+          "name": "setCoordinates(number, number)",
+          "return_description": "This method does not return a value.",
+          "params": [
+            {    
+              "param_name": "x",
+              "param_type": "number",
+              "param_description": "The X coordinate, in the range of -1.0 to 1.0."        
+            },
+            {    
+              "param_name": "y",
+              "param_type": "number",
+              "param_description": "The Y coordinate, in the range of -1.0 to 1.0."        
+            }
+          ]
+        },
+        {
+          "code": "setIntensity(intensity)",
+          "description": "Sets the intensity value of the joystick control.",
+          "name": "setIntensity(number)",
+          "return_description": "This method does not return a value.",
+          "params": [
+            {    
+              "param_name": "intensity",
+              "param_type": "number",
+              "param_description": "The intensity value, in the range of 0.0 to 1.0."        
+            }
+          ]
+        },
+        {
+          "code": "var retval = getX(beamID)",
+          "description": "Gets the X coordinate of the joystick control.",
+          "name": "getX(string)",
+          "return_type": "number",
+          "return_description": "The X coordinate of the joystick.",
+          "params": [
+            {    
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."        
+            }
+          ]
+        },
+        {
+          "code": "var retval = getY(beamID)",
+          "description": "Gets the Y coordinate of the joystick control.",
+          "name": "getX(string)",
+          "return_type": "number",
+          "return_description": "The Y coordinate of the joystick.",
+          "params": [
+            {    
+              "param_name": "beamID",
+              "param_type": "string",
+              "param_description": "The unique string identifier of the Beam participant."  
+            }
+          ]
+        }        
+      ]
+      
+    },
+    {
+      "name": "BeamParticipantState",
+      "index": "6",
+      "description": "Describes the current state of the participant.",
+      "type": "",
+      "syntax": {
+        "code": "Beam.BeamParticipantState = { joined: \"joined\", disabled: \"disabled\", left: \"left\" }"
+      },
+      "enums":[
+        {
+          "name":"\"joined\"",
+          "description": "Participant joins the channel."
+        },
+        {
+          "name":"\"disabled\"",
+          "description": "Participant's input is disabled."
+        },
+        {
+          "name":"\"left\"",
+          "description": "Participant leaves the channel."
+        } 
+      ]      
+    },
+    {
+      "name": "BeamEventType",
+      "index": "7",
+      "description": "Describes the types of Beam events.",
+      "type": "",
+      "syntax": {
+        "code": "Beam.BeamEventType = { error: \"error\", interactivityStateChanged: \"interactivitystatechanged\", participantStateChange: \"participantstatechange\", button: \"button\", joystick: \"joystick\" }"
+      },
+      "enums":[
+        {
+          "name": "\"error\"",
+          "description": "This event is raised when the service or manager encounters an error. The err and err_message members will contain pertinent info."
+        },
+        {
+          "name": "\"interactivitystatechanged\"",
+          "description": "This event is raised when interactivity state changed."
+        },
+        {
+          "name": "\"participantstatechanged\"",
+          "description": "This event is raised when the participant's state changes."
+        },
+        {
+          "name": "\"button\"",
+          "description": "This event is raised when there's button input."
+        },
+        {
+          "name": "\"joystick\"",
+          "description": "This event is raised when there's joystick input."
+        }        
+      ]
+      
+    },
+    {
+      "name": "BeamInteractivityState",
+      "index": "8",
+      "description": "Describes the current state of the connection to Beam Interactive service.",
+      "type": "",
+      "syntax": {
+        "code": "Beam.BeamInteractivityState = { notInitialized: \"notInitialized\", notInteractive: \"notInteractive\", showPin: \"showPin\", interactivePending: \"interactivePending\", interactive: \"interactive\"}"
+      },
+      "enums": [
+        {
+          "name": "\"notInitialized\"",
+          "description": "The Beam manager is not initialized."
+        },
+        {
+          "name": "\"notInteractive\"",
+          "description": "The Beam manager is initialized, but interactivity is not enabled."
+        },
+        {
+          "name": "\"showPin\"",
+          "description": "The caller should check the pin property and show a pin."
+        },
+        {
+          "name": "\"interactivePending\"",
+          "description": "Title is currently connecting to the Beam interactivity service."
+        },
+        {
+          "name": "\"interactive\"",
+          "description": "Interactivity is currently enabled."
+        }
+        
+      ]
+      
+    }
+
+  ]
+}
