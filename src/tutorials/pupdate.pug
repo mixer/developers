@@ -1,0 +1,139 @@
+extends ./tutorial_layout.pug
+
+block title
+    | Interactive Tutorial | Beam Developers
+
+block tutorialTitle
+    h1 Learn how to send progress updates.
+
+block tutorialContent
+    h2#intro Introduction
+    p.
+        When using interactive, you can send global "Progress Updates" that will
+        trigger events for every user that currently has the interactive app
+        open(are viewing the page.) By doing this you can trigger things such
+        as cooldowns that work for everyone at the same time, or you can
+        show what tactile is being pressed or the persentage of users
+        that are pushing it. You could also show what the general direction
+        that a joystick would be aiming.
+
+    h2#controlEditor Types of Progress Updates.
+    p.
+        There are various types of progress updates, or rather progress updates
+        for different things. Such as Joystick updates of tactile updates.
+        You can also do screen updates if you are using screen controls.
+        Below will be a list of progress update tags, for more info go to the
+        #[a(href='/reference/interactive/index.html') reference guide].
+
+    table.table
+        thead
+            tr
+                th For
+                th Name
+                th Required
+                th Description
+                th Example
+        tbody
+            tr
+                td Entire progress update
+                td state
+                td False
+                td State to change to.
+                td: code state = 3
+            tr
+                td TactileUpdate
+                td id
+                td True
+                td The id of the tactile.
+                td: code id = 1
+            tr
+                td TactileUpdate
+                td cooldown
+                td False
+                td A cooldown to set to the tactile(in miliseconds).
+                td: code cooldown = 30000
+            tr
+                td TactileUpdate
+                td fired
+                td False
+                td Marks the button has having been fired, showing a "pulse"
+                td: code fired = 1
+            tr
+                td TactileUpdate
+                td progress
+                td False
+                td Sets the progress of the button toward some threshold
+                td: code progress = 0.5
+            tr
+                td TactileUpdate
+                td disabled
+                td False
+                td Changes the disabled or enabled state of the control
+                td: code disabled = true
+            tr
+                td JoystickUpdate
+                td id
+                td True
+                td The id of the Joystick.
+                td: code id = 1
+            tr
+                td JoystickUpdate
+                td angle
+                td False
+                td The angle to move the "pointer" of the Joystick(radians)
+                td: code angle = 2
+            tr
+                td JoystickUpdate
+                td intensity
+                td False
+                td Intensity the pointer should appear at
+                td: code intensity = 0.5
+            tr
+                td JoystickUpdate
+                td disabled
+                td False
+                td Changes the disabled or enabled state of the control
+                td: code disabled = true
+
+    h2#code Writing the Code
+    p.
+        For this you will need a interactive robot and a interactive board, if you don't have one,
+        you can go make one via this #[a(href='interactive.html' target='_blank') tutorial].
+
+    +bsTabs('interactive_guide', {
+        node: 'Node'
+    })
+        +bsTabItem('interactive_guide', 'node')
+            h3 Prerequisites
+            ol
+                li.
+                    Make and test a basic interactive robot. #[a(href='interactive.html' target='_blank') (tutorial)]
+                li.
+                    Both #[a(href='https://github.com/WatchBeam/beam-interactive-node' target='_blank') beam-client-node] and #[a(href='https://github.com/WatchBeam/beam-interactive-node' target='_blank') beam-interactive-node].
+            h3 Usage
+            p.
+                The only thing you will need different from your main robot it this.
+
+            +highlightFile('javascript','./tutorials/code/node/interactive/progress/1.js')
+            p.
+                To send a progress update you add this in your code.
+                Typically this code would get triggered you receive a button press
+                or a joystick movement to do something like start a cooldown
+                or show everyone what button is being pressed.
+                This code exaple would send a 30 second cooldown to the button
+                with the id of 0. The "robot" in this example is the romot from the
+                interactive #[a(href='interactive.html' target='_blank') tutorial].
+            +highlightFile('javascript','./tutorials/code/node/interactive/progress/2.js')
+            p.
+                See how in that code we use the <strong>Packets</strong> constant that
+                we created in the above code block? That is what is used to create valid
+                progress update packets from JSON. We then use <strong>robot</strong> to
+                send that packet to beam.
+    p.
+        If you'd like more information on our Interactive system, checkout the #[a(href='/reference/interactive/index.html') reference guide].
+    include ../snippets/help.pug
+block tutorialMenu
+    li: a(href='#intro') Introduction
+    li: a(href='#controlEditor') Registering a Game On Beam
+    li: a(href='#code') Writing The Code
+    li: a(href='#stream') Start Streaming
