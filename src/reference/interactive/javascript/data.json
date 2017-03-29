@@ -429,6 +429,18 @@
           "code": "dispose()",
           "description": "Free the Beam manager's resources.",
           "name": "dispose()"
+         },
+         {
+          "code": "sendMockWebSocketMessage(rawText)",
+          "description": "Sends text message for testing during set up or troubleshooting.",
+          "name": "sendMockWebSocketMessage(string)",
+          "params": [
+            {
+              "param_name": "rawText",
+              "param_type": "string",
+              "param_description": "The text to be sent."        
+            }
+          ]
          }
       ]
       
