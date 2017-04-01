@@ -2,7 +2,7 @@ include ../../../mixins.pug
 h1#api__reference__cplusplus_overview C++ API Overview
 
 p.
-    [For C# API reference, see #[a(href='../csharp/index.html') C# API Overview].]
+    [For C# APIs, see #[a(href='../csharp/index.html') C# API Overview] and JavaScript APIs, see #[a(href='../javascript/index.html') JavaScript API Overview]]
 
 h2(id='api__reference__cplusplus__classes') Classes
 p.
@@ -24,6 +24,9 @@ table.table
         td #[a(href='./apis/beam_event_args.html') beam_event_args]
         td Base class for all Beam event args. Contains information for Beam Interactive events.   
     tr
+        td #[a(href='./apis/beam_interactivity_state_change_event_args.html') beam_interactivity_state_change_event_args]
+        td Contains information for an interactivity state change event.
+    tr
         td #[a(href='./apis/beam_participant_state_change_event_args.html') beam_participant_state_change_event_args]
         td Contains information for a participant state change event.
     tr
@@ -41,6 +44,9 @@ table.table
     tr
         td #[a(href='./apis/beam_joystick_control.html') beam_joystick_control]
         td Represents a Beam Interactive joystick control. This class is derived from beam_control. All controls are created and configured using the Beam Lab.
+    tr
+        td #[a(href='./apis/beam_mock_util.html') beam_mock_util]
+        td Represents a Beam mock utility class. Functions in this class simulate the Beam interactivity experiences between the Beam service and the partipants.
    
    
         
@@ -48,6 +54,9 @@ h2(id='api__reference__cplusplus__enums') Enums
 p.
     
 table.table
+    tr
+        td #[a(href='./apis/beam_control_type.html') beam_control_type]
+        td Describes the types of Beam interactive controls.
     tr
         td #[a(href='./apis/beam_event_type.html') beam_event_type]
         td Describes the types of Beam events.
