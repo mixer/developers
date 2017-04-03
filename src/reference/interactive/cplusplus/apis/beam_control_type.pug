@@ -36,7 +36,7 @@ block reference
                         
                  .panel.panel-default.panel-rest
                      .panel-body
-                         h3.panel-title= key.code
+                         +highlightStr('json', eval(JSON.stringify(key.code, null, 3)))
 
     if interactive.api[14].destructor_class
         h2(id=`${interactive.api[14].name}__destructor`) Destructor
@@ -51,7 +51,7 @@ block reference
                         
                 .panel.panel-default.panel-rest
                     .panel-body
-                        h3.panel-title= key.code
+                        +highlightStr('json', eval(JSON.stringify(key.code, null, 3)))
                           
     if interactive.api[14].methods
         h2(id=`${interactive.api[14].name}__methods`) Methods
@@ -66,8 +66,8 @@ block reference
                     
                 .panel.panel-default.panel-rest
                     .panel-body
-                        h3.panel-title= key.code
-                
+                        +highlightStr('json', eval(JSON.stringify(key.code, null, 3)))
+                        
                 if key.params
                     h4 Parameters
                     table.table
@@ -96,7 +96,7 @@ block reference
                         
                     .panel.panel-default.panel-rest
                         .panel-body
-                            h3.panel-title= key.code
+                            +highlightStr('json', eval(JSON.stringify(key.code, null, 3)))
                     if key.property_type
                         h4 Returns
                         p: code= key.property_type

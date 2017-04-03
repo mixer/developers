@@ -107,7 +107,7 @@
           "return_description": "Boolean value that indicates whether this scene is enabled or disabled."
         },
         {
-          "code": "set_enabled(bool enabled) const",
+          "code": "set_enabled(_In_ bool enabled) const",
           "description": "Function to enable or disable the scene.",
           "name": "set_enabled(_In_ bool)",
           "params": [
@@ -713,9 +713,9 @@
           "return_description": "The spark cost."
         },
         {
-          "code": "void trigger_cooldown(std::chrono::milliseconds& cooldown) const",
+          "code": "void trigger_cooldown(_In_ std::chrono::milliseconds& cooldown) const",
           "description": "Sets cooldown duration (in milliseconds) required between triggers",
-          "name": "trigger_cooldown(std::chrono::milliseconds&)",
+          "name": "trigger_cooldown(_In_ std::chrono::milliseconds&)",
           "params": [
             {
               "param_name": "cooldown",
