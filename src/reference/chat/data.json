@@ -572,7 +572,7 @@
       ]
     },
     "UserJoin": {
-      "description": "Sent when a user joins the chat.",
+      "description": "Sent when a user joins the chat, not emitted for unauthenticated users.",
       "example": {
         "username": "USERNAME",
         "roles": [
@@ -582,7 +582,7 @@
       }
     },
     "UserLeave": {
-      "description": "Sent when a user leaves the chat.",
+      "description": "Sent when a user leaves the chat, not emitted for unauthenticated users.",
       "example": {
         "username": "USERNAME",
         "id": 12345
