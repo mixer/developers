@@ -156,7 +156,7 @@
         }
       }
     },
-    "vote": {
+    "vote:choose": {
       "description": "Casts a vote for the current poll, `arguments` is the vote option index.",
       "example": {
         "request": {
