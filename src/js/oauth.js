@@ -53,7 +53,7 @@
             }
 
             var hashParts = hash.split('&');
-            for (let i = 0; i < hashParts.length; i++) {
+            for (var i = 0; i < hashParts.length; i++) {
                 var item = hashParts[i].split('=');
                 if (item[0] === 'access_token') {
                     return item[1];
