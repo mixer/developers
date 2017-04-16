@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
     var oauthUtils = {
         // Based on: https://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen#4068385

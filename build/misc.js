@@ -55,6 +55,7 @@ function getLocals () {
     const out = {
         _,
         orderObject,
+        // eslint-disable-next-line no-console
         log: console.log,
         marked,
         libraries: require('./tmp/libraries'),
