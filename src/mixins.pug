@@ -6,6 +6,14 @@ mixin highlightStr(language, str)
         code(class=language)
             != highlight(language, str)
 
+mixin scripts
+    script(
+        src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'
+        crossorigin='anonymous'
+        integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4= sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA=='
+        )
+    script(src='/js/developers.js')
+
 mixin bsTabs(name, tabs)
     -
         bsTabs[name] = tabs;
@@ -31,7 +39,7 @@ mixin bsTabs(name, tabs)
     //-         rawEl.scrollIntoView();
     //-     }
     //-     addEventListener('hashchange', hashUpdate);
-    //-     $(document).ready(function() {
+    //-     $(function() {
     //-         if (location.hash !== '') {
     //-             hashUpdate();
     //-         }
@@ -61,6 +69,6 @@ mixin bsTabItem(parent, name)
 
 mixin oauthLinks(scopes)
     script.
-        $(document).ready(function () {
+        $(function () {
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });

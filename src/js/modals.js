@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function () {
+$(function () {
     // open modal on hashes like #_action_get
     var activeModalEl = null;
     $(window).bind('hashchange', function () {
@@ -9,10 +9,14 @@ $(document).ready(function () {
         }
 
         var anchorId = document.location.hash.substr(1); // strip #
+        if (!anchorId) {
+            return;
+        }
         // Don't do this when we're retrieving an OAuth Token
         if (anchorId.indexOf('access_token') !== -1) {
             return;
         }
+
         var element = $('#' + anchorId);
 
         // do we have such element + is it a modal?  --> show it

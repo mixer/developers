@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function () {
+$(function () {
     $('.rest-sidebar').each(function (i, el) {
         var json = el.dataset.scrollspy;
         var opts = json ? JSON.parse(json) : { container: 'body' };
