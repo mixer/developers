@@ -816,7 +816,7 @@
         },
         {
           "code": "bool is_pressed(_In_ uint32_t beamId)",
-          "description": "Returns TRUE if the button is currently clicked by the specified participant.",
+          "description": "Returns TRUE if the button is currently pressed by the specified participant.",
           "name": "is_pressed(_In_ uint32_t)",
           "params": [
             {
@@ -835,7 +835,7 @@
         },
         {
           "code": "bool is_down(_In_ uint32_t beamId)",
-          "description": "Returns TRUE if the button is currently clicked by the specified participant.",
+          "description": "Returns TRUE if the button is clicked down by the specified participant.",
           "name": "is_down(_In_ uint32_t)",
           "params": [
             {

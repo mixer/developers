@@ -1,27 +1,27 @@
 h4 #[a(href='../index.html') C# API overview]
 li
-    a(href=`#${interactive_csharp.api[13].name}__declaration`) Declaration
+    a(href=`#${interactive_csharp.api[12].name}__declaration`) Declaration
     
-if interactive_csharp.api[13].constructor_class
+if interactive_csharp.api[12].constructor_class
     li
-        a(href=`#${interactive_csharp.api[13].name}__constructor`) Constructor
-if interactive_csharp.api[13].destructor_class    
+        a(href=`#${interactive_csharp.api[12].name}__constructor`) Constructor
+if interactive_csharp.api[12].destructor_class    
     li
-        a(href=`#${interactive_csharp.api[13].name}_destructor`) Destructor
-if interactive_csharp.api[13].methods    
+        a(href=`#${interactive_csharp.api[12].name}_destructor`) Destructor
+if interactive_csharp.api[12].methods    
     li
-        a(href=`#${interactive_csharp.api[13].name}__methods`) Methods
+        a(href=`#${interactive_csharp.api[12].name}__methods`) Methods
         ul.nav.nav-stacked
-        for key in interactive_csharp.api[13].methods
+        for key in interactive_csharp.api[12].methods
             if key.description
-                li: a(href=`#${interactive_csharp.api[13].name}__${key.name}`)= key.name
-if interactive_csharp.api[13].properties    
+                li: a(href=`#${interactive_csharp.api[12].name}__${key.name}`)= key.name
+if interactive_csharp.api[12].properties    
     li
-        a(href=`#${interactive_csharp.api[13].name}__properties`) Properties
+        a(href=`#${interactive_csharp.api[12].name}__properties`) Properties
         ul.nav.nav-stacked
-        for key in interactive_csharp.api[13].properties
+        for key in interactive_csharp.api[12].properties
             if key.description
-                li: a(href=`#${interactive_csharp.api[13].name}__${key.name}`)= key.name
-if interactive_csharp.api[13].enums   
+                li: a(href=`#${interactive_csharp.api[12].name}__${key.name}`)= key.name
+if interactive_csharp.api[12].enums   
     li
-        a(href=`#${interactive_csharp.api[13].name}__fields`) Fields
+        a(href=`#${interactive_csharp.api[12].name}__fields`) Fields
