@@ -1369,7 +1369,109 @@
           "code": "public static void GoInteractive()",
           "description": "Connects to the Beam service and informs the service that the BeamManager is ready to recieve messages. This method also handles signal authentication events, if necessary.",
           "name": "GoInteractive()"
-         }
+         },
+         {
+          "code": "public delegate void OnGointeractiveHandler(object sender, EventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles the title's interactivity change event.",
+          "name": "OnGointeractiveHandler(object, EventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The Beam manager."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "EventArgs",
+              "param_description": "Contains information about the title's interactivity."        
+            }
+          ]
+         },
+         {
+          "code": "public delegate void OnErrorEventHandler(object sender, BeamEventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles an error event.",
+          "name": "OnErrorEventHandler(object, BeamEventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The Beam manager."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "BeamEventArgs",
+              "param_description": "Contains information about the error event."        
+            }
+          ]
+         },
+         {
+          "code": "public delegate void OnInteractivityStateChangedHandler(object sender, BeamInteractivityStateChangedEventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles the interactivity state change event.",
+          "name": "OnInteractivityStateChangedHandler(object, BeamInteractivityStateChangedEventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The Beam manager."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "BeamInteractivityStateChangedEventArgs",
+              "param_description": "Contains information about the interactivity state change event."        
+            }
+          ]
+         },
+         {
+          "code": "public delegate void OnParticipantStateChangedHandler(object sender, BeamEventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles the participant state change event.",
+          "name": "OnParticipantStateChangedHandler(object, BeamEventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The participant."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "BeamEventArgs",
+              "param_description": "Contains information about the participant state change event."        
+            }
+          ]
+         },
+         {
+          "code": "public delegate void OnBeamButtonEventHandler(object sender, BeamButtonEventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles the button state change event.",
+          "name": "OnBeamButtonEventHandler(object, BeamButtonEventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The button."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "BeamButtonEventArgs",
+              "param_description": "Contains information about the button change event"        
+            }
+          ]
+         },
+         {
+          "code": "public delegate void OnBeamJoystickControlEventHandler(object sender, BeamJoystickEventArgs e)",
+          "description": "The delegate type that defines the set of arguments that are passed to the method that handles the button state change event.",
+          "name": "OnBeamJoystickControlEventHandler(object, BeamJoystickEventArgs)",
+          "params": [
+            {
+              "param_name": "sender",
+              "param_type": "object",
+              "param_description": "The joystick."        
+            },
+            {
+              "param_name": "e",
+              "param_type": "BeamJoystickEventArgs",
+              "param_description": "Contains information about the joystick change event"        
+            }
+          ]
+         }      
          
       ] 
     }
