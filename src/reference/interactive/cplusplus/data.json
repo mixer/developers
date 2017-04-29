@@ -126,79 +126,53 @@
     {
       "name": "beam_scene",
       "index":"1",
-      "description": "Represents a Beam Interactive scene. These scenes are configured using the Beam Lab.",
+      "description": "Represents a Beam interactivity scene. These scenes are configured using the Beam Lab.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_scene"
       },
       "methods":[
-        {
-          "code": "const string_t& scene_id() const",
-          "description": "Returns the unique string identifier for the scene.",
-          "name": "scene_id()",
-          "return_type": "const string_t&",
-          "return_description": "The unique string identifier for the scene."
-        },
-        {
-          "code": "bool enabled() const",
-          "description": "Returns a value that indicates whether the scene is enabled or disabled. If the value is TRUE, the scene is enabled. Note that a scene can be an active but disabled. This means that users are unable to interact with the controls in the scene because all controls have been disabled.",
-          "name": "enabled()",
-          "return_type": "bool",
-          "return_description": "Boolean value that indicates whether this scene is enabled or disabled."
-        },
-        {
-          "code": "set_enabled(_In_ bool enabled) const",
-          "description": "Function to enable or disable the scene.",
-          "name": "set_enabled(_In_ bool)",
-          "params": [
-            {
-              "param_name": "enabled",
-              "param_type": "bool",
-              "param_description": "Value to enable or disable the scene. Set this value to TRUE to enable the scene."        
-            }
-          ]
+          {
+            "code": "const string_t& scene_id() const",
+            "description": "Returns the unique string identifier for the scene.",
+            "name": "scene_id()",
+            "return_type": "const string_t&",
+            "return_description": "The unique string identifier for the scene."
+          },
+          {
+            "code": "const std::vector<string_t> groups()",
+            "description": "Returns all the groups that the scene is assigned to. This list may be empty.",
+            "name": "groups()",
+            "return_type": "std::vector<string_t>",
+            "return_description": "List of groups that the scene is assigned to."
          },
          {
-          "code": "bool is_current() const",
-          "description": "Returns a value that indicates whether or not this is the current scene that is being displayed to Beam participants.",
-          "name": "is_current()",
-          "return_type": "bool",
-          "return_description": "Boolean value that indicates whether this is the current scene that is being displayed."
-         },
-         {
-          "code": "const std::vector<std::shared_ptr<beam_control>> controls()",
-          "description": "Returns the array of controls in the scene.",
-          "name": "controls()",
-          "return_type": "const std::vector<std::shared_ptr<beam_control>>",
-          "return_description": "An array of controls in the scene."
-         },
-         {
-          "code": "const std::shared_ptr<beam_control> control(_In_ const string_t& controlId)",
-          "description": "Returns the pointer to the specified control, if it exist.",
-          "name": "control(_In_ const string_t&)",
-          "params": [
-            {
-              "param_name": "controlId",
-              "param_type": "const string_t&",
-              "param_description": "The unique string identifier of the control."        
-            }
-          ],
-          "return_type": "const std::shared_ptr<beam_control>",
-          "return_description": "The pointer to the specified control."
+          "code": "const std::vector<std::shared_ptr<beam_button_control>> buttons()",
+          "description": "Returns a list of all the buttons in the scene. This list may be empty.",
+          "name": "buttons()",
+          "return_type": "const std::vector<std::shared_ptr<beam_button_control>> ",
+          "return_description": "All the buttons in the scene."
          },
          {
           "code": "const std::shared_ptr<beam_button_control> button(_In_ const string_t& controlId)",
-          "description": "Returns the pointer to the specified button control, if it exist.",
+          "description": "Returns the pointer to the specified button, if it exist.",
           "name": "button(_In_ const string_t&)",
           "params": [
             {
               "param_name": "controlId",
               "param_type": "const string_t&",
-              "param_description": "The unique string identifier of the control."        
+              "param_description": "The unique string identifier of the button."        
             }
           ],
           "return_type": "const std::shared_ptr<beam_button_control>",
-          "return_description": "The pointer to the specified button control."
+          "return_description": "The pointer to the specified button."
+         },
+         {
+          "code": "const std::vector<std::shared_ptr<beam_joystick_control>> joysticks()",
+          "description": "Returns a list of all the joysticks in the scene. This list may be empty.",
+          "name": "joysticks()",
+          "return_type": "const std::vector<std::shared_ptr<beam_joystick_control>> ",
+          "return_description": "All the joysticks in the scene."
          },
          {
           "code": "const std::shared_ptr<beam_joystick_control> joystick(_In_ const string_t& controlId)",
@@ -221,7 +195,7 @@
     {
       "name": "beam_manager",
       "index":"2",
-      "description": "The manager service class that handles the Beam Interactive event experience between Beam service and the title.",
+      "description": "Manager service class that handles the Beam interactivity event experience between the Beam service and the title.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_manager"
@@ -236,13 +210,13 @@
          },
          {
           "code": "bool initialize(_In_ string_t interactiveVersion, _In_ bool goInteractive)",
-          "description": "Sets up the connection for the Beam Interactive event experience by initializing a background task.",
+          "description": "Sets up the connection for the Beam interactivity event experience by initializing a background task.",
           "name": "initialize(_In_ string_t, _In_ bool)",
           "params": [
             {
               "param_name": "interactiveVersion",
               "param_type": "string_t",
-              "param_description": "The version of the Beam Interactive experience created for the title."        
+              "param_description": "The version of the Beam interactivity experience created for the title."        
             },
             {
               "param_name": "goInteractive",
@@ -256,7 +230,7 @@
          },
          {
           "code": "std::shared_ptr<beam_event> add_local_user(_In_ xbox_live_user_t user)",
-          "description": "Add a local user to the Beam interactive experience by signing them in.",
+          "description": "Adds a local user to the Beam interactivity experience by signing them in.",
           "name": "add_local_user(_In_ xbox_live_user_t)",
           "params": [
             {
@@ -270,7 +244,7 @@
          },
          {
           "code": "void request_linking_code(_In_ uint32_t beam_id) const",
-          "description": "Requests an oAuth account authorization code from the Beam services. The title needs to display this code and prompt the user to enter it at beam.pro/go. This process allows the user's Beam account to be linked to an interactive stream.",
+          "description": "Requests an OAuth account authorization code from the Beam services. The title needs to display this code and prompt the user to enter it at beam.pro/go. This process allows the user's Beam account to be linked to an interactivity stream.",
           "name": "request_linking_code(_In_ uint32_t)",
           "params": [
             {
@@ -282,98 +256,91 @@
          },               
          {
           "code": "const std::chrono::milliseconds get_server_time()",
-          "description": "Returns the time of the Beam Interactivity service, in UTC. Used to maintain the title's synchronization with the Beam Interactivity service.",
+          "description": "Returns the time of the Beam interactivity service, in UTC. Used to maintain the title's synchronization with the Beam interactivity service.",
           "name": "get_server_time()",
           "return_type": "const std::chrono::milliseconds",
           "return_description": "The UTC time of the Beam Interactivity service in milliseconds."
          },
          {
           "code": "const string_t& interactive_version() const",
-          "description": "Returns the version of the Beam Interactive experience created for this title.",
+          "description": "Returns the version of the Beam interactivity experience created for the title.",
           "name": "interactive_version()",
           "return_type": "const string_t&",
           "return_description": "The version of the experience."
          },
          {
           "code": "const beam_interactivity_state interactivity_state() const",
-          "description": "Returns the value to indicate the interactive state of the Beam manager.",
+          "description": "Returns the enum value that indicates the interactivity state of the Beam manager.",
           "name": "interactivity_state()",
-          "return_type": "beam_interactivity_state&",
-          "return_description": "Value that indicates the interactive state."
+          "return_type": "beam_interactivity_state",
+          "return_description": "Enum value that indicates the interactivity state."
          },
          {
           "code": "bool start_interactive()",
-          "description": "Used by the title to inform the Beam service that it is ready to receive interactive input.",
+          "description": "Used by the title to inform the Beam service that it is ready to receive interactivity input.",
           "name": "start_interactive()",
           "return_type": "bool",
-          "return_description": "Value that indicates if the interactivity was started successfully. If TRUE, the service is ready to receive interactive input."
+          "return_description": "Value that indicates if the interactivity was started successfully. If TRUE, the service is ready to receive interactivity input."
          },
          {
           "code": "bool stop_interactive()",
-          "description": "Used by the title to inform the Beam service that it is no longer receiving interactive input.",
+          "description": "Used by the title to inform the Beam service that it is no longer receiving interactivity input.",
           "name": "stop_interactive()",
           "return_type": "bool",
-          "return_description": "Value that indicates if the interactivity was stopped successfully. If TRUE, the service is no longer receiving interactive input."
+          "return_description": "Value that indicates if the interactivity was stopped successfully. If TRUE, the service is no longer receiving interactivity input."
          },
          {
           "code": "std::vector<std::shared_ptr<beam_participant>> participants()",
-          "description": "Returns currently active participants of this interactive experience.",
+          "description": "Returns currently active participants of this interactivity experience.",
           "name": "participants()",
           "return_type": "std::vector<std::shared_ptr<beam_participant>>",
           "return_description": "All currently active Beam participants."
          },
          {
-          "code": "std::vector<std::shared_ptr<beam_scene>> scenes()",
-          "description": "Gets all the scenes associated with the current interactive instance.",
-          "name": "scenes()",
-          "return_type": "std::vector<std::shared_ptr<beam_scene>>",
-          "return_description": "All scenes associated with the current interactive instance."
+          "code": "std::vector<std::shared_ptr<beam_group>> groups()",
+          "description": "Gets all the groups associated with the current interactivity instance. Returns a NULL pointer if initialization is not yet completed.",
+          "name": "groups()",
+          "return_type": "std::vector<std::shared_ptr<beam_group>>",
+          "return_description": "All groups associated with the current interactivity instance."
          },
          {
-          "code": "std::vector<std::shared_ptr<beam_control>> controls()",
-          "description": "Gets all the controls associated with the current interactive instance.",
-          "name": "controls()",
-          "return_type": "std::vector<std::shared_ptr<beam_control>>",
-          "return_description": "All the controls associated with the current interactive instance."
-         },
-         {
-          "code": "std::vector<std::shared_ptr<beam_button_control>> buttons()",
-          "description": "Gets all of the buttons associated with the current interactive instance.",
-          "name": "buttons()",
-          "return_type": "std::vector<std::shared_ptr<beam_button_control>>",
-          "return_description": "All the buttons associated with the current interactive instance."
-         },
-         {
-          "code": "std::vector<std::shared_ptr<beam_joystick_control>> joysticks()",
-          "description": "Gets all of the joysticks associated with the current interactive instance.",
-          "name": "joysticks()",
-          "return_type": "std::vector<std::shared_ptr<beam_joystick_control>>",
-          "return_description": "All the joysticks associated with the current interactive instance."
-         },
-         {
-          "code": "std::shared_ptr<xbox::services::beam::beam_event> set_current_scene(_In_ const string_t& scene_id)",
-          "description": "Sets a particular scene as the current interactive scene.",
-          "name": "set_current_scene(_In_ const string_t&)",
-          "return_type": "std::shared_ptr<xbox::services::beam::beam_event>",
-          "return_description": "The current scene.",
+          "code": "std::shared_ptr<beam_group> group(_In_ const string_t& group_id = L\"default\")",
+          "description": "Gets the pointer to a specific group. Returns a NULL pointer if initialization is not yet completed or if the group does not exist.",
+          "name": "group(_In_ const string_t&)",
+          "return_type": "std::shared_ptr<beam_group>",
+          "return_description": "The pointer to a specific group.",
           "params": [
             {
-              "param_name": "scene_id",
+              "param_name": "group_id",
               "param_type": "string_t&",
-              "param_description": "The unique string identifier of the scene to be set."        
+              "param_description": "The unique string identifier of a group."        
             }
           ]
          },
          {
-          "code": "const std::shared_ptr<beam_scene> current_scene()",
-          "description": "Gets the current interactive scene.",
-          "name": "current_scene()",
-          "return_type": "const std::shared_ptr<beam_scene>",
-          "return_description": "The current interactive scene."
+          "code": "std::vector<std::shared_ptr<beam_scene>> scenes()",
+          "description": "Gets all the scenes associated with the current interactivity instance.",
+          "name": "scenes()",
+          "return_type": "std::vector<std::shared_ptr<beam_scene>>",
+          "return_description": "All scenes associated with the current interactivity instance."
          },
          {
+          "code": "std::shared_ptr<beam_scene> scene(_In_ const string_t&  scene_id)",
+          "description": "Gets the pointer to a specific scene. Returns a NULL pointer if initialization is not yet completed or if the scene does not exist.",
+          "name": "scene(_In_ const string_t&)",
+          "return_type": "std::shared_ptr<beam_scene>",
+          "return_description": "The pointer to a specific scene.",
+          "params": [
+            {
+              "param_name": "scene_id",
+              "param_type": "string_t&",
+              "param_description": "The unique string identifier of a scene."        
+            }
+          ]
+         },        
+         {
           "code": "void trigger_cooldown(_In_ const string_t& control_id, _In_ const std::chrono::milliseconds& cooldown) const",
-          "description": "Disable a specified control for a period of time.",
+          "description": "Sets the cooldown duration (in milliseconds) required between triggers. Disables a specific control for a period of time.",
           "name": "trigger_cooldown(_In_ const string_t&, _In_ const std::chrono::milliseconds&)",
           "params": [
             {
@@ -384,7 +351,7 @@
             {
               "param_name": "cooldown",
               "param_type": "std::chrono::milliseconds&",
-              "param_description": "The cooldown duration."        
+              "param_description": "Cooldown duration (in milliseconds)."        
             }
           ]
          },
@@ -410,7 +377,7 @@
       "constructor_class":[
         {
           "code": "beam_event(_In_ std::chrono::milliseconds time, _In_ std::error_code errorCode, In_ string_t errorMessage, _In_ beam_event_type eventType, _In_ std::shared_ptr<beam_event_args> eventArgs)",
-          "description": "Creates the Beam event class.",
+          "description": "Creates the Beam event class object.",
           "name": "beam_event(_In_ std::chrono::milliseconds, _In_ std::error_code, In_ string_t, _In_ beam_event_type, _In_ std::shared_ptr<beam_event_args>)",
           "params": [
             {
@@ -493,7 +460,7 @@
       "constructor_class": [
         {
           "code": "beam_event_args()",
-          "description": "Creates the Beam event args class.",
+          "description": "Creates the Beam event args class object.",
           "name": "beam_event_args()"
         }
       ],
@@ -517,7 +484,7 @@
       "constructor_class":[
         {
           "code": "beam_participant_state_change_event_args(_In_ std::shared_ptr<beam_participant> participant, _In_ beam_participant_state state)",
-          "description": "Creates the Beam participant state change event args class.",
+          "description": "Creates the Beam participant state change event args class object.",
           "name": "beam_participant_state_change_event_args(_In_ std::shared_ptr<beam_participant>, _In_ beam_participant_state)",
           "params": [
             {
@@ -564,7 +531,7 @@
       "constructor_class":[
         {
           "code": "beam_button_event_args(_In_ string_t controlId, _In_ std::shared_ptr<beam_participant> participant, _In_ bool isPressed)",
-          "description": "Creates the Beam button event args class.",
+          "description": "Creates the Beam button event args class object.",
           "name": "beam_button_event_args(_In_ string_t, _In_ std::shared_ptr<beam_participant>, _In_ bool)",
           "params": [
             {
@@ -620,7 +587,7 @@
       "constructor_class":[
         {
           "code": "beam_joystick_event_args(_In_ std::shared_ptr<beam_participant> participant, _In_ double x, _In_ double y, _In_ string_t control_id)",
-          "description": "Creates the Beam joystick event args class.",
+          "description": "Creates the Beam joystick event args class object.",
           "name": "beam_joystick_event_args(_In_ std::shared_ptr<beam_participant>, _In_ double, _In_ double, _In_ string_t)",
           "params": [
             {
@@ -631,12 +598,12 @@
             {
               "param_name": "x",
               "param_type": "double",
-              "param_description": "The X coordinate of the joystick."        
+              "param_description": "The X coordinate of the joystick, in the range of [-1, 1]."        
             },
             {
               "param_name": "y",
               "param_type": "double",
-              "param_description": "The Y coordinate of the joystick."        
+              "param_description": "The Y coordinate of the joystick, in the range of [-1, 1]."        
             },
             {
               "param_name": "control_id",
@@ -681,7 +648,7 @@
     {
       "name": "beam_control",
       "index": "8",
-      "description": "Base class for all Beam Interactive controls. All controls are created and configured using the Beam Lab.",
+      "description": "Base class for all Beam interactivity controls. All controls are created and configured using the Beam Lab.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_control"
@@ -692,47 +659,28 @@
           "description": "Returns the type of control.",
           "name": "control_type()",
           "return_type": "const beam_control_type&",
-          "return_description": "The type of this control."
+          "return_description": "The type of control."
         },
         {
           "code": "const string_t& control_id() const",
-          "description": "Returns the unique string identifier for this control.",
+          "description": "Returns the unique string identifier for the control.",
           "name": "control_id()",
           "return_type": "const string_t&",
-          "return_description": "The unique string identifier for this control."
-        },
-        {
-          "code": "bool enabled() const",
-          "description": "Returns the value that indicates whether the control is enabled or disabled.",
-          "name": "enabled()",
-          "return_type": "bool",
-          "return_description": "Value that indicates whether the control is enabled or disabled."
+          "return_description": "The unique string identifier for the control."
         },
         {
           "code": "const string_t& help_text() const",
-          "description": "Returns the help text that displays when a Beam participant hovers over the control.",
+          "description": "Returns the help text that displays when a participant hovers over the control.",
           "name": "help_text()",
           "return_type": "const string_t&",
           "return_description": "The help text."
-        },
-        {
-          "code": "void set_enabled(_In_ bool is_enabled)",
-          "description": "Function to enable or disable this control.",
-          "name": "set_enabled(_In_ bool)",
-          "params": [
-            {
-              "param_name": "is_enabled",
-              "param_type": "bool",
-              "param_description": "Value to enable or disable the control. Set this value to TRUE to enable the control."        
-            }
-          ]
-         }       
+        }   
       ]      
     },
     {
       "name": "beam_button_control",
       "index": "9",
-      "description": "Represents a Beam Interactive button control. This class is derived from beam_control. All controls are created and configured using the Beam Lab.",
+      "description": "Represents a Beam interactivity button control. This class is derived from beam_control. All controls are created and configured using the Beam Lab.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_button_control"
@@ -740,66 +688,85 @@
       "methods": [
         {
           "code": "const string_t& button_text() const",
-          "description": "Returns the text displayed on this button control.",
+          "description": "Returns the text displayed on the button control.",
           "name": "button_text()",
           "return_type": "const string_t&",
-          "return_description": "The text displayed on this button control."
+          "return_description": "The text displayed on the button control."
         },
         {
           "code": "uint32_t cost() const",
-          "description": "Returns the spark cost assigned to this button control.",
+          "description": "Returns the spark cost assigned to the button control.",
           "name": "cost()",
           "return_type": "uint32_t",
           "return_description": "The spark cost."
         },
         {
-          "code": "void trigger_cooldown(_In_ std::chrono::milliseconds& cooldown) const",
-          "description": "Sets cooldown duration (in milliseconds) required between triggers",
-          "name": "trigger_cooldown(_In_ std::chrono::milliseconds&)",
+          "code": "bool disabled() const",
+          "description": "Indicates whether the button is enabled or disabled. If TRUE, button is disabled.",
+          "name": "disabled()",
+          "return_type": "bool",
+          "return_description": "Value that indicates whether the button is disabled or not."
+        },
+        {
+          "code": "void set_disabled(_In_ bool disabled)",
+          "description": "Function to enable or disable the button.",
+          "name": "set_disabled(_In_ bool)",
+          "params": [
+            {
+              "param_name": "disabled",
+              "param_type": "bool",
+              "param_description": "Value to enable or disable the button. Set this value to TRUE to disable the button."        
+            }
+          ]
+        },   
+        {
+          "code": "void trigger_cooldown(_In_ std::chrono::milliseconds cooldown) const",
+          "description": "Sets the cooldown duration (in milliseconds) required between triggers. Disables the button for a period of time.",
+          "name": "trigger_cooldown(_In_ std::chrono::milliseconds)",
           "params": [
             {
               "param_name": "cooldown",
-              "param_type": "std::chrono::milliseconds&",
+              "param_type": "std::chrono::milliseconds",
               "param_description": "Cooldown duration (in milliseconds)."        
             }
           ]
         },
         {
           "code": "std::chrono::milliseconds remaining_cooldown() const",
-          "description": "Returns the time remaining (in milliseconds) before this button can be triggered again.",
+          "description": "Returns the time remaining (in milliseconds) before the button can be triggered again.",
           "name": "remaining_cooldown()",
           "return_type": "std::chrono::milliseconds",
           "return_description": "The time remaining (in milliseconds)."
         },
         {
           "code": "float progress() const",
-          "description": "Returns the current progress of this button control.",
+          "description": "Returns the current progress of the button control.",
           "name": "progress()",
           "return_type": "float",
           "return_description": "Current progress."
         },
         {
           "code": "void set_progress(_In_ float progress)",
-          "description": "Sets the progress value for this button control.",
+          "description": "Sets the progress value for the button control.",
           "name": "set_progress(_In_ float)",
           "params": [
             {
               "param_name": "progress",
               "param_type": "float",
-              "param_description": "The progress value."        
+              "param_description": "The progress value, in the range of 0.0 to 1.0."        
             }
           ]
         },
         {
           "code": "uint32_t count_of_button_downs()",
-          "description": "Returns the total number of button down events since the last call to do_work().",
+          "description": "Returns the total number of button downs since the last call to do_work().",
           "name": "count_of_button_downs()",
           "return_type": "uint32_t",
           "return_description": "The number of button down events."
         },
         {
           "code": "uint32_t count_of_button_downs(_In_ unint32_t beamId)",
-          "description": "Returns the total number of button down events by the specified participant since the last call to do_work().",
+          "description": "Returns the total number of button downs by the specified participant since the last call to do_work().",
           "name": "count_of_button_downs(_In_ unint32_t)",
           "params": [
             {
@@ -824,26 +791,26 @@
             {
               "param_name": "beamId",
               "param_type": "unint32_t",
-              "param_description": "The unique string identifier of the Beam participant."        
+              "param_description": "The unique identifier of the Beam participant."        
             }
           ]
         },
         {
           "code": "uint32_t count_of_button_ups()",
-          "description": "Returns the total number of button up events since the last call to do_work().",
+          "description": "Returns the total number of button ups since the last call to do_work().",
           "name": "count_of_button_ups()",
           "return_type": "uint32_t",
           "return_description": "The number of button ups."
         },
         {
           "code": "uint32_t count_of_button_ups(_In_ unint32_t beamId)",
-          "description": "Returns the total number of button up events triggered by the specified participant since the last call to do_work().",
+          "description": "Returns the total number of button ups by the specified participant since the last call to do_work().",
           "name": "count_of_button_ups(_In_ unint32_t)",
           "params": [
             {
               "param_name": "beamId",
               "param_type": "unint32_t",
-              "param_description": "The unique string identifier of the Beam participant."        
+              "param_description": "The unique identifier of the Beam participant."        
             }
           ]
         },
@@ -862,7 +829,7 @@
             {
               "param_name": "beamId",
               "param_type": "uint32_t",
-              "param_description": "The unique string identifier of the Beam participant."        
+              "param_description": "The unique identifier of the Beam participant."        
             }
           ]
         },
@@ -881,7 +848,7 @@
             {
               "param_name": "beamId",
               "param_type": "uint32_t",
-              "param_description": "The unique string identifier of the Beam participant."        
+              "param_description": "The unique identifier of the Beam participant."        
             }
           ]
         },
@@ -894,13 +861,13 @@
         },
         {
           "code": "bool is_up(_In_ uint32_t beamId)",
-          "description": "Returns TRUE if the button is currently not clicked by the specified participant.",
+          "description": "Returns TRUE if the button is currently up for the specified participant.",
           "name": "is_up(_In_ uint32_t)",
           "params": [
             {
               "param_name": "beamId",
               "param_type": "uint32_t",
-              "param_description": "The unique string identifier of the Beam participant."        
+              "param_description": "The unique identifier of the Beam participant."        
             }
           ]
         }                    
@@ -909,7 +876,7 @@
     {
       "name": "beam_joystick_control",
       "index":"10",
-      "description": "Represents a Beam Interactive joystick control. This class is derived from beam_control. All controls are created and configured using the Beam Lab.",
+      "description": "Represents a Beam interactivity joystick control. This class is derived from beam_control. All controls are created and configured using the Beam Lab.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_joystick_control"
@@ -928,24 +895,7 @@
           "name": "y()",
           "return_type": "double",
           "return_description": "The current Y coordinate."
-        },
-        {
-          "code": "void set_coordinates(_In_ double x, _In_ double y)",
-          "description": "Sets the joystick coordinates for this control. This can be used to set the coordinates to an average value. The average value is obtained by using the values provided by all connected beam_spectators through incoming events.",
-          "name": "set_coordinates(_In_ double, _In_ double)",
-          "params": [
-            {    
-              "param_name": "x",
-              "param_type": "double",
-              "param_description": "The X coordinate, in the range of -1.0 to 1.0."        
-            },
-            {    
-              "param_name": "y",
-              "param_type": "double",
-              "param_description": "The Y coordinate, in the range of -1.0 to 1.0."        
-            }
-          ]
-        }        
+        }
       ]
       
     },
@@ -1076,7 +1026,7 @@
       "constructor_class":[
         {
           "code": "beam_interactivity_state_change_event_args(_In_ beam_interactivity_state newState)",
-          "description": "Creates the Beam interactivity state change event args class.",
+          "description": "Creates the Beam interactivity state change event args class object.",
           "name": "beam_interactivity_state_change_event_args(_In_ beam_interactivity_state)",
           "params": [
             {    
@@ -1100,7 +1050,7 @@
     {
       "name": "beam_mock_util",
       "index":"16",
-      "description": "Represents mock Beam events. This class creates mock Beam Interactivity event experiences between the Beam service and the participants.",
+      "description": "Represents mock Beam events. This class creates mock Beam interactivity event experiences between the Beam service and the participants.",
       "type": "Class",
       "syntax": {
         "code": "public class beam_mock_util"
@@ -1115,7 +1065,7 @@
         },
         {
           "code": "void set_oauth_token(_In_ string_t token)",
-          "description": "Sets only the oauth token; skips the linking code API.",
+          "description": "Sets only the OAuth token; skips the linking code API.",
           "name": "set_oauth_token(_In_ string_t)",
           "params": [
             {    
@@ -1143,13 +1093,13 @@
             {    
               "param_name": "is_down",
               "param_type": "bool",
-              "param_description": "Value that indicates the button is down or not."        
+              "param_description": "Value that indicates the button is down or not. If TRUE, the button is down."        
             }
           ]
         },
         {
           "code": "void mock_participant_join(_In_ uint32_t beamId, _In_ string_t beamUsername)",
-          "description": "Simulates a mock participant joining the interactivity.",
+          "description": "Simulates a specific mock participant joining the interactivity.",
           "name": "void mock_participant_join(_In_ uint32_t, _In_ string_t beamUsername)",
           "params": [
             {    
@@ -1166,7 +1116,7 @@
         },
         {
           "code": "void mock_participant_leave(_In_ uint32_t beamId, _In_ string_t beamUsername)",
-          "description": "Simulates a mock participant leaving the interactivity.",
+          "description": "Simulates a specific mock participant leaving the interactivity.",
           "name": "void mock_participant_leave(_In_ uint32_t, _In_ string_t)",
           "params": [
             {    
@@ -1183,6 +1133,83 @@
         }        
       ]
       
+    },
+    {
+      "name": "beam_group",
+      "index": "17",
+      "description": "Represents a Beam interactivity group. This group functionality is used to segment your audience watching a stream. beam_group is useful when you want portions of your audience to be shown a different scene while watching a stream. In a scenario where you want the same scene to be shown to multiple groups, you need to ensure that each participant is only assigned to a single group.",
+      "type": "Class",
+      "syntax": {
+        "code": "public class beam_group"
+      },
+      "constructor_class":[
+        {
+          "code": "beam_group(_In_ string_t groupId)",
+          "description": "Creates the Beam group class object.",
+          "name": "beam_group(_In_ string_t)",
+          "params": [
+            {
+              "param_name": "groupId",
+              "param_type": "string_t",
+              "param_description": "The unique string identifier for the group."        
+            }
+          ]         
+        },
+        {
+          "code": "beam_group(_In_ string_t groupId, _In_ std::shared_ptr<beam_scene> scene)",
+          "description": "Creates the Beam group class object.",
+          "name": "beam_group(_In_ string_t, _In_ std::shared_ptr<beam_scene>)",
+          "params": [
+            {
+              "param_name": "groupId",
+              "param_type": "string_t",
+              "param_description": "The unique string identifier for the group."        
+            },
+            {
+              "param_name": "scene",
+              "param_type": "std::shared_ptr<beam_scene>",
+              "param_description": "The scene shown to the group."        
+            }
+          ]         
+        }       
+      ],
+      "methods": [
+        {
+          "code": "const string_t& group_id() const",
+          "description": "Returns the unique string identifier for the group.",
+          "name": "group_id()",
+          "return_type": "const string_t&",
+          "return_description": "The unique string identifier for the group."
+        },
+        {
+          "code": "std::shared_ptr<beam_scene> scene()",
+          "description": "Returns a pointer to the scene assigned to this group.",
+          "name": "scene()",
+          "return_type": "std::shared_ptr<beam_scene>",
+          "return_description": "A pointer to the assigned scene."
+        },
+        {
+          "code": "void set_scene(std::shared_ptr<beam_scene> currentScene)",
+          "description": "Assigns a scene to the group.",
+          "name": "set_scene(std::shared_ptr<beam_scene>)",
+          "params": [
+            {
+              "param_name": "currentScene",
+              "param_type": "std::shared_ptr<beam_scene>",
+              "param_description": "The scene to be assigned to the group."        
+            }
+          ]
+        },
+        {
+          "code": "const std::vector<std::shared_ptr<beam_participant>> participants()",
+          "description": "Gets all the participants assigned to the group. The list may be empty.",
+          "name": "participants()",
+          "return_type": "const std::vector<std::shared_ptr<beam_participant>>",
+          "return_description": "All the participants assigned to the group."
+        }
+        
+      ]
+            
     }
 
 
