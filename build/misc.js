@@ -60,8 +60,10 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
-        interactive: require('../src/reference/interactive/cplusplus/data.json'),
-        interactive_csharp: require('../src/reference/interactive/csharp/data.json'),
+        cClients: {
+            cpp: require('../src/reference/interactive/cplusplus/data.json').api,
+            csharp: require('../src/reference/interactive/csharp/data.json').api,
+        },
         rest: restDoc,
         beConfig: wrappedRequire('./tmp/backend/config/default.js'),
         permissions,
