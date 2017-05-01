@@ -52,29 +52,29 @@
           }
         },
         {
-            "description": "An unsuccessful authentication attempt.",
-            "data": {
-                "request": {
-                    "type": "method",
-                    "method": "auth",
-                    "arguments":[
-                        12345,
-                        12345,
-                        "Not an AuthKey"
-                    ],
-                    "id": 0
-                },
-                "response": {
-                    "type":"reply",
-                    "error":{
-                        "code":1,
-                        "message":"UNOTFOUND",
-                        "stacktrace":[],
-                        "data":{}
-                    },
-                    "id":0
-                }
+          "description": "An unsuccessful authentication attempt.",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [
+                12345,
+                12345,
+                "Not an AuthKey"
+              ],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": {
+                "code": 1,
+                "message": "UNOTFOUND",
+                "stacktrace": [],
+                "data": {}
+              },
+              "id": 0
             }
+          }
         }
       ]
     },

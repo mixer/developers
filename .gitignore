@@ -54,4 +54,3 @@ jspm_packages
 /config/*
 !/config/default.yaml
 /.vs
-/.vs

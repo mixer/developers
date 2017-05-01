@@ -30,7 +30,7 @@ mixin cDocSection (section)
                     li
                         a(href=`#${section.name}__fields`) Fields
 
-    h1(id=`${section.name}__${section.type}`)= section.name+" "+section.type
+    h1(id=`${section.name}__${section.type}`)= `${section.name} ${section.type}`
     p= section.description
 
     h2(id=`${section.name}__declaration`) Declaration
