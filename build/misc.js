@@ -228,6 +228,9 @@ module.exports = (gulp, $) => {
 
         files.forEach(file => {
             const linted = JSON.stringify(readJSONFile(file), null, '  ');
+            if (linted === null) {
+                throw new Error(`${file} is invalid JSON`);
+            }
             fs.writeFileSync(file, `${linted}\n`);
         });
     });
