@@ -227,11 +227,12 @@ module.exports = (gulp, $) => {
         ];
 
         files.forEach(file => {
-            const linted = JSON.stringify(readJSONFile(file), null, '  ');
-            if (linted === null) {
-                throw new Error(`${file} is invalid JSON`);
+            const contents = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const transformed = JSON.stringify(contents, null, '  ');
+            if (contents === transformed) {
+                return;
             }
-            fs.writeFileSync(file, `${linted}\n`);
+            fs.writeFileSync(file, `${transformed}\n`);
         });
     });
 };
