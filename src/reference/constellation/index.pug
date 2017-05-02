@@ -35,7 +35,6 @@ block menu
                             ul.nav.nav-stacked
                                 li: a(href='#events_live_events') Live Event Types
 
-
 block reference
     .page-header
         h2#introduction Introduction
@@ -47,27 +46,27 @@ block reference
 
     h3#introduction__liveloading Liveloading
     p.
-        Liveloading is an event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href="#events_live_events") Events] to recieve them.
+        Liveloading is an event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href='#events_live_events') Events] to recieve them.
     .alert.alert-info.
-            Pro tip: you can view liveloading in-action by
-            #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log]
-            on #[a(href='https://beam.pro' target='_blank') beam.pro].
+        Pro tip: you can view liveloading in-action by
+        #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log]
+        on #[a(href='https://beam.pro' target='_blank') beam.pro].
 
     h3#introduction__clients Clients
     p A number of clients already support Constellation. Try them out for a jump start into Constellation.
     ul
-            li
-                strong JavaScript:
-                = ' '
-                a(href='https://github.com/WatchBeam/carina' target='_blank') Carina
-            li
-                strong Java:
-                = ' '
-                a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java
-            li
-                strong Swift:
-                = ' '
-                a(href='https://github.com/WatchBeam/beam-client-swift' target='_blank') beam-client-swift
+        li
+            strong JavaScript:
+            = ' '
+            a(href='https://github.com/WatchBeam/carina' target='_blank') Carina
+        li
+            strong Java:
+            = ' '
+            a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java
+        li
+            strong Swift:
+            = ' '
+            a(href='https://github.com/WatchBeam/beam-client-swift' target='_blank') beam-client-swift
 
     h2#session Session
     p.

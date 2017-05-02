@@ -58,7 +58,7 @@ function getLocals () {
         // eslint-disable-next-line no-console
         log: console.log,
         marked,
-        libraries: require('./tmp/libraries'),
+        libraries: require('./tmp/libraries'), // eslint-disable-line import/no-unresolved
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
         rest: restDoc,
@@ -230,8 +230,12 @@ module.exports = (gulp, $) => {
         ];
 
         files.forEach(file => {
-            const linted = JSON.stringify(readJSONFile(file), null, '  ');
-            fs.writeFileSync(file, `${linted}\n`);
+            const contents = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const transformed = JSON.stringify(contents, null, '  ');
+            if (contents === transformed) {
+                return;
+            }
+            fs.writeFileSync(file, `${transformed}\n`);
         });
     });
 };
