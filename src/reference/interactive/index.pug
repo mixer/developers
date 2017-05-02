@@ -14,8 +14,305 @@ block menu
             ul.nav.nav-stacked
                 include ./menu.pug
 block reference
-    br
+    h1#interactive-2---reference-docs Interactive 2 - Reference Docs
+
     .alert.alert-info
         p.
             Looking for Interactive 1 docs? Find them #[a(href='/reference/interactive1/index.html') here].
 
+    h2#introduction Introduction
+    p Beam Interactive is a new way to let viewers directly control the environment in and around streamer’s broadcasts by letting viewers interact using a user interface. When a broadcast has interactivity enabled visual controls will appear beneath the broadcast's video that respond directly to the events of the broadcast. These controls can dynamically update as the broadcast progresses in response to different situations that occur.
+
+    p Interactive developers and producers create projects which can run as a part of a Game or be their own entirely standalone application or tool.
+
+    p When a viewer interacts with controls, their input is sent directly to your project allowing it to see exactly who is interacting and what they are doing. This level of engagement allows you to create truly unique and interactive experiences that let viewers experience broadcasts on a whole new level.
+
+    h2#overview Overview
+
+    p These are the four major components used to create an interactive experience:
+
+    ol(style='list-style-type: decimal')
+        li The GameClient
+        li The Interactive Service
+        li An Interactive Project
+        li Participants
+
+    .figure
+        img(src='/img/reference/interactive/HighLevelOverview.png', alt='Diagram showing the structure of an interactive project')
+        p.caption Diagram showing the structure of an interactive project
+
+    h3#the-gameclient The GameClient
+    p A GameClient is software code which processes Interactive events. It makes a connection to the #[a(href='#the-interactive-service') Interactive Service] and listens to events emitted from the service.
+
+    p GameClients can run anywhere, including:
+    ul
+        li In a Game's Existing Code.
+        li In a 3rd Party mod for a Game.
+        li In a standalone application.
+        li In a Game's server-side service.
+
+    p GameClients listen to events and updates from the service to take action within their environment, thus affecting the session.
+
+    h3#the-interactive-service The Interactive Service
+
+    p The Interactive Service is a service operated by Beam. A GameClient connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data emitted from both the #[a(href='#the-gameclient') GameClient] and #[a(href='#participants') Participants]. To interact with the session or update any state in the session you have to send messages to the service.
+
+    h3#an-interactive-project An Interactive Project
+
+    p An Interactive Project is created by a developer or team on Beam within our #[a(href='https://beam.pro/i/studio') Interactive Studio]. It stores settings and metadata about your interactive experience.
+
+    p Within the Studio you can:
+    ul
+        li Edit your Project's Name and description.
+        li Create and store controls and scenes.
+        li Control who can access your project.
+        li Publish your project for everyone on Beam to see and use.
+
+    p When your #[a(href='#the-gameclient') GameClient] connects to the #[a(href='#the-interactive-service') Interactive Service], it links itself to your project. This process prompts the service to set up the interactive session with the saved settings and controls(if present) from the studio.
+
+    h3#participants Participants
+
+    p Participants are Beam users connected to the interactive session. They are provided with a set of on-screen controls that they can use to affect the broadcast. These controls can change dynamically; according to the situations and events that are happening in the interactive experience.
+
+    h2#interactive-experience-structure Interactive Experience Structure
+
+    p An Interactive experience contains a hierarchical structure of various elements that interact with and affect the experience.
+
+    p These elements are:
+    ul
+        li Scenes
+        li Controls
+        li Groups
+        li Participants
+    p The following diagram shows the relationship of different items within the structure:
+
+    .figure
+        img(src='/img/reference/interactive/InteractiveHierarchy.png', alt='Diagram showing the interactive hierarchy')
+
+    p.caption Diagram showing the interactive hierarchy
+
+    h3#scenes Scenes
+
+    p A scene is a named collection of controls. These controls get arranged within the scene on a grid which controls how they are displayed to participants. The #[a(href='#the-gameclient') GameClient] can add or remove controls from a scene and control which participants are seeing which scene throughout the session. Scenes can be used to group controls together in a coherent fashion that has some meaning to the experience.
+
+    p For example, in an adventure game, you might have a "Battle" scene which is displayed when a broadcaster is in battle and a "Field" scene which is displayed when they are walking around in the game world.
+
+    p All #[a(href='#an-interactive-project') Interactive Projects] contain a default scene. Without any intervention from the #[a(href='#the-gameclient') GameClient] all participants and #[a(href='#groups') groups] will start on the default scene.
+
+    p A #[a(href='#the-gameclient') GameClient] can change which scene a participant sees by updating the #[a(href='#groups') group] they belong to.
+
+    h3#groups Groups
+    p Groups are a way to group individual participants together. #[a(href='#participants') Participants] within a group all see the same #[a(href='#scenes') Scene] and contribute input to the controls on that scene. You can create and update groups at any time, including changing which scene the group is set to.
+
+    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. For example, say a broadcaster is playing an adventure game. You could create a "Helper" group and a "Hinderer" group. The help team would be able to heal the broadcaster and grant them buffs. The Hinderer team could spawn traps or monsters to try and get in the broadcasters way.
+
+    p All participants start out in the default group. You can re-assign participants to any group from the #[a(href='#the-gameclient') GameClient].
+
+    h3#controls Controls
+    p A Control is an interactive component within a scene. #[a(href='#participants') Participants] can individually interact with the control, usually with their keyboard, mouse or controller. Interactive currently has two types of controls, but additional types may be added in the future. These two controls are Buttons and Joysticks.
+
+    h4#buttons Buttons
+    .figure
+        img(src='/img/reference/interactive/button.png', alt='A picture of a button control')
+    p.caption A picture of a button control
+    p Buttons are a rectangle positioned within a scene that a participant can click or trigger with their keyboard. #[a(href='#the-gameclient') GameClients] receive events when a button is pressed or released. You can use buttons to allow participants to contribute to votes, cause actions to happen or event control in-game entities directly.
+
+    p Buttons can be manipulated in the following ways:
+    ol(style='list-style-type: decimal')
+        li The text they display can be updated.
+        li Their spark cost can be updated.
+        li Their progress bar, displayed at the bottom of a button can be updated.
+        li They can be disabled, preventing interaction.
+        li A cooldown can be set, preventing interaction until it expires.
+    h5#what-are-sparks What are Sparks
+
+    p Sparks are Beam's virtual currency. Participants earn them while watching or participating in streams everywhere on Beam.
+
+    h5#spark-transactions Spark Transactions
+    .figure
+        img(src='/img/reference/interactive/TransactionLifecycle.png', alt="Diagram of a transaction's life cycle")
+    p.caption Diagram of a transaction's life cycle.
+
+    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant a #[a(href='#the-game-client') GameClient] must capture the transaction. If a transaction remains uncaptured for 5 minutes, it expires, and the participant is not charged the sparks within it.
+
+    p This mechanism allows the #[a(href='#the-gameclient') GameClient] to decide if a button push should deduct sparks from a participant. This feature is a great way to ensure that input from a participant is used for something in the experience before deducting sparks from their balance.
+
+    p Deducted sparks are #[strong not] awarded to the broadcaster.
+
+    h4#joysticks Joysticks
+
+    .figure
+        img(src='/img/reference/interactive/joystick.png', alt='A picture of a joystick control.')
+
+    p.caption A picture of a joystick control.
+    p Joysticks are circular controls positioned within a scene that participants can click and drag. Moving a joystick sends an input event down to the GameClient with the coordinates of the joystick relative to its center. The coordinate values range between #[code -1 and 1]. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
+
+    .figure
+        img(src='/img/reference/interactive/joystickCoordinates.png', alt='An illustration of the coordinate system for joysticks.')
+    p.caption An illustration of the coordinate system for joysticks.
+
+    h2#getting-started Getting Started
+
+    p Interested in making an Interactive Project? Let's get started!
+
+    h3#prerequisites Prerequisites
+    p Before getting started, you should have the following things:
+
+    ul
+        li A Beam User Account.
+        li Some knowledge of Programming, unless you're using an existing GameClient or App.
+        li A target development SDK.
+        li An awesome idea.
+
+    h3#choosing-an-sdk-environment Choosing an SDK / Environment
+
+    p If you're making a GameClient from scratch, you'll need to pick an SDK.
+    p We currently have SDKs for:
+    ul
+        li
+            a(href='https://github.com/WatchBeam/beam-interactive-node2') Typescript, Nodejs & Browsers
+            |  - Great for Interactive Apps and beginners.
+        li
+            a(href='https://github.com/WatchBeam/interactive-sdk-cpp') C++
+            |  - Integrate directly into a C++ Game.
+        li
+            a(href='https://github.com/WatchBeam/interactive-sdk-csharp') C#
+            |  - Integrate directly into a C# Game.
+        li
+            a(href='https://github.com/WatchBeam/interactive-unity-plugin') Unity
+            |  - Prototype Quickly or integrate into a Unity based Game.
+    p Once you've chosen an SDK, download it from its repository and get a new project in your favorite IDE set up and ready to go.
+
+    h3#creating-an-interactive-project Creating an Interactive Project
+    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio') studio] and click on the plus button:
+
+    .figure
+        img(src='/img/reference/interactive/studio/createNewProject.png', alt='Screenshot showing the location of the create new project button')
+    p.caption Screenshot showing the location of the create new project button.
+
+    p You'll then be prompted to enter a name for your project. Once a name is entered you'll be taken to the Project Editor.
+
+    p The project editor contains tabs where each tab is a step in the creation of your project.
+    .figure
+        img(src='/img/reference/interactive/studio/editorTabs.png')
+    p The steps are:
+    ul
+        li Info - Edit the project name and Metadata about it.
+        li Build - Configure Scenes and Controls.
+        li Code - Hook your GameClient up to the Project and get coding.
+        li Publish - Submit your project for review by our team.
+    h3#the-info-step The Info Step
+    p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
+    p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can get ahold of you if they need help or have found a bug.
+    p During the pre-publish review the Beam team will examine your project closely to gain an understanding of what your project does, so be as thorough as possible.
+
+    h3#the-build-step---x The Build Step - X
+    p The build step is where you design your scenes and controls for your project. The interface is divided up in to three Areas:
+    ul
+        li Scenes
+        li Controls
+        li Grid
+
+    h4#scenes-area Scenes Area
+
+    p This is where you will manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select the current scene that you would like to manage controls for.
+
+    h4#controls-area Controls Area
+    p This is where you will manage the controls for the scenes in your project. Controls can be created, renamed, have their type (button or joystick) changed, spark cost adjusted, or deleted here.
+
+    h4#grid-area Grid Area
+    p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
+
+    p To add a control to the grid, click and drag the control from the Controls section on to the Grid section. Once the control has been added to the grid you have the ability to resize, reposition, or remove the control.
+
+    p For more detail on the configuration of the controls on the scene, the #[code View JSON] option in the top right of the grid section will display the relevant JSON for the scene.
+    p Once you are finished building your scenes/controls, press the Save button in the top right of the grid section.
+
+    h3#the-code-step The Code Step
+    p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own GameClient that will connect to the Interactive service, or take advantage of existing ones.
+
+    p The key piece of information that a GameClient needs to talk with your project on the Interactive service is the #[code Project Version ID]. This is displayed to you here on the Code screen.
+
+    h3#publish-step Publish Step
+    p The final step in the studio is Publish. Publish allows you to share your project with everyone on Beam.
+
+    p Before considering if you'd like to publish your project for the world to see you should ask yourself some questions. If the answer to any of these is no, then you should consider #[strong not] publishing it. Alternatively, if you'd only like a group of users to be able to access your project then consider #[a(href='#sharing-your-project') sharing your project] instead.
+
+    ul
+        li Is this project something that everyone would use?
+        li Is this project ready for every Beam user to have access to?
+        li Have you filled in the info tab with #[strong detailed] installation and setup instructions?
+    p If you've answered yes to all of these questions, you can proceed to publish your project.
+
+    h4#publishing-flow Publishing Flow
+    .figure
+        img(src='/img/reference/interactive/studio/PublishProcess.png')
+    p A Project starts off in the draft state. In this state, you can freely make edits to it and test and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
+
+    p Once you've decided to publish your project, visit the publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to submit the project.
+    p Once submitted the Interactive review team at Beam are notified and will begin a review. While a project is in review you won't be able to edit the project. A Beam representative may also reach out to you with questions.
+    p After a review is conducted, your project will either be accepted for publishing or denied and returned the draft state with feedback on what would need to change to get the project to a publishable state.
+    p Should your project be accepted, a publication date will be discussed. On this date, the project will be available for all Beam users in our Interactive Store.
+
+    h3#sharing-your-project Sharing your Project
+    p By default only you can use your project. It's fine for it to remain that way. #[strong You don't need to publish it or share it with any users to use it]. However if you'd like other people to use it, then you have several options.
+
+    p To manage a project's share settings click the share button in the top right of the editor.
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareButton.png')
+    p A dialog will be presented with three options. The first is the default and only lets you use the project. #[strong Changing the sharing setting will delete any previous share settings].
+
+    h4#share-codes Share Codes
+    p The second option generates a share code. You can hand this share code out to anyone who wants to use the project. Users with the share code then provide it to the GameClient and can gain access to use the project.
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareCode.png')
+    h4#explicit-sharing Explicit Sharing
+
+    p The third option is explicit sharing it lets you share the project with named Beam users. Only users in the list can use the project. To share a project with a user search for their username in the search box and then click add.
+    .figure
+        img(src='/img/reference/interactive/studio/share/explicitSharing.png')
+
+    h2#protocol-overview Protocol Overview
+    p Interactive's protocol is defined in a separate #[a(href='link-to-doc') downloadable document] which details precise implementation details. An overview is given here for introductory reasons only.
+
+    h3#wire-format Wire Format
+    p Interactive communicates using a protocol similar to #[a(href='http://jsonrpc.org/historical/json-rpc-1-2-proposal.html') JSON-RPC] except that it is bi-directional. Clients and Servers can both call and respond to methods.
+
+    p The protocol operates over a standard WebSocket connection. Both #[a(href='#participants') Participants] and #[a(href='#the-gameclient') GameClients] use the same protocol definition, but different subsets of methods are available to each.
+
+    h3#packets Packets
+    p The protocol contains two types of packets. Methods and Replies.
+
+    h4#method Method
+    p A method is a request for a connected entity to perform an operation. Methods are sent by both the client and the server. When a method is received, it is proceeded by the other side who can then reply to the method with a result or an error.
+
+    p A method can contain parameters which get provided to the recipient.
+
+    p Methods contain an additional property called #[code discard] which when true indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to true.
+
+    h4#reply Reply
+    p A reply is sent from a recipient back to the caller to indicate the result of executing that method. It can contain a #[code result] or an #[code error] which indicates what went wrong.
+
+    h3#compression Compression
+    p By default packets on the wire are transmitted as plaintext, but the GameClient can opt into using #[a(href='https://tools.ietf.org/html/rfc1952') GZIP] or #[a(href='https://lz4.github.io/lz4/') LZ4] compression. To do this, the GameClient must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
+
+    h3#authentication Authentication
+    p A GameClient needs to authenticate as a Beam user when establishing an interactive session. Two authentication methods are available.
+
+    h4(id='oauth-2.0') OAuth 2.0
+    p Beam supports #[a(href='https://tools.ietf.org/html/rfc6749') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
+
+    p The only required scope for an interactive connection is #[code interactive:robot:self]. You can read more about Beam's OAuth on our #[a(href='https://dev.beam.pro/reference/oauth/index.html') OAuth reference page].
+
+    h4#xtoken XToken
+    p You can provide an XBL XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is leveraged for Universal Windows Platform applications that are Xbox Live enabled, as well as games on Xbox One
+
+    h2#where-to-get-help Where to get help
+    p Have questions? Stuck? We're here to help! We have places you can get help so drop by!
+    ul
+        li
+            p #[a(href='gitter.im/WatchBeam/developers') Gitter] - Chat with our team and other developers.
+        li
+            p #[a(href='https://forums.beam.pro/category/10/developer-discussion') Forums]  - Post a topic, and we'll get back to you.
+        li
+            p #[a(href='https://discord.gg/beam') Community Discord] - Hang out with other developers in our community Discord.
