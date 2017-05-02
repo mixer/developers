@@ -14,23 +14,8 @@ block menu
             ul.nav.nav-stacked
                 include ./menu.pug
 block reference
-    h1(id='interactive') Interactive
-    p.
-        Beam Interactive is a new way to let viewers directly control the environment
-        around streamers using a visual interface. It works with any game and is built
-        into the Beam platform. Interactive games can be played with streamers or fully
-        autonomously.
-    p.
-        Developers can create integrations with as few as 25 lines of code and receive
-        input from viewers to influence a live stream directly.
+    br
+    .alert.alert-info
+        p.
+            Looking for Interactive 1 docs? Find them #[a(href='../interactive1') here].
 
-    h1(id='interactive__introduction') Introduction
-    p.
-        Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/') Google's Protocol Buffer]
-        specification over a standard secure websocket protocol #[code wss] connection. Viewers' inputs from the site are sent to Beam's aggregator
-        server, which analyzes them for you, before being sent to clients.
-
-    include ./protocol.pug
-    include ../../snippets/help.pug
-
-    //- include ./controls.pug
