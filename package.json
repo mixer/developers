@@ -26,7 +26,7 @@
   "devDependencies": {
     "@mcph/beam-common": "^4.4.0",
     "bluebird": "^3.4.1",
-    "bootstrap": "^3.3.6",
+    "bootstrap": "^3.3.7",
     "config": "^1.21.0",
     "del": "^2.2.0",
     "eslint": "^2.13.0",
