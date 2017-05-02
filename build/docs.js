@@ -265,7 +265,8 @@ module.exports = (gulp) => {
     });
 
     gulp.task('pull-client-repos', () => {
-        const todo = require('./libraries').map(lib => {
+        const todo = require('./libraries')
+        .map(lib => {
             return fetch(`https://api.github.com/repos/${lib.name}`)
             .then(response => {
                 if (response.status !== 200) {
@@ -273,7 +274,6 @@ module.exports = (gulp) => {
                         `Errorful response getting ${lib.name}: ${response.statusText}`
                     );
                 }
-
                 return response.json();
             })
             .then(json => ({
@@ -286,7 +286,8 @@ module.exports = (gulp) => {
             }));
         });
 
-        return Promise.all(todo).then(result => {
+        return Promise.all(todo)
+        .then(result => {
             fs.writeFileSync(
                 path.join(config.src.tmp, 'libraries.json'),
                 JSON.stringify(_.sortBy(result, 'language'), null, '   ')

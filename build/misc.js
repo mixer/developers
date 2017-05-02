@@ -187,9 +187,9 @@ function getPugOpts () {
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
-    gulp.task('html', ['html-raml', 'pull-client-repos']);
+    gulp.task('html', ['html-raml']);
 
-    gulp.task('html-raml', ['backend-doc'], () => {
+    gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
