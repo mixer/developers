@@ -11,6 +11,9 @@ block tutorialTitle
 
 block tutorialContent
     h2#intro Introduction
+    .alert.alert-warning
+        p.
+            These tutorials are for #[a(href='/reference/interactive1/index.html') Interactive 1], Interactive 2 tutorials are coming soon! While you wait, checkout our #[a(href='/reference/interactive/index.html') Interactive 2 reference docs].
     p.
         Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/' target='_blank') Google's Protocol Buffer]
         specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
