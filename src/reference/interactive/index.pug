@@ -280,7 +280,7 @@ block reference
 
     h2#protocol-overview Protocol Overview
 
-    p Interactive's protocol is defined in a separate #[a(href='link-to-doc') downloadable document] which details precise implementation details. An overview is given here for introductory reasons only. Developers can choose to implement the protocol directly into their programming environment.
+    p Interactive's protocol is defined in a separate #[a(href='/reference/interactive/protocol.pdf') downloadable document] which details precise implementation details. An overview is given here for introductory reasons only. Developers can choose to implement the protocol directly into their programming environment.
 
     h3#wire-format Wire Format
     p Interactive communicates using a protocol similar to #[a(href='http://jsonrpc.org/historical/json-rpc-1-2-proposal.html') JSON-RPC] except that it is bi-directional. Clients and Servers can both call and respond to methods.
@@ -299,6 +299,8 @@ block reference
 
     h4#reply Reply
     p A reply is sent from a recipient back to the caller to indicate the result of executing that method. It can contain a #[code result] or an #[code error] which indicates what went wrong.
+
+    p For full packet implementation details please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol.pdf') here].
 
     h3#compression Compression
     p By default packets on the wire are transmitted as plaintext, but the Game Client can opt into using #[a(href='https://tools.ietf.org/html/rfc1952') GZIP] or #[a(href='https://lz4.github.io/lz4/') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
