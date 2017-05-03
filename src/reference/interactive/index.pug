@@ -44,7 +44,7 @@ block reference
     h3#the-gameclient The Game Client
     p A Game Client is software code which processes Interactive events.It is written by an Interactive developer. Game Clients make connections to the #[a(href='#the-interactive-service') Interactive Service] and listen to events emitted from the service and take action within their environment, thus affecting the broadcast.
 
-    p GameClients can run in any environment, including:
+    p Game Clients can run in any environment, including:
     ul
         li In a game's existing code
         li In a 3rd party mod for a game
@@ -99,11 +99,11 @@ block reference
     p A #[a(href='#the-gameclient') Game Client] can change which scene a participant sees by updating the #[a(href='#groups') group] they belong to.
 
     h3#groups Groups
-    p Groups are a way to group individual participants together. #[a(href='#participants') Participants] within a group all see the same #[a(href='#scenes') Scene] and can contribute input to the controls on that scene. #[a(href='#the-gameclient') GameClients] can create and update groups at any time, including changing which scene the group is set to.
+    p Groups are a way to group individual participants together. #[a(href='#participants') Participants] within a group all see the same #[a(href='#scenes') Scene] and can contribute input to the controls on that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups at any time, including changing which scene the group is set to.
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. For example, say a broadcaster is playing an adventure game. Interactive developers could create a "Helper" group and a "Hinderer" group. The help team would be able to heal the broadcaster and grant them buffs. The Hinderer team could spawn traps or monsters to try and get in the broadcasters way.
 
-    p All participants start out in the default group. #[a(href='#the-gameclient') GameClients] can re-assign participants to any group from the #[a(href='#the-gameclient') Game Client].
+    p All participants start out in the default group. #[a(href='#the-gameclient') Game Clients] can re-assign participants to any group from the #[a(href='#the-gameclient') Game Client].
 
     h3#controls Controls
     p A Control is an interactive component within a scene. #[a(href='#participants') Participants] can individually interact with the control, usually with their keyboard, mouse or controller. Interactive currently has two types of controls, but additional types may be added in the future. These two controls are Buttons and Joysticks.
@@ -112,7 +112,7 @@ block reference
     .figure
         img(src='/img/reference/interactive/button.png', alt='A button control as displayed to a participant. This button costs one spark to press.')
     p.caption A button control as displayed to a participant. This button costs one spark to press.
-    p Buttons are a rectangle positioned within a scene that a participant can click with their mouse or trigger with their keyboard or controller. #[a(href='#the-gameclient') GameClients] receive events when a button is interacted with:
+    p Buttons are a rectangle positioned within a scene that a participant can click with their mouse or trigger with their keyboard or controller. #[a(href='#the-gameclient') Game Clients] receive events when a button is interacted with:
 
     ul
         li `mousedown` - Emitted when a button is pressed by a participant.
@@ -262,7 +262,7 @@ block reference
 
     p Grab your #[code Project Version ID] from the code step displayed in the center of the screen and then utilize the documentation and samples from your #[a(href='#choosing-an-sdk-environment') chosen SDK] and get creating.
 
-    h3#publish-step Publish Step
+    h3#publish-step The Publish Step
     p The final step in the studio is Publish. Publish allows you to share your project with everyone on Beam.
 
     p Before considering if an Interactive project is ready for publishing a series of questions should be asked.
@@ -311,7 +311,7 @@ block reference
     h3#wire-format Wire Format
     p The Interactive Service communicates using a protocol similar to #[a(href='http://jsonrpc.org/historical/json-rpc-1-2-proposal.html') JSON-RPC] except that it is bi-directional. Clients and Servers can both call and respond to methods.
 
-    p The protocol operates over a standard WebSocket connection. Both #[a(href='#participants') Participants] and #[a(href='#the-gameclient') GameClients] use the same protocol definition, but different subsets of methods are available to each.
+    p The protocol operates over a standard WebSocket connection. Both #[a(href='#participants') Participants] and #[a(href='#the-gameclient') Game Clients] use the same protocol definition, but different subsets of methods are available to each.
 
     h3#packets Packets
     p The protocol contains two types of packets: #[code methods] and #[code replies].
