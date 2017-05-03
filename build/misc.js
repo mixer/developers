@@ -58,7 +58,7 @@ function getLocals () {
         // eslint-disable-next-line no-console
         log: console.log,
         marked,
-        libraries: require('./tmp/libraries'),
+        libraries: require('./tmp/libraries'), // eslint-disable-line import/no-unresolved
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
         cClients: {
@@ -191,9 +191,9 @@ function getPugOpts () {
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
-    gulp.task('html', ['html-raml', 'pull-client-repos']);
+    gulp.task('html', ['html-raml']);
 
-    gulp.task('html-raml', ['backend-doc'], () => {
+    gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))

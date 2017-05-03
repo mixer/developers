@@ -141,13 +141,12 @@ mixin simpleType(key, type, skipRequired)
                 li Items MUST be unique.
             if type.items.properties
                 li Item properties:
-                        ul.rest-nested-properties
-                            for property, propertyName in type.items.properties
-                                li
-                                    +simpleTypeHeading(propertyName, property)
-                                    +simpleType(propertyName, property)
+                    ul.rest-nested-properties
+                        for property, propertyName in type.items.properties
+                            li
+                                +simpleTypeHeading(propertyName, property)
+                                +simpleType(propertyName, property)
             else
                 li Item type:
                     = ' '
                     +typeNameString(type.items)
-
