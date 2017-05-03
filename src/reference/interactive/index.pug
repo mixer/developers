@@ -38,7 +38,7 @@ block reference
         li Participants
 
     .figure
-        img(src='/img/reference/interactive/HighLevelOverview.svg', alt='Diagram showing the structure of an interactive project')
+        img(src='/img/reference/interactive/HighLevelOverview.svg' alt='Diagram showing the structure of an interactive project')
         p.caption Diagram showing the structure of an interactive project
 
     h3#the-gameclient The Game Client
@@ -84,7 +84,7 @@ block reference
         li Participants
 
     .figure
-        img(src='/img/reference/interactive/InteractiveHierarchy.svg', alt='Relationship between elements in the interactive hierarchy.')
+        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Relationship between elements in the interactive hierarchy.')
 
     p.caption Relationship between elements in the interactive hierarchy.
 
@@ -110,7 +110,7 @@ block reference
 
     h4#buttons Buttons
     .figure
-        img(src='/img/reference/interactive/button.png', alt='A button control as displayed to a participant. This button costs one spark to press.')
+        img(src='/img/reference/interactive/button.png' alt='A button control as displayed to a participant. This button costs one spark to press.')
     p.caption A button control as displayed to a participant. This button costs one spark to press.
     p Buttons are a rectangle positioned within a scene that a participant can click with their mouse or trigger with their keyboard or controller. #[a(href='#the-gameclient') Game Clients] receive events when a button is interacted with:
 
@@ -118,7 +118,7 @@ block reference
         li `mousedown` - Emitted when a button is pressed by a participant.
         li `mouseup` - Emitted when a button is released by a participant.
 
-    Interactive developers can use buttons to allow participants to contribute to votes, cause actions to happen or even control in-game entities directly.
+    p Interactive developers can use buttons to allow participants to contribute to votes, cause actions to happen or even control in-game entities directly.
 
     p Buttons have a number of properties which can be edited in both the Interactive Studio and from a Game Client.
     ol(style='list-style-type: decimal')
@@ -134,7 +134,7 @@ block reference
 
     h5#spark-transactions Spark Transactions
     .figure
-        img(src='/img/reference/interactive/TransactionLifecycle.svg', alt="Diagram of a transaction's life cycle")
+        img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
     p.caption Diagram of a spark transaction's life cycle, showing its transition betwen states.
 
     p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it expires, and the cost associated with the transaction is not deducted from the user's spark balance.
@@ -147,14 +147,12 @@ block reference
 
     p Joysticks are circular controls positioned within a scene that participants can click and drag. Moving a joystick sends an input event down to the Game Client with the coordinates of the joystick relative to its center. Joystick coordinates range between #[code -1 and 1].
     .figure
-        img(src='/img/reference/interactive/joystick.png', alt='A joystick display to a participant.')
+        img(src='/img/reference/interactive/joystick.png' alt='A joystick display to a participant.')
     p.caption An idle joystick displayed to a participant. Its coordinates are #[code 0, 0].
 
-
     .figure
-        img(src='/img/reference/interactive/joystickCoordinates.svg', alt='An illustration of the coordinate system for joysticks.')
+        img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
     p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
-
 
     h2#getting-started Getting Started
 
@@ -203,14 +201,14 @@ block reference
     p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio' target='_blank') studio] and click on the plus button:
 
     .figure
-        img(src='/img/reference/interactive/studio/createNewProject.png', alt='Screenshot showing the location of the create new project button')
+        img(src='/img/reference/interactive/studio/createNewProject.png' alt='Screenshot showing the location of the create new project button')
     p.caption Screenshot showing the location of the create new project button.
 
     p You'll then be prompted to enter a name for your project. Once a name is entered you'll be taken to the Project Editor.
 
     p The project editor contains tabs where each tab is a step in the creation of your project.
     .figure
-        img(src='/img/reference/interactive/studio/editorTabs.png')
+        img(src='/img/reference/interactive/studio/editorTabs.png' alt='studio editor tabs')
     p The steps are:
     ul
         li Info - Edit the project name and Metadata about it.
@@ -235,17 +233,16 @@ block reference
     p This is where you will manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select the current scene that you would like to manage controls for.
 
     .figure
-        img(src='/img/reference/interactive/studio/scenes.png')
+        img(src='/img/reference/interactive/studio/scenes.png' alt='studio scenes')
 
     h4#controls-area Controls Area
 
     p This is where you will manage the controls for the scenes in your project. Controls can be created, renamed, have their type (button or joystick) changed, spark cost adjusted, or deleted.
 
     .figure
-        img(src='/img/reference/interactive/studio/controls.png')
+        img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
 
     h4#grid-area Grid Area
-
 
     p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
 
@@ -255,7 +252,7 @@ block reference
     p Once you are finished building your scenes/controls, press the Save button in the top right of the grid section.
 
     .figure
-        img(src='/img/reference/interactive/studio/grid_with_controls.png')
+        img(src='/img/reference/interactive/studio/grid_with_controls.png' alt='studio grid')
 
     h3#the-code-step The Code Step
     p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own Game Client that will connect to the Interactive service.
@@ -276,7 +273,7 @@ block reference
 
     h4#publishing-flow Publishing Flow
     .figure
-        img(src='/img/reference/interactive/studio/PublishProcess.svg')
+        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio pubish process')
     p A Project starts off in the draft state. In this state, you can freely make edits to it and test and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
 
     p Once you've decided to publish your project, visit the publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to submit the project.
@@ -289,7 +286,7 @@ block reference
 
     p To manage a project's share settings click the share button in the top right of the editor.
     .figure
-        img(src='/img/reference/interactive/studio/share/shareButton.png')
+        img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
     p A dialog will be presented with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
 
     p The first is the default and only lets the project owner use the project in a broadcast.
@@ -297,12 +294,12 @@ block reference
     h4#share-codes Share Codes
     p The second, “Anyone with the versionId and code can play”, option generates a share code. This code can be handed out to broadcasters who wants to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
     .figure
-        img(src='/img/reference/interactive/studio/share/shareCode.png')
+        img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
 
     p The third option, “Only allow specific users to play until published”, is explicit sharing it lets you share the project with named Beam users. Only users in the list can use the project. To share a project with a user search for their username in the search box and then click add.
     .figure
-        img(src='/img/reference/interactive/studio/share/explicitSharing.png')
+        img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
     h2#protocol-overview Protocol Overview
 

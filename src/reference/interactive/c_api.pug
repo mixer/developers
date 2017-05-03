@@ -145,7 +145,7 @@ mixin menu(apiInfo, name)
                 a(href='#enums') Enums
             for apiData in apiInfo
                 li
-                    a(href='#' + apiData.name)= apiData.name
+                    a(href=`#${apiData.name}`)= apiData.name
 
 mixin reference(apiInfo, name)
     h1 #{name} API Overview
