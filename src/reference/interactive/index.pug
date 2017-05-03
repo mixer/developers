@@ -57,7 +57,7 @@ block reference
 
     h3#an-interactive-project An Interactive Project
 
-    p An Interactive Project is created by a developer or team on Beam within our #[a(href='https://beam.pro/i/studio') Interactive Studio]. It stores settings and metadata about your interactive experience. Projects are owned by a single Beam user but can be #[a(href='#sharing-your-project') shared] with other users.
+    p An Interactive Project is created by a developer or team on Beam within our #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. It stores settings and metadata about your interactive experience. Projects are owned by a single Beam user but can be #[a(href='#sharing-your-project') shared] with other users.
 
     p Within the Studio you can:
     ul
@@ -180,27 +180,27 @@ block reference
             th Description
         tr
             td Typescript, Nodejs & Browsers
-            td #[a(href='https://github.com/WatchBeam/beam-interactive-node2') GitHub]
-            td #[a(href='https://watchbeam.github.io/beam-interactive-node2') Reference Docs]
+            td #[a(href='https://github.com/WatchBeam/beam-interactive-node2' target='_blank') GitHub]
+            td #[a(href='https://watchbeam.github.io/beam-interactive-node2' target='_blank') Reference Docs]
             td Great for Interactive tools and utilities and beginners.
         tr
             td C++
-            td #[a(href='https://github.com/WatchBeam/interactive-sdk-cpp') GitHub]
-            td #[a(href='/reference/interactive/cplusplus/index.html') Reference Docs]
+            td #[a(href='https://github.com/WatchBeam/interactive-sdk-cpp' target='_blank') GitHub]
+            td #[a(href='/reference/interactive/cplusplus/index.html' target='_blank') Reference Docs]
             td Integrate directly into a C++ Game.
         tr
             td Unity
             td #[a(href='#Not yet?') Asset Store]
             td
-                span #[a(href='/reference/interactive/csharp/index.html') Reference Docs]
+                span #[a(href='/reference/interactive/csharp/index.html' target='_blank') Reference Docs]
                 br
-                span #[a(href='https://github.com/WatchBeam/interactive-unity-plugin/wiki/Getting-started') Getting Started]
+                span #[a(href='https://github.com/WatchBeam/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
             td Prototype Quickly or integrate into a Unity based Game.
 
     p Once you've chosen an SDK from the above list, download it from its repository and get it setup in your favorite IDE and ready to go.
 
     h3#creating-an-interactive-project Creating an Interactive Project
-    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio') studio] and click on the plus button:
+    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio' target='_blank') studio] and click on the plus button:
 
     .figure
         img(src='/img/reference/interactive/studio/createNewProject.png', alt='Screenshot showing the location of the create new project button')
@@ -328,15 +328,15 @@ block reference
     p For full packet implementation details please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol.pdf') here].
 
     h3#compression Compression
-    p By default packets on the wire are transmitted as plaintext, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952') GZIP] or #[a(href='https://lz4.github.io/lz4/') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
+    p By default packets on the wire are transmitted as plaintext, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
 
     h3#authentication Authentication
     p A Game Client needs to authenticate as a Beam user when establishing an interactive session. Two authentication methods are available.
 
     h4(id='oauth-2.0') OAuth 2.0
-    p Beam supports #[a(href='https://tools.ietf.org/html/rfc6749') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
+    p Beam supports #[a(href='https://tools.ietf.org/html/rfc6749' target='_blank') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750' target='_blank') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
 
-    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Beam's OAuth visit the #[a(href='https://dev.beam.pro/reference/oauth/index.html') OAuth reference page].
+    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Beam's OAuth visit the #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
 
     h4#xtoken XToken
     p You can provide an XBL XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is leveraged for Universal Windows Platform applications that are Xbox Live enabled, as well as games on Xbox One
@@ -345,8 +345,8 @@ block reference
     p Have questions? Stuck? We're here to help! We have places you can get help so drop by!
     ul
         li
-            p #[a(href='gitter.im/WatchBeam/developers') Gitter] - Chat with our team and other developers.
+            p #[a(href='gitter.im/WatchBeam/developers' target='_blank') Gitter] - Chat with our team and other developers.
         li
-            p #[a(href='https://forums.beam.pro/category/10/developer-discussion') Forums]  - Post a topic, and we'll get back to you.
+            p #[a(href='https://forums.beam.pro/category/10/developer-discussion' target='_blank') Forums]  - Post a topic, and we'll get back to you.
         li
-            p #[a(href='https://discord.gg/beam') Community Discord] - Hang out with other developers in our community Discord.
+            p #[a(href='https://discord.gg/beam' target='_blank') Community Discord] - Hang out with other developers in our community Discord.
