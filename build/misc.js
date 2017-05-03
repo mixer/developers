@@ -61,6 +61,10 @@ function getLocals () {
         libraries: require('./tmp/libraries'),
         liveEvents: require('../src/reference/constellation/events'),
         chat: require('../src/reference/chat/data'),
+        cClients: {
+            cpp: require('../src/reference/interactive/cplusplus/data.json').api,
+            csharp: require('../src/reference/interactive/csharp/data.json').api,
+        },
         rest: restDoc,
         beConfig: wrappedRequire('./tmp/backend/config/default.js'),
         permissions,
@@ -227,11 +231,17 @@ module.exports = (gulp, $) => {
     gulp.task('lint-json', () => {
         const files = [
             'src/reference/chat/data.json',
+            'src/reference/interactive/cplusplus/data.json',
+            'src/reference/interactive/csharp/data.json',
         ];
 
         files.forEach(file => {
-            const linted = JSON.stringify(readJSONFile(file), null, '  ');
-            fs.writeFileSync(file, `${linted}\n`);
+            const contents = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const transformed = JSON.stringify(contents, null, '  ');
+            if (contents === transformed) {
+                return;
+            }
+            fs.writeFileSync(file, `${transformed}\n`);
         });
     });
 };

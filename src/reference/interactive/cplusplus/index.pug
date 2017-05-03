@@ -1,0 +1,9 @@
+extends ../../reference_layout.pug
+include ../c_api.pug
+
+block navbar
+    +cnavbar()
+block menu
+    +menu(cClients.cpp)
+block reference
+    +reference(cClients.cpp, 'C++')
