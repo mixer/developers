@@ -212,7 +212,7 @@ block reference
     p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can get ahold of you if they need help or have found a bug.
     p During the pre-publish review the Beam team will examine your project closely to gain an understanding of what your project does, so be as thorough as possible.
 
-    h3#the-build-step---x The Build Step - X
+    h3#the-build-step
     p The build step is where you design your scenes and controls for your project. The interface is divided up in to three areas:
     ul
         li Scenes
@@ -220,20 +220,21 @@ block reference
         li Grid
 
     h4#scenes-area Scenes Area
-    .figure
-        img(src='/img/reference/interactive/studio/scenes.png')
 
     p This is where you will manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select the current scene that you would like to manage controls for.
 
-    h4#controls-area Controls Area
     .figure
-        img(src='/img/reference/interactive/studio/controls.png')
+        img(src='/img/reference/interactive/studio/scenes.png')
+
+    h4#controls-area Controls Area
 
     p This is where you will manage the controls for the scenes in your project. Controls can be created, renamed, have their type (button or joystick) changed, spark cost adjusted, or deleted.
 
-    h4#grid-area Grid Area
     .figure
-        img(src='/img/reference/interactive/studio/grid_with_controls.png')
+        img(src='/img/reference/interactive/studio/controls.png')
+
+    h4#grid-area Grid Area
+
 
     p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
 
@@ -241,6 +242,9 @@ block reference
 
     p For more detail on the configuration of the controls on the scene, the #[code View JSON] option in the top right of the grid section will display the relevant JSON for the scene.
     p Once you are finished building your scenes/controls, press the Save button in the top right of the grid section.
+
+    .figure
+        img(src='/img/reference/interactive/studio/grid_with_controls.png')
 
     h3#the-code-step The Code Step
     p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own Game Client that will connect to the Interactive service, or take advantage of existing ones.
