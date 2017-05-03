@@ -135,7 +135,7 @@ block reference
     h5#spark-transactions Spark Transactions
     .figure
         img(src='/img/reference/interactive/TransactionLifecycle.svg', alt="Diagram of a transaction's life cycle")
-    p.caption Diagram of a spark transaction's life cycle.
+    p.caption Diagram of a spark transaction's life cycle, showing its transition betwen states.
 
     p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it expires, and the cost associated with the transaction is not deducted from the user's spark balance.
 
@@ -171,19 +171,33 @@ block reference
     h3#choosing-an-sdk-environment Choosing an SDK / Environment
 
     p If you're making a Game Client from scratch, you'll need to pick an Interactive SDK.
-    p We currently have SDKs for:
-    ul
-        li
-            a(href='https://github.com/WatchBeam/beam-interactive-node2') Typescript, Nodejs & Browsers
-            |  &mdash; Great for Interactive tools and utilities and beginners.
-        li
-            a(href='https://github.com/WatchBeam/interactive-sdk-cpp') C++
-            |  &mdash; Integrate directly into a C++ Game.
-        li
-            a(href='https://github.com/WatchBeam/interactive-unity-plugin') Unity
-            |  &mdash; Prototype Quickly or integrate into a Unity based Game.
 
-    p Once you've chosen an SDK from the above list, download it from its repository and get a new project in your favorite IDE set up and ready to go.
+    table.table
+        tr
+            th Environment
+            th Repository / Download
+            th Documentation
+            th Description
+        tr
+            td Typescript, Nodejs & Browsers
+            td #[a(href='https://github.com/WatchBeam/beam-interactive-node2') GitHub]
+            td #[a(href='https://watchbeam.github.io/beam-interactive-node2') Reference Docs]
+            td Great for Interactive tools and utilities and beginners.
+        tr
+            td C++
+            td #[a(href='https://github.com/WatchBeam/interactive-sdk-cpp') GitHub]
+            td #[a(href='/reference/interactive/cplusplus/index.html') Reference Docs]
+            td Integrate directly into a C++ Game.
+        tr
+            td Unity
+            td #[a(href='#Not yet?') Asset Store]
+            td
+                span #[a(href='/reference/interactive/csharp/index.html') Reference Docs]
+                br
+                span #[a(href='https://github.com/WatchBeam/interactive-unity-plugin/wiki/Getting-started') Getting Started]
+            td Prototype Quickly or integrate into a Unity based Game.
+
+    p Once you've chosen an SDK from the above list, download it from its repository and get it setup in your favorite IDE and ready to go.
 
     h3#creating-an-interactive-project Creating an Interactive Project
     p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio') studio] and click on the plus button:
@@ -243,9 +257,9 @@ block reference
         img(src='/img/reference/interactive/studio/grid_with_controls.png')
 
     h3#the-code-step The Code Step
-    p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own Game Client that will connect to the Interactive service, or take advantage of existing ones.
+    p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own Game Client that will connect to the Interactive service.
 
-    p The key piece of information that a Game Client needs to talk with your project on the Interactive service is the #[code Project Version ID]. This is displayed to you here on the Code screen.
+    p Grab your #[code Project Version ID] from the code step displayed in the center of the screen and then utilize the documentation and samples from your #[a(href='#choosing-an-sdk-environment') chosen SDK] and get creating.
 
     h3#publish-step Publish Step
     p The final step in the studio is Publish. Publish allows you to share your project with everyone on Beam.
@@ -336,8 +350,3 @@ block reference
             p #[a(href='https://forums.beam.pro/category/10/developer-discussion') Forums]  - Post a topic, and we'll get back to you.
         li
             p #[a(href='https://discord.gg/beam') Community Discord] - Hang out with other developers in our community Discord.
-
-    h1(id='interactive__api__reference') API Reference
-    p.
-        For API reference documentation, go to #[a(href='/reference/interactive/cplusplus/index.html') C++ API Overview] and #[a(href='/reference/interactive/csharp/index.html') C# API Overview].
-
