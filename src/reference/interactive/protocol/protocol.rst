@@ -867,7 +867,7 @@ The patch SHALL either be applied for all participants and properties or fail; i
         {
           "sessionID": "505cfe7c-123f-40e7-8c78-754103d16531",
           "etag": "100650688",
-          "group": "red_team",
+          "groupID": "red_team",
           "meta": {
             "is_awesome": {
               "etag": 37849560,
