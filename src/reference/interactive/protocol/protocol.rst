@@ -211,7 +211,8 @@ Reply packets are sent in response to method packets. Replies are always sent in
 
     foo
     bar.0
-    bar.0.baz
+    bar.1
+    bar.1.baz
   ​
   Note that if fatal errors occur as a result of a method call, a websocket close frame MUST be sent instead of a reply. The close frame's code and associated message SHOULD be the same as that which otherwise would have been sent in ``reply.error``.
 
