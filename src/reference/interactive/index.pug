@@ -17,21 +17,21 @@ block reference
     br
     .alert.alert-info
         p.
-            This documentation provides an overview for features that are available for Beam Interactive 2. For docs about Interactive 1, go to #[a(href='/reference/interactive1/index.html')Interactive 1 docs].
+            For docs about Interactive 1, go to #[a(href='/reference/interactive1/index.html')Interactive 1 docs].
 
     h2#introduction Introduction
 
-    p Beam offers live streaming video on console, PC, or mobile with sub-second latency and unique interactive capabilities. 
+    p This documentation provides an overview of Beam Interactive features and explains how developers can use them to add interactivity into their game or application.
+    
+    p Beam Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface (UI) controls. When a live streaming video has interactivity enabled, UI controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur in the broadcast.
 
-    p Beam Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface (UI) controls. When a live streaming video has interactivity enabled, UI controls appear beneath the video on the viewer’s screen. These controls dynamically change according to the live events and update in response to different situations that occur in the broadcast.
+    p Developers and producers can create interactive experiences, through the Beam Interactive Studio, which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
 
-    p Developers and producers can create these interactive experiences, through the Beam Interactive Studio, which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
-
-    p Input from viewers is sent directly to the experience, allowing both the broadcaster and all viewers of the interactive stream to see exactly who is interacting, what other viewers are doing, and how it affects the live streaming video. This level of engagement allows you to create truly unique and interactive experiences that blurs the lines between Watching and Playing – giving you a new way to engage your consumers.
+    p When a viewer interacts with the controls, their input is sent directly to the experience, allowing all viewers to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Beam broadcasts on a whole new level. 
 
     h2#overview Overview
 
-    p These four major components make up the interactive experience for the viewers:
+    p These four major components that make up an interactive experience:
 
     ol(style='list-style-type: decimal')
         li Game Client
@@ -44,9 +44,9 @@ block reference
         p.caption Diagram shows the structure of an interactive project
 
     h3#the-gameclient The Game Client
-    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connects to the #[a(href='#the-interactive-service') Beam Interactive Service], listens to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
+    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service], listens to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
 
-    p Game Clients can run in many environments, including:
+    p You can add Game Client code as part of various environments, including:
     ul
         li Game's current codebase
         li Third party mod of a game
@@ -55,11 +55,11 @@ block reference
 
     h3#the-interactive-service The Interactive Service
 
-    p The Interactive Service is a service operated by Beam. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data sent to and from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. The Game Client sends messages to the service when it needs to update session states or to interact with the session. 
+    p The Interactive Service is a service operated by Beam. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data sent to and from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. The Game Client sends messages to the service when it needs to update the session state or to interact with the session. 
 
     h3#an-interactive-project An Interactive Project
 
-    p The Interactive Project stores settings and metadata about your interactive experience. It is created by you or your team through the #[a(href='https://beam.pro/i/studio' target='_blank') Beam Interactive Studio]. Projects are owned by a single Beam user but can be #[a(href='#sharing-your-project') shared] with other users.
+    p The Interactive Project stores settings and metadata about your interactive experience. It is created by developers through the #[a(href='https://beam.pro/i/studio' target='_blank') Beam Interactive Studio]. Projects are owned by a single Beam user but can be #[a(href='#sharing-your-project') shared] with other users.
 
     p Within the Studio you can:
     ul
@@ -72,11 +72,11 @@ block reference
 
     h3#participants Participants
 
-    p Participants are viewers of a live streaming video. They are Beam users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with a set of on-screen UI controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
+    p Participants are viewers of a live stream. They are Beam users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with a set of on-screen UI controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
 
     h2#interactive-experience-structure Interactive Experience Structure
 
-    p In this section, let’s look at the hierarchical structure of the various elements that you can use to create this interaction.
+    p In this section, let’s look at the hierarchical structure of the various elements that developers can use to create this interaction.
 
     p These elements are:
     ul
@@ -103,50 +103,50 @@ block reference
     p The #[a(href='#the-gameclient') Game Client] can change the scene a participant sees by updating the #[a(href='#groups') group] they belong to.
 
     h3#groups Groups
-    p Individual participants can be grouped together using the Groups functionality. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing to the scene that the group is set to see.
+    p Individual participants can be grouped together using the Groups feature. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing to the scene that the group is set to see.
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create a "Allies" group and a "Adversaries" group.
-    The ”Allies” group is provided with UI controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the ”Adversaries” group could spawn traps or monsters to try to get in the way of winning using their controls.
+    The ”Allies” group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the ”Adversaries” group could spawn traps or monsters to try to get in the way of winning - using their controls.
 
-    p Although all participants start out in the default group, #[a(href='#the-gameclient') Game Clients] can always re-assign participants into any group.
+    p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
     h3#controls Controls
-    p A Control is a clickable, interactive image within a scene. #[a(href='#participants') Participants] can interact with the control using keyboard, mouse, or controller. There are currently has two types of controls - Buttons and Joysticks. Additional control types may be added in the future.
+    p A control is an interactive element in a graphical user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently has two types of controls - Buttons and Joysticks. Additional control types may be added in the future.
 
     h4#buttons Buttons
     
-    p A button is a type of control. They are rectangular, clickable interactive images within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
+    p A button is a type of control. They are rectangular, interactive controls within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
     
     ul
-        li `Down` event is sent when a button is pressed by a participant
-        li `Up` event is sent when a button is released by a participant
+        li #[code Down] event is sent when a button is pressed by a participant
+        li #[code Up] event is sent when a button is released by a participant
     
     .figure
         img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
     p.caption Sample button control which costs the participant one spark if they click on it.
     
-    p You can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
+    p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
 
     p Buttons are customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
     ol(style='list-style-type: decimal')
-        li Display text
-        li Spark cost (For more inof about sparks, go to #[a(href='#what-are-sparks') What are Sparks?]
+        li Display text string
+        li Spark cost (For more info about sparks, go to #[a(href='#what-are-sparks') What are Sparks?]
         li Width of the progress bar, which is displayed at the bottom of a button
-        li State of the button - Enable or disable them, disabled buttons cannot be interacted with
+        li Disable property - Disabled buttons cannot be interacted with
         li Cooldown duration - Prevents interaction until it expires
 
     h5#what-are-sparks What are Sparks?
 
-    p Sparks are Beam's virtual currency. Participants earn them while watching or participating in live video streams everywhere on Beam.
+    p Sparks are Beam's virtual currency. Participants earn them while watching or participating in live broadcasts everywhere on Beam.
 
     h5#spark-transactions Spark Transactions
     .figure
         img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
     p.caption Diagram of a spark transaction's life cycle, showing its transition betwen states.
 
-    p When a button with a spark cost is clicked, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
+    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
 
-    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been translated into the expected action associated with the button click before deducting sparks from their balance.
+    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been converted into the expected action associated with the button click before deducting sparks from their balance.
 
     p Note that deducted sparks are #[strong not] transferred to the broadcaster.
 
@@ -175,7 +175,7 @@ block reference
 
     h3#choosing-an-sdk-environment Choose a SDK
 
-    p If you're making a Game Client from scratch, you'll need to pick a SDK.
+    p If you're making a Game Client from scratch, you'll need to use an Interactive SDK.
 
     table.table
         tr
@@ -200,7 +200,7 @@ block reference
                 span #[a(href='/reference/interactive/csharp/index.html' target='_blank') Reference Docs]
                 br
                 span #[a(href='https://github.com/WatchBeam/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
-            td Add Beam Interactive features into a game created using Unity. Good for quick prototyping.
+            td Add Beam Interactive features into a game created using Unity and also good for quick prototyping.
 
     p Download the appropriate SDK that your project needs from the repository and create a new project in your favorite IDE.
 
@@ -217,7 +217,7 @@ block reference
 
     p You'll then be prompted to enter a name for your project. Enter a suitable name for your project.
     
-    p After creating the project, you'll be taken to the project editor. You can still modify your project using the editor.
+    p After creating the project, you can still modify your project using the editor.
 
     h3#configure-build-publish-the-project Configure, build, and publish the project
     p The project editor contains tabs where each tab is a step in the creation of your project. Use the project editor to configure, build, and publish your project.
@@ -334,7 +334,7 @@ block reference
 
     p A method can contain parameters which get provided to the recipient.
 
-    p Methods contain an additional property called #[code discard], which when TRUE, indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to TRUE.
+    p Methods contain an additional property called #[code discard], which when #[code true], indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to #[code true].
 
     h4#reply Reply
     p A reply is sent from a recipient back to the caller to informing about the result after executing the method that was sent. It can contain a #[code result] or an #[code error] which indicates what went wrong.
@@ -342,7 +342,7 @@ block reference
     p For full packet implementation details please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') here].
 
     h3#compression Compression
-    p By default, packets on the wire are transmitted as plaintext, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
+    p By default, packets on the wire are transmitted as plain text, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
 
     h3#authentication Authentication
     p A Game Client needs to authenticate as a Beam user when establishing an interactive session. There are two authentication methods available.
@@ -353,7 +353,7 @@ block reference
     p The only required scope for an interactive connection is #[code interactive:robot:self]. For more info about Beam's OAuth, go to #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
 
     h4#xtoken XToken
-    p You can provide a Xbox Live's XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is leveraged for Universal Windows Platform (UWP) applications that are Xbox Live enabled, as well as games on Xbox One.
+    p You can provide a Xbox Live's XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is useful for Universal Windows Platform (UWP) applications that are Xbox Live enabled, as well as games on Xbox One.
 
     h2#where-to-get-help Where to get help
     p Have questions? Stuck? We're here to help! We have places you can get help so drop by!
