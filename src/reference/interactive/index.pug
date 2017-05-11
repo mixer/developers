@@ -22,12 +22,12 @@ block reference
     h2#introduction Introduction
 
     p This documentation provides an overview of Beam Interactive features and explains how developers can use them to add interactivity into their game or application.
-    
+
     p Beam Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface (UI) controls. When a broadcast has interactivity enabled, UI controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur in the broadcast.
 
     p Developers and producers can create interactive experiences which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
 
-    p When a viewer interacts with the controls, their input is sent directly to the experience, allowing the developers to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Beam broadcasts on a whole new level. 
+    p When a viewer interacts with the controls, their input is sent directly to the experience, allowing the developers to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Beam broadcasts on a whole new level.
 
     h2#overview Overview
 
@@ -55,7 +55,7 @@ block reference
 
     h3#the-interactive-service The Interactive Service
 
-    p The Interactive Service is a service operated by Beam. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data sent to and from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. The Game Client sends messages to the service when it needs to update the session state or to interact with the session. 
+    p The Interactive Service is a service operated by Beam. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data sent to and from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. The Game Client sends messages to the service when it needs to update the session state or to interact with the session.
 
     h3#an-interactive-project An Interactive Project
 
@@ -93,7 +93,7 @@ block reference
     h3#scenes Scenes
 
     p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. This grid layout determines how they are displayed to participants.
-    
+
     p The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene. It controls which scenes (and controls) are shown to which participants throughout the session. Scenes are used to group controls together in a coherent fashion that is meaningful to the experience.
 
     p For example, in an adventure game, you might have a "Battle" scene displayed when a broadcaster's game character is in battle; a "Field" scene displayed when the character is walking around in the game world.
@@ -106,7 +106,8 @@ block reference
     p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see.
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create a "Allies" group and a "Adversaries" group.
-    The ”Allies” group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the ”Adversaries” group could spawn traps or monsters to try to get in the way of winning - using their controls.
+
+    p The ”Allies” group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the ”Adversaries” group could spawn traps or monsters to try to get in the way of winning - using their controls.
 
     p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
@@ -114,17 +115,17 @@ block reference
     p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently two types of controls - Buttons and Joysticks. Additional control types may be added in the future.
 
     h4#buttons Buttons
-    
+
     p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
-    
+
     ul
         li #[code Down] event is sent when a button is pressed by a participant
         li #[code Up] event is sent when a button is released by a participant
-    
+
     .figure
         img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
     p.caption Sample button control which costs the participant one spark if they click on it.
-    
+
     p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
 
     p Buttons are customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
@@ -205,10 +206,9 @@ block reference
     p Download the appropriate SDK that your project needs from the repository and create a new project in your favorite IDE.
 
     h3#creating-an-interactive-project Create a new Interactive Project
-    
-    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. 
-    
-    
+
+    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio].
+
     p Go to #[a(href='https://beam.pro/i/studio' target='_blank') Studio] and click on the #[strong plus] button to create a new project.
 
     .figure
@@ -216,21 +216,21 @@ block reference
     p.caption Screenshot shows the location of the Create new project button.
 
     p You'll then be prompted to enter a name for your project. Enter a suitable name for your project.
-    
+
     p After creating the project, you can still modify your project using the editor.
 
     h3#configure-build-publish-the-project Configure, build, and publish the project
     p The project editor contains tabs where each tab is a step in the creation of your project. Use the project editor to configure, build, and publish your project.
     .figure
         img(src='/img/reference/interactive/studio/editorTabs.png' alt='studio editor tabs')
-        
+
     p The editor consists of these four tabs:
     ul
         li Info - Edit the project name and metadata
         li Build - Configure Scenes and Controls
         li Code - Hook your Game Client up to the Project and start coding
         li Publish - Submit your project for review by the Beam team.
-    
+
     h3#the-info-step Info
     p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
     p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can contact you if they need help or want to report an issue.
