@@ -1507,6 +1507,42 @@ Updates scenes that already exist. The array of scenes MUST contain each scene's
 
 The patch SHALL either be applied for all scenes and properties or fail; in no case will the server apply only a subset of the updates.
 
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "updateScenes",
+    "params": {
+      "scenes": [
+        {
+          "sceneID": "my awesome scene",
+          "etag": "252185589",
+          "controls": [ // array of control objects
+            {
+              "controlID": "win_the_game_btn",
+              "etag": "262111379",
+              "kind": "button",
+              "text": "Win the Game",
+              "cost": 0,
+              "progress": 0.25,
+              "disabled": false,
+              "meta": {
+                "glow": {
+                  "etag": 254353748,
+                  "value": {
+                    "color": "#f00",
+                    "radius": 10
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+
 - A successful reply:
 
   .. code-block:: js
