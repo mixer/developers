@@ -1116,7 +1116,7 @@ Removes a group by id, reassigning any users who were in that group to a differe
   {
     "type": "method",
     "id": 123,
-    "method": "deleteScene",
+    "method": "deleteGroup",
     "params": {
       "groupID": "my awesome group",
       "reassignGroupID": "my other group"
