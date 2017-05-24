@@ -4,7 +4,7 @@ block append scripts
     +oauthLinks('interactive:robot:self channel:details:self')
 
 block title
-    | Interactive Tutorial | Beam Developers
+    | Interactive Tutorial | Mixer Developers
 
 block tutorialTitle
     h1 Build an Interactive Robot
@@ -16,12 +16,12 @@ block tutorialContent
             These tutorials are for #[a(href='/reference/interactive1/index.html') Interactive 1], Interactive 2 tutorials are coming soon! While you wait, checkout our #[a(href='/reference/interactive/index.html') Interactive 2 reference docs].
     p.
         Our interactive platform communicates using #[a(href='https://developers.google.com/protocol-buffers/' target='_blank') Google's Protocol Buffer]
-        specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Beam's aggregator
+        specification over a standard secure websocket protocol (wss) connection. Viewers' inputs from the site are sent to Mixer's aggregator
         server, which analyzes them for you, before being sent to your Robot.
 
-    h2#controlEditor Registering a Game On Beam
+    h2#controlEditor Registering a Game On Mixer
     p.
-        Head over to the #[a(href='https://beam.pro/lab' target='_blank') Developer Lab] and click the 'Interactive Games' tab. Click the plus
+        Head over to the #[a(href='https://mixer.com/lab' target='_blank') Developer Lab] and click the 'Interactive Games' tab. Click the plus
         button next to 'My Games', and name the game whatever you'd like.
         Hit 'Create Game'.
     p.
@@ -40,10 +40,10 @@ block tutorialContent
 
     h2#code Writing the Code
     p.
-        We’re going to be using our #[a(href='https://github.com/WatchBeam/beam-interactive-node' target='_blank') Node],
-        #[a(href='https://github.com/WatchBeam/beam-interactive-java' target='_blank') Java]
-        and #[a(href='https://github.com/WatchBeam/beam-interactive-python' target='_blank') Python] to build a simple Robot.
-        Users will be able to visit your channel on Beam, and control the mouse
+        We’re going to be using our #[a(href='https://github.com/Mixer/beam-interactive-node' target='_blank') Node],
+        #[a(href='https://github.com/Mixer/beam-interactive-java' target='_blank') Java]
+        and #[a(href='https://github.com/Mixer/beam-interactive-python' target='_blank') Python] to build a simple Robot.
+        Users will be able to visit your channel on Mixer, and control the mouse
         movement on your screen.
 
     include ./snippets/oauth_introduction.pug
@@ -69,7 +69,7 @@ block tutorialContent
 
             +highlightFile('javascript','./tutorials/code/node/interactive/1.js')
             p.
-                To connect to Beam Interactive we need to authenticate as our user specified above
+                To connect to Mixer Interactive we need to authenticate as our user specified above
                 using  #[code beam-client-node] we'll use an implicit OAuth token to do this. The required scopes are #[code interactive:robot:self].
                 Once authenticated we're asking the api to join a channel as a robot with #[code beam.game.join].
                 We'll use the response from this to create a robot in the next step.
@@ -88,9 +88,9 @@ block tutorialContent
             p.
                 This function takes our Robot instance and initiates a handshake, An error will be
                 reported if a problem occurs during this process. Once its complete you'll get regular
-                reports from Beam as a #[code report] event on the robot object.
+                reports from Mixer as a #[code report] event on the robot object.
             p.
-                As we've only registered a Joystick control on Beam we'll only get joystick updates.
+                As we've only registered a Joystick control on Mixer we'll only get joystick updates.
                 These come in an array within the report. As we've selected mean, the mean of all
                 the viewers joysticks will be contained within the coordMean object. We take this
                 mean and apply it to the mouse position.
@@ -103,19 +103,19 @@ block tutorialContent
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
-                #[a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java]
-                and #[a(href='https://github.com/WatchBeam/beam-interactive-java' target='_blank') beam-interactive-java]
+                #[a(href='https://github.com/Mixer/beam-client-java' target='_blank') beam-client-java]
+                and #[a(href='https://github.com/Mixer/beam-interactive-java' target='_blank') beam-interactive-java]
                 as dependancies.
             include ./snippets/java/interactive_project_manager.pug
             h3 Usage
             p.
                 Let's start by creating a Main class for the Java application and
                 importing all of the required packages. We'll also initialize a few
-                objects. A instance of the BeamAPI and an instance of the AWT Robot class
+                objects. A instance of the MixerAPI and an instance of the AWT Robot class
                 which will allow us to control the mouse.
             +highlightFile('java','./tutorials/code/java/interactive/1.java')
             p.
-                Next we need to setup a Beam Interactive robot and supply it with
+                Next we need to setup a Mixer Interactive robot and supply it with
                 valid beam account credentials and a channel id.
             include ./channelid.pug
 
@@ -145,6 +145,6 @@ block tutorialContent
     include ../snippets/help.pug
 block tutorialMenu
     li: a(href='#intro') Introduction
-    li: a(href='#controlEditor') Registering a Game On Beam
+    li: a(href='#controlEditor') Registering a Game On Mixer
     li: a(href='#code') Writing The Code
     li: a(href='#stream') Start Streaming

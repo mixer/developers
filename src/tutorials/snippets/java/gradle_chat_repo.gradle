@@ -1,6 +1,6 @@
 repositories {
     maven {
         name = "beam"
-        url = "https://maven.beam.pro/content/repositories/snapshots"
+        url = "https://maven.mixer.com/content/repositories/snapshots"
     }
 }

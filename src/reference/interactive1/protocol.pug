@@ -22,8 +22,8 @@ pre
     include ./protocol.ascii
 ol
     li The Client establishes a TCP connection to the server. It sends a Handshake packet, populated with the channel ID and auth key.
-    li Beam Interactive verifies the key. If it's correct, a blank HandshakeACK packet is sent. If it's not correct, an Error packet is sent down.
-    li Beam Interactive repeatedly sends Reports down to the Client every #[code reportInterval].
+    li Mixer Interactive verifies the key. If it's correct, a blank HandshakeACK packet is sent. If it's not correct, an Error packet is sent down.
+    li Mixer Interactive repeatedly sends Reports down to the Client every #[code reportInterval].
     li The Client can send Progress Updates to the Server at it's discretion.
 
 h2(id='interactive__packets') Packets
@@ -40,7 +40,7 @@ pre.
     │   (protocol buffer)   │
     .........................
 p.
-    The protocol is bi-directional. Beam Interactive expects information sent
+    The protocol is bi-directional. Mixer Interactive expects information sent
     to it to be encoded in prescribed format, and it will in turn send
     information in the same format.
 p.

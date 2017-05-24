@@ -36,16 +36,16 @@ For clients unable to set headers when initializing a websocket handshake the cl
 Endpoint Discovery
 ^^^^^^^^^^^^^^^^^^
 
-Beam runs multiple servers in several locations, and will put servers into and remove servers from rotation over time as updates and made and demand shifts. Clients should call the endpoint `https://beam.pro/api/v1/interactive/hosts <https://beam.pro/api/v1/interactive/hosts>`_ to retrieve a list of currently available servers. This returns a list of servers ordered by several factors, including distance to the client and load. A typical response might look like this:
+Beam runs multiple servers in several locations, and will put servers into and remove servers from rotation over time as updates and made and demand shifts. Clients should call the endpoint `https://mixer.com/api/v1/interactive/hosts <https://mixer.com/api/v1/interactive/hosts>`_ to retrieve a list of currently available servers. This returns a list of servers ordered by several factors, including distance to the client and load. A typical response might look like this:
 
 .. code-block:: js
 
   [
     {
-      "address": "wss://tetris1.dal-09.beam.pro"
+      "address": "wss://tetris1.dal-09.mixer.com"
     },
     {
-      "address": "wss://tetris2.sea-01.beam.pro"
+      "address": "wss://tetris2.sea-01.mixer.com"
     }
   ]
 
@@ -54,16 +54,16 @@ In general, clients should chose the first returned server, falling back to othe
 OAuth
 ^^^^^
 
-Connections to Interactive must be authenticated using OAuth. Beam implements Bearer and Implicit grants as described in `RFC6749: The OAuth 2.0 Authorization Framework <https://tools.ietf.org/html/rfc6749>`_. You can view further details and configuration on our `developer website <https://dev.beam.pro/reference/oauth/index.html>`_; you need to request the ``interactive:robot:self`` permission in order to connect to the interactive mediator.
+Connections to Interactive must be authenticated using OAuth. Beam implements Bearer and Implicit grants as described in `RFC6749: The OAuth 2.0 Authorization Framework <https://tools.ietf.org/html/rfc6749>`_. You can view further details and configuration on our `developer website <https://dev.mixer.com/reference/oauth/index.html>`_; you need to request the ``interactive:robot:self`` permission in order to connect to the interactive mediator.
 
 An alternative flow is available to interactive applications to avoid the need for opening, embedding browsers, or requiring keyboard input on the client device:
 
- 0. Register an OAuth application on the `Beam Lab <http://beam.pro/lab>`_. If you're developing an integration which will run on users' computers, you should not request a client secret.
- 1. Call `POST /oauth/shortcode <https://dev.beam.pro/rest.html#oauth_shortcode_post>`_ with your ``client_id``, ``client_secret`` (if any) and space-delimited ``scope`` you want in the request body. This will typically look something like this::
+ 0. Register an OAuth application on the `Beam Lab <http://mixer.com/lab>`_. If you're developing an integration which will run on users' computers, you should not request a client secret.
+ 1. Call `POST /oauth/shortcode <https://dev.mixer.com/rest.html#oauth_shortcode_post>`_ with your ``client_id``, ``client_secret`` (if any) and space-delimited ``scope`` you want in the request body. This will typically look something like this::
 
       POST /api/v1/oauth/shortcode HTTP/1.1
       Accept: application/json, */*
-      Host: beam.pro
+      Host: mixer.com
 
       {
           "client_id": "fooclient",
@@ -79,8 +79,8 @@ An alternative flow is available to interactive applications to avoid the need f
           "handle": "Lc7eBcB78d5gZmqHOajMH3QnmFPrxLGr"
       }
 
- 2. Display the short six-digit ``code`` to the user and prompt them to enter it on `beam.pro/go <https://beam.pro/go>`_. You can view a user's perspective of this process `here <https://dev.beam.pro/img/reference/interactive/link-demo.gif>`_.
- 3. Continuously poll `GET /oauth/shortcode/check/{handle} <https://dev.beam.pro/rest.html#oauth_shortcode_check__handle__get>`_. It will give you one of a few statuses back:
+ 2. Display the short six-digit ``code`` to the user and prompt them to enter it on `mixer.com/go <https://mixer.com/go>`_. You can view a user's perspective of this process `here <https://dev.mixer.com/img/reference/interactive/link-demo.gif>`_.
+ 3. Continuously poll `GET /oauth/shortcode/check/{handle} <https://dev.mixer.com/rest.html#oauth_shortcode_check__handle__get>`_. It will give you one of a few statuses back:
 
     - ``204 No Content`` indicates we're still waiting on the user to enter the code.
     - ``403 Forbidden`` indicates the user denied your requested permissions.
@@ -91,7 +91,7 @@ An alternative flow is available to interactive applications to avoid the need f
 
       GET /api/v1/oauth/shortcode/check/Lc7eBcB78d5gZ... HTTP/1.1
       Accept: application/json, */*
-      Host: beam.pro
+      Host: mixer.com
 
       HTTP/1.1 200 OK
       Content-Type: application/json; charset=utf-8
@@ -106,7 +106,7 @@ An alternative flow is available to interactive applications to avoid the need f
       POST /api/v1/oauth/token HTTP/1.1
       Accept: application/json, */*
       Content-Type: application/json
-      Host: beam.pro
+      Host: mixer.com
 
       {
           "client_id": "fooclient",

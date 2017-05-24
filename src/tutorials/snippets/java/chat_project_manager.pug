@@ -4,13 +4,13 @@ include ../../../mixins.pug
     gradle:'Gradle'
 })
     +bsTabItem('chat_project_setup', 'maven')
-        p To setup #[code beam-client-java], first add the Beam repo to your pom.xml as a #[code repository] as follows:
+        p To setup #[code beam-client-java], first add the Mixer repo to your pom.xml as a #[code repository] as follows:
         +highlightFile('xml','./tutorials/snippets/java/maven_chat_repo.xml')
 
         p And secondly, add this project as a #[code dependency] in your pom.xml:
         +highlightFile('xml','./tutorials/snippets/java/maven_chat_dependancy.xml')
     +bsTabItem('chat_project_setup', 'gradle')
-        p To setup #[code beam-client-java], first add the Beam repo to your build.gradle as a #[code repository] as follows:
+        p To setup #[code beam-client-java], first add the Mixer repo to your build.gradle as a #[code repository] as follows:
         +highlightFile('xml','./tutorials/snippets/java/gradle_chat_repo.gradle')
         p And secondly, add this project as a #[code dependency] in your build.gradle:
         +highlightFile('xml','./tutorials/snippets/java/gradle_chat_dependancy.gradle')

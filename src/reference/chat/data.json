@@ -464,13 +464,13 @@
                     },
                     {
                       "type": "link",
-                      "url": "http://beam.pro/Beam",
-                      "text": "beam.pro/Beam"
+                      "url": "http://mixer.com/Beam",
+                      "text": "mixer.com/Beam"
                     },
                     {
                       "type": "emoticon",
                       "source": "external",
-                      "pack": "https://uploads.beam.pro/emoticons/x.png",
+                      "pack": "https://uploads.mixer.com/emoticons/x.png",
                       "coords": {
                         "x": 24,
                         "y": 48,

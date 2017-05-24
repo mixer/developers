@@ -1,7 +1,7 @@
 extends ../reference_layout.pug
 include ../../rest/type.pug
 block title
-    | Interactive Reference | Beam Developers
+    | Interactive Reference | Mixer Developers
 
 block navbar
     .navbar-wrapper
@@ -21,11 +21,11 @@ block reference
 
     h2#introduction Introduction
 
-    p Beam Interactive is a new way to let viewers directly control the environment in and around streamer’s broadcasts by letting viewers interact using a user interface. When a broadcast has interactivity enabled visual controls will appear beneath the broadcast's video that respond directly to the events of the broadcast. These controls can dynamically update as the broadcast progresses in response to different situations that occur.
+    p Mixer Interactive is a new way to let viewers directly control the environment in and around streamer’s broadcasts by letting viewers interact using a user interface. When a broadcast has interactivity enabled visual controls will appear beneath the broadcast's video that respond directly to the events of the broadcast. These controls can dynamically update as the broadcast progresses in response to different situations that occur.
 
     p Interactive developers and producers author interactive experiences which can run as a part of a Game or be their own entirely standalone application or tool. These experiences then get used by broadcasters to make their broadcasts interactive.
 
-    p When a viewer interacts with controls, their input is sent directly to the experience allowing it to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Beam broadcasts on a whole new level.
+    p When a viewer interacts with controls, their input is sent directly to the experience allowing it to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Mixer broadcasts on a whole new level.
 
     h2#overview Overview
 
@@ -53,24 +53,24 @@ block reference
 
     h3#the-interactive-service The Interactive Service
 
-    p The Interactive Service is a service operated by Beam. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data emitted from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. To interact with the session or update any state in the session a Game Client has to send messages to the service.
+    p The Interactive Service is a service operated by Mixer. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data emitted from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. To interact with the session or update any state in the session a Game Client has to send messages to the service.
 
     h3#an-interactive-project An Interactive Project
 
-    p An Interactive Project is created by a developer or team on Beam within our #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. It stores settings and metadata about your interactive experience. Projects are owned by a single Beam user but can be #[a(href='#sharing-your-project') shared] with other users.
+    p An Interactive Project is created by a developer or team on Mixer within our #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. It stores settings and metadata about your interactive experience. Projects are owned by a single Mixer user but can be #[a(href='#sharing-your-project') shared] with other users.
 
     p Within the Studio you can:
     ul
         li Edit your project's name and description
         li Create and store controls and scenes
         li Control who can access your project
-        li Publish your project for everyone on Beam to see and use
+        li Publish your project for everyone on Mixer to see and use
 
     p When a #[a(href='#the-gameclient') Game Client] connects to the Interactive Service, the game client provides your project's ID. The service reads this ID and sets up an interactive session with the saved settings and controls created in the studio.
 
     h3#participants Participants
 
-    p Participants are Beam users that are watching a broadcast in a broadcaster's channel. When they join the channel they are connected to the interactive session. They are provided with a set of on-screen controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
+    p Participants are Mixer users that are watching a broadcast in a broadcaster's channel. When they join the channel they are connected to the interactive session. They are provided with a set of on-screen controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
 
     h2#interactive-experience-structure Interactive Experience Structure
 
@@ -130,7 +130,7 @@ block reference
 
     h5#what-are-sparks What are Sparks?
 
-    p Sparks are Beam's virtual currency. Participants earn them while watching or participating in streams everywhere on Beam.
+    p Sparks are Mixer's virtual currency. Participants earn them while watching or participating in streams everywhere on Mixer.
 
     h5#spark-transactions Spark Transactions
     .figure
@@ -162,7 +162,7 @@ block reference
     p Before getting started, you should have the following things:
 
     ul
-        li A Beam user account.
+        li A Mixer user account.
         li Some knowledge of programming, unless you're using an existing Game Client or Interactive Application.
         li An awesome idea.
 
@@ -178,12 +178,12 @@ block reference
             th Description
         tr
             td Typescript, Nodejs & Browsers
-            td #[a(href='https://github.com/WatchBeam/beam-interactive-node2' target='_blank') GitHub]
-            td #[a(href='https://watchbeam.github.io/interactive-node' target='_blank') Reference Docs]
+            td #[a(href='https://github.com/Mixer/interactive-node' target='_blank') GitHub]
+            td #[a(href='https://mixer.github.io/interactive-node' target='_blank') Reference Docs]
             td Great for Interactive tools and utilities and beginners.
         tr
             td C++
-            td #[a(href='https://github.com/WatchBeam/interactive-sdk-cpp' target='_blank') GitHub]
+            td #[a(href='https://github.com/Mixer/interactive-sdk-cpp' target='_blank') GitHub]
             td #[a(href='/reference/interactive/cplusplus/index.html' target='_blank') Reference Docs]
             td Integrate directly into a C++ Game.
         tr
@@ -192,13 +192,13 @@ block reference
             td
                 span #[a(href='/reference/interactive/csharp/index.html' target='_blank') Reference Docs]
                 br
-                span #[a(href='https://github.com/WatchBeam/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
+                span #[a(href='https://github.com/Mixer/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
             td Prototype Quickly or integrate into a Unity based Game.
 
     p Once you've chosen an SDK from the above list, download it from its repository and get it setup in your favorite IDE and ready to go.
 
     h3#creating-an-interactive-project Creating an Interactive Project
-    p Interactive projects are created and configured in the #[a(href='https://beam.pro/i/studio' target='_blank') Interactive Studio]. To create a new project visit the #[a(href='https://beam.pro/i/studio' target='_blank') studio] and click on the plus button:
+    p Interactive projects are created and configured in the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. To create a new project visit the #[a(href='https://mixer.com/i/studio' target='_blank') studio] and click on the plus button:
 
     .figure
         img(src='/img/reference/interactive/studio/createNewProject.png' alt='Screenshot showing the location of the create new project button')
@@ -214,11 +214,11 @@ block reference
         li Info - Edit the project name and Metadata about it.
         li Build - Configure Scenes and Controls.
         li Code - Hook your Game Client up to the Project and get coding.
-        li Publish - Submit your project for review by the Beam team.
+        li Publish - Submit your project for review by the Mixer team.
     h3#the-info-step The Info Step
     p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
     p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can get ahold of you if they need help or have found a bug.
-    p During the pre-publish review the Beam team will examine your project closely to gain an understanding of what your project does, so be as thorough as possible.
+    p During the pre-publish review the Mixer team will examine your project closely to gain an understanding of what your project does, so be as thorough as possible.
 
     h3#the-build-step The Build Step
 
@@ -260,13 +260,13 @@ block reference
     p Grab your #[code Project Version ID] from the code step displayed in the center of the screen and then utilize the documentation and samples from your #[a(href='#choosing-an-sdk-environment') chosen SDK] and get creating.
 
     h3#publish-step The Publish Step
-    p The final step in the studio is Publish. Publish allows you to share your project with everyone on Beam.
+    p The final step in the studio is Publish. Publish allows you to share your project with everyone on Mixer.
 
     p Before considering if an Interactive project is ready for publishing a series of questions should be asked.
 
     ul
         li Is this project something that everyone would use?
-        li Is this project ready for every Beam broadcaster to have access to?
+        li Is this project ready for every Mixer broadcaster to have access to?
         li Is the info tab filled in with #[strong detailed] installation and setup instructions?
 
     p If the answer to any of these is no, then the project should #[strong not] be published. For cases where the project would suit being shared with a smaller group of users, it can be #[a(href='#sharing-your-project') shared] instead.
@@ -277,9 +277,9 @@ block reference
     p A Project starts off in the draft state. In this state, you can freely make edits to it and test and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
 
     p Once you've decided to publish your project, visit the publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to submit the project.
-    p Once submitted the Interactive review team at Beam are notified and will begin a review. While a project is in review you won't be able to edit the project. A Beam representative may also reach out to you with questions.
+    p Once submitted the Interactive review team at Mixer are notified and will begin a review. While a project is in review you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
     p After a review is conducted, your project will either be accepted for publishing or denied and returned the draft state with feedback on what would need to change to get the project to a publishable state.
-    p Should your project be accepted, a date can be discussed with the Beam team and the developers of the project. On this date, the project will be made available for all Beam users in our Interactive Store.
+    p Should your project be accepted, a date can be discussed with the Mixer team and the developers of the project. On this date, the project will be made available for all Mixer users in our Interactive Store.
 
     h3#sharing-your-project Sharing an Interactive Project
     p By default only the project's owner can use a project in a broadcast. However if you'd like other beam broadcasters to use it, then you have several options.
@@ -297,13 +297,13 @@ block reference
         img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
 
-    p The third option, “Only allow specific users to play until published”, is explicit sharing it lets you share the project with named Beam users. Only users in the list can use the project. To share a project with a user search for their username in the search box and then click add.
+    p The third option, “Only allow specific users to play until published”, is explicit sharing it lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a user search for their username in the search box and then click add.
     .figure
         img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
     h2#protocol-overview Protocol Overview
 
-    p Beam's Interactive protocol is defined in a separate #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') downloadable document] that has precise implementation details. This section provides an introduction to the protocol.
+    p Mixer's Interactive protocol is defined in a separate #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') downloadable document] that has precise implementation details. This section provides an introduction to the protocol.
 
     h3#wire-format Wire Format
     p The Interactive Service communicates using a protocol similar to #[a(href='http://jsonrpc.org/historical/json-rpc-1-2-proposal.html') JSON-RPC] except that it is bi-directional. Clients and Servers can both call and respond to methods.
@@ -329,12 +329,12 @@ block reference
     p By default packets on the wire are transmitted as plaintext, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
 
     h3#authentication Authentication
-    p A Game Client needs to authenticate as a Beam user when establishing an interactive session. Two authentication methods are available.
+    p A Game Client needs to authenticate as a Mixer user when establishing an interactive session. Two authentication methods are available.
 
     h4(id='oauth-2.0') OAuth 2.0
-    p Beam supports #[a(href='https://tools.ietf.org/html/rfc6749' target='_blank') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750' target='_blank') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
+    p Mixer supports #[a(href='https://tools.ietf.org/html/rfc6749' target='_blank') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750' target='_blank') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
 
-    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Beam's OAuth visit the #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
+    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Mixer's OAuth visit the #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
 
     h4#xtoken XToken
     p You can provide an XBL XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is leveraged for Universal Windows Platform applications that are Xbox Live enabled, as well as games on Xbox One
@@ -343,8 +343,8 @@ block reference
     p Have questions? Stuck? We're here to help! We have places you can get help so drop by!
     ul
         li
-            p #[a(href='gitter.im/WatchBeam/developers' target='_blank') Gitter] - Chat with our team and other developers.
+            p #[a(href='gitter.im/Mixer/developers' target='_blank') Gitter] - Chat with our team and other developers.
         li
-            p #[a(href='https://forums.beam.pro/category/10/developer-discussion' target='_blank') Forums]  - Post a topic, and we'll get back to you.
+            p #[a(href='https://forums.mixer.com/category/10/developer-discussion' target='_blank') Forums]  - Post a topic, and we'll get back to you.
         li
             p #[a(href='https://discord.gg/beam' target='_blank') Community Discord] - Hang out with other developers in our community Discord.

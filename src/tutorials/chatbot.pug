@@ -5,7 +5,7 @@ block append scripts
     +oauthLinks('chat:connect chat:chat')
 
 block title
-    | Chatbot Tutorial | Beam Developers
+    | Chatbot Tutorial | Mixer Developers
 
 block tutorialTitle
     h1 Build a Chat Bot
@@ -14,10 +14,10 @@ block tutorialContent
     h1#guide Creating a Simple Chat Bot
     p.
         For this tutorial, we will show you how to create a 'ping-pong' chat bot using either
-        our #[a(href='https://github.com/WatchBeam/beam-client-node') Node],
-        #[a(href='https://github.com/WatchBeam/beam-client-java') Java]
-        or #[a(href='https://github.com/WatchBeam/beam-client-python') Python]
-        libraries to communicate with the Beam API. We'll also take a look at how you can talk to
+        our #[a(href='https://github.com/Mixer/beam-client-node') Node],
+        #[a(href='https://github.com/Mixer/beam-client-java') Java]
+        or #[a(href='https://github.com/Mixer/beam-client-python') Python]
+        libraries to communicate with the Mixer API. We'll also take a look at how you can talk to
         the API directly with #[a(href='https://curl.haxx.se/') curl]
         and #[a(href='https://github.com/websockets/wscat') wscat].
 
@@ -64,15 +64,15 @@ block tutorialContent
             h3 Project Setup
             p.
                 Setup a standard project for your environment and include
-                #[a(href='https://github.com/WatchBeam/beam-client-java') beam-client-java]
+                #[a(href='https://github.com/Mixer/beam-client-java') beam-client-java]
                 as a dependancy.
             include ./snippets/java/chat_project_manager.pug
             h3 Writing the Code
             p.
-                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code BeamAPI] object with an implicit OAuth token. The required scopes are #[code chat:connect chat:chat].
+                Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code MixerAPI] object with an implicit OAuth token. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('java', 'tutorials/code/java/chatbot/1.java')
             p.
-                Next we need to get a reference to a #[code BeamChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code BeamUser] object to get their #[code BeamChannel]. We can then pass this to the #[code ChatService] to get a #[code BeamChatConnectable] object. This object allows us to connect to chat!
+                Next we need to get a reference to a #[code MixerChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code MixerUser] object to get their #[code MixerChannel]. We can then pass this to the #[code ChatService] to get a #[code MixerChatConnectable] object. This object allows us to connect to chat!
             +highlightFile('java', 'tutorials/code/java/chatbot/2.java')
             p.
                 Now we need to connect and authenticate with an #[code AuthenticateMessage]. As this is sent asyncronously we'll need to wait for it to finish before we can send anything to chat. Our #[code ReplyHandler] takes care of that.
@@ -87,7 +87,7 @@ block tutorialContent
             +highlightFile('java', 'tutorials/code/java/chatbot/5.java')
 
             p.
-                Putting everything together into one file you get a completed ping-pong Java Beam Bot!
+                Putting everything together into one file you get a completed ping-pong Java Mixer Bot!
             +highlightFile('java', 'tutorials/code/java/chatbot/6.java')
 
         +bsTabItem('chatbot_guide', 'raw')

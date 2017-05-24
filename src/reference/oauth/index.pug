@@ -1,7 +1,7 @@
 extends ../reference_layout.pug
 
 block title
-    | OAuth Reference | Beam Developers
+    | OAuth Reference | Mixer Developers
 
 block navbar
     .navbar-wrapper
@@ -24,17 +24,17 @@ block reference
         h2#quick_details Quick details:
         p.
             You can register your OAuth application on our
-            #[a(href='https://beam.pro/lab' target='_blank') Developer Lab].
+            #[a(href='https://mixer.com/lab' target='_blank') Developer Lab].
             After getting a token there, you can use provide these endpoints to your OAuth
             client library to dig in:
 
         ul
             li
                 | #[a(href='https://tools.ietf.org/html/rfc6749#section-3.1') Authorize endpoint]:
-                code https://beam.pro/oauth/authorize
+                code https://mixer.com/oauth/authorize
             li
                 | #[a(href='https://tools.ietf.org/html/rfc6749#section-3.2') Token endpoint]:
-                code https://beam.pro/api/v1/oauth/token
+                code https://mixer.com/api/v1/oauth/token
         h3 Token Expiry
         table.table
             tr
@@ -57,7 +57,7 @@ block reference
     h2#introduction Introduction
     p.
         If you want to act as another user in chat, access a users' private resources as part
-        of your app, or just want to use Beam credentials to authenticate your users,
+        of your app, or just want to use Mixer credentials to authenticate your users,
         it's best to use OAuth so the users' credentials don't need to be stored on your servers.
 
     p.
@@ -71,7 +71,7 @@ block reference
     h2#registering Registering Your Application
     p.
         To create an application head over to the
-        #[a(href='https://beam.pro/lab' target='_blank') Developer Lab] and select the OAuth Clients tab.
+        #[a(href='https://mixer.com/lab' target='_blank') Developer Lab] and select the OAuth Clients tab.
         Once there, click the big blue plus button and it'll open the creation form.
 
     p.
@@ -83,9 +83,9 @@ block reference
     p.
         The hosts parameter is an important one; it tells us what domains your application
         can redirect to. This should be set to domains you control.
-        You can use wildcards. For example, #[code *.beam.pro],
-        will allow redirects to all subdomains on #[code beam.pro],
-        but not #[code beam.pro] itself.
+        You can use wildcards. For example, #[code *.mixer.com],
+        will allow redirects to all subdomains on #[code mixer.com],
+        but not #[code mixer.com] itself.
         You can enter multiple hosts by separating them with commas.
 
     h2#using_oauth Using OAuth
@@ -116,7 +116,7 @@ block reference
     p.
         To use our OAuth implementation you'll just need the URLs which can be found at the top of
         this page and your token from the
-        #[a(href='https://beam.pro/lab/oauth' target='_blank') OAuth Clients] page.
+        #[a(href='https://mixer.com/lab/oauth' target='_blank') OAuth Clients] page.
 
     h3#shortcode Authenticating with a short code
     p.
@@ -125,7 +125,7 @@ block reference
         li.
             Your application sends a #[code POST] request to the #[a(href='/rest.html#oauth_shortcode_post' target='_blank') /oauth/shortcode] endpoint to receive a short-lived, six-digit #[code code] and a longer #[code handle].
         li.
-            Your application asks the user to go to #[a(href='https://beam.pro/go' target='_blank') beam.pro/go] and enter the #[code code].
+            Your application asks the user to go to #[a(href='https://mixer.com/go' target='_blank') mixer.com/go] and enter the #[code code].
         li.
             Your application polls #[a(href='/rest.html#oauth_shortcode_check__handle__get' target='_blank') /oauth/shortcode/check/{handle}] with the value of #[code handle] to check if the code has been used.
         li.

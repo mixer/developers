@@ -239,7 +239,7 @@
         },
         {
           "code": "void request_linking_code(_In_ uint32_t beam_id) const",
-          "description": "Requests an OAuth account authorization code from the Beam services. The title needs to display this code and prompt the user to enter it at beam.pro/go. This process allows the user's Beam account to be linked to an interactivity stream.",
+          "description": "Requests an OAuth account authorization code from the Beam services. The title needs to display this code and prompt the user to enter it at mixer.com/go. This process allows the user's Beam account to be linked to an interactivity stream.",
           "name": "request_linking_code(_In_ uint32_t)",
           "params": [
             {

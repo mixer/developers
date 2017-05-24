@@ -1,7 +1,7 @@
 extends ../reference_layout.pug
 
 block title
-    | Constellation Reference | Beam Developers
+    | Constellation Reference | Mixer Developers
 
 block navbar
     .navbar-wrapper
@@ -39,18 +39,18 @@ block reference
     .page-header
         h2#introduction Introduction
     p.
-        Constellation is a daemon whose purpose is to unite all stateful functions of Beam.pro.
+        Constellation is a daemon whose purpose is to unite all stateful functions of mixer.com.
 
     p.
         One of its main features is liveloading.
 
     h3#introduction__liveloading Liveloading
     p.
-        Liveloading is an event system on Beam. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href='#events_live_events') Events] to recieve them.
+        Liveloading is an event system on Mixer. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href='#events_live_events') Events] to recieve them.
     .alert.alert-info.
         Pro tip: you can view liveloading in-action by
         #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log]
-        on #[a(href='https://beam.pro' target='_blank') beam.pro].
+        on #[a(href='https://mixer.com' target='_blank') mixer.com].
 
     h3#introduction__clients Clients
     p A number of clients already support Constellation. Try them out for a jump start into Constellation.
@@ -58,15 +58,15 @@ block reference
         li
             strong JavaScript:
             = ' '
-            a(href='https://github.com/WatchBeam/carina' target='_blank') Carina
+            a(href='https://github.com/Mixer/carina' target='_blank') Carina
         li
             strong Java:
             = ' '
-            a(href='https://github.com/WatchBeam/beam-client-java' target='_blank') beam-client-java
+            a(href='https://github.com/Mixer/beam-client-java' target='_blank') beam-client-java
         li
             strong Swift:
             = ' '
-            a(href='https://github.com/WatchBeam/beam-client-swift' target='_blank') beam-client-swift
+            a(href='https://github.com/Mixer/beam-client-swift' target='_blank') beam-client-swift
 
     h2#session Session
     p.
@@ -76,9 +76,9 @@ block reference
 
     h2#protocol Protocol
     p.
-        Constellation is based on JSON-RPC with additional support for an event system. Initially a user connects to #[strong constellation.beam.pro] with a standard WebSocket connection. Aside from standard websocket headers, the following headers may also be passed:
+        Constellation is based on JSON-RPC with additional support for an event system. Initially a user connects to #[strong constellation.mixer.com] with a standard WebSocket connection. Aside from standard websocket headers, the following headers may also be passed:
     ul
-        li #[code cookie]: may contain the Beam session cookie. Its presence will cause Constellation to attempt to authenticate the user.
+        li #[code cookie]: may contain the Mixer session cookie. Its presence will cause Constellation to attempt to authenticate the user.
         li #[code authorization]: may contain an OAuth Bearer token to authenticate with for 3rd party apps, rather than using a cookie. This will indicate to Constellation that the user is a bot.
         li
             p.

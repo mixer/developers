@@ -4,7 +4,7 @@ package tetris;
 // Top-Level Wire Messages ====================================================
 //
 // The following messages are the top-level message sent over the wire. See
-// developers.beam.pro for more information on the wire protocol.
+// dev.mixer.com for more information on the wire protocol.
 //
 // ============================================================================
 

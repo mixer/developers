@@ -1,5 +1,5 @@
 {
-    "⁠⁠⁠⁠announcement:announce": "Sent when there is a site-wide announcement. The message property of the body contains the announcement text. Other fields affect how the announcement is displayed on beam.pro",
+    "⁠⁠⁠⁠announcement:announce": "Sent when there is a site-wide announcement. The message property of the body contains the announcement text. Other fields affect how the announcement is displayed on mixer.com",
     "channel:{id}:followed": "Sent when a user follows or unfollows a channel. The body will contain an attribute `following` - boolean set to true `true` if the user just followed the channel, `false` if they unfollowed, and user - the [User](/rest.html#User) who just followed the channel.",
     "channel:{id}:hosted": "Sent when another user hosts the channel with the provided `id`. The body will contain the `hosterId`, a number, and `hoster`, the full [Channel](/rest.html#Channel) model who started hosting this channel. Note that this event is not subject to the spam prevention that the chat message is.",
     "channel:{id}:unhosted": "Sent when another user finishes hosting the channel with the provided `id`. The body will contain the `hosterId`, a number, and `hoster`, the full [Channel](/rest.html#Channel) model who finished hosting this channel. Note that this event is not subject to the spam prevention that the chat message is.",
