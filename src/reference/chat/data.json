@@ -1,7 +1,7 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate to join as an active user in a specified channel. Arguments are `channelId`,`userId`,`key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our Rest Api as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
+      "description": "Authenticate as an active user in a specified channel. Arguments are `channelId`, `userId`, `key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our REST API as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
       "examples": [
         {
           "description": "Authenticating as a User successfully.",
@@ -79,7 +79,7 @@
       ]
     },
     "msg": {
-      "description": "Send a chat message to the server, the server will reply with data identical to a [ChatMessage](#chat__events__) event.",
+      "description": "Send a chat message to the server. The server will reply with data identical to a [ChatMessage](#chat__events__) event.",
       "example": {
         "request": {
           "type": "method",
@@ -157,7 +157,7 @@
       }
     },
     "vote:choose": {
-      "description": "Casts a vote for the current poll, `arguments` is the vote option index.",
+      "description": "Cast a vote in the current poll. `arguments` is the vote option's index.",
       "example": {
         "request": {
           "type": "method",
@@ -176,7 +176,7 @@
       }
     },
     "vote:start": {
-      "description": "Starts a poll in the channel, requires appropriate permissions.",
+      "description": "Start a poll in the channel. This requires the `poll_start` permission.",
       "example": {
         "request": {
           "type": "method",
@@ -200,7 +200,7 @@
       }
     },
     "timeout": {
-      "description": "Times a User out, they cannot send messages until the duration is over.",
+      "description": "Time a User out. They cannot send messages until the duration is over.",
       "example": {
         "request": {
           "type": "method",
@@ -220,7 +220,7 @@
       }
     },
     "purge": {
-      "description": "Purges a user's message from that chat but does not time them out.",
+      "description": "Purge a user's messages from that chat but does not time them out.",
       "example": {
         "request": {
           "type": "method",
@@ -238,7 +238,7 @@
       }
     },
     "deleteMessage": {
-      "description": "Deletes a message from chat by. First argument must be the message ID you want to delete.",
+      "description": "Delete a message from chat. First argument must be the message ID you want to delete.",
       "example": {
         "request": {
           "type": "method",
@@ -257,7 +257,7 @@
       }
     },
     "clearMessages": {
-      "description": "Clears all chat messages in the channel. (If you have the `clear_messages` permission)",
+      "description": "Clear all chat messages in the channel. This requires the `clear_messages` permission.",
       "example": {
         "request": {
           "type": "method",
@@ -330,7 +330,7 @@
       }
     },
     "ping": {
-      "description": "A ping method, used in environments where websocket implementations do not natively support pings.",
+      "description": "A ping method. This is used in environments where websocket implementations do not natively support pings.",
       "example": {
         "request": {
           "type": "method",
@@ -346,7 +346,7 @@
       }
     },
     "attachEmotes": {
-      "description": "Enables an enhancement to the `ChatMessage` event. Will populate the `meta` property of the event with a hash containing the emoticon text mapped to the base64 PNG representation.",
+      "description": "Enable an enhancement to the `ChatMessage` event. This will populate the `meta` property of the event with a hash containing the emoticon text mapped to the base64 PNG representation.",
       "examples": [
         {
           "description": "Tells the chat server that you want emotes to be attached to chat messages.",
@@ -419,7 +419,7 @@
       }
     },
     "ChatMessage": {
-      "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which defined additional details about where the message comes from.",
+      "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which define additional details about where the message comes from.",
       "examples": [
         {
           "title": "Regular Message",
@@ -572,7 +572,7 @@
       ]
     },
     "UserJoin": {
-      "description": "Sent when a user joins the chat, not emitted for unauthenticated users.",
+      "description": "Sent when a user joins the chat. This is not emitted for unauthenticated users.",
       "example": {
         "username": "USERNAME",
         "roles": [
@@ -582,14 +582,14 @@
       }
     },
     "UserLeave": {
-      "description": "Sent when a user leaves the chat, not emitted for unauthenticated users.",
+      "description": "Sent when a user leaves the chat. This is not emitted for unauthenticated users.",
       "example": {
         "username": "USERNAME",
         "id": 12345
       }
     },
     "PollStart": {
-      "description": "Initially sent when a new poll is started. Then over the course of a poll it is re-sent with information about the polls progress.",
+      "description": "Initially sent when a new poll is started. Then, over the course of a poll, it is re-sent with information about the poll's progress.",
       "example": {
         "q": "How's the weather?",
         "answers": [
@@ -613,7 +613,7 @@
       }
     },
     "PollEnd": {
-      "description": "Sent when a poll ended.",
+      "description": "Sent when a poll has ended.",
       "example": {
         "q": "How's the weather?",
         "answers": [
