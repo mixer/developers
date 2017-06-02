@@ -574,6 +574,7 @@
     "UserJoin": {
       "description": "Sent when a user joins the chat. This is not emitted for unauthenticated users.",
       "example": {
+        "originatingChannel": 1,
         "username": "USERNAME",
         "roles": [
           "User"
@@ -584,6 +585,7 @@
     "UserLeave": {
       "description": "Sent when a user leaves the chat. This is not emitted for unauthenticated users.",
       "example": {
+        "originatingChannel": 1,
         "username": "USERNAME",
         "id": 12345
       }

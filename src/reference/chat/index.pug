@@ -156,6 +156,10 @@ block reference
                 +highlightStr('json', JSON.stringify(example.data, null, 3))
         else
             +highlightStr('json', JSON.stringify(data.example, null, 3))
+
+    h1(id='chat__costreaming') Costreaming
+    p In costreaming, multiple channels' chats are merged into one. All packets are identical, and the various Channel properties in methods and events include the channel each action was triggered from.
+
     h1(id='chat__troubleshooting') Troubleshooting
     h3 Getting #[code UNOTFOUND] a lot?
     p This error means that the chat server you're connecting to can't find a record of you when you try to authenticate. This can be caused by a number of reasons so make sure to check the following things.
