@@ -681,7 +681,17 @@
       "example": {
         "type": "event",
         "event": "ClearMessages",
-        "data": {}
+        "data": {
+          "clearer": {
+            "user_name": "USERNAME",
+            "user_id": 12345,
+            "user_roles": [
+              "Mod",
+              "User"
+            ],
+            "user_level": 12
+          }
+        }
       }
     },
     "UserUpdate": {
