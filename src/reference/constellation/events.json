@@ -1,27 +1,244 @@
 {
-    "⁠⁠⁠⁠announcement:announce": "Sent when there is a site-wide announcement. The message property of the body contains the announcement text. Other fields affect how the announcement is displayed on mixer.com",
-    "channel:{id}:followed": "Sent when a user follows or unfollows a channel. The body will contain an attribute `following` - boolean set to true `true` if the user just followed the channel, `false` if they unfollowed, and user - the [User](/rest.html#User) who just followed the channel.",
-    "channel:{id}:hosted": "Sent when another user hosts the channel with the provided `id`. The body will contain the `hosterId`, a number, and `hoster`, the full [Channel](/rest.html#Channel) model who started hosting this channel. Note that this event is not subject to the spam prevention that the chat message is.",
-    "channel:{id}:unhosted": "Sent when another user finishes hosting the channel with the provided `id`. The body will contain the `hosterId`, a number, and `hoster`, the full [Channel](/rest.html#Channel) model who finished hosting this channel. Note that this event is not subject to the spam prevention that the chat message is.",
-    "channel:{id}:status": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`.",
-    "channel:{id}:subscribed": "Sent when a user subscribes to the channel. The body will contain the [User](/rest.html#User) object who just subscribed to the channel.",
-    "channel:{id}:resubscribed": "Sent when an automatic resubscription to a channel happens. The body will contain the [User](/rest.html#User) object of the channel the user just resubscribed to. Additionally there are `since` and `until` properties. These are the dates for when the user first subscribed (from the start of recurring billing period) and when the subscription expires. Finally there's a `totalMonths` property, which is an integer indicating how many months the user has been subscribed since the beginning of time.",
-    "channel:{id}:resubShared": "Sent when a user who has recently resubscribed to the channel chooses to 'share' their resubscription, by clicking the 'Share' button within the site chat. This event is preferred to the `channel:{id}:resubscribed` event if your integration reacts with some form of celebration, but you should be aware that this event will not fire at all for a resubscription if the user does not choose to share it. The body is identical to that of the `channel:{id}:resubscribed` event.",
-    "channel:{id}:update": "You'll get an event sent down that matches the slug, containing changes on the [Channel model](/rest.html#Channel). The event may not necessarily include the entire channel resource. For example, when a channel goes online, an event with the key online going to true is sent.",
-    "interactive:{id}:connect": "Sent when an interactive app connects to this channel",
-    "interactive:{id}:disconnected": "Sent when an interactive app disconnects from this channel",
-    "team:{id}:deleted": "Sent when a [Team](/rest.html#Team) is deleted. The body will contain the team's old record.",
-    "team:{id}:memberAccepted": "Sent when an invitee accepts their team invitation. The body will contain the accepting user's record.",
-    "team:{id}:memberInvited": "Sent when a member is invited to a team. The body will contain the invited user's record.",
-    "team:{id}:memberRemoved": "Sent when a team member leaves or invitee rejects their invite. The body will contain the member's [User](/rest.html#User) record.",
-    "team:{id}:ownerChanged": "Sent when a team's ownership changes. The body will contain the new owner's [User](/rest.html#User) record.",
-    "user:{id}:achievement": "Sent when a user achievement earning is updated. The body is simply an [AchievementEarning](/rest.html#AchievementEarning) record as returned in the achievement user listing endpoint.",
-    "user:{id}:followed": "Sent when a user follows or unfollows a channel. The body will contain an attribute `following` - boolean set to true `true` if the user just followed the channel, `false` if they unfollowed, and user - the [User](/rest.html#User) who just followed the channel.",
-    "user:{id}:notify": "Sent when a new user [Notification](/rest.html#Notification) is created. Notifications of the same type will always follow the same structure.",
-    "user:{id}:subscribed": "Sent when the user subscribes to a channel. The body will contain the channel ID that they just subscribed to.",
-    "user:{id}:resubscribed": "Sent when an automatic resubscription to a channel happens. The body will contain the [Channel](/rest.html#Channel) id of the channel the user just resubscribed to. Additionally there are `since` and `until` properties. These are the dates for when the user first subscribed (from the start of recurring billing period) and when the subscription expires. Finally there's a `totalMonths` property, which is an integer indicating how many months the user has been subscribed since the beginning of time.",
-    "user:{id}:teamAccepted": "Sent when a user accepts their invite to a team. The body will contain the [Team](/rest.html#Team) record related to the event.",
-    "user:{id}:teamInvited": "Sent when a user is invited to a team. The body will contain the [Team](/rest.html#Team) record related to the event.",
-    "user:{id}:teamRemoved": "Sent when a user leaves a team or rejects its invite. The body will contain the [Team](/rest.html#Team) record related to the event.",
-    "user:{id}:update": "You'll get an event sent down that matches the slug, containing changes on the [User model](/rest.html#User). The event may not necessarily include the entire user resource."
+    "⁠⁠⁠⁠announcement:announce": {
+        "description": "Sent when there is a site-wide announcement. The message property of the body contains the announcement text. Other fields affect how the announcement is displayed on mixer.com",
+        "payload": {
+            "type": "Announcement",
+            "description": "The site-wide announcement that has been sent."
+        }
+    },
+    "channel:{id}:followed": {
+        "description": "Sent when a user follows or unfollows a channel.",
+        "payload": {
+            "followed": {
+                "type": "boolean",
+                "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
+            },
+            "user": {
+                "type": "User",
+                "description": "The user who followed the channel."
+            }
+        }
+    },
+    "channel:{id}:hosted": {
+        "description": "Sent when another user hosts the channel with the provided `id`. Note that this event is not subject to the spam prevention that the chat message is.",
+        "payload": {
+            "hosterId": {
+                "type": "uint",
+                "description": "The user ID of the user who hosted the channel."
+            },
+            "hoster": {
+                "type": "User",
+                "description": "The user object of the user who hosted the channel."
+            }
+        }
+    },
+    "channel:{id}:unhosted": {
+        "description": "Sent when another user finishes hosting the channel with the provided `id`. Note that this event is not subject to the spam prevention that the chat message is.",
+        "payload": {
+            "hosterId": {
+                "type": "uint",
+                "description": "The user ID of the user who hosted the channel."
+            },
+            "hoster": {
+                "type": "User",
+                "description": "The user who hosted the channel."
+            }
+        }
+    },
+    "channel:{id}:status": {
+        "description": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`.",
+        "payload": {}
+    },
+    "channel:{id}:subscribed": {
+        "description": "Sent when a user subscribes to the channel.",
+        "payload": {
+            "user": {
+                "type": "User",
+                "description": "The user who just subscribed to the channel."
+            }
+        }
+    },
+    "channel:{id}:resubscribed": {
+        "description": "Sent when an automatic resubscription to a channel happens.",
+        "payload": {
+            "user": {
+                "type": "User",
+                "description": "The user who just subscribed to the channel."
+            },
+            "since": {
+                "type": "IsoDate",
+                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+            },
+            "until": {
+                "type": "IsoDate",
+                "description": "The date for when the subscription expires."
+            },
+            "totalMonths": {
+                "type": "uint",
+                "description": "The number of months the user has been subscribed since the beginning of time."
+            }
+        }
+    },
+    "channel:{id}:resubShared": {
+        "description": "Sent when a user who has recently resubscribed to the channel chooses to 'share' their resubscription, by clicking the 'Share' button within the site chat. This event is preferred to the `channel:{id}:resubscribed` event if your integration reacts with some form of celebration, but you should be aware that this event will not fire at all for a resubscription if the user does not choose to share it. The body is identical to that of the `channel:{id}:resubscribed` event.",
+        "payload": {
+            "user": {
+                "type": "User",
+                "description": "The user who just subscribed to the channel."
+            },
+            "since": {
+                "type": "IsoDate",
+                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+            },
+            "until": {
+                "type": "IsoDate",
+                "description": "The date for when the subscription expires."
+            },
+            "totalMonths": {
+                "type": "uint",
+                "description": "The number of months the user has been subscribed since the beginning of time."
+            }
+        }
+    },
+    "channel:{id}:update": {
+        "description": "Sent when the channel model is changed.",
+        "payload": {
+            "type": "Channel",
+            "description": "Contains changes to the channel model. Please note this event may not necessarily include the entire channel resource. For example, when a channel goes online, an event with the key `online` going to `true` is sent."
+        }
+    },
+    "interactive:{id}:connect": {
+        "description": "Sent when an interactive app connects to this channel.",
+        "payload": {
+            "type": "string",
+            "description": "The address of the interactive server the application has connected to."
+        }
+    },
+    "interactive:{id}:disconnect": {
+        "description": "Sent when an interactive app disconnects from this channel",
+        "payload": {
+            "type": "string",
+            "description": "The address of the interactive server the application has connected to."
+        }
+    },
+    "team:{id}:deleted": {
+        "description": "Sent when a team is deleted",
+        "payload": {
+            "type": "Team",
+            "description": "The team's record prior to deletion."
+        }
+    },
+    "team:{id}:memberAccepted": {
+        "description": "Sent when an invitee accepts their team invitation.",
+        "payload": {
+            "type": "User",
+            "description": "The user who accepted their invitation."
+        }
+    },
+    "team:{id}:memberInvited": {
+        "description": "Sent when a member is invited to a team.",
+        "payload": {
+            "type": "User",
+            "description": "The user who was sent an invitation."
+        }
+    },
+    "team:{id}:memberRemoved": {
+        "description": "Sent when a team member leaves or invitee rejects their invite.",
+        "payload": {
+            "type": "User",
+            "description": "The member who left the team."
+        }
+    },
+    "team:{id}:ownerChanged": {
+        "description": "Sent when a team's ownership changes.",
+        "payload": {
+            "type": "User",
+            "description": "The new team owner."
+        }
+    },
+    "user:{id}:achievement": {
+        "description": "Sent when a user achievement earning is updated.",
+        "payload": {
+            "type": "AchievementEarning",
+            "description": "The updated achievement."
+        }
+    },
+    "user:{id}:followed": {
+        "description": "Sent when a user follows or unfollows a channel.",
+        "payload": {
+            "followed": {
+                "type": "boolean",
+                "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
+            },
+            "channel": {
+                "type": "Channel",
+                "description": "The channel that the user just followed."
+            }
+        }
+    },
+    "user:{id}:notify": {
+        "description": "Sent when the user receives a new notification. Notifications of the same type will always follow the same structure.",
+        "payload": {
+            "type": "Notification",
+            "description": "The new notification."
+        }
+    },
+    "user:{id}:subscribed": {
+        "description": "Sent when the user subscribes to another channel.",
+        "payload": {
+            "channel": {
+                "type": "uint",
+                "description": "The ID of the channel the user subscribed to."
+            }
+        }
+    },
+    "user:{id}:resubscribed": {
+        "description": "Sent when an automatic resubscription to a channel happens.",
+        "payload": {
+            "channel": {
+                "type": "uint",
+                "description": "The ID of the channel the user subscribed to."
+            },
+            "since": {
+                "type": "IsoDate",
+                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+            },
+            "until": {
+                "type": "IsoDate",
+                "description": "The date for when the subscription expires."
+            },
+            "totalMonths": {
+                "type": "uint",
+                "description": "The number of months the user has been subscribed since the beginning of time."
+            }
+        }
+    },
+    "user:{id}:teamAccepted": {
+        "description": "Sent when a user accepts their invite to a team.",
+        "payload": {
+            "type": "Team",
+            "description": "The team the user accepted the invitation for."
+        }
+    },
+    "user:{id}:teamInvited": {
+        "description": "Sent when a user is invited to a team.",
+        "payload": {
+            "type": "Team",
+            "description": "The team the user was invited to."
+        }
+    },
+    "user:{id}:teamRemoved": {
+        "description": "Sent when a user leaves a team or rejects its invite.",
+        "payload": {
+            "type": "Team",
+            "description": "The team the user left."
+        }
+    },
+    "user:{id}:update": {
+        "description": "Sent when the user model is changed.",
+        "payload": {
+            "type": "User",
+            "description": "Contains changes to the user model. Please note this event may not necessarily include the entire user resource."
+        }
+    }
 }

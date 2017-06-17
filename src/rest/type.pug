@@ -56,7 +56,7 @@ mixin typeNameString(type)
             span.help(title='Min value')= type.minimum
             | &leq;
         if rest.types[name]
-            a(href=`#${name}`)= name
+            a(href=`/rest.html#${name}`)= name
         else
             = name
         if type.default
