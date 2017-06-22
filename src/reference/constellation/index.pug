@@ -204,21 +204,10 @@ block reference
                     td(style='white-space:nowrap;'): code= name
                     td
                         div!= marked(data.description)
-                        if !data.payload.type
-                            div
-                                span Payload:
-                                small &nbsp;
-                                    +typeNameString({ type: 'object', required: true })
-                            ul.rest-nested-properties
-                                for item, key in data.payload
-                                    li
-                                        +simpleTypeHeading(key, { type: item.type, required: true })
-                                        +simpleType(key, { type: item.type, description: item.description })
-                        else
-                            div
-                                span Payload:
-                                small &nbsp;
-                                    +typeNameString({ type: data.payload.type, required: true })
-                                +simpleType('Returns', { type: data.payload.type, description: data.payload.description })
+                        if data.payload
+                            strong Payload:&nbsp;
+                            small
+                                +typeNameString({ type: data.payload.type, required: true })
+                            +simpleType('', data.payload, true)
 
     include ../../snippets/help.pug

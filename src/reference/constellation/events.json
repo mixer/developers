@@ -9,94 +9,111 @@
     "channel:{id}:followed": {
         "description": "Sent when a user follows or unfollows a channel.",
         "payload": {
-            "followed": {
-                "type": "boolean",
-                "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
-            },
-            "user": {
-                "type": "User",
-                "description": "The user who followed the channel."
+            "type": "object",
+            "properties": {
+                "followed": {
+                    "type": "boolean",
+                    "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
+                },
+                "user": {
+                    "type": "User",
+                    "description": "The user who followed the channel."
+                }
             }
         }
     },
     "channel:{id}:hosted": {
         "description": "Sent when another user hosts the channel with the provided `id`. Note that this event is not subject to the spam prevention that the chat message is.",
         "payload": {
-            "hosterId": {
-                "type": "uint",
-                "description": "The user ID of the user who hosted the channel."
-            },
-            "hoster": {
-                "type": "User",
-                "description": "The user object of the user who hosted the channel."
+            "type": "object",
+            "properties": {
+                "hosterId": {
+                    "type": "uint",
+                    "description": "The user ID of the user who hosted the channel."
+                },
+                "hoster": {
+                    "type": "User",
+                    "description": "The user object of the user who hosted the channel."
+                }
             }
         }
     },
     "channel:{id}:unhosted": {
         "description": "Sent when another user finishes hosting the channel with the provided `id`. Note that this event is not subject to the spam prevention that the chat message is.",
         "payload": {
-            "hosterId": {
-                "type": "uint",
-                "description": "The user ID of the user who hosted the channel."
-            },
-            "hoster": {
-                "type": "User",
-                "description": "The user who hosted the channel."
+            "type": "object",
+            "properties": {
+                "hosterId": {
+                    "type": "uint",
+                    "description": "The user ID of the user who hosted the channel."
+                },
+                "hoster": {
+                    "type": "User",
+                    "description": "The user who hosted the channel."
+                }
             }
         }
     },
     "channel:{id}:status": {
-        "description": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`.",
-        "payload": {}
+        "description": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`."
     },
     "channel:{id}:subscribed": {
         "description": "Sent when a user subscribes to the channel.",
         "payload": {
-            "user": {
-                "type": "User",
-                "description": "The user who just subscribed to the channel."
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "User",
+                    "description": "The user who just subscribed to the channel."
+                }
             }
         }
     },
     "channel:{id}:resubscribed": {
         "description": "Sent when an automatic resubscription to a channel happens.",
         "payload": {
-            "user": {
-                "type": "User",
-                "description": "The user who just subscribed to the channel."
-            },
-            "since": {
-                "type": "IsoDate",
-                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
-            },
-            "until": {
-                "type": "IsoDate",
-                "description": "The date for when the subscription expires."
-            },
-            "totalMonths": {
-                "type": "uint",
-                "description": "The number of months the user has been subscribed since the beginning of time."
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "User",
+                    "description": "The user who just subscribed to the channel."
+                },
+                "since": {
+                    "type": "IsoDate",
+                    "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+                },
+                "until": {
+                    "type": "IsoDate",
+                    "description": "The date for when the subscription expires."
+                },
+                "totalMonths": {
+                    "type": "uint",
+                    "description": "The number of months the user has been subscribed since the beginning of time."
+                }
             }
         }
     },
     "channel:{id}:resubShared": {
         "description": "Sent when a user who has recently resubscribed to the channel chooses to 'share' their resubscription, by clicking the 'Share' button within the site chat. This event is preferred to the `channel:{id}:resubscribed` event if your integration reacts with some form of celebration, but you should be aware that this event will not fire at all for a resubscription if the user does not choose to share it. The body is identical to that of the `channel:{id}:resubscribed` event.",
         "payload": {
-            "user": {
-                "type": "User",
-                "description": "The user who just subscribed to the channel."
-            },
-            "since": {
-                "type": "IsoDate",
-                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
-            },
-            "until": {
-                "type": "IsoDate",
-                "description": "The date for when the subscription expires."
-            },
-            "totalMonths": {
-                "type": "uint",
-                "description": "The number of months the user has been subscribed since the beginning of time."
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "User",
+                    "description": "The user who just subscribed to the channel."
+                },
+                "since": {
+                    "type": "IsoDate",
+                    "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+                },
+                "until": {
+                    "type": "IsoDate",
+                    "description": "The date for when the subscription expires."
+                },
+                "totalMonths": {
+                    "type": "uint",
+                    "description": "The number of months the user has been subscribed since the beginning of time."
+                }
             }
         }
     },
@@ -166,13 +183,16 @@
     "user:{id}:followed": {
         "description": "Sent when a user follows or unfollows a channel.",
         "payload": {
-            "followed": {
-                "type": "boolean",
-                "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
-            },
-            "channel": {
-                "type": "Channel",
-                "description": "The channel that the user just followed."
+            "type": "object",
+            "properties": {
+                "followed": {
+                    "type": "boolean",
+                    "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
+                },
+                "channel": {
+                    "type": "Channel",
+                    "description": "The channel that the user just followed."
+                }
             }
         }
     },
@@ -186,30 +206,36 @@
     "user:{id}:subscribed": {
         "description": "Sent when the user subscribes to another channel.",
         "payload": {
-            "channel": {
-                "type": "uint",
-                "description": "The ID of the channel the user subscribed to."
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "uint",
+                    "description": "The ID of the channel the user subscribed to."
+                }
             }
         }
     },
     "user:{id}:resubscribed": {
         "description": "Sent when an automatic resubscription to a channel happens.",
         "payload": {
-            "channel": {
-                "type": "uint",
-                "description": "The ID of the channel the user subscribed to."
-            },
-            "since": {
-                "type": "IsoDate",
-                "description": "The date for when the user first subscribed, from the start of the recurring billing period."
-            },
-            "until": {
-                "type": "IsoDate",
-                "description": "The date for when the subscription expires."
-            },
-            "totalMonths": {
-                "type": "uint",
-                "description": "The number of months the user has been subscribed since the beginning of time."
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "uint",
+                    "description": "The ID of the channel the user subscribed to."
+                },
+                "since": {
+                    "type": "IsoDate",
+                    "description": "The date for when the user first subscribed, from the start of the recurring billing period."
+                },
+                "until": {
+                    "type": "IsoDate",
+                    "description": "The date for when the subscription expires."
+                },
+                "totalMonths": {
+                    "type": "uint",
+                    "description": "The number of months the user has been subscribed since the beginning of time."
+                }
             }
         }
     },
