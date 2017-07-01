@@ -418,8 +418,7 @@ The client should call the ``ready`` method after initialization is complete to 
     "method": "ready",
     "params": {
       "isReady": true
-    },
-    "discard": true
+    }
   }
 
 - A successful reply:
