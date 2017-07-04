@@ -152,6 +152,7 @@ Method packets are sent in a way very similar to JSON-RPC. This is the only pack
     "id": 123,
     "discard": false,
     "method": "divide",
+    "seq": 42,
     "params": {
       "numerator": 16,
       "denominator": 4
@@ -162,7 +163,8 @@ Method packets are sent in a way very similar to JSON-RPC. This is the only pack
 - ``method`` MUST be the name of the method to call
 - ``params`` MUST be an object, not an array, of named arguments to pass into the method.
 - ``id`` MUST be any 32-bit unsigned integer. It’s included in the reply packet and used to correlate replies from the socket. You should ensure that each request has a unique id within your session.
-  ​
+- ``seq`` MUST be a 32-bit signed integer incremented by the server on each packet that is sent. The client MUST include the last ``seq`` number it saw when sending information to Interactive. For more information about why this is, see the `Synchronization`_ section.
+
   Attempting to use a floating point number or an integer outside of the 32-bit range MAY result in the number being truncated or overflowing, or MAY cause the client to reply with an error.
 - ``discard`` MAY be set to ``true`` if the server does not require a reply for the method call. The client MUST effect any state changes regardless of the value of ``discard``. The client MAY respect the server's request to discard the successful response, but MUST reply with an error if one does occur.
 
@@ -174,6 +176,7 @@ Reply packets are sent in response to method packets. Replies are always sent in
     "type": "reply",
     "result": 4,
     "error": null,
+    "seq": 42,
     "id": 123
   }
 
@@ -187,6 +190,7 @@ Reply packets are sent in response to method packets. Replies are always sent in
       "message": "Cannot divide by zero.",
       "path": "denominator"
     },
+    "seq": 42,
     "id": 124
   }
 
@@ -225,6 +229,7 @@ Multiple messages MAY be concatenated together in a single websocket frame as a 
       "type": "method",
       "id": 123,
       "method": "divide",
+      "seq": 42,
       "params": {
         "numerator": 16,
         "denominator": 4
@@ -234,6 +239,7 @@ Multiple messages MAY be concatenated together in a single websocket frame as a 
       "type": "reply",
       "result": 4,
       "id": "123",
+      "seq": 43,
       "error": null
     }
   ]
@@ -292,8 +298,6 @@ Error Codes
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4004 | Error parsing method arguments.                                                                   | *                                |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
-| 4005 | Etag mismatch.                                                                                    | multiple                         |
-+------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4006 | Unknown or expired transaction ID.                                                                | ``capture``                      |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4007 | The user doesn't have enough sparks.                                                              | ``capture``                      |
@@ -335,9 +339,16 @@ Error Codes
 Synchronization
 ---------------
 
-The state of users, controls, and scenes can be changed by both the client and the mediator in response to aggregations, where each "document" is owned by the server. Each time a state is changed, a new etag SHALL be assigned. Etags are provided as strings and should be treated as opaque tokens. In order to subsequently modify the state, the requesting party must present its existing etag.
+The state of users, controls, and scenes can be changed by both the client and the mediator in response to aggregations via various update calls. These updates have a ``priority`` value, and each packet set has a ``seq`` property for ordering purposes. Whenever a property on a resource is changed, it's tagged with the requester's priority and sequence number.
 
-Each of these built-in documents have ``meta`` properties, which is a map that can be used to nest unstructured, free-form objects that can be consumed by custom frontend controls. Each document in the ``meta`` property has its own etag.
+This information is used for conflict control. Take a set of changes :math:`A` and a new incoming set of changes :math:`B`. For every property that conflicts:
+
+ - If :math:`B.sequenceNumber > A.sequenceNumber`, then apply :math:`A`'s change;
+ - If :math:`B.sequenceNumber < A.sequenceNumber`, then pick the change with the greater priority value;
+ - If :math:`B.sequenceNumber = A.sequenceNumber \land B.priority \neq A.priority`, then pick the change with the greater priority value;
+ - If :math:`B.sequenceNumber = A.sequenceNumber \land B.priority = A.priority`, then pick :math:`B`--effectively, favor what the client gives us explicitly. In this scenario, a race is possible and the client will either need to correct the data at run-time or the developer will need to instrument their code with priority values such that a race does not occur.
+
+When priorities are not specified they MUST default to `0`. This can happen in custom controls and update methods the client calls which omit an explicit priority, or when the controls are first created by the server when the client connects.
 
 For example, a full Button control object might look something like this:
 
@@ -346,7 +357,6 @@ For example, a full Button control object might look something like this:
   {
     "controlID": "win_the_game_btn",
     "kind": "button",
-    "etag": "43590660",
     "text": "Win the Game",
     "cost": 0,
     "progress": 0.25,
@@ -361,12 +371,13 @@ In order to update the "disabled" state, the caller should execute a method like
     "type": "method",
     "id": 123,
     "method": "updateControls",
+    "seq": 42,
     "params": {
+      "priority": 1,
       "sceneID": "my awesome scene",
       "controls": [
         {
           "controlID": "win_the_game_btn",
-          "etag": "43590660",
           "disabled": true
         }
       ]
@@ -674,13 +685,12 @@ The Participant object returned from many methods in this section contains the f
 - ``connectedAt``, the unix milliseconds timestamp when the user connected.
 - ``disabled`` (settable), a boolean set to true if the user's input as been disabled.
 - ``groupID`` (settable), a string referencing the group the user belongs to.
-- ``meta`` is a map of custom property names to etagged values; you can use this to attach custom metadata to users which will be visible to custom controls. The ``value``s of these are permitted to be any valid JSON.
+- ``meta`` is a map of custom properties; you can use this to attach custom metadata to users which will be visible to custom controls. The ``value``s of these are permitted to be any valid JSON.
 
 .. code-block:: js
 
   {
     "sessionID": "efe5e1d6-a870-4f77-b7e4-1cfaf30b097e",
-    "etag": "54600913",
     "userID": 146,
     "username": "connor",
     "level": 67,
@@ -690,7 +700,6 @@ The Participant object returned from many methods in this section contains the f
     "groupID": "default",
     "meta": {
       "is_awesome": {
-        "etag": 37849560,
         "value": true
       }
     }
@@ -853,7 +862,7 @@ Iterating over the list in pseudo-code might look something like the following:
 updateParticipants |Server Method|
 ''''''''''''''''''''''''''''''''''
 
-Bulk-updates participants objects. Each participant in the array MUST contain the participant ID to update, along with zero or more properties which should be updated. The objects MUST contain the current ``etag`` the client thinks that each participant is tagged with. The server will respond with a list of updated participants and their new etags.
+Bulk-updates participants objects. Each participant in the array MUST contain the participant ID to update, along with zero or more properties which should be updated. The server will respond with a list of updated participants.
 
 The patch SHALL either be applied for all participants and properties or fail; in no case will the server apply only a subset of the updates. If a participant is listed who is not connected to the integration, the update to that participant will be ignored.
 
@@ -864,14 +873,13 @@ The patch SHALL either be applied for all participants and properties or fail; i
     "id": 123,
     "method": "updateParticipants",
     "params": {
+      "priority": 0,
       "participants": [
         {
           "sessionID": "505cfe7c-123f-40e7-8c78-754103d16531",
-          "etag": "100650688",
           "groupID": "red_team",
           "meta": {
             "is_awesome": {
-              "etag": 37849560,
               "value": false
             }
           }
@@ -894,21 +902,6 @@ The patch SHALL either be applied for all participants and properties or fail; i
       "id": 123
     }
 
-- An example server response if an etag is mismatched:
-
-  .. code-block:: js
-
-    {
-      "type": "reply",
-      "result": null,
-      "error": {
-        "code": 4005,
-        "message": "Etag mismatch.",
-        "path": "participants.0.etag"
-      },
-      "id": 123
-    }
-
 - An example server response if the group does not exist:
 
   .. code-block:: js
@@ -927,7 +920,7 @@ The patch SHALL either be applied for all participants and properties or fail; i
 createGroups |Server Method|
 ''''''''''''''''''''''''''''
 
-``createGroups`` creates one or more new groups. Each group can be set to an initial Scene, default to the ``default`` scene if one is not provided. Group IDs MUST be unique. The client MAY provide an initial etag for the groups.
+``createGroups`` creates one or more new groups. Each group can be set to an initial Scene, default to the ``default`` scene if one is not provided. Group IDs MUST be unique.
 
 .. code-block:: js
 
@@ -939,7 +932,6 @@ createGroups |Server Method|
       "groups": [
         {
           "groupID": "red_team",
-          "etag": "203125580",
           "sceneID": "has_control"
         },
         {
@@ -1017,7 +1009,6 @@ getGroups |Server Method|
         "groups": [
           {
             "groupID": "red_team",
-            "etag": "203125580",
             "sceneID": "has_control"
           }
         ]
@@ -1027,7 +1018,7 @@ getGroups |Server Method|
 updateGroups |Server Method|
 ''''''''''''''''''''''''''''
 
-Updates groups that already exist. The array of groups MUST contain each group's ID, along with zero or more properties which should be updated. The objects MUST contain the current ``etag`` the client thinks that each group is tagged with The server will respond with a list of the updated groups, including their new etags.
+Updates groups that already exist. The array of groups MUST contain each group's ID, along with zero or more properties which should be updated. The server will respond with a list of the updated groups.
 
 The patch SHALL either be applied for all groups and properties or fail; in no case will the server apply only a subset of the updates.
 
@@ -1041,7 +1032,6 @@ The patch SHALL either be applied for all groups and properties or fail; in no c
       "groups": [
         {
           "groupID": "red_team",
-          "etag": "205390751",
           "sceneID": "lobby"
         }
       ]
@@ -1087,21 +1077,6 @@ The patch SHALL either be applied for all groups and properties or fail; in no c
         "code": 4011,
         "message": "Unknown group ID specified.",
         "path": "groups.0.sceneID.value"
-      },
-      "id": 123
-    }
-
-- An example server response if an etag is mismatched:
-
-  .. code-block:: js
-
-    {
-      "type": "reply",
-      "result": null,
-      "error": {
-        "code": 4005,
-        "message": "Etag mismatch.",
-        "path": "groups.0.etag"
       },
       "id": 123
     }
@@ -1217,9 +1192,7 @@ The server SHALL call this method when a group is updated. This SHALL NOT be cal
 Scene Setup
 ^^^^^^^^^^^
 
-Although scenes and controls can be created via our interactive studio, the game client also has full control over their display and can manipulate them at runtime.
-
-Each control is identified uniquely by its ID, a UTF-8 string, and has an ``etag`` which must be presented to change that its properties. For an example of what a Button might look like in this form, see the `Synchronization`_ section.
+Although scenes and controls can be created via our interactive studio, the game client also has full control over their display and can manipulate them at runtime. Each control is identified uniquely by its ID, a UTF-8 string.
 
 Built-In Controls
 '''''''''''''''''
@@ -1342,7 +1315,7 @@ A position object has the following properties:
 createScenes |Server Method|
 ''''''''''''''''''''''''''''
 
-Creates new scenes. The sceneIDs can be any valid UTF-8 sequence of characters. You can optionally choose to provide an array of ``controls`` to set on the scene initially rather than requiring further ``addControl`` calls. The client MUST provide a fully-qualified, tagged control object in this method; the etags provided will be used as their initial values. Either all scenes and controls will be created or an error will be returned, the server SHALL NOT apply partial updates.
+Creates new scenes. The sceneIDs can be any valid UTF-8 sequence of characters. You can optionally choose to provide an array of ``controls`` to set on the scene initially rather than requiring further ``addControl`` calls. The client MUST provide a fully-qualified control object in this method. Either all scenes and controls will be created or an error will be returned, the server SHALL NOT apply partial updates.
 
 .. code-block:: js
 
@@ -1354,11 +1327,9 @@ Creates new scenes. The sceneIDs can be any valid UTF-8 sequence of characters. 
       "scenes": [
         {
           "sceneID": "my awesome scene",
-          "etag": "252185589",
           "controls": [ // array of control objects
             {
               "controlID": "win_the_game_btn",
-              "etag": "262111379",
               "kind": "button",
               "text": "Win the Game",
               "cost": 0,
@@ -1366,7 +1337,6 @@ Creates new scenes. The sceneIDs can be any valid UTF-8 sequence of characters. 
               "disabled": false,
               "meta": {
                 "glow": {
-                  "etag": 254353748,
                   "value": {
                     "color": "#f00",
                     "radius": 10
@@ -1503,7 +1473,7 @@ Removes a scene by id, reassigning any groups who were on that scene to a differ
 updateScenes |Server Method|
 ''''''''''''''''''''''''''''
 
-Updates scenes that already exist. The array of scenes MUST contain each scene's ID, along with zero or more properties which should be updated. The objects MUST contain the current ``etag`` the client thinks that each scene is tagged with The server will respond with a list of the updated scenes, including their new etags.
+Updates scenes that already exist. The array of scenes MUST contain each scene's ID, along with zero or more properties which should be updated. The server will respond with a list of the updated scenes.
 
 The patch SHALL either be applied for all scenes and properties or fail; in no case will the server apply only a subset of the updates.
 
@@ -1514,14 +1484,13 @@ The patch SHALL either be applied for all scenes and properties or fail; in no c
     "id": 123,
     "method": "updateScenes",
     "params": {
+      "priority": 0,
       "scenes": [
         {
           "sceneID": "my awesome scene",
-          "etag": "252185589",
           "controls": [ // array of control objects
             {
               "controlID": "win_the_game_btn",
-              "etag": "262111379",
               "kind": "button",
               "text": "Win the Game",
               "cost": 0,
@@ -1529,7 +1498,6 @@ The patch SHALL either be applied for all scenes and properties or fail; in no c
               "disabled": false,
               "meta": {
                 "glow": {
-                  "etag": 254353748,
                   "value": {
                     "color": "#f00",
                     "radius": 10
@@ -1582,22 +1550,6 @@ The patch SHALL either be applied for all scenes and properties or fail; in no c
         "code": 4011,
         "message": "Unknown scene ID specified.",
         "path": "scenes"
-      },
-      "id": 123
-    }
-
-
-- An example server response if an etag is mismatched:
-
-  .. code-block:: js
-
-    {
-      "type": "reply",
-      "result": null,
-      "error": {
-        "code": 4005,
-        "message": "Etag mismatch.",
-        "path": "scenes.0.etag"
       },
       "id": 123
     }
@@ -1657,7 +1609,7 @@ The server SHALL call this method when a scene is updated. This SHALL NOT be cal
 createControls |Server Method|
 ''''''''''''''''''''''''''''''
 
-Creates one or more new controls in a scene. The client MUST provide a fully-qualified, tagged control object in this method; the etags provided will be used as their initial values.
+Creates one or more new controls in a scene. The client MUST provide a fully-qualified control object in this method.
 
 .. code-block:: js
 
@@ -1758,7 +1710,7 @@ Removes one or more controls by their ID.
 updateControls |Server Method|
 ''''''''''''''''''''''''''''''
 
-Updates control objects already present in a scene. The target scene and array of controls MUST be provided. Each control MUST contain the ID to update, along with zero or more properties which should be updated. The objects MUST contain the current ``etag`` the client thinks that each control is tagged with. The server will respond with a list of updated controls and their new etags.
+Updates control objects already present in a scene. The target scene and array of controls MUST be provided. Each control MUST contain the ID to update, along with zero or more properties which should be updated.  The server will respond with a list of updated controls.
 
 The patch SHALL either be applied for all controls and properties or fail; in no case will the server apply only a subset of the updates.
 
@@ -1769,15 +1721,14 @@ The patch SHALL either be applied for all controls and properties or fail; in no
     "id": 123,
     "method": "updateControls",
     "params": {
+      "priority": 0,
       "sceneID": "my awesome scene",
       "controls": [
         {
           "controlID": "win_the_game_btn",
-          "etag": "262111379",
           "disabled": true,
           "meta": {
             "glow": {
-              "etag": 254353748,
               "value": false
             }
           }
@@ -1825,22 +1776,6 @@ The patch SHALL either be applied for all controls and properties or fail; in no
         "code": 4011,
         "message": "Unknown scene ID specified.",
         "path": "controls"
-      },
-      "id": 123
-    }
-
-
-- An example server response if an etag is mismatched:
-
-  .. code-block:: js
-
-    {
-      "type": "reply",
-      "result": null,
-      "error": {
-        "code": 4005,
-        "message": "Etag mismatch.",
-        "path": "controls.0.etag"
       },
       "id": 123
     }
@@ -2219,6 +2154,11 @@ code_test.go
 
 Changelog
 ---------
+
+1.4.0 (2017-07-03)
+''''''''''''''''''
+
+ - Replace etags with prioritized updates.
 
 1.3.1 (2017-05-04)
 ''''''''''''''''''
