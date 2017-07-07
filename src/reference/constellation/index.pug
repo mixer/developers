@@ -209,5 +209,20 @@ block reference
                             small
                                 +typeNameString({ type: data.payload.type, required: true })
                             +simpleType('', data.payload, true)
+                        if data.example
+                            p
+                                a(href=`#example_${name.replace(/\W/g, '_')}`) See example
+                            .modal.fade(tabindex='0' id=`example_${name.replace(/\W/g, '_')}`)
+                                .modal-dialog.modal-lg
+                                    .modal-content
+                                        .modal-header
+                                            button.close(type='button' data-dismiss='modal' aria-hidden='true')!= '&times'
+                                            h4.modal-title
+                                                span.text-primary(style='font-weight:300') Example
+                                                | &nbsp;
+                                                span= name
+                                        .modal-body
+                                            code
+                                                +highlightStr('json', JSON.stringify(data.example, ' ', 2))
 
     include ../../snippets/help.pug
