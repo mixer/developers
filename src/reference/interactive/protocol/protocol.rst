@@ -1238,7 +1238,7 @@ The following are a list of built in controls, which can be serialized as JSON i
 
   - ``keycode: integer``
 
-    A JavaScript keycode which participant's use to trigger this button via their keyboard.
+    A JavaScript keycode which participants use to trigger this button via their keyboard.
 
   - ``text: string``
 
