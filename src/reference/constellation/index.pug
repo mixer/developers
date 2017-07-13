@@ -223,6 +223,8 @@ block reference
                                                 span= name
                                         .modal-body
                                             code
-                                                +highlightStr('json', JSON.stringify(data.example, ' ', 2))
-
+                                                if typeof data.example === 'object'
+                                                    +highlightStr('json', JSON.stringify(data.example, ' ', 2))
+                                                else
+                                                    =data.example
     include ../../snippets/help.pug
