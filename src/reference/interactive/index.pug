@@ -21,9 +21,7 @@ block reference
 
     h2#introduction Introduction
 
-    p This documentation provides an overview of Mixer Interactive features and explains how developers can use them to add interactivity into their game or application.
-
-    p Mixer Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface (UI) controls. When a broadcast has interactivity enabled, UI controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur in the broadcast.
+    p Mixer Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface controls. When a broadcast has interactivity enabled, controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur within the broadcast.
 
     p Developers and producers can create interactive experiences which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
 
@@ -41,12 +39,12 @@ block reference
 
     .figure
         img(src='/img/reference/interactive/HighLevelOverview.svg' alt='Diagram showing the structure of an interactive project')
-        p.caption Diagram shows the structure of an interactive project
+        p.caption Diagram showing the structure of an interactive project
 
     h3#the-gameclient The Game Client
     p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service], and listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
 
-    p You can create a Game Client as part of various environments, such as:
+    p A Game Client can be created for a variety of environments, such as:
     ul
         li Within a game's current codebase
         li In a third party mod of a game
@@ -59,7 +57,7 @@ block reference
 
     h3#an-interactive-project An Interactive Project
 
-    p An Interactive Project stores settings and metadata about your interactive experience. It is created by developers through the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. Projects are owned by a single Mixer user but can be #[a(href='#sharing-your-project') shared] with other users.
+    p An Interactive Project stores settings and metadata about an interactive experience. They are created by developers through the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. Projects are owned by a single Mixer user but can be #[a(href='#sharing-your-project') shared] with other users.
 
     p Within the Studio you can:
     ul
@@ -72,11 +70,11 @@ block reference
 
     h3#participants Participants
 
-    p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with a set of on-screen UI controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
+    p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with the controls within the Project, that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to events and interactive input to change the controls that are displayed to participants.
 
     h2#interactive-experience-structure Interactive Experience Structure
 
-    p In this section, let’s look at the hierarchical structure of the various elements that developers can use to create this interaction.
+    p An Interactive experience contains hierarchical structure of various elements.
 
     p These elements are:
     ul
@@ -92,7 +90,7 @@ block reference
 
     h3#scenes Scenes
 
-    p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. This grid layout determines how they are displayed to participants.
+    p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. The grid's layout determines how the controls are displayed to participants.
 
     p The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene. It controls which scenes (and controls) are shown to which participants throughout the session. Scenes are used to group controls together in a coherent fashion that is meaningful to the experience.
 
@@ -107,7 +105,7 @@ block reference
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create a "Allies" group and a "Adversaries" group.
 
-    p The ”Allies” group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the ”Adversaries” group could spawn traps or monsters to try to get in the way of winning - using their controls.
+    p The "Allies" group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the "Adversaries" group could spawn traps or monsters to try to get in the way of winning - using their controls.
 
     p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
@@ -305,15 +303,15 @@ block reference
         img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
     p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
 
-    p The first option, “Nobody can play this game until published”, is the default. Selecting this option allows only the project owner to use the project in a broadcast.
+    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast.
 
     h4#share-codes Share Codes
-    p The second, “Anyone with the versionId and code can play”, option generates a share code. This code can be handed out to broadcasters who wants to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
+    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who wants to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
     .figure
         img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
 
-    p The third option, “Only allow specific users to play until published”, is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
+    p The third option, "Only allow specific users to play until published", is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
     .figure
         img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
