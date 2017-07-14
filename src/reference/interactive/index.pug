@@ -21,20 +21,20 @@ block reference
 
     h2#introduction Introduction
 
-    p Mixer Interactive is a new way to let viewers directly control the environment in and around streamer’s broadcasts by letting viewers interact using a user interface. When a broadcast has interactivity enabled visual controls will appear beneath the broadcast's video that respond directly to the events of the broadcast. These controls can dynamically update as the broadcast progresses in response to different situations that occur.
+    p Mixer Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface controls. When a broadcast has interactivity enabled, controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur within the broadcast.
 
-    p Interactive developers and producers author interactive experiences which can run as a part of a Game or be their own entirely standalone application or tool. These experiences then get used by broadcasters to make their broadcasts interactive.
+    p Developers and producers can create interactive experiences which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
 
-    p When a viewer interacts with controls, their input is sent directly to the experience allowing it to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Mixer broadcasts on a whole new level.
+    p When a viewer interacts with the controls, their input is sent directly to the experience, allowing the developers to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Mixer broadcasts on a whole new level.
 
     h2#overview Overview
 
-    p These are the four major components used to create an interactive experience:
+    p These four major components make up an interactive experience:
 
     ol(style='list-style-type: decimal')
-        li The Game Client
-        li The Interactive Service
-        li An Interactive Project
+        li Game Client
+        li Interactive Service
+        li Interactive Project
         li Participants
 
     .figure
@@ -42,22 +42,22 @@ block reference
         p.caption Diagram showing the structure of an interactive project
 
     h3#the-gameclient The Game Client
-    p A Game Client is software code which processes Interactive events.It is written by an Interactive developer. Game Clients make connections to the #[a(href='#the-interactive-service') Interactive Service] and listen to events emitted from the service and take action within their environment, thus affecting the broadcast.
+    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service] and listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
 
-    p Game Clients can run in any environment, including:
+    p A Game Client can be created for a variety of environments, such as:
     ul
-        li In a game's existing code
-        li In a 3rd party mod for a game
-        li In a standalone application
-        li In a game's server-side service
+        li Within a game's current codebase
+        li In a third party mod of a game
+        li As a standalone application
+        li As a game's server-side service
 
     h3#the-interactive-service The Interactive Service
 
-    p The Interactive Service is a service operated by Mixer. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data emitted from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. To interact with the session or update any state in the session a Game Client has to send messages to the service.
+    p The Interactive Service is a service operated by Mixer. A Game Client connects to it to create an interactive session. Once a session is established, the service acts as a mediator for the Interactive session. The service manages data flow and state within the session by processing and distributing data sent to and from both the #[a(href='#the-gameclient') Game Client] and #[a(href='#participants') Participants]. The Game Client sends messages to the service when it needs to update the session state or to interact with the session.
 
     h3#an-interactive-project An Interactive Project
 
-    p An Interactive Project is created by a developer or team on Mixer within our #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. It stores settings and metadata about your interactive experience. Projects are owned by a single Mixer user but can be #[a(href='#sharing-your-project') shared] with other users.
+    p An Interactive Project stores settings and metadata about an interactive experience. They are created by developers through the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. Projects are owned by a single Mixer user but can be #[a(href='#sharing-your-project') shared] with other users.
 
     p Within the Studio you can:
     ul
@@ -66,15 +66,15 @@ block reference
         li Control who can access your project
         li Publish your project for everyone on Mixer to see and use
 
-    p When a #[a(href='#the-gameclient') Game Client] connects to the Interactive Service, the game client provides your project's ID. The service reads this ID and sets up an interactive session with the saved settings and controls created in the studio.
+    p When a #[a(href='#the-gameclient') Game Client] connects to the Interactive Service, it provides your project's ID to the service. The service reads this ID and sets up an interactive session with the saved settings and controls created in the Studio.
 
     h3#participants Participants
 
-    p Participants are Mixer users that are watching a broadcast in a broadcaster's channel. When they join the channel they are connected to the interactive session. They are provided with a set of on-screen controls that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to game scenarios and interactive input to change the controls displayed to participants.
+    p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with the controls within the Project, that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to events and interactive input to change the controls that are displayed to participants.
 
     h2#interactive-experience-structure Interactive Experience Structure
 
-    p An Interactive experience contains a hierarchical structure of various elements that interact with and affect the experience.
+    p An Interactive experience contains hierarchical structure of various elements.
 
     p These elements are:
     ul
@@ -84,64 +84,70 @@ block reference
         li Participants
 
     .figure
-        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Relationship between elements in the interactive hierarchy.')
+        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Diagram showing the Relationship between elements in the interactive hierarchy.')
 
-    p.caption Relationship between elements in the interactive hierarchy.
+    p.caption Diagram showing the relationship between elements in the interactive hierarchy.
 
     h3#scenes Scenes
 
-    p A scene is a named collection of controls. These controls get arranged within the scene on a grid which controls how they are displayed to participants. The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene and control which participants are seeing which scene throughout the session. Scenes can be used to group controls together in a coherent fashion that has some meaning to the experience.
+    p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. The grid's layout determines how the controls are displayed to participants.
 
-    p For example, in an adventure game, you might have a "Battle" scene which is displayed when a broadcaster is in battle and a "Field" scene which is displayed when they are walking around in the game world.
+    p The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene. It controls which scenes (and controls) are shown to which participants throughout the session. Scenes are used to group controls together in a coherent fashion that is meaningful to the experience.
 
-    p All #[a(href='#an-interactive-project') Interactive Projects] contain a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client] all participants and #[a(href='#groups') groups] will start on the default scene.
+    p For example, in an adventure game, you might have a "Battle" scene displayed when a broadcaster's game character is in battle; a "Field" scene displayed when the character is walking around in the game world.
 
-    p A #[a(href='#the-gameclient') Game Client] can change which scene a participant sees by updating the #[a(href='#groups') group] they belong to.
+    p All #[a(href='#an-interactive-project') Interactive Projects] have a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client], all participants and #[a(href='#groups') groups] are shown the default scene.
+
+    p The #[a(href='#the-gameclient') Game Client] can change the scene that a participant sees by updating the #[a(href='#groups') group] they belong to.
 
     h3#groups Groups
-    p Groups are a way to group individual participants together. #[a(href='#participants') Participants] within a group all see the same #[a(href='#scenes') Scene] and can contribute input to the controls on that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups at any time, including changing which scene the group is set to.
+    p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
 
-    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. For example, say a broadcaster is playing an adventure game. Interactive developers could create a "Helper" group and a "Hinderer" group. The help team would be able to heal the broadcaster and grant them buffs. The Hinderer team could spawn traps or monsters to try and get in the broadcasters way.
+    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create an "Allies" group and an "Adversaries" group.
 
-    p All participants start out in the default group. #[a(href='#the-gameclient') Game Clients] can re-assign participants to any group from the #[a(href='#the-gameclient') Game Client].
+    p The "Allies" group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the "Adversaries" group could spawn traps or monsters to try to get in the way of winning - using their controls.
+
+    p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
     h3#controls Controls
-    p A Control is an interactive component within a scene. #[a(href='#participants') Participants] can individually interact with the control, usually with their keyboard, mouse or controller. Interactive currently has two types of controls, but additional types may be added in the future. These two controls are Buttons and Joysticks.
+    p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently two types of controls - Buttons and Joysticks. Additional control types may be added in the future.
 
     h4#buttons Buttons
-    .figure
-        img(src='/img/reference/interactive/button.png' alt='A button control as displayed to a participant. This button costs one spark to press.')
-    p.caption A button control as displayed to a participant. This button costs one spark to press.
-    p Buttons are a rectangle positioned within a scene that a participant can click with their mouse or trigger with their keyboard or controller. #[a(href='#the-gameclient') Game Clients] receive events when a button is interacted with:
+
+    p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
 
     ul
-        li `mousedown` - Emitted when a button is pressed by a participant.
-        li `mouseup` - Emitted when a button is released by a participant.
+        li #[code mousedown] event is sent when a button is pressed by a participant
+        li #[code mouseup] event is sent when a button is released by a participant
 
-    p Interactive developers can use buttons to allow participants to contribute to votes, cause actions to happen or even control in-game entities directly.
+    .figure
+        img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
+    p.caption Sample button control which costs the participant one spark if they click on it.
 
-    p Buttons have a number of properties which can be edited in both the Interactive Studio and from a Game Client.
+    p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
+
+    p Buttons are customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
     ol(style='list-style-type: decimal')
-        li Displayed text
-        li Spark Cost
-        li Progress Bar Width - Displayed at the bottom of a button.
-        li Disabled State - Disabled buttons cannot be interacted with.
-        li Cooldown Duration - Prevents interaction until it expires.
+        li Text displayed on the button
+        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
+        li Width of the progress bar, which is displayed at the bottom of a button
+        li Disabled state - Buttons which are disabled cannot be interacted with
+        li Cooldown duration - Prevents interaction until it expires
 
     h5#what-are-sparks What are Sparks?
 
-    p Sparks are Mixer's virtual currency. Participants earn them while watching or participating in streams everywhere on Mixer.
+    p Sparks are Mixer's virtual currency. Participants earn them while watching or participating in broadcasts everywhere on Mixer.
 
     h5#spark-transactions Spark Transactions
     .figure
         img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
-    p.caption Diagram of a spark transaction's life cycle, showing its transition betwen states.
+    p.caption Diagram of a spark transaction's life cycle, showing its transition between states.
 
-    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it expires, and the cost associated with the transaction is not deducted from the user's spark balance.
+    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
 
-    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide if a button push should deduct sparks from a participant. This feature is a great way to ensure that input from a participant is used for something in the experience before deducting sparks from their balance.
+    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been converted into the expected action associated with the button press before deducting sparks from their balance.
 
-    p Deducted sparks are #[strong not] transfered to the broadcaster.
+    p Note that deducted sparks are #[strong not] transferred to the broadcaster.
 
     h4#joysticks Joysticks
 
@@ -159,16 +165,16 @@ block reference
     p Interested in making an Interactive Project? Let's get started!
 
     h3#prerequisites Prerequisites
-    p Before getting started, you should have the following things:
+    p Before you begin, we recommend that you have:
 
     ul
-        li A Mixer user account.
-        li Some knowledge of programming, unless you're using an existing Game Client or Interactive Application.
-        li An awesome idea.
+        li A Mixer user account
+        li Some knowledge of programming, unless you're using an existing Game Client or Interactive Application
+        li An awesome idea
 
-    h3#choosing-an-sdk-environment Choosing an SDK / Environment
+    h3#choosing-an-sdk-environment Choose a SDK
 
-    p If you're making a Game Client from scratch, you'll need to pick an Interactive SDK.
+    p If you're making a Game Client from scratch, you'll need to use an Interactive SDK.
 
     table.table
         tr
@@ -177,15 +183,15 @@ block reference
             th Documentation
             th Description
         tr
-            td Typescript, Nodejs & Browsers
+            td Typescript, Node.js & Browsers
             td #[a(href='https://github.com/mixer/interactive-node' target='_blank') GitHub]
             td #[a(href='https://mixer.github.io/interactive-node' target='_blank') Reference Docs]
-            td Great for Interactive tools and utilities and beginners.
+            td Great for creating Interactive tools and utilities. Suitable for beginners.
         tr
             td C++
             td #[a(href='https://github.com/mixer/interactive-sdk-cpp' target='_blank') GitHub]
             td #[a(href='/reference/interactive/cplusplus/index.html' target='_blank') Reference Docs]
-            td Integrate directly into a C++ Game.
+            td Add Beam Interactive features directly into a C++ Game.
         tr
             td Unity
             td #[a(href='https://www.assetstore.unity3d.com/en/#!/content/88585') Asset Store]
@@ -193,56 +199,64 @@ block reference
                 span #[a(href='/reference/interactive/csharp/index.html' target='_blank') Reference Docs]
                 br
                 span #[a(href='https://github.com/mixer/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
-            td Prototype Quickly or integrate into a Unity based Game.
+            td Add Mixer Interactive features into a game created using Unity and also good for quick prototyping.
 
-    p Once you've chosen an SDK from the above list, download it from its repository and get it setup in your favorite IDE and ready to go.
+    p Download the appropriate SDK that your project needs from the repository and create a new project in your favorite IDE.
 
-    h3#creating-an-interactive-project Creating an Interactive Project
-    p Interactive projects are created and configured in the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio]. To create a new project visit the #[a(href='https://mixer.com/i/studio' target='_blank') studio] and click on the plus button:
+    h3#creating-an-interactive-project Create a new Interactive Project
+
+    p Interactive projects are created and configured in the #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio].
+
+    p Go to #[a(href='https://mixer.com/i/studio' target='_blank') Studio] and click on the #[strong plus] button to create a new project.
 
     .figure
         img(src='/img/reference/interactive/studio/createNewProject.png' alt='Screenshot showing the location of the create new project button')
-    p.caption Screenshot showing the location of the create new project button.
+    p.caption Screenshot shows the location of the Create new project button.
 
-    p You'll then be prompted to enter a name for your project. Once a name is entered you'll be taken to the Project Editor.
+    p You'll then be prompted to enter a name for your project. Enter a suitable name for your project.
 
-    p The project editor contains tabs where each tab is a step in the creation of your project.
+    p After creating the project, you can still modify your project using the editor.
+
+    h3#configure-build-publish-the-project Configure, build, and publish the project
+    p The project editor contains tabs where each tab is a step in the creation of your project. Use the project editor to configure, build, and publish your project.
     .figure
         img(src='/img/reference/interactive/studio/editorTabs.png' alt='studio editor tabs')
-    p The steps are:
+
+    p The editor consists of these four tabs:
     ul
-        li Info - Edit the project name and Metadata about it.
-        li Build - Configure Scenes and Controls.
-        li Code - Hook your Game Client up to the Project and get coding.
+        li Info - Edit the project name and metadata
+        li Build - Configure Scenes and Controls
+        li Code - Hook your Game Client up to the Project and start coding
         li Publish - Submit your project for review by the Mixer team.
-    h3#the-info-step The Info Step
+
+    h3#the-info-step Info
     p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
-    p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can get ahold of you if they need help or have found a bug.
-    p During the pre-publish review the Mixer team will examine your project closely to gain an understanding of what your project does, so be as thorough as possible.
+    p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can contact you if they need help or want to report an issue.
+    p During the pre-publish review process, the Mixer team examines your project more closely. We use this information to gain an understanding of what your project does, so be as thorough as possible.
 
-    h3#the-build-step The Build Step
+    h3#the-build-step Build
 
-    p The build step is where you design your scenes and controls for your project. The interface is divided up in to three areas:
+    p The build step is where you design your scenes and controls for your project. The interface is divided up into three sections:
     ul
         li Scenes
         li Controls
         li Grid
 
-    h4#scenes-area Scenes Area
+    h4#scenes-area Scenes section
 
-    p This is where you will manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select the current scene that you would like to manage controls for.
+    p This is where you'll manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select a specific scene that you would like to manage controls for.
 
     .figure
         img(src='/img/reference/interactive/studio/scenes.png' alt='studio scenes')
 
-    h4#controls-area Controls Area
+    h4#controls-area Controls section
 
-    p This is where you will manage the controls for the scenes in your project. Controls can be created, renamed, have their type (button or joystick) changed, spark cost adjusted, or deleted.
+    p This is where you'll manage the controls in your project. You can create, rename, change the type (button or joystick), adjust spark cost, or delete controls here.
 
     .figure
         img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
 
-    h4#grid-area Grid Area
+    h4#grid-area Grid section
 
     p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
 
@@ -254,50 +268,50 @@ block reference
     .figure
         img(src='/img/reference/interactive/studio/grid_with_controls.png' alt='studio grid')
 
-    h3#the-code-step The Code Step
-    p With your projects scenes and controls set up, now it is time to complete the code portion of your project. You will need to write your own Game Client that will connect to the Interactive service.
+    h3#the-code-step Code
+    p The code step is to help you complete the code portion of your project. This is usually done after you have set up the scenes and controls. This is also where you can grab the #[code Project Version ID] which is displayed in the center of the screen.
 
-    p Grab your #[code Project Version ID] from the code step displayed in the center of the screen and then utilize the documentation and samples from your #[a(href='#choosing-an-sdk-environment') chosen SDK] and get creating.
+    p You will need to write your own Game Client to connect to the Interactive service. For SDK downloads, documentation, and samples, go to #[a(href='#choosing-an-sdk-environment') Choose a SDK].
 
-    h3#publish-step The Publish Step
+    h3#publish-step Publish
     p The final step in the studio is Publish. Publish allows you to share your project with everyone on Mixer.
 
-    p Before considering if an Interactive project is ready for publishing a series of questions should be asked.
+    p To help you decide whether your Interactive project is ready for publishing, these are some questions to ask:
 
     ul
-        li Is this project something that everyone would use?
-        li Is this project ready for every Mixer broadcaster to have access to?
-        li Is the info tab filled in with #[strong detailed] installation and setup instructions?
+        li Is your project something that everyone would use?
+        li Is your project ready for every Mixer broadcaster to have access to?
+        li Have you filled in the Info tab with #[strong detailed] installation and setup instructions?
 
-    p If the answer to any of these is no, then the project should #[strong not] be published. For cases where the project would suit being shared with a smaller group of users, it can be #[a(href='#sharing-your-project') shared] instead.
+    p If you’ve answered no to any of the questions above, you should #[strong not] publish your project yet. If you would like to have a small group of users to be able to access it, consider #[a(href='#sharing-your-project') sharing] your project instead.
 
-    h4#publishing-flow Publishing Flow
+    h4#publishing-flow Understand the Publishing Flow
     .figure
-        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio pubish process')
-    p A Project starts off in the draft state. In this state, you can freely make edits to it and test and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
+        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio publish process')
+    p A Project starts off as a draft. In this state, you are free to edit, test, and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
 
-    p Once you've decided to publish your project, visit the publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to submit the project.
-    p Once submitted the Interactive review team at Mixer are notified and will begin a review. While a project is in review you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
-    p After a review is conducted, your project will either be accepted for publishing or denied and returned the draft state with feedback on what would need to change to get the project to a publishable state.
-    p Should your project be accepted, a date can be discussed with the Mixer team and the developers of the project. On this date, the project will be made available for all Mixer users in our Interactive Store.
+    p When you've decided to publish your project, go to the Publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to click on the Submit button.
+    p Once you've submitted your project, the Interactive review team at Mixer is notified, and we will begin the review process. While a project is in review, you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
+    p After a review is conducted, you'll be notified whether your project is accepted for publishing or not. If your project is not accepted for publishing, it goes back to the draft state with feedback from the team, detailing what needs to change so that your project can be successfully published.
+    p Once your project is accepted for publishing, we can start discussing the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
 
     h3#sharing-your-project Sharing an Interactive Project
-    p By default only the project's owner can use a project in a broadcast. However if you'd like other beam broadcasters to use it, then you have several options.
+    p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are the only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
 
-    p To manage a project's share settings click the share button in the top right of the editor.
+    p To manage a project's share settings, click the Share icon on the top right of the editor, as shown in the screenshot below.
     .figure
         img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
-    p A dialog will be presented with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
+    p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
 
-    p The first is the default and only lets the project owner use the project in a broadcast.
+    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast.
 
     h4#share-codes Share Codes
-    p The second, “Anyone with the versionId and code can play”, option generates a share code. This code can be handed out to broadcasters who wants to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
+    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who want to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
     .figure
         img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
 
-    p The third option, “Only allow specific users to play until published”, is explicit sharing it lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a user search for their username in the search box and then click add.
+    p The third option, "Only allow specific users to play until published", is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
     .figure
         img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
@@ -318,26 +332,26 @@ block reference
 
     p A method can contain parameters which get provided to the recipient.
 
-    p Methods contain an additional property called #[code discard] which when true indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to true.
+    p Methods contain an additional property called #[code discard], which when #[code true], indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to #[code true].
 
     h4#reply Reply
-    p A reply is sent from a recipient back to the caller to indicate the result of executing that method. It can contain a #[code result] or an #[code error] which indicates what went wrong.
+    p A reply is sent from a recipient back to the caller informing them about the result after executing the method that was sent. It can contain a #[code result] or an #[code error] which indicates what went wrong.
 
-    p For full packet implementation details please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') here].
+    p For full packet implementation details, please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') here].
 
     h3#compression Compression
-    p By default packets on the wire are transmitted as plaintext, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
+    p By default, packets on the wire are transmitted as plain text, but the Game Client can opt to use #[a(href='https://tools.ietf.org/html/rfc1952' target='_blank') GZIP] or #[a(href='https://lz4.github.io/lz4/' target='_blank') LZ4] compression. To do this, the Game Client must call a method providing its supported compression formats. The server will then respond with its chosen compression format.
 
     h3#authentication Authentication
-    p A Game Client needs to authenticate as a Mixer user when establishing an interactive session. Two authentication methods are available.
+    p A Game Client needs to authenticate as a Mixer user when establishing an interactive session. There are two authentication methods available.
 
     h4(id='oauth-2.0') OAuth 2.0
     p Mixer supports #[a(href='https://tools.ietf.org/html/rfc6749' target='_blank') OAuth 2.0] flows which enable you to get a valid #[a(href='https://tools.ietf.org/html/rfc6750' target='_blank') OAuth 2.0 Bearer] token. Tokens can be passed in the #[code Authorization] header when you initiate a connection to the interactive service.
 
-    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Mixer's OAuth visit the #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
+    p The only required scope for an interactive connection is #[code interactive:robot:self]. For more information about Mixer's OAuth, go to #[a(href='/reference/oauth/index.html' target='_blank') OAuth reference page].
 
     h4#xtoken XToken
-    p You can provide an XBL XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is leveraged for Universal Windows Platform applications that are Xbox Live enabled, as well as games on Xbox One
+    p You can provide a Xbox Live XToken in the #[code Authorization] header when you initiate a connection to the interactive service. This authentication method is useful for Universal Windows Platform (UWP) applications that are Xbox Live enabled, as well as games on Xbox One.
 
     h2#where-to-get-help Where to get help
     p Have questions? Stuck? We're here to help! We have places you can get help so drop by!
