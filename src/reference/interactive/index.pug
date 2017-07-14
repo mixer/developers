@@ -44,7 +44,7 @@ block reference
         p.caption Diagram shows the structure of an interactive project
 
     h3#the-gameclient The Game Client
-    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service], listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
+    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service], and listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
 
     p You can create a Game Client as part of various environments, such as:
     ul
@@ -98,12 +98,12 @@ block reference
 
     p For example, in an adventure game, you might have a "Battle" scene displayed when a broadcaster's game character is in battle; a "Field" scene displayed when the character is walking around in the game world.
 
-    p All #[a(href='#an-interactive-project') Interactive Projects] has a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client] , all participants and #[a(href='#groups') groups] are shown the default scene.
+    p All #[a(href='#an-interactive-project') Interactive Projects] have a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client], all participants and #[a(href='#groups') groups] are shown the default scene.
 
-    p The #[a(href='#the-gameclient') Game Client] can change the scene a participant sees by updating the #[a(href='#groups') group] they belong to.
+    p The #[a(href='#the-gameclient') Game Client] can change the scene that a participant sees by updating the #[a(href='#groups') group] they belong to.
 
     h3#groups Groups
-    p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see.
+    p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create a "Allies" group and a "Adversaries" group.
 
@@ -119,8 +119,8 @@ block reference
     p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
 
     ul
-        li #[code Down] event is sent when a button is pressed by a participant
-        li #[code Up] event is sent when a button is released by a participant
+        li #[code mousedown] event is sent when a button is pressed by a participant
+        li #[code mouseup] event is sent when a button is released by a participant
 
     .figure
         img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
@@ -131,7 +131,7 @@ block reference
     p Buttons are customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
     ol(style='list-style-type: decimal')
         li Text displayed on the button
-        li Spark cost (For more info about sparks, go to #[a(href='#what-are-sparks') What are Sparks?]
+        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
         li Width of the progress bar, which is displayed at the bottom of a button
         li Disabled state - Buttons which are disabled cannot be interacted with
         li Cooldown duration - Prevents interaction until it expires
@@ -253,7 +253,7 @@ block reference
 
     h4#controls-area Controls section
 
-    p This is where you'll manage the controls in your project. You can create, rename, change their type (button or joystick), adjust spark cost, or delete controls here.
+    p This is where you'll manage the controls in your project. You can create, rename, change the type (button or joystick), adjust spark cost, or delete controls here.
 
     .figure
         img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
@@ -298,7 +298,7 @@ block reference
     p Once your project is accepted for publishing, we can start discussing about the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
 
     h3#sharing-your-project Sharing an Interactive Project
-    p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
+    p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are the only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
 
     p To manage a project's share settings, click the Share icon on the top right of the editor, as shown in the screenshot below.
     .figure
@@ -313,7 +313,7 @@ block reference
         img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
 
-    p The third option, “Only allow specific users to play until published”, is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click ADD.
+    p The third option, “Only allow specific users to play until published”, is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
     .figure
         img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
@@ -337,7 +337,7 @@ block reference
     p Methods contain an additional property called #[code discard], which when #[code true], indicates that the recipient can choose not to respond. Methods that can be treated as events have the #[code discard] property set to #[code true].
 
     h4#reply Reply
-    p A reply is sent from a recipient back to the caller to informing about the result after executing the method that was sent. It can contain a #[code result] or an #[code error] which indicates what went wrong.
+    p A reply is sent from a recipient back to the caller informing them about the result after executing the method that was sent. It can contain a #[code result] or an #[code error] which indicates what went wrong.
 
     p For full packet implementation details, please refer to the protocol specification which you can download #[a(href='/reference/interactive/protocol/protocol.pdf' target='_blank') here].
 
