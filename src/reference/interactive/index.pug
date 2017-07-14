@@ -42,7 +42,7 @@ block reference
         p.caption Diagram showing the structure of an interactive project
 
     h3#the-gameclient The Game Client
-    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service], and listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
+    p A Game Client is software code which processes interactive events. It is written by developers who want to create an interactive experience. Game Clients connect to the #[a(href='#the-interactive-service') Interactive Service and listen to events and updates sent from the service to take action within their environment, thus affecting the broadcast.
 
     p A Game Client can be created for a variety of environments, such as:
     ul
@@ -84,7 +84,7 @@ block reference
         li Participants
 
     .figure
-        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Relationship between elements in the interactive hierarchy.')
+        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Diagram showing the Relationship between elements in the interactive hierarchy.')
 
     p.caption Diagram showing the relationship between elements in the interactive hierarchy.
 
@@ -103,7 +103,7 @@ block reference
     h3#groups Groups
     p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
 
-    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create a "Allies" group and a "Adversaries" group.
+    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create an "Allies" group and an "Adversaries" group.
 
     p The "Allies" group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the "Adversaries" group could spawn traps or monsters to try to get in the way of winning - using their controls.
 
@@ -141,7 +141,7 @@ block reference
     h5#spark-transactions Spark Transactions
     .figure
         img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
-    p.caption Diagram of a spark transaction's life cycle, showing its transition betwen states.
+    p.caption Diagram of a spark transaction's life cycle, showing its transition between states.
 
     p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
 
@@ -287,13 +287,13 @@ block reference
 
     h4#publishing-flow Understand the Publishing Flow
     .figure
-        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio pubish process')
+        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio publish process')
     p A Project starts off as a draft. In this state, you are free to edit, test, and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
 
     p When you've decided to publish your project, go to the Publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to click on the Submit button.
-    p Once you've submitted your project, the Interactive review team at Mixer is notified and we will begin the review process. While a project is in review, you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
+    p Once you've submitted your project, the Interactive review team at Mixer is notified, and we will begin the review process. While a project is in review, you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
     p After a review is conducted, you'll be notified whether your project is accepted for publishing or not. If your project is not accepted for publishing, it goes back to the draft state with feedback from the team, detailing what needs to change so that your project can be successfully published.
-    p Once your project is accepted for publishing, we can start discussing about the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
+    p Once your project is accepted for publishing, we can start discussing the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
 
     h3#sharing-your-project Sharing an Interactive Project
     p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are the only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
@@ -306,7 +306,7 @@ block reference
     p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast.
 
     h4#share-codes Share Codes
-    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who wants to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
+    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who want to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
     .figure
         img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
     h4#explicit-sharing Explicit Sharing
