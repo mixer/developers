@@ -1,4 +1,5 @@
 extends ../reference_layout.pug
+include ../../rest/type.pug
 
 block title
     | Constellation Reference | Mixer Developers
@@ -189,7 +190,7 @@ block reference
     h3#events_live live
     p.
         A live event looks like the following. Do note the socket event names are not liveloading events. Events you ask for over liveloading are always "live" events which contain the liveloading information. This separation is added so that other kinds of events can be distinguished from liveloading events.
-    +highlightStr('json','{"type": "event", "event": "live", "data": {"channel": "user:1:update", "payload": {"sparks": 10000}}')
+    +highlightStr('json','{"type": "event", "event": "live", "data": {"channel": "user:1:update", "payload": {"sparks": 10000}}}')
     h4#events_live_events Live Event Types
     p The following live events are available to #[a(href='#methods_livesubscribe') subscribe to].
     table.table
@@ -198,9 +199,34 @@ block reference
                 th Event
                 th Description
         tbody
-            for description, name in liveEvents
+            for data, name in liveEvents
                 tr
                     td(style='white-space:nowrap;'): code= name
-                    td!= marked(description)
-
+                    td
+                        div!= marked(data.description)
+                        if data.payload
+                            strong Payload:&nbsp;
+                            small
+                                +typeNameString({ type: data.payload.type, required: true })
+                            +simpleType('', data.payload, true)
+                        if data.example
+                            p
+                                a(href=`#example_${name.replace(/\W/g, '_')}`) View example
+    for data, name in liveEvents
+        if data.example
+            .modal.fade(tabindex='0' id=`example_${name.replace(/\W/g, '_')}`)
+                .modal-dialog.modal-lg
+                    .modal-content
+                        .modal-header
+                            button.close(type='button' data-dismiss='modal' aria-hidden='true')!= '&times'
+                            h4.modal-title
+                                span.text-primary(style='font-weight:300') Example
+                                | &nbsp;
+                                span= name
+                        .modal-body
+                            code
+                                if typeof data.example === 'object'
+                                    +highlightStr('json', JSON.stringify(data.example, ' ', 2))
+                                else
+                                    = data.example
     include ../../snippets/help.pug

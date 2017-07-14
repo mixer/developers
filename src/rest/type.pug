@@ -7,7 +7,7 @@ mixin type(key, type, skipRequired)
         if type.repeat
             span.help(title='List') []
 
-mixin typeNameString(type)
+mixin typeNameString(type, skipRequired)
     -
         var name = Array.isArray(type.type) ? type.type[0] : type.type;
         var isArray = true;
@@ -56,7 +56,7 @@ mixin typeNameString(type)
             span.help(title='Min value')= type.minimum
             | &leq;
         if rest.types[name]
-            a(href=`#${name}`)= name
+            a(href=`/rest.html#${name}`)= name
         else
             = name
         if type.default
@@ -69,7 +69,7 @@ mixin typeNameString(type)
             | ]
     if isArray
         | &gt;
-    if !type.default && !type.required
+    if !type.default && !type.required && !skipRequired
         span.help(title='Optional') ?
     if name === 'array' && type.items
         - var parentType = type.items.type && type.items.type[0];
@@ -85,11 +85,11 @@ mixin typeExample(type)
     if typeof type.example === 'object'
         +highlightStr("json", JSON.stringify(type.example,null, 3))
 
-mixin simpleTypeHeading(key, type)
+mixin simpleTypeHeading(key, type, skipRequired)
     span.text-monospace= restUtil.prettifyPropertyName(type.displayName || key)
     = ': '
     small &nbsp;
-        +typeNameString(type)
+        +typeNameString(type, skipRequired)
 
 mixin describeSimpleType(key, type)
     if type.description
@@ -128,7 +128,7 @@ mixin simpleType(key, type, skipRequired)
         ul.rest-nested-properties
             for property, propertyName in type.properties
                 li
-                    +simpleTypeHeading(propertyName, property)
+                    +simpleTypeHeading(propertyName, property, skipRequired)
                     +simpleType(propertyName, property)
 
     if rootType === 'array' && type.items
@@ -144,7 +144,7 @@ mixin simpleType(key, type, skipRequired)
                     ul.rest-nested-properties
                         for property, propertyName in type.items.properties
                             li
-                                +simpleTypeHeading(propertyName, property)
+                                +simpleTypeHeading(propertyName, property, skipRequired)
                                 +simpleType(propertyName, property)
             else
                 li Item type:
