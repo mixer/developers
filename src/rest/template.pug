@@ -2,7 +2,7 @@ include ./resource.pug
 .row
     .col-md-9(role='main')
         .page-header
-            p Beam provides an HTTP API that can be used either with cookies or #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://beam.pro/api/v1], and all paths listed here are appended to that.
+            p Mixer provides an HTTP API that can be used either with cookies or #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://mixer.com/api/v1], and all paths listed here are appended to that.
 
             .alert.alert-info If you want some more help about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
 
@@ -13,7 +13,7 @@ include ./resource.pug
         p If you want some more information about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
         h2(id='rate_limiting') Rate Limiting
         p.
-            In order to garantuee API stability there are a few rate limits in place,
+            In order to guarantee API stability there are a few rate limits in place,
             all endpoints that are rate limited have their #[code bucket] noted below.
         p Here is a list of all rate limiting buckets and their attributes.
         table.table.table-condensed
@@ -33,7 +33,7 @@ include ./resource.pug
                             td= bucket.interval/1000
         h2(id='csrf') CSRF Tokens
         p.
-            Beam's REST API requires the use of CSRF Tokens when using cookie-base authentication.
+            Mixer's REST API requires the use of CSRF Tokens when using cookie-base authentication.
         p.
             CSRF tokens are alphanumeric strings issued by the server and are included in the X-CSRF-Token header in responses. They are used to authorize requests and are bound a specific session cookie. They are invalidated after the session expires and may be invalidated at any point prior to the session expiration.
 

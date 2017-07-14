@@ -10,7 +10,13 @@ require('./build/docs')(gulp, $);
 require('./build/misc')(gulp, $);
 require('./build/css')(gulp, $);
 
-gulp.task('default', ['html', 'js', 'css', 'images', 'java-doc']);
+const defaultTasks = ['html', 'js', 'css', 'images'];
+
+if (config.buildReferenceDocs) {
+    defaultTasks.push('java-doc');
+}
+
+gulp.task('default', defaultTasks);
 gulp.task('recompile', ['html-quick', 'js', 'css', 'images']);
 
 gulp.task('watch', () => {

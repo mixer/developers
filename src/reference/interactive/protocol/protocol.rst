@@ -4,7 +4,7 @@ Interactive 2 Protocol Specification
 Vocabulary
 ----------
 
-In this specification, the "client" refers to the software running on an end-user's machine or a third party trusted or untrusted server, consuming the interactive input.. The "server" refers to the software, or mediator, running on Beam's servers. A "participant" refers to an end user on the Beam website or a Beam app giving input through the mediator. Participants are backed by static, persistent "users" on Beam; a participant is a Beam user who is connected to Interactive. "Sparks" are the virtual currency of Beam. Participants may be charged sparks for specific actions in Interactive.
+In this specification, the "client" refers to the software running on an end-user's machine or a third party trusted or untrusted server, consuming the interactive input.. The "server" refers to the software, or mediator, running on Mixer's servers. A "participant" refers to an end user on the Mixer website or a Mixer app giving input through the mediator. Participants are backed by static, persistent "users" on Mixer; a participant is a Mixer user who is connected to Interactive. "Sparks" are the virtual currency of Mixer. Participants may be charged sparks for specific actions in Interactive.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in `RFC 2119 <https://www.ietf.org/rfc/rfc2119.txt>`_.
 
@@ -23,7 +23,7 @@ The client establishes a connection to the client over a websocket, as described
 
 - If there is already an interactive connection running for the channel, the connection will be closed with a ``4022`` code.
 
-When a connection is established to the server, the channel enters a "staging" mode, and after the client signals that it's ready it enters interactive mode where clients are able to connect and controls appear below the Beam channel.. The channel remains in interactive mode until the connection terminates. Authentication context is preserved throughout the lifetime of the socket.
+When a connection is established to the server, the channel enters a "staging" mode, and after the client signals that it's ready it enters interactive mode where clients are able to connect and controls appear below the Mixer channel.. The channel remains in interactive mode until the connection terminates. Authentication context is preserved throughout the lifetime of the socket.
 
 .. figure:: img/state-diagram.pdf
    :width: 75%
@@ -36,16 +36,16 @@ For clients unable to set headers when initializing a websocket handshake the cl
 Endpoint Discovery
 ^^^^^^^^^^^^^^^^^^
 
-Beam runs multiple servers in several locations, and will put servers into and remove servers from rotation over time as updates and made and demand shifts. Clients should call the endpoint `https://beam.pro/api/v1/interactive/hosts <https://beam.pro/api/v1/interactive/hosts>`_ to retrieve a list of currently available servers. This returns a list of servers ordered by several factors, including distance to the client and load. A typical response might look like this:
+Mixer runs multiple servers in several locations, and will put servers into and remove servers from rotation over time as updates and made and demand shifts. Clients should call the endpoint `https://mixer.com/api/v1/interactive/hosts <https://mixer.com/api/v1/interactive/hosts>`_ to retrieve a list of currently available servers. This returns a list of servers ordered by several factors, including distance to the client and load. A typical response might look like this:
 
 .. code-block:: js
 
   [
     {
-      "address": "wss://tetris1.dal-09.beam.pro"
+      "address": "wss://tetris1.dal-09.mixer.com"
     },
     {
-      "address": "wss://tetris2.sea-01.beam.pro"
+      "address": "wss://tetris2.sea-01.mixer.com"
     }
   ]
 
@@ -54,16 +54,16 @@ In general, clients should chose the first returned server, falling back to othe
 OAuth
 ^^^^^
 
-Connections to Interactive must be authenticated using OAuth. Beam implements Bearer and Implicit grants as described in `RFC6749: The OAuth 2.0 Authorization Framework <https://tools.ietf.org/html/rfc6749>`_. You can view further details and configuration on our `developer website <https://dev.beam.pro/reference/oauth/index.html>`_; you need to request the ``interactive:robot:self`` permission in order to connect to the interactive mediator.
+Connections to Interactive must be authenticated using OAuth. Mixer implements Bearer and Implicit grants as described in `RFC6749: The OAuth 2.0 Authorization Framework <https://tools.ietf.org/html/rfc6749>`_. You can view further details and configuration on our `developer website <https://dev.mixer.com/reference/oauth/index.html>`_; you need to request the ``interactive:robot:self`` permission in order to connect to the interactive mediator.
 
 An alternative flow is available to interactive applications to avoid the need for opening, embedding browsers, or requiring keyboard input on the client device:
 
- 0. Register an OAuth application on the `Beam Lab <http://beam.pro/lab>`_. If you're developing an integration which will run on users' computers, you should not request a client secret.
- 1. Call `POST /oauth/shortcode <https://dev.beam.pro/rest.html#oauth_shortcode_post>`_ with your ``client_id``, ``client_secret`` (if any) and space-delimited ``scope`` you want in the request body. This will typically look something like this::
+ 0. Register an OAuth application on the `Mixer Lab <http://mixer.com/lab>`_. If you're developing an integration which will run on users' computers, you should not request a client secret.
+ 1. Call `POST /oauth/shortcode <https://dev.mixer.com/rest.html#oauth_shortcode_post>`_ with your ``client_id``, ``client_secret`` (if any) and space-delimited ``scope`` you want in the request body. This will typically look something like this::
 
       POST /api/v1/oauth/shortcode HTTP/1.1
       Accept: application/json, */*
-      Host: beam.pro
+      Host: mixer.com
 
       {
           "client_id": "fooclient",
@@ -79,8 +79,8 @@ An alternative flow is available to interactive applications to avoid the need f
           "handle": "Lc7eBcB78d5gZmqHOajMH3QnmFPrxLGr"
       }
 
- 2. Display the short six-digit ``code`` to the user and prompt them to enter it on `beam.pro/go <https://beam.pro/go>`_. You can view a user's perspective of this process `here <https://dev.beam.pro/img/reference/interactive/link-demo.gif>`_.
- 3. Continuously poll `GET /oauth/shortcode/check/{handle} <https://dev.beam.pro/rest.html#oauth_shortcode_check__handle__get>`_. It will give you one of a few statuses back:
+ 2. Display the short six-digit ``code`` to the user and prompt them to enter it on `mixer.com/go <https://mixer.com/go>`_. You can view a user's perspective of this process `here <https://dev.mixer.com/img/reference/interactive/link-demo.gif>`_.
+ 3. Continuously poll `GET /oauth/shortcode/check/{handle} <https://dev.mixer.com/rest.html#oauth_shortcode_check__handle__get>`_. It will give you one of a few statuses back:
 
     - ``204 No Content`` indicates we're still waiting on the user to enter the code.
     - ``403 Forbidden`` indicates the user denied your requested permissions.
@@ -91,7 +91,7 @@ An alternative flow is available to interactive applications to avoid the need f
 
       GET /api/v1/oauth/shortcode/check/Lc7eBcB78d5gZ... HTTP/1.1
       Accept: application/json, */*
-      Host: beam.pro
+      Host: mixer.com
 
       HTTP/1.1 200 OK
       Content-Type: application/json; charset=utf-8
@@ -106,7 +106,7 @@ An alternative flow is available to interactive applications to avoid the need f
       POST /api/v1/oauth/token HTTP/1.1
       Accept: application/json, */*
       Content-Type: application/json
-      Host: beam.pro
+      Host: mixer.com
 
       {
           "client_id": "fooclient",
@@ -211,7 +211,8 @@ Reply packets are sent in response to method packets. Replies are always sent in
 
     foo
     bar.0
-    bar.0.baz
+    bar.1
+    bar.1.baz
   ​
   Note that if fatal errors occur as a result of a method call, a websocket close frame MUST be sent instead of a reply. The close frame's code and associated message SHOULD be the same as that which otherwise would have been sent in ``reply.error``.
 
@@ -397,9 +398,9 @@ This section uses icons beside each method name to denote who may implement them
     :width: 16.5px
     :alt: Optional Client Method
 
-- |Server Method| indicates the Beam server MUST implement the method.
+- |Server Method| indicates the Mixer server MUST implement the method.
 - |Client Method| indicates the client software MUST implement the method.
-- |Optional Server Method| indicates the Beam server MAY implement the method.
+- |Optional Server Method| indicates the Mixer server MAY implement the method.
 - |Optional Client Method| indicates the client software MAY implement the method.
 
 Core & Authentication
@@ -666,9 +667,9 @@ Participants & Groups
 The Participant object returned from many methods in this section contains the following properties. Settable properties are tagged, see the `Synchronization <#synchronization>`_ section for further details.
 
 - ``sessionID``, a unique string identifier for the user in this session. It's used for all participant identification internally, and should be viewed as an opaque token.
-- ``userID``, indicating the user ID on Beam. This is an unsigned integer and does not vary.
-- ``username``, the user's name on on Beam, as a UTF-8 string.
-- ``level``, the user's Beam level, an unsigned integer.
+- ``userID``, indicating the user ID on Mixer. This is an unsigned integer and does not vary.
+- ``username``, the user's name on on Mixer, as a UTF-8 string.
+- ``level``, the user's Mixer level, an unsigned integer.
 - ``lastInputAt``, set to the unix milliseconds timestamp when the user last interacted with the controls.
 - ``connectedAt``, the unix milliseconds timestamp when the user connected.
 - ``disabled`` (settable), a boolean set to true if the user's input as been disabled.
@@ -697,7 +698,7 @@ The Participant object returned from many methods in this section contains the f
 
 The user always belongs to a group, and is assigned to the magic ``default`` group when they first join.
 
-The server provides methods like ``getAllParticipants`` and ``getGroups`` which return the state stored on the server. However, the client should store this information and incrementally update it by tracking calls to methods such as ``onParticipantJoin``; round trip time to Beam servers will often be in the hundreds of milliseconds, a noticeable delay in many situations. This is the reason that more focused methods, such as a method to get only the group names, are not provided--the client should maintain state such that that information can be pulled out of memory.
+The server provides methods like ``getAllParticipants`` and ``getGroups`` which return the state stored on the server. However, the client should store this information and incrementally update it by tracking calls to methods such as ``onParticipantJoin``; round trip time to Mixer servers will often be in the hundreds of milliseconds, a noticeable delay in many situations. This is the reason that more focused methods, such as a method to get only the group names, are not provided--the client should maintain state such that that information can be pulled out of memory.
 
 getAllParticipants |Server Method|
 ''''''''''''''''''''''''''''''''''
@@ -867,7 +868,7 @@ The patch SHALL either be applied for all participants and properties or fail; i
         {
           "sessionID": "505cfe7c-123f-40e7-8c78-754103d16531",
           "etag": "100650688",
-          "group": "red_team",
+          "groupID": "red_team",
           "meta": {
             "is_awesome": {
               "etag": 37849560,
@@ -1115,7 +1116,7 @@ Removes a group by id, reassigning any users who were in that group to a differe
   {
     "type": "method",
     "id": 123,
-    "method": "deleteScene",
+    "method": "deleteGroup",
     "params": {
       "groupID": "my awesome group",
       "reassignGroupID": "my other group"
@@ -1237,7 +1238,7 @@ The following are a list of built in controls, which can be serialized as JSON i
 
   - ``keycode: integer``
 
-    A JavaScript keycode which participant's use to trigger this button via their keyboard.
+    A JavaScript keycode which participants use to trigger this button via their keyboard.
 
   - ``text: string``
 
@@ -1293,7 +1294,7 @@ The following are a list of built in controls, which can be serialized as JSON i
 
 Control Positioning
 '''''''''''''''''''
-Within scenes, controls are rendered by the Beam Frontend on three different grids depending on the screen resolution of the participant. Each grid has a size: "small", "medium", or "large". Based on the participant's screen resolution one of these grids is picked to be displayed. If the participant resizes their screen, the frontend controls will automatically adjust to the best grid for the new resolution.
+Within scenes, controls are rendered by the Mixer Frontend on three different grids depending on the screen resolution of the participant. Each grid has a size: "small", "medium", or "large". Based on the participant's screen resolution one of these grids is picked to be displayed. If the participant resizes their screen, the frontend controls will automatically adjust to the best grid for the new resolution.
 
 Measurements within a grid are created with a grid scale where 1 unit on the grid is 12 pixels on the screen.
 
@@ -1505,6 +1506,42 @@ updateScenes |Server Method|
 Updates scenes that already exist. The array of scenes MUST contain each scene's ID, along with zero or more properties which should be updated. The objects MUST contain the current ``etag`` the client thinks that each scene is tagged with The server will respond with a list of the updated scenes, including their new etags.
 
 The patch SHALL either be applied for all scenes and properties or fail; in no case will the server apply only a subset of the updates.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "updateScenes",
+    "params": {
+      "scenes": [
+        {
+          "sceneID": "my awesome scene",
+          "etag": "252185589",
+          "controls": [ // array of control objects
+            {
+              "controlID": "win_the_game_btn",
+              "etag": "262111379",
+              "kind": "button",
+              "text": "Win the Game",
+              "cost": 0,
+              "progress": 0.25,
+              "disabled": false,
+              "meta": {
+                "glow": {
+                  "etag": 254353748,
+                  "value": {
+                    "color": "#f00",
+                    "radius": 10
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
 
 - A successful reply:
 

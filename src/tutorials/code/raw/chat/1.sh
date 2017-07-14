@@ -9,7 +9,7 @@ userInfo=$(curl -X POST \
 -s \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer AUTH_TOKEN"
-https://beam.pro/api/v1/users/current )
+https://mixer.com/api/v1/users/current )
 
 # jq . <<< $userInfo # use for inspection of data
 

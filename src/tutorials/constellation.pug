@@ -1,7 +1,7 @@
 extends ./tutorial_layout.pug
 
 block title
-    | Constellation Tutorial | Beam Developers
+    | Constellation Tutorial | Mixer Developers
 
 block tutorialTitle
     h1 Constellation Tutorial
@@ -9,9 +9,9 @@ block tutorialTitle
 block tutorialContent
     h2#intro Introduction
     p.
-        Constellation is our daemon responsible for stateful aspects of Beam. One of it's features is Live Loading. Live Loading let's you recieve realtime updates of models and resources as they change on beam.
+        Constellation is our daemon responsible for stateful aspects of Mixer. One of its features is Live Loading. Live Loading let's you receive realtime updates of models and resources as they change on Mixer.
     p.
-        In this tutorial we're going to connect to Constellation and subscribe to Live Loading updates of your channel. If your viewer number or channel title change you'll recieve an update within your code that you can respond to.
+        In this tutorial we're going to connect to Constellation and subscribe to Live Loading updates of your channel. If your viewer count or channel title changes, you'll receive an update within your code that you can respond to.
 
     h2#code Writing the Code
     p Select a language below.
@@ -30,7 +30,7 @@ block tutorialContent
                     Run #[code npm install --save carina ws]
             h3 Usage
             p.
-                #[a(href='https://github.com/WatchBeam/carina') Carina] is Beam's Node Constellation client. It makes talking to Constellation super easy.
+                #[a(href='https://github.com/mixer/carina') Carina] is Mixer's Node Constellation client. It makes talking to Constellation super easy.
             p Let's start by importing and setting up all of the modules which we'll need and defining our channel id.
             include ./channelid.pug
 
@@ -40,7 +40,7 @@ block tutorialContent
 
             +highlightFile('javascript','./tutorials/code/node/constellation/2.js')
 
-            p To recieve Live Loading events you need to subscribe to them. We'll just need #[code channel:{id}:update]. For a full list of events check our #[a(href='/reference/constellation/index.html#events_live_events') Constellation reference guide]. You subscribe to events within Carina by using the #[code subscribe] method.
+            p To receive Live Loading events you need to subscribe to them. We'll just need #[code channel:{id}:update]. For a full list of events check our #[a(href='/reference/constellation/index.html#events_live_events') Constellation reference guide]. You subscribe to events within Carina by using the #[code subscribe] method.
 
             +highlightFile('javascript','./tutorials/code/node/constellation/3.js')
 
@@ -51,7 +51,7 @@ block tutorialContent
             p.
                 That's it! Save the file as 'constellation.js' and run it with #[code node constellation.js] from your terminal. Try updating your channel details.
             p.
-                For example if you update your channel title from the Player to be 'test'. You'll get an object from the event that looks like this:
+                For example, if you update your channel title to 'test', you'll get an object from the event that looks like this:
             +highlightFile('javascript','./tutorials/code/node/constellation/example_data.js')
             p.
                 Try updating your channel description, age rating or selected game for more examples.
@@ -60,14 +60,14 @@ block tutorialContent
 
             +highlightFile('javascript','./tutorials/code/node/constellation/5.js')
 
-            p Carina also works with TypeScript and your Browser. For more information on it checkout its #[a(href='https://github.com/watchbeam/carina') Github page].
+            p Carina also works with TypeScript and your Browser. For more information, check out its #[a(href='https://github.com/mixer/carina') GitHub page].
     h2 Further Ideas
     ul
         li Why not combine Constellation with our #[a(href='/tutorials/rest.html') REST API] and make something super cool?
         li Use some of the other #[a(href='/reference/constellation/index.html#events_live_events') Constellation events] to get events about your stream.
     h2 Want More Info?
     p.
-        If you'd like more information on Constellation system, checkout the #[a(href='/reference/constellation/index.html') reference guide].
+        If you'd like more information on Constellation system, check out the #[a(href='/reference/constellation/index.html') reference guide].
     include ../snippets/help.pug
 block tutorialMenu
     li: a(href='#intro') Introduction

@@ -2,7 +2,7 @@ def channels_with_more_viewers(viewers):
     rank = 0
     page = 0
     while True:
-        channels_response = s.get('https://beam.pro/api/v1/channels', params={
+        channels_response = s.get('https://mixer.com/api/v1/channels', params={
             'fields': 'viewersTotal',
             'order': 'viewersTotal:DESC',
             'page': page

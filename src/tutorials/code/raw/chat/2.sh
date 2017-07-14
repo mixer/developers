@@ -4,7 +4,7 @@ chatJoinInfo=$(curl \
 -s \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer AUTH_TOKEN"
-https://beam.pro/api/v1/chats/$channelId )
+https://mixer.com/api/v1/chats/$channelId )
 
 wsServer=$(jq -r .endpoints[0] <<< $chatJoinInfo)
 authKey=$(jq .authkey <<< $chatJoinInfo)

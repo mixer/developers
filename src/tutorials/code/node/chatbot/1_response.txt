@@ -1,6 +1,6 @@
 { endpoints:
-   [ 'wss://chat1-dal.beam.pro:443',
-     'wss://chat2-dal.beam.pro:443' ],
+   [ 'wss://chat1-dal.mixer.com:443',
+     'wss://chat2-dal.mixer.com:443' ],
   authkey: '1c0e251998ac7112f42c71a23d4b67b3',
   permissions:
    [ 'change_ban',

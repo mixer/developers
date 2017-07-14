@@ -1,43 +1,43 @@
 [
     {
         "language": "java",
-        "name": "WatchBeam/beam-client-java",
+        "name": "Mixer/beam-client-java",
         "alias": "client-java",
         "official": true
     },
     {
         "language": "js",
-        "name": "WatchBeam/beam-client-node",
+        "name": "Mixer/beam-client-node",
         "alias": "client-node",
         "official": true
     },
     {
         "language": "python",
-        "name": "WatchBeam/beam-client-python",
+        "name": "Mixer/beam-client-python",
         "alias": "client-python",
         "official": true
     },
     {
         "language": "swift",
-        "name": "WatchBeam/beam-client-swift",
+        "name": "Mixer/beam-client-swift",
         "alias": "client-swift",
         "official": true
     },
     {
         "language": "java",
-        "name": "WatchBeam/beam-interactive-java",
+        "name": "Mixer/beam-interactive-java",
         "alias": "interactive-java",
         "official": true
     },
     {
         "language": "js",
-        "name": "WatchBeam/beam-interactive-node",
+        "name": "Mixer/interactive-node",
         "alias": "interactive-node",
         "official": true
     },
     {
         "language": "python",
-        "name": "WatchBeam/beam-interactive-python",
+        "name": "Mixer/interactive-python",
         "alias": "interactive-python",
         "official": true
     }

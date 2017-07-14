@@ -174,27 +174,32 @@ function addUniqueIdsToDocs (ramlObj) {
  * @param  {RamlObject} node
  */
 function filterRaml (node) {
+    const isArr = _.isArray(node);
+    const ret = isArr ? [] : {};
+    const add = (key, value) => {
+        if (isArr) {
+            ret.push(value);
+            return;
+        }
+        ret[key] = value;
+    };
+
     _.forOwn(node, (subNode, index) => {
         if (typeof subNode !== 'object' || subNode === null) {
+            add(index, subNode);
             return;
         }
         if (subNode.annotations && subNode.annotations.internal) {
-            if (_.isArray(node)) {
-                node.splice(index, 1);
-            } else {
-                delete node[index];
-            }
+            return;
         }
-        filterRaml(subNode);
+        const newSubNode = filterRaml(subNode);
         // After filtering nodes may be empty
-        if (_.isEmpty(subNode)) {
-            if (_.isArray(node)) {
-                node.splice(index, 1);
-            } else {
-                delete node[index];
-            }
+        if (_.isEmpty(newSubNode)) {
+            return;
         }
+        add(index, newSubNode);
     });
+    return ret;
 }
 
 /**
@@ -202,11 +207,12 @@ function filterRaml (node) {
  * @param  {RAMLJSONObject} ramlObj
  */
 function enhanceRamlObj (ramlObj) {
-    filterRaml(ramlObj);
-    fixupDisplayVersion(ramlObj);
-    traverseResources(ramlObj);
-    ramlObj.types = transverseTypes(ramlObj.types);
-    addUniqueIdsToDocs(ramlObj);
+    const newRaml = filterRaml(ramlObj);
+    fixupDisplayVersion(newRaml);
+    traverseResources(newRaml);
+    newRaml.types = transverseTypes(newRaml.types);
+    addUniqueIdsToDocs(newRaml);
+    return newRaml;
 }
 
 /**
@@ -255,8 +261,7 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            const tree = api.expand().toJSON();
-            enhanceRamlObj(tree);
+            const tree = enhanceRamlObj(api.expand().toJSON());
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)
