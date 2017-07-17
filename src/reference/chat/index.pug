@@ -30,7 +30,7 @@ block reference
         #[a(href='/rest.html#chats__chat__get') GET /chats/{channelId}] endpoint looks like:
     +highlightFile('http', 'reference/chat/chatEndpoint.json')
     p.
-        Once you have the details, you'll need to use them to connect to a chat server. The response's #[code endpoint] array contains a list of chat servers. You should choose one randomly to connect to. If you lose connection to this address, you should reconnect to a different server (you can choose randomly or use a round-robin strategy of your choosing).
+        Once you have the details, you'll need to use them to connect to a chat server. The response's #[code endpoints] array contains a list of chat servers. You should choose one randomly to connect to. If you lose connection to this address, you should reconnect to a different server (you can choose randomly or use a round-robin strategy of your choosing).
     p.
         After connecting to a server you must call the #[a(href='#chat__methods__auth') auth] method.
 
@@ -120,8 +120,15 @@ block reference
                 td Associated event data - may be of any type, specific to the event.
     h1(id='chat__methods') Methods
     for data, method in chat.methods
-        h3(id=`chat__methods__${method}`)= method
+        h3(id=`chat__methods__${method.replace(/\W/g, '_')}`)= method
         p!= marked(data.description)
+        if data.permission
+            p This method requires the #[code chat:#{data.permission}] permission scope.
+        if data.arguments
+            h4 Arguments:
+            ol
+                for arg in data.arguments
+                    li!= marked(arg)
         table.table
             thead
                 th.col-xs-6 Request

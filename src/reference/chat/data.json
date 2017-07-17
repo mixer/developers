@@ -1,7 +1,12 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate as an active user in a specified channel. Arguments are `channelId`, `userId`, `key`. The channelId is the id of the channel you wish to join. The userId is the id of the user you are joining as. The key is retrieved from a request to our REST API as explained in the [Connection](#chat__connection) section. \n\r You can connect anonymously by just supplying the `channelId` as an argument. If you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
+      "description": "Authenticate as an active user in a specified channel. Arguments are `channelId`, `userId`, `key`. \n\n You can connect anonymously by supplying just the `channnelId` as an argument, but if you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
+      "arguments": [
+        "The **channel ID** of the channel you are joining.",
+        "The **user ID** of the user you are connecting as. This can be omitted if you are connecting anonymously.",
+        "The **authorization key** retrieved from a request to our REST API, as explained in the [Connection](#chat__connection) section. This can be omitted if you are connecting anonymously."
+      ],
       "examples": [
         {
           "description": "Authenticating as a User successfully.",
@@ -80,6 +85,10 @@
     },
     "msg": {
       "description": "Send a chat message to the server. The server will reply with data identical to a [ChatMessage](#chat__events__) event.",
+      "permission": "chat",
+      "arguments": [
+        "The message to send, as a string."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -117,6 +126,11 @@
     },
     "whisper": {
       "description": "Send a whisper to another user in the chat.",
+      "permission": "whisper",
+      "arguments": [
+        "The username of the user that the whisper will be sent to.",
+        "The whisper's message."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -157,11 +171,15 @@
       }
     },
     "vote:choose": {
-      "description": "Cast a vote in the current poll. `arguments` is the vote option's index.",
+      "description": "Cast a vote in the current poll.",
+      "permission": "poll_vote",
+      "arguments": [
+        "The numerical index of the option that the vote is being cast for."
+      ],
       "example": {
         "request": {
           "type": "method",
-          "method": "vote",
+          "method": "vote:choose",
           "arguments": [
             0
           ],
@@ -176,7 +194,13 @@
       }
     },
     "vote:start": {
-      "description": "Start a poll in the channel. This requires the `poll_start` permission.",
+      "description": "Start a poll in the channel.",
+      "permission": "poll_start",
+      "arguments": [
+        "The poll's question.",
+        "An array of possible options.",
+        "The duration of the poll, in seconds."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -200,14 +224,19 @@
       }
     },
     "timeout": {
-      "description": "Time a User out. They cannot send messages until the duration is over.",
+      "description": "Time a user out and purge their chat messages. They cannot send messages until the duration is over. The user being timed out must be in the channel.",
+      "permission": "timeout",
+      "arguments": [
+        "The username of the user who will be timed out.",
+        "The duration for which the user will be unable to send messages. A human-readable duration with units can be provided (such as `30s` or `1m15s`), or providing no unit will result in the value being taken as seconds."
+      ],
       "example": {
         "request": {
           "type": "method",
           "method": "timeout",
           "arguments": [
             "username",
-            "duration"
+            "30s"
           ],
           "id": 4
         },
@@ -215,12 +244,16 @@
           "type": "reply",
           "error": null,
           "id": 4,
-          "data": "Username has been timed out for duration."
+          "data": "username has been timed out for 30s."
         }
       }
     },
     "purge": {
-      "description": "Purge a user's messages from that chat but does not time them out.",
+      "description": "Purge a user's messages from that chat without timing them out.",
+      "permission": "purge",
+      "arguments": [
+        "The username of the user to purge."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -238,7 +271,11 @@
       }
     },
     "deleteMessage": {
-      "description": "Delete a message from chat. First argument must be the message ID you want to delete.",
+      "description": "Delete a message from chat.",
+      "permission": "remove_message",
+      "arguments": [
+        "The `id` property of the message to delete."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -257,7 +294,8 @@
       }
     },
     "clearMessages": {
-      "description": "Clear all chat messages in the channel. This requires the `clear_messages` permission.",
+      "description": "Clear all chat messages in the channel.",
+      "permission": "clear_messages",
       "example": {
         "request": {
           "type": "method",
@@ -274,7 +312,10 @@
       }
     },
     "history": {
-      "description": "Request previous messages from this chat from before you joined. The argument controls how many messages are requested. 100 is the maximum.",
+      "description": "Request previous messages from this chat from before you joined.",
+      "arguments": [
+        "The number of messages to request. The maximum value is `100`."
+      ],
       "example": {
         "request": {
           "type": "method",
@@ -312,8 +353,9 @@
         }
       }
     },
-    "giveaway": {
-      "description": "Start a giveaway in the channel.",
+    "giveaway:start": {
+      "description": "Start a giveaway in the channel. After sending this method, the 'HypeBot' user will publicly announce the winner of the giveaway, who will be randomly selected.",
+      "permission": "giveaway_start",
       "example": {
         "request": {
           "type": "method",
@@ -419,7 +461,7 @@
       }
     },
     "ChatMessage": {
-      "description": "Sent by the server when a client sends a message. It contains multiple message components, including plain `text`, `emoticons`, and `tags`. The `meta` property of a message contains various attributes which define additional details about where the message comes from.",
+      "description": "Sent by the server when a client sends a message. It contains multiple message components, such as `text`, `emoticon`, `link`, and `tag`. The `meta` property of a message contains various attributes which define additional details about where the message comes from.",
       "examples": [
         {
           "title": "Regular Message",
@@ -593,6 +635,7 @@
     "PollStart": {
       "description": "Initially sent when a new poll is started. Then, over the course of a poll, it is re-sent with information about the poll's progress.",
       "example": {
+        "originatingChannel": 1,
         "q": "How's the weather?",
         "answers": [
           "Good.",
@@ -617,6 +660,7 @@
     "PollEnd": {
       "description": "Sent when a poll has ended.",
       "example": {
+        "originatingChannel": 1,
         "q": "How's the weather?",
         "answers": [
           "Good.",

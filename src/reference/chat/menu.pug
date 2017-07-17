@@ -12,7 +12,7 @@ li
     a(href='#chat__methods') Methods
     ul.nav.nav-stacked
         for data, method in chat.methods
-            li: a(href=`#chat__methods__${method}`)= method
+            li: a(href=`#chat__methods__${method.replace(/\W/g, '_')}`)= method
 li
     a(href='#chat__events') Events
     ul.nav.nav-stacked
