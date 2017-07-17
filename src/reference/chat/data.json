@@ -1,7 +1,7 @@
 {
   "methods": {
     "auth": {
-      "description": "Authenticate as an active user in a specified channel. Arguments are `channelId`, `userId`, `key`. \n\r You can connect anonymously by supplying just the `channnelId` as an argument, but if you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
+      "description": "Authenticate as an active user in a specified channel. Arguments are `channelId`, `userId`, `key`. \n\n You can connect anonymously by supplying just the `channnelId` as an argument, but if you do this you will not be able to send messages or participate in chat. This can be useful for creating chat overlays.",
       "arguments": [
         "The **channel ID** of the channel you are joining.",
         "The **user ID** of the user you are connecting as. This can be omitted if you are connecting anonymously.",
