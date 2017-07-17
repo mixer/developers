@@ -125,8 +125,7 @@ block reference
         if data.permission
             p This method requires the #[code chat:#{data.permission}] permission scope.
         if data.arguments
-            p
-                strong Arguments:
+            h4 Arguments:
             ol
                 for arg in data.arguments
                     li!= marked(arg)
