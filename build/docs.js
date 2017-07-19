@@ -16,6 +16,8 @@ const childProcess = Bluebird.promisifyAll(require('child_process'));
 // unneeded.
 const ramlParser = () => require('raml-1-parser');
 
+const now = Date.now();
+
 /**
  * Ensures that the repo cloneable at the provided address is downloaded
  * and up-to-date.
@@ -189,7 +191,13 @@ function filterRaml (node) {
             add(index, subNode);
             return;
         }
-        if (subNode.annotations && subNode.annotations.internal) {
+
+        const annotations = subNode.annotations;
+        const embargo = _.get(annotations, 'embargo.structuredValue');
+        if (embargo && new Date(embargo).getTime() > now) {
+            return;
+        }
+        if (annotations && annotations.internal) {
             return;
         }
         const newSubNode = filterRaml(subNode);
