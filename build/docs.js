@@ -189,7 +189,13 @@ function filterRaml (node) {
             add(index, subNode);
             return;
         }
-        if (subNode.annotations && subNode.annotations.internal) {
+
+        const annotations = subNode.annotations;
+        const embargo = _.get(annotations, 'embargo.structuredValue');
+        if (embargo && new Date(embargo).getTime() > Date.now()) {
+            return;
+        }
+        if (annotations && annotations.internal) {
             return;
         }
         const newSubNode = filterRaml(subNode);
