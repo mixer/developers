@@ -24,6 +24,9 @@ mixin describeAnnotations(type, annotations)
     if annotations.deprecated
         .alert.alert-danger This !{type} is deprecated. !{annotations.deprecated.structuredValue}
 
+    if annotations.announce
+        .alert.alert-warning !{annotations.announce.structuredValue}
+
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
         .modal-dialog.modal-lg
@@ -223,6 +226,7 @@ mixin resourceRows(resource)
     if resource.methods
         for method in resource.methods
             - deprecated = method.annotations && method.annotations.deprecated
+            - announce = method.annotations && method.annotations.announce
             tr.rest-endpoint(onclick=`window.location.href = '#${resource.uniqueId}_${method.method}'` class={ 'bg-danger':deprecated})
                 td.rest-endpoint-method= method.method
                 td.rest-endpoint-path
@@ -236,6 +240,8 @@ mixin resourceRows(resource)
                             span.icon.icon-time-1(title='Rate Limited')
                     if deprecated
                         span.icon.icon-minus-5(title='Deprecated')
+                    if announce
+                        .alert.alert-warning !{method.annotations.announce.structuredValue}
 
                 td.rest-endpoint-description.hidden-xs
                     if method.description
