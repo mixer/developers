@@ -240,8 +240,6 @@ mixin resourceRows(resource)
                             span.icon.icon-time-1(title='Rate Limited')
                     if deprecated
                         span.icon.icon-minus-5(title='Deprecated')
-                    if announce
-                        .alert.alert-warning !{method.annotations.announce.structuredValue}
 
                 td.rest-endpoint-description.hidden-xs
                     if method.description
