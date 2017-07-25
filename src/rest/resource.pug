@@ -24,6 +24,9 @@ mixin describeAnnotations(type, annotations)
     if annotations.deprecated
         .alert.alert-danger This !{type} is deprecated. !{annotations.deprecated.structuredValue}
 
+    if annotations.announce
+        .alert.alert-warning !{annotations.announce.structuredValue}
+
 mixin method(method, resource)
     .modal.fade(tabindex='0' id=`${resource.uniqueId}_${method.method}`)
         .modal-dialog.modal-lg
