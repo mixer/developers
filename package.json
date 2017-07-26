@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/WatchBeam/beam-developers#readme",
   "devDependencies": {
-    "@mcph/beam-common": "^4.4.0",
+    "@mcph/beam-common": "^5.0.5",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
     "config": "^1.21.0",
