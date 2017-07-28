@@ -14,7 +14,7 @@
         "payload": {
             "type": "object",
             "properties": {
-                "followed": {
+                "following": {
                     "type": "boolean",
                     "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
                 },
@@ -498,7 +498,7 @@
         "payload": {
             "type": "object",
             "properties": {
-                "followed": {
+                "following": {
                     "type": "boolean",
                     "description": "Whether the user just followed the channel (`true` if this was a follow and `false` if this was an unfollow)."
                 },
