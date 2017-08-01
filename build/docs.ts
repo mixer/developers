@@ -1,35 +1,32 @@
-'use strict';
+import { config } from './config';
+import fetch from 'node-fetch';
+import { join } from 'path';
+import { forOwn, get, sortBy, isEmpty } from 'lodash';
+import * as del from 'del';
+import * as Bluebird from 'bluebird';
+import { unlink, lstat, symlink, writeFileSync } from 'fs';
+import { exec } from 'child_process';
+import { loadApi } from 'raml-1-parser';
+import { Gulp } from 'gulp';
+import { ApiLoadingError } from "raml-1-parser/dist/raml1/highLevelAST";
 
 
-const config = require('config');
-const fetch = require('node-fetch');
-const path = require('path');
-const _ = require('lodash');
-const Bluebird = require('bluebird');
-const del = require('del');
-
-const fs = Bluebird.promisifyAll(require('fs'));
-const childProcess = Bluebird.promisifyAll(require('child_process'));
-
-// Function which returns the raml parser. We don't load this on require-time
-// since it has a lot of dependencies and slows down development builds when
-// unneeded.
-const ramlParser = () => require('raml-1-parser');
+const unlinkAsync: (path: string) => Bluebird<void> = <any>Bluebird.promisify(unlink);
+const symlinkAsync: (to: string, from: string) => Bluebird<void> = <any>Bluebird.promisify(symlink);
+const lstatAsync = Bluebird.promisify(lstat);
+const execAsync = Bluebird.promisify(exec);
 
 const now = Date.now();
 
 /**
  * Ensures that the repo cloneable at the provided address is downloaded
  * and up-to-date.
- * @param  {String} addr
- * @param  {String} branch Name of the branch to clone
- * @return {Promise}
  */
-function getRepo (addr, branch) {
+function getRepo (addr: string, branch?: string): Bluebird<void> {
     // extract everything after the last slash of the path, excluding .git:
     const name = (/\/([^/]*?)(\.git)?$/).exec(addr)[1];
-    const target = path.join(config.src.tmp, name);
-    const statPromise = fs.lstatAsync(target);
+    const target = join(config.src.tmp, name);
+    const statPromise = lstatAsync(target);
     // We have a repo override
     if (config.repos && config.repos[name]) {
         return statPromise.tap(stats => {
@@ -37,50 +34,44 @@ function getRepo (addr, branch) {
             if (!stats.isSymbolicLink() && stats.isDirectory()) {
                 return del(target);
             }
+            return undefined;
         })
         // if it didn't exist, ignore.
         .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
         .then(stats => {
             if (!stats || !stats.isSymbolicLink()) {
-                return fs.symlinkAsync(path.join(__dirname, '../', config.repos[name]), target);
+                return symlinkAsync(join(__dirname, '../', config.repos[name]), target);
             }
+            return undefined;
         });
     }
 
     return statPromise.tap(stats => {
         // Delete symbolic if present
         if (stats.isSymbolicLink()) {
-            return fs.unlinkAsync(target);
+            return unlinkAsync(target);
         }
+        return undefined;
     })
     .tap(stats => {
         // Pull if present
         if (stats.isDirectory()) {
-            return childProcess.execAsync(`cd ${target} && git pull`);
+            return execAsync(`cd ${target} && git pull`);
         }
+        return undefined;
     })
     // if the symbolic link did not exist
     .catch({ code: 'ENOENT' }, () => { /* do nothing */ })
     .then(stats => {
         if (stats && stats.isDirectory()) {
-            return;
+            return undefined;
         }
         const branchString = branch ? `-b ${branch}` : '';
         // Clone if not present or symbolic link was deleted.
-        return childProcess.execAsync(`cd ${config.src.tmp} && git clone ${branchString} ${addr}`);
-    });
+        return execAsync(`cd ${config.src.tmp} && git clone ${branchString} ${addr}`);
+    })
+    .return();
 }
-
-
-/**
- * @callback RAMLTraverseCallback
- * @param {Resource|Method} resource The current resource or method
- * @param {Boolean} isMethod Indicates if node is a method.
- * keep in mind that methods are 'leaves' and have no children.
- * @return {Boolean} If falsy, the entire resource and subresources will be
- * discarded.
- */
-
 
 /* RAML processing */
 
@@ -90,9 +81,8 @@ function getRepo (addr, branch) {
 
 /**
  * Parses the base url by adding the version
- * @param  {RamlJSONObject} ramlObj
  */
-function fixupDisplayVersion (ramlObj) {
+function fixupDisplayVersion (ramlObj: any) {
   // I have no clue what kind of variables the RAML spec allows in the baseUri.
   // For now keep it super super simple.
     if (ramlObj.baseUri) {
@@ -100,13 +90,13 @@ function fixupDisplayVersion (ramlObj) {
     }
 }
 
-function leftTrim (str, chr) {
+function leftTrim (str: string, chr: string): string {
     const rgxtrim = !chr ? /^\\s+/ : new RegExp(`^${chr}+`);
     return str.replace(rgxtrim, '');
 }
 
-function makeUniqueId (resource) {
-    const fullUrl = resource.parentUrl + resource.relativeUri;
+function makeUniqueId (resource: any) {
+    const fullUrl: string = resource.parentUrl + resource.relativeUri;
     return leftTrim(fullUrl.replace(/\W/g, '_'), '_');
 }
 
@@ -115,13 +105,10 @@ function makeUniqueId (resource) {
  *     `parentUrl`
  *     `uniqueId`
  *     `allUriParameters`
- * @param  {RamlObject} ramlObj
- * @param  {String} parentUrl
- * @param  {string[]} allUriParameters
  */
-function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
+function traverseResources (ramlObj: any, parentUrl = '', allUriParameters?: string[]) {
     // Add unique id's and parent URL's plus parent URI parameters to resources
-    _.forOwn(ramlObj.resources, resource => {
+    forOwn(ramlObj.resources, resource => {
         resource.parentUrl = parentUrl;
         resource.uniqueId = makeUniqueId(resource);
         resource.allUriParameters = [];
@@ -131,13 +118,13 @@ function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
         }
 
         if (resource.uriParameters) {
-            _.forIn(resource.uriParameters, parameters => {
+            forOwn(resource.uriParameters, parameters => {
                 resource.allUriParameters.push(parameters);
             });
         }
 
         if (resource.methods) {
-            _.forIn(resource.methods, method => {
+            forOwn(resource.methods, method => {
                 method.allUriParameters = resource.allUriParameters;
             });
         }
@@ -151,34 +138,28 @@ function traverseResources (ramlObj, parentUrl = '', allUriParameters) {
 
 /**
  * Flattens types into name: type associative object
- * @param  {Types[]} types
- * @return {{string:Type}}
  */
-function transverseTypes (types) {
-    const newTypes = {};
-    types.forEach(type => _.assign(newTypes, type));
-    return newTypes;
+function transverseTypes (types: { [key: string]: any }[]): { [key: string]: any } {
+    return Object.assign({}, ...types);
 }
 
 /**
  * Adds unique ids to each segment.
- * @param {RAMLJSONObject} ramlObj
  */
-function addUniqueIdsToDocs (ramlObj) {
+function addUniqueIdsToDocs (ramlObj: any) {
     // Add unique id's to top level documentation chapters
-    _.forEach(ramlObj.documentation, docSection => {
+    forOwn(ramlObj.documentation, docSection => {
         docSection.uniqueId = docSection.title.replace(/\W/g, '-');
     });
 }
 
 /**
  * Filters all sub trees that have the `internal` annotation.
- * @param  {RamlObject} node
  */
-function filterRaml (node) {
-    const isArr = _.isArray(node);
-    const ret = isArr ? [] : {};
-    const add = (key, value) => {
+function filterRaml (node: any[] | any): any {
+    const isArr = Array.isArray(node);
+    const ret: any = isArr ? [] : {};
+    const add = (key: string, value: any) => {
         if (isArr) {
             ret.push(value);
             return;
@@ -186,14 +167,14 @@ function filterRaml (node) {
         ret[key] = value;
     };
 
-    _.forOwn(node, (subNode, index) => {
+    forOwn(node, (subNode, index) => {
         if (typeof subNode !== 'object' || subNode === null) {
             add(index, subNode);
             return;
         }
 
         const annotations = subNode.annotations;
-        const embargo = _.get(annotations, 'embargo.structuredValue');
+        const embargo: string = get(annotations, 'embargo.structuredValue');
         if (embargo && new Date(embargo).getTime() > now) {
             return;
         }
@@ -202,7 +183,7 @@ function filterRaml (node) {
         }
         const newSubNode = filterRaml(subNode);
         // After filtering nodes may be empty
-        if (_.isEmpty(newSubNode)) {
+        if (isEmpty(newSubNode)) {
             return;
         }
         add(index, newSubNode);
@@ -212,9 +193,8 @@ function filterRaml (node) {
 
 /**
  * Makes the raml object more usable.
- * @param  {RAMLJSONObject} ramlObj
  */
-function enhanceRamlObj (ramlObj) {
+function enhanceRamlObj (ramlObj: any) {
     const newRaml = filterRaml(ramlObj);
     fixupDisplayVersion(newRaml);
     traverseResources(newRaml);
@@ -225,22 +205,19 @@ function enhanceRamlObj (ramlObj) {
 
 /**
  * Registers a task that compiles
- * @param  {Gulp} gulp
- * @param  {Object} $ plugin loader
- * @return {Stream}
  */
-module.exports = (gulp) => {
+export function task(gulp: Gulp) {
     gulp.task('java-clone', () => getRepo('git@github.com:WatchBeam/beam-client-java.git'));
 
     gulp.task('java-mvn-gen', ['java-clone'], (callback) => {
-        childProcess.exec(
+        exec(
             `cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`,
             { maxBuffer: 1024 * 1024 * 10 },
             callback
         );
     });
     gulp.task('java-doc', ['java-mvn-gen'], () => {
-        return gulp.src(path.join(config.src.tmp, 'beam-client-java/target/site/**/*'))
+        return gulp.src(join(config.src.tmp, 'beam-client-java/target/site/**/*'))
         .pipe(gulp.dest(config.dist.javadoc));
     });
 
@@ -249,18 +226,18 @@ module.exports = (gulp) => {
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
         if (config.backendRamlPath) {
-            docPath = path.join(config.backendRamlPath, 'index.raml');
+            docPath = join(config.backendRamlPath, 'index.raml');
         } else {
-            docPath = path.join(config.src.tmp, 'backend/doc/raml/index.raml');
+            docPath = join(config.src.tmp, 'backend/doc/raml/index.raml');
         }
-        return ramlParser().loadApi(docPath, {
+        return loadApi(docPath, {
             rejectOnErrors: true,
         })
-        .catch(error => {
+        .catch((error: ApiLoadingError) => {
             if (error.parserErrors) {
                 const stack = error.parserErrors
-                .map((err, idx) => {
-                    return `${idx + 1}: ${err.path}@${err.line}:${err.column} ${err.message}`;
+                .map(({ message, range, path }, idx) => {
+                    return `${idx + 1}: ${path}@${range.start.line}:${range.start.column} ${message}`;
                 })
                 .join('\n');
                 error.message += `\n${stack}`;
@@ -270,15 +247,20 @@ module.exports = (gulp) => {
         })
         .then(api => {
             const tree = enhanceRamlObj(api.expand().toJSON());
-            fs.writeFileSync(
-                path.join(config.src.tmp, 'raml-doc.json'),
+            writeFileSync(
+                join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)
             );
         });
     });
 
     gulp.task('pull-client-repos', () => {
-        const todo = require('./libraries')
+        const todo = (<{
+            language: string;
+            name: string;
+            alias: string;
+            official: boolean;
+        }[]>require('./libraries'))
         .map(lib => {
             return fetch(`https://api.github.com/repos/${lib.name}`)
             .then(response => {
@@ -301,9 +283,9 @@ module.exports = (gulp) => {
 
         return Promise.all(todo)
         .then(result => {
-            fs.writeFileSync(
-                path.join(config.src.tmp, 'libraries.json'),
-                JSON.stringify(_.sortBy(result, 'language'), null, '   ')
+            writeFileSync(
+                join(config.src.tmp, 'libraries.json'),
+                JSON.stringify(sortBy(result, 'language'), null, '   ')
             );
         });
     });

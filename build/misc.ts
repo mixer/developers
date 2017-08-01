@@ -1,23 +1,21 @@
-'use strict';
-
-const highlight = require('highlight.js');
-const config = require('config');
-const marked = require('marked');
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const _ = require('lodash');
-const orderObject = require('./util').orderObject;
+import { GulpPlugins } from 'gulp-load-plugins';
+import { highlightAuto, highlight } from 'highlight.js';
+import { config } from './config';
+import * as marked from 'marked';
+import { STATUS_CODES } from 'http';
+import { join } from 'path';
+import { readFileSync, writeFileSync } from 'fs';
+import { find } from 'lodash';
+import { orderObject } from './util';
+import { Gulp } from "gulp";
 
 /**
  * Reads a json file, if there is a problem reading
  * the file it returns null.
- * @param  {String} filePath
- * @return {Object}
  */
-function readJSONFile (filePath) {
+function readJSONFile<T>(filePath: string): T {
     try {
-        return JSON.parse(fs.readFileSync(filePath));
+        return JSON.parse(readFileSync(filePath, 'utf8'));
     } catch (e) {
         return null;
     }
@@ -26,10 +24,8 @@ function readJSONFile (filePath) {
 /**
  * Wraps a require so that if there is a problem reading
  * the file it returns null.
- * @param {String} filePath
- * @return {Object}
  */
-function wrappedRequire (filePath) {
+function wrappedRequire<T>(filePath: string): T | null {
     try {
         return require(filePath);
     } catch (e) {
@@ -43,17 +39,17 @@ function wrappedRequire (filePath) {
  * @return {Object}
  */
 function getLocals () {
-    const restDoc = readJSONFile(path.join(__dirname, '/tmp/raml-doc.json'));
+    // It's complicated.
+    const restDoc: any = readJSONFile(join(__dirname, '/tmp/raml-doc.json'));
     marked.setOptions({
         highlight (code) {
-            return require('highlight.js').highlightAuto(code).value;
+            return highlightAuto(code).value;
         },
     });
 
     const permissions = require('@mcph/beam-common').permissions;
     const permissionKeys = Object.keys(permissions).sort();
     const out = {
-        _,
         orderObject,
         // eslint-disable-next-line no-console
         log: console.log,
@@ -70,22 +66,22 @@ function getLocals () {
         permissions,
         permissionKeys,
         bsTabs: {},
-        highlight: (lang, str) => {
-            if (lang === 'text') return str;
-            return highlight.highlight(lang, str).value
+        highlight(lang: string, str: string): string {
+            if (lang === 'text') {
+                return str;
+            }
+            return highlight(lang, str).value
                 .replace('AUTH_TOKEN', '<a class="auth-token">Click here to get your Token!</a>');
         },
-        readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
-
+        readFile(file: string): string {
+            return readFileSync(join(__dirname, '../src', file), 'utf8');
+        },
         restUtil: {
             /**
              * Finds and extracts a trait definition from the `is` property of a method.
-             * @param  {Object} method
-             * @param  {String} type
-             * @return {Object?}
              */
-            getTraitInfo (method, type) {
-                const temp = _.find(method.is, value => value[type]);
+            getTraitInfo (method: any, type: string): any {
+                const temp = find<any>(method.is, value => value[type]);
                 return temp && temp[type];
             },
             /**
@@ -94,7 +90,7 @@ function getLocals () {
             * Object: 'Object'
             * Scalars: 'string', 'number', 'integer', 'boolean', 'date', 'file', 'scalar'
             */
-            getRootType (type) {
+            getRootType (type: any): string {
                 if (type.type.length > 1) {
                     // Multiple inheritence is only supported for object types.
                     return 'object';
@@ -109,56 +105,50 @@ function getLocals () {
             },
             /**
              * Checks if the type is a raml primitive.
-             * @param  {String}  type
-             * @return {Boolean}
              */
-            isChildType (type) {
-                const buildinTypes = [
-                    'string',
-                    'number',
-                    'integer',
-                    'boolean',
-                    'date',
-                    'file',
-                    'scalar',
-                ];
-                return _.includes(buildinTypes, type);
+            isChildType (type: string): boolean {
+                return (
+                    type === 'string' ||
+                    type === 'number' ||
+                    type === 'integer' ||
+                    type === 'boolean' ||
+                    type === 'string' ||
+                    type === 'date' ||
+                    type === 'file' ||
+                    type === 'scalar'
+                );
             },
-            isBaseType (type) {
+            isBaseType (type: string): boolean {
                 return type === 'object' || type === 'type' || this.isChildType(type);
             },
-            securitySchemeWithName (name) {
+            securitySchemeWithName (name: string | any): any {
                 if (name && name.oauth_2_0) {
                     // oauth_2_0 is a special snowflake if it has scopes :>
                     name = 'oauth_2_0';
                 }
-                return _.find(restDoc.securitySchemes, scheme => scheme[name])[name];
+                return find<any>(restDoc.securitySchemes, scheme => scheme[name])[name];
             },
-            isSecurityOAuth (security) {
+            isSecurityOAuth (security: any): boolean {
                 return !!security.oauth_2_0;
             },
-            hasOAuthScopes (security) {
-                return security.oauth_2_0.scopes.filter(scope => scope.length).length > 0;
+            hasOAuthScopes (security: any): boolean {
+                return security.oauth_2_0.scopes.some((scope: any[]) => scope.length > 0);
             },
-            getOAuthScopes (security) {
+            getOAuthScopes (security: any): string[] {
                 return security.oauth_2_0.scopes;
             },
             /**
              * Attempts to look up an HTTP status message corresponding
              * to the provided numeric code.
-             * @param  {Number} code
-             * @return {String}
              */
-            getStatusMessage (code) {
-                return http.STATUS_CODES[code];
+            getStatusMessage (code: number): string {
+                return STATUS_CODES[code];
             },
             /**
              * Special handling for property names that have non alphanumeric names
              * such as regex wildcards and `//`.
-             * @param  {String} name
-             * @return {String}
              */
-            prettifyPropertyName (name) {
+            prettifyPropertyName (name: string): string {
                 if (name === '//') {
                     return 'All keys';
                 }
@@ -184,13 +174,14 @@ function getPugOpts () {
     };
 }
 
+
 /**
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
  * @return {Stream}
  */
-module.exports = (gulp, $) => {
+export function task (gulp: Gulp, $: GulpPlugins) {
     gulp.task('html', ['html-raml']);
 
     gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
@@ -217,14 +208,17 @@ module.exports = (gulp, $) => {
     gulp.task('js', () => {
         return gulp.src(config.src.js)
         .pipe($.concat('developers.js'))
-        .pipe($.if(config.minify, $.uglify()).on('error', err => {
-            if (err instanceof $.uglify.GulpUglifyError) {
-                const { cause } = err;
-                cause.message = `${cause.filename}:${cause.line}:${cause.col} ${cause.message}`;
-                throw cause;
-            }
-            throw err;
-        }))
+        .pipe($.if(config.minify, $.uglify())
+            .on('error', (err: Error) => {
+                if (err instanceof $.uglify.GulpUglifyError) {
+                    // Reprocess magic uglify errors
+                    const { cause } = err;
+                    cause.message = `${cause.filename}:${cause.line}:${cause.col} ${cause.message}`;
+                    throw cause;
+                }
+                throw err;
+            })
+        )
         .pipe(gulp.dest(config.dist.js));
     });
 
@@ -236,12 +230,12 @@ module.exports = (gulp, $) => {
         ];
 
         files.forEach(file => {
-            const contents = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const contents = JSON.parse(readFileSync(file, 'utf8'));
             const transformed = JSON.stringify(contents, null, '  ');
             if (contents === transformed) {
                 return;
             }
-            fs.writeFileSync(file, `${transformed}\n`);
+            writeFileSync(file, `${transformed}\n`);
         });
     });
 };
