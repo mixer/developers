@@ -1909,13 +1909,13 @@ Input
 
 Input objects are polymorphic events that represent actions that a participant is taking. Each input includes an ``event`` string, such as ``mousedown`` on buttons, in addition to a short ``control`` object describing which contain it occurred. There are several types of built-in events which occur for the default controls, and custom controls which you create can fire custom events as well. These are the built-in event types:
 
- - ``mousedown``
+- ``mousedown``
 
-   Fired on a button when a participant presses their mouse on it. It contains a ``button`` property corresponding to the `JavaScript mouse button <https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button>`_ that the participant used to click on the button. For touch events or input given on game consoles, the button will always be ``0``.
+  Fired on a button when a participant presses their mouse on it. It contains a ``button`` property corresponding to the `JavaScript mouse button <https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button>`_ that the participant used to click on the button. For touch events or input given on game consoles, the button will always be ``0``.
 
-   Additionally, if the button has an associated cost, a `Transaction <#spark-transactions>`_ will be created and associated in the ``transactionID`` property of the params. For example:
+  Additionally, if the button has an associated cost, a `Transaction <#spark-transactions>`_ will be created and associated in the ``transactionID`` property of the params. For example:
 
-   .. code-block:: js
+  .. code-block:: js
 
     "params": {
       "participantID": "b2f65dea-429f-4105-a280-745fd5d75945",
@@ -1929,17 +1929,47 @@ Input objects are polymorphic events that represent actions that a participant i
 
 - ``mouseup``
 
-  Fired on a button when a participant releases their mouse. This is identical to ``mousedown``, but it will not contain a Transaction; sparks may only be deducted on ``mousedown`` events.
+  Fired on a button when a participant releases their mouse. This is identical to ``mousedown``, but it will not contain a Transaction; sparks may only be deducted on ``mousedown`` and ``keydown`` events.
 
-   .. code-block:: js
+  .. code-block:: js
+
+    "params": {
+      "participantID": "b2f65dea-429f-4105-a280-745fd5d75945",
+      "input": {
+        "controlID": "win_the_game_btn",
+        "event": "mouseup",
+        "button": 0
+      }
+    }
+
+- ``keydown``
+
+  Fired on a button when a participant presses the key associated with the button's ``keyCode``.
+
+  Additionally, if the button has an associated cost, a `Transaction <#spark-transactions>`_ will be created and associated in the ``transactionID`` property of the params. For example:
+
+  .. code-block:: js
 
     "params": {
       "participantID": "b2f65dea-429f-4105-a280-745fd5d75945",
       "transactionID": "d69f689e-d4e6-42a4-8d9e-515772f9238f",
       "input": {
         "controlID": "win_the_game_btn",
-        "event": "mouseup",
-        "button": 0
+        "event": "keydown"
+      }
+    }
+
+- ``keyup``
+
+  Fired on a button when a participant releases the key associated with the button's ``keyCode``. It will not contain a Transaction; sparks may only be deducted on ``mousedown`` and ``keydown`` events.
+
+  .. code-block:: js
+
+    "params": {
+      "participantID": "b2f65dea-429f-4105-a280-745fd5d75945",
+      "input": {
+        "controlID": "win_the_game_btn",
+        "event": "keyup"
       }
     }
 
@@ -1951,7 +1981,6 @@ Input objects are polymorphic events that represent actions that a participant i
 
     "params": {
       "participantID": "b2f65dea-429f-4105-a280-745fd5d75945",
-      "transactionID": "d69f689e-d4e6-42a4-8d9e-515772f9238f",
       "input": {
         "controlID": "move_participant",
         "event": "move",
