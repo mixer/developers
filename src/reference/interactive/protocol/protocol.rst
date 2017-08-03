@@ -1244,6 +1244,10 @@ The following are a list of built in controls, which can be serialized as JSON i
 
     The text displayed on a button.
 
+  - ``tooltip: string``
+
+    The tooltip text displayed when the participant hovers over the button.
+
   - ``cost: integer``
 
     The cost in sparks involved in pressing a button. Setting this to a non-zero value will cause a transaction to be created when the button is pressed, and included in the data sent down to the client.
