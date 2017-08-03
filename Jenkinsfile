@@ -8,9 +8,6 @@ node {
         stage("Install") {
             sh 'npm install'
         }
-        stage("Lint") {
-            sh 'npm run lint -s'
-        }
         stage("Build") {
             sh 'npm run build -s'
         }

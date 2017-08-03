@@ -1,15 +1,12 @@
-'use strict';
-
-const config = require('config');
-const path = require('path');
+import { GulpPlugins } from 'gulp-load-plugins';
+import { Gulp } from 'gulp';
+import { config } from './config';
+import { join } from 'path';
 
 /**
  * Registers a task that compiles
- * @param  {Gulp} gulp
- * @param  {Object} $ plugin loader
- * @return {Stream}
  */
-module.exports = (gulp, $) => {
+export function task (gulp: Gulp, $: GulpPlugins) {
     /**
      * Task: `iconfont`
      *   - pipe .svg files
@@ -25,7 +22,7 @@ module.exports = (gulp, $) => {
             formats: ['ttf', 'eot', 'woff', 'svg'],
         }))
         .on('glyphs', glyphs => {
-            gulp.src(path.join(__dirname, '_iconfont.less'))
+            gulp.src(join(__dirname, '_iconfont.less'))
             .pipe($.consolidate('lodash', {
                 glyphs,
                 fontName,

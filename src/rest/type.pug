@@ -13,13 +13,12 @@ mixin typeNameString(type, skipRequired)
         var isArray = true;
         var union = null;
 
-        if (name.slice(-2) === '[]') {
-            name = name.slice(0, -2);
-        } else if (type.items) {
-            if (type.items.type.length > 0) {
+        if (name === 'array') {
+            if (typeof type.items === 'string') {
+                name = type.items;
+            }
+            else if (type.items.type.length > 0) {
                 name = type.items.type[0];
-            } else {
-                name = 'object';
             }
         } else {
             isArray = false;
@@ -37,7 +36,7 @@ mixin typeNameString(type, skipRequired)
         if rest.types[name]
             a(href=`#${name}`)= name
         else
-            = name
+            != name
         != ` (${type.enum.map(val => `<code>${val}</code>`).join()})`
         if type.default
             span.help(title='Default Value')= `=${type.default}`
@@ -71,14 +70,6 @@ mixin typeNameString(type, skipRequired)
         | &gt;
     if !type.default && !type.required && !skipRequired
         span.help(title='Optional') ?
-    if name === 'array' && type.items
-        - var parentType = type.items.type && type.items.type[0];
-        if parentType && !restUtil.isBaseType(parentType)
-            = ' '
-            small extends
-                = ' '
-                a(href=`#${parentType}`)= parentType
-        | :
 mixin typeExample(type)
     if typeof type.example === 'string'
         pre= type.example
@@ -146,7 +137,9 @@ mixin simpleType(key, type, skipRequired)
                             li
                                 +simpleTypeHeading(propertyName, property, skipRequired)
                                 +simpleType(propertyName, property)
-            else
+            else if typeof type.items !== 'string'
                 li Item type:
                     = ' '
                     +typeNameString(type.items)
+            if type.items.description
+                != marked(type.items.description)
