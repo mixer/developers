@@ -36,9 +36,9 @@
         "official": true
     },
     {
-        "language": "python",
-        "name": "Mixer/interactive-python",
-        "alias": "interactive-python",
+        "language": "java",
+        "name": "Mixer/interactive-java",
+        "alias": "interactive-java",
         "official": true
     }
 ]
