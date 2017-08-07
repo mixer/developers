@@ -24,12 +24,6 @@
         "official": true
     },
     {
-        "language": "java",
-        "name": "Mixer/beam-interactive-java",
-        "alias": "interactive-java",
-        "official": true
-    },
-    {
         "language": "js",
         "name": "Mixer/interactive-node",
         "alias": "interactive-node",
