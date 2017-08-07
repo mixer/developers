@@ -24,21 +24,15 @@
         "official": true
     },
     {
-        "language": "java",
-        "name": "Mixer/beam-interactive-java",
-        "alias": "interactive-java",
-        "official": true
-    },
-    {
         "language": "js",
         "name": "Mixer/interactive-node",
         "alias": "interactive-node",
         "official": true
     },
     {
-        "language": "python",
-        "name": "Mixer/interactive-python",
-        "alias": "interactive-python",
+        "language": "java",
+        "name": "Mixer/interactive-java",
+        "alias": "interactive-java",
         "official": true
     }
 ]

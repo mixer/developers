@@ -13,7 +13,12 @@ mixin typeNameString(type, skipRequired)
         var isArray = true;
         var union = null;
 
-        if (name.slice(-2) === '[]') {
+        if (/ \| /.test(name)) {
+            union = name.split(' | ');
+            isArray = false;
+        }
+
+        if (name.slice(-2) === '[]' && !union) {
             name = name.slice(0, -2);
         } else if (type.items) {
             if (type.items.type.length > 0) {
@@ -25,40 +30,25 @@ mixin typeNameString(type, skipRequired)
             isArray = false;
         }
 
-        if (/^\(.+\|.+\)$/.test(name)) {
-            union = name.slice(1, -1).split(/\W*\|\W*/g);
-        }
-
     if type.default
         | [
     if isArray
         | Array&lt;
     if type.enum
-        if rest.types[name]
-            a(href=`#${name}`)= name
-        else
-            = name
+        +printType(name)
         != ` (${type.enum.map(val => `<code>${val}</code>`).join()})`
         if type.default
             span.help(title='Default Value')= `=${type.default}`
     else if union
-        | (
         for nested, i in union
             if i > 0
                 = ' ∪ '
-            if rest.types[nested]
-                a(href=`#${nested}`)= nested
-            else
-                = nested
-        | )
+            +printType(nested)
     else
         if type.minimum
             span.help(title='Min value')= type.minimum
             | &leq;
-        if rest.types[name]
-            a(href=`/rest.html#${name}`)= name
-        else
-            = name
+        +printType(name)
         if type.default
             | =
             span.help(title='Default Value')= type.default
@@ -77,8 +67,18 @@ mixin typeNameString(type, skipRequired)
             = ' '
             small extends
                 = ' '
-                a(href=`#${parentType}`)= parentType
+                +printType(parentType)
         | :
+mixin printType(type)
+    -
+        var typeLink = type;
+        if (typeLink.slice(-2) === '[]') {
+            typeLink = type.slice(0,-2);
+        }
+    if rest.types[typeLink]
+        a(href=`/rest.html#${typeLink}`)= type
+    else
+        = type
 mixin typeExample(type)
     if typeof type.example === 'string'
         pre= type.example
