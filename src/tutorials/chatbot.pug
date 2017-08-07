@@ -2,7 +2,7 @@ extends ./tutorial_layout.pug
 include ../mixins.pug
 
 block append scripts
-    +oauthLinks('chat:connect chat:chat')
+    +oauthLinks('chat:connect chat:chat chat:bypass_slowchat')
 
 block title
     | Chatbot Tutorial | Mixer Developers
