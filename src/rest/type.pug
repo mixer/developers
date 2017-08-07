@@ -15,9 +15,7 @@ mixin typeNameString(type, skipRequired)
 
         if (/ \| /.test(name)) {
             union = name.split(' | ');
-            if (union) {
-                isArray = false;
-            }
+            isArray = false;
         }
 
         if (name.slice(-2) === '[]' && !union) {
@@ -37,10 +35,7 @@ mixin typeNameString(type, skipRequired)
     if isArray
         | Array&lt;
     if type.enum
-        if rest.types[name]
-            a(href=`#${name}`)= name
-        else
-            = name
+        +printType(name)
         != ` (${type.enum.map(val => `<code>${val}</code>`).join()})`
         if type.default
             span.help(title='Default Value')= `=${type.default}`
@@ -48,23 +43,12 @@ mixin typeNameString(type, skipRequired)
         for nested, i in union
             if i > 0
                 = ' ∪ '
-            -
-                var nestedType = nested;
-                if (nestedType.slice(-2) === '[]') {
-                    nestedType = nested.slice(0,-2);
-                }
-            if rest.types[nestedType]
-                a(href=`#${nestedType}`)= nested
-            else
-                = nested
+            +printType(nested)
     else
         if type.minimum
             span.help(title='Min value')= type.minimum
             | &leq;
-        if rest.types[name]
-            a(href=`/rest.html#${name}`)= name
-        else
-            = name
+        +printType(name)
         if type.default
             | =
             span.help(title='Default Value')= type.default
@@ -83,8 +67,18 @@ mixin typeNameString(type, skipRequired)
             = ' '
             small extends
                 = ' '
-                a(href=`#${parentType}`)= parentType
+                +printType(parentType)
         | :
+mixin printType(type)
+    -
+        var typeLink = type;
+        if (typeLink.slice(-2) === '[]') {
+            typeLink = type.slice(0,-2);
+        }
+    if rest.types[typeLink]
+        a(href=`#${typeLink}`)= type
+    else
+        = type
 mixin typeExample(type)
     if typeof type.example === 'string'
         pre= type.example
