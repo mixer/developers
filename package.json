@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WatchBeam/beam-developers.git"
+    "url": "git+https://github.com/mixer/developers.git"
   },
   "author": "Beam Interactive, Inc.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WatchBeam/beam-developers/issues"
+    "url": "https://github.com/mixer/developers/issues"
   },
-  "homepage": "https://github.com/WatchBeam/beam-developers#readme",
+  "homepage": "https://github.com/mixer/developers#readme",
   "devDependencies": {
     "@mcph/beam-common": "^5.0.5",
     "bluebird": "^3.4.1",

@@ -154,7 +154,7 @@ message ProgressUpdate {
         optional uint32 cooldown = 2;
 
         // Marks the button has having been fired, showing a "pulse"
-        // on the Beam frontend.
+        // on the Mixer frontend.
         optional bool fired = 3;
 
         // Sets the progress of the button toward some threshold, appearing
