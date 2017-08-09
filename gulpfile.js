@@ -12,10 +12,6 @@ require('./build/css')(gulp, $);
 
 const defaultTasks = ['html', 'js', 'css', 'images'];
 
-if (config.buildReferenceDocs) {
-    defaultTasks.push('java-doc');
-}
-
 gulp.task('default', defaultTasks);
 gulp.task('recompile', ['html-quick', 'js', 'css', 'images']);
 

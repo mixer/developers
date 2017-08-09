@@ -230,20 +230,6 @@ function enhanceRamlObj (ramlObj) {
  * @return {Stream}
  */
 module.exports = (gulp) => {
-    gulp.task('java-clone', () => getRepo('git@github.com:WatchBeam/beam-client-java.git'));
-
-    gulp.task('java-mvn-gen', ['java-clone'], (callback) => {
-        childProcess.exec(
-            `cd ${config.src.tmp}/beam-client-java && mvn clean javadoc:javadoc`,
-            { maxBuffer: 1024 * 1024 * 10 },
-            callback
-        );
-    });
-    gulp.task('java-doc', ['java-mvn-gen'], () => {
-        return gulp.src(path.join(config.src.tmp, 'beam-client-java/target/site/**/*'))
-        .pipe(gulp.dest(config.dist.javadoc));
-    });
-
     gulp.task('backend-clone', () => getRepo('git@github.com:WatchBeam/backend.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
