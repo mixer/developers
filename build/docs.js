@@ -230,7 +230,7 @@ function enhanceRamlObj (ramlObj) {
  * @return {Stream}
  */
 module.exports = (gulp) => {
-    gulp.task('backend-clone', () => getRepo('git@github.com:WatchBeam/backend.git', 'master'));
+    gulp.task('backend-clone', () => getRepo('git@github.com:mixer/backend.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
