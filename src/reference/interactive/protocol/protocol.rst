@@ -13,15 +13,15 @@ Server Interaction
 
 The client establishes a connection to the client over a websocket, as described below. In this section we lay out the authorization process and initial states that the client may be in. Each of these qualifications are checked in the order that they're presented; a failure at a previous check will precede all subsequent checks.
 
-- When making a handshake to the server, the client MUST include an ``Authorization`` header containing an OAuth bearer token. Failing to pass an authorization or passing an invalid or expired expiration SHALL cause the server to close the websocket after a connection with a ``4020`` code. See `OAuth <#oauth>`_ for more information.
+- When making a handshake to the server, the client MUST include an ``Authorization`` header containing an OAuth bearer token. Failing to pass an authorization or passing an invalid or expired expiration SHALL cause the server to close the websocket after a connection with a ``4019`` code. See `OAuth <#oauth>`_ for more information.
 
-- Additionally, the client MUST include an ``X-Interactive-Version`` header corresponding to the number version ID that the integration runs. If the version ID is not found, or the user does not have the correct permission to play the game, the connection will be closed with a ``4021`` code. For example: ``X-Interactive-Version: 478210``.
+- Additionally, the client MUST include an ``X-Interactive-Version`` header corresponding to the number version ID that the integration runs. If the version ID is not found, or the user does not have the correct permission to play the game, the connection will be closed with a ``4020`` code. For example: ``X-Interactive-Version: 478210``.
 
 - The client MAY include an ``X-Interactive-Sharecode`` header if it wishes to use an interactive integration which has been shared by its author.
 
 - Additionally, the client MUST include an ``X-Protocol-Version`` header corresponding to the interactive protocol version it speaks. If this server cannot provide the version, a ``400 Bad Request`` status code will be returned. The protocol version specified by this document is **``2.0``**.
 
-- If there is already an interactive connection running for the channel, the connection will be closed with a ``4022`` code.
+- If there is already an interactive connection running for the channel, the connection will be closed with a ``4021`` code.
 
 When a connection is established to the server, the channel enters a "staging" mode, and after the client signals that it's ready it enters interactive mode where clients are able to connect and controls appear below the Mixer channel.. The channel remains in interactive mode until the connection terminates. Authentication context is preserved throughout the lifetime of the socket.
 
