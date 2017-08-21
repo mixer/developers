@@ -38,6 +38,21 @@ function wrappedRequire (filePath) {
 }
 
 /**
+ * Returns the array of permissions to be shown on the OAuth section of the docs.
+ * @return {Object[]}
+ */
+function getPermissions () {
+    try {
+        return require('@mcph/beam-common').permissions;
+    } catch (err) {
+        if (err.code === 'MODULE_NOT_FOUND') {
+            return [];
+        }
+        throw err;
+    }
+}
+
+/**
  * Generates locals required for templating.
  * `permissions` is used for the REST API docs, they are displayed in a table.
  * @return {Object}
@@ -50,7 +65,7 @@ function getLocals () {
         },
     });
 
-    const permissions = require('@mcph/beam-common').permissions;
+    const permissions = getPermissions();
     const permissionKeys = Object.keys(permissions).sort();
     const out = {
         _,
