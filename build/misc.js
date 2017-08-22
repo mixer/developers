@@ -46,6 +46,8 @@ function getPermissions () {
         return require('@mcph/beam-common').permissions;
     } catch (err) {
         if (err.code === 'MODULE_NOT_FOUND') {
+            // eslint-disable-next-line no-console
+            console.warn('Cannot find common module. OAuth scope table will be omitted.');
             return [];
         }
         throw err;
