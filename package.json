@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/mixer/developers#readme",
   "devDependencies": {
-    "@mcph/beam-common": "^5.0.5",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
     "config": "^1.21.0",
@@ -57,5 +56,8 @@
     "pug-lint": "^2.2.2",
     "raml-1-parser": "^0.2.33",
     "sticky-kit": "^1.1.3"
+  },
+  "optionalDependencies": {
+    "@mcph/beam-common": "^5.0.6"
   }
 }
