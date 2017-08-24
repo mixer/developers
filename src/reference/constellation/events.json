@@ -183,9 +183,6 @@
             }
         }
     },
-    "channel:{id}:status": {
-        "description": "Subscribes to the online status of a channel. You'll get events sent down named `chat:{id}:StartStreaming` and `chat:{id}:StopStreaming`."
-    },
     "channel:{id}:subscribed": {
         "description": "Sent when a user subscribes to the channel.",
         "payload": {
