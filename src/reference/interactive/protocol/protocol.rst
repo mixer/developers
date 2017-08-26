@@ -1209,7 +1209,7 @@ The following are a list of built in controls, which can be serialized as JSON i
 
     Must be set to "button".
 
-  - ``keycode: integer``
+  - ``keyCode: integer``
 
     A JavaScript keycode which participants use to trigger this button via their keyboard.
 
