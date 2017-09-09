@@ -1,0 +1,48 @@
+@import '_mixins';
+
+.book {
+
+    &-primary {
+        background: #fff;
+
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+
+        p {
+            font-size: 1.1em;
+            line-height: 2em;
+        }
+    }
+
+    &-sidebar {
+        position: relative;
+
+        .sidebar-variant(#000);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vw;
+            z-index: -1;
+            background: #F4F4F4;
+        }
+
+        @media (max-width: @screen-md-min) {
+            display: block;
+            position: relative !important;
+            top: 0 !important;
+            width: auto !important;
+
+            &::before {
+                left: @grid-gutter-width / -2;
+                top: -@grid-gutter-width;
+                bottom: @grid-gutter-width / -2;
+                width: 100vw;
+                height: auto;
+            }
+        }
+    }
+}

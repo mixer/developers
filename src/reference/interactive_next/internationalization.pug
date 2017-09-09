@@ -1,0 +1,63 @@
+extends ./page.pug
+
+block title
+    | Internationalization | Interactive Reference | Mixer Developers
+
+block reference
+    h1 Internationalization
+
+    p Internationalization is a important next step to take to ensure that your Interactive integration is accessible to all streamers and viewers; there are more people who in the world who don't speak your native language than those who do! Custom controls provide interntionalization as a first-class citizen.
+
+    h2#tldr TL;DR
+
+    p You have a folder `locales` that contain JSON files for various locales. These map string "keys" to their translations. For example, an `en-us.json` file can contain:
+
+    +highlightJson({ clickMe: 'Click Me' })
+
+    p You can get the appropriate translation in a Preact control using the #[code &lt;Translate /&gt;] component:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/translation-demo.jsx')
+
+    h2#writing-translations Writing Translations
+
+    p In the default custom control template, you'll find a folder called #[code locales]. In this folder is a bunch of JSON documents. The names of these documents, like #[code en-us.json], correspond to a language. The general form for what a locale string "is" is formally defined in #[a(href='http://www.ietf.org/rfc/bcp/bcp47.txt') BCP47] but, for the most part, they take the form of #[code language-dialect].
+
+    pre.
+        $ ls locales
+        en-us.json
+        en-gb.json
+        zh.json
+
+    p Inside each file is a map of keys to translated text. There's nothing special about the keys, they're just what you use to reference the translation. For example:
+
+    h5 en-us.json
+
+    +highlightJson({ clickMe: 'Click Me' })
+
+    h5 zh.json
+
+    +highlightJson({ clickMe: '点击这个' })
+
+    p Now, whenever you translate the string #[code clickMe], it'll show the right text.
+
+    h3 Advanced Syntax
+
+    p Under the hood, we use the ICU Message Syntax powered by Format.js. Format.js has an #[a(href='https://formatjs.io/guides/message-syntax/') excellent guide] for details about its syntax. In ICU messages you can easil;y define interpolations and plural forms, and format numbers, times, dates, and ordinals.
+
+    p Also, when we parse JSON, we actually parse it as #[a(href='https://github.com/json5/json5') JSON5]. This extends standard JSON formatting by adding features such as multiline strings&mdash;especially useful for those complex ICU rules! For example, here's how you could tell the user how main points they have:
+
+    +highlightFile('js', 'reference/interactive_next/internationalization/plural-example.json')
+
+    h2#using-translations Using Translations
+
+    p The right locale for the current user is automatically pulled by the #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/Locales.ts'): code Locales] class, and provided by the fairly simple #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Translate.tsx'): code &lt;Translate /&gt;] component. This component is probably what you'll be using in most of your code, you should rarely if ever need to touch the Locales class directly.
+
+    p You should pass it a #[code string] property to specify what key it should translate by. For example, to translate the "clickMe" string above, you can do something along these lines:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/translation-demo.jsx')
+
+    p Any other properties you pass in will be give to the translator to interpolate. Going back to that plural example, here's how you could create a score counter:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/score-counter-demo.jsx')
+
+    p If the #[code string] you pass into interpolate doesn't exist in the localization, it will be printed without modification.

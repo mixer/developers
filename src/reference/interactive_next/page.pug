@@ -1,0 +1,33 @@
+extends ../book_layout.pug
+include ../../mixins.pug
+
+block title
+    | Interactive Reference | Mixer Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Interactive Reference Documentation
+
+block menu
+    .hidden-print.book-sidebar.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                +bookMenu('/reference/interactive_next/index.html', 'Introduction')
+                    +bookMenu('#introduction', 'Introduction')
+                    +bookMenu('#overview', 'Overview')
+
+                +bookMenu('/reference/interactive_next/controls.html', 'Controls')
+                    +bookMenu('#but-rly', 'But Really, What is a Control?')
+                    +bookMenu('#inputs', 'Inputs')
+                    +bookMenu('#styling-and-positioning', 'Styling & Positioning')
+                        +bookMenu('#layout', 'Layout')
+                        +bookMenu('#working-with-css', 'Working with CSS')
+                        +bookMenu('#conditional-classes', 'Conditional Classes')
+                    +bookMenu('#giving-input', 'Giving Input')
+
+                +bookMenu('/reference/interactive_next/internationalization.html', 'Internationalization')
+                    +bookMenu('#tldr', 'TL;DR')
+                    +bookMenu('#writing-translations', 'Writing Translations')
+                    +bookMenu('#using-translations', 'Using Translations')

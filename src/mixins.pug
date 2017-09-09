@@ -1,6 +1,9 @@
 mixin highlightFile(language, file)
     +highlightStr(language, readFile(file).toString())
 
+mixin highlightJson(obj)
+    +highlightStr('json', JSON.stringify(obj, null, 3))
+
 mixin highlightStr(language, str)
     pre
         code(class=language)
@@ -31,24 +34,6 @@ mixin bsTabs(name, tabs)
     if block
         .tab-content
             block
-    //- script(type='text/javascript').
-    //-     function hashUpdate() {
-    //-         var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
-    //-         tab.tab('show');
-    //-         var rawEl = tab.get(0);
-    //-         rawEl.scrollIntoView();
-    //-     }
-    //-     addEventListener('hashchange', hashUpdate);
-    //-     $(function() {
-    //-         if (location.hash !== '') {
-    //-             hashUpdate();
-    //-         }
-
-    //-         // Change hash for page-reload
-    //-         $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
-    //-             history.pushState( null, null, $(this).attr('href') );
-    //-         });
-    //-     });
 
 mixin bsTabItem(parent, name)
     -
@@ -72,3 +57,13 @@ mixin oauthLinks(scopes)
         $(function () {
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
+
+mixin bookMenu(pathOrHash, name)
+    - var isActive = pathOrHash == urlPath;
+
+    li(class=isActive ? 'active-locked' : '')
+        a(href=pathOrHash)= name
+
+        if block && (isActive || pathOrHash.startsWith('#'))
+            ul.nav.nav-stacked
+                block

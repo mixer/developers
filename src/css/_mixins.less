@@ -1,0 +1,21 @@
+.sidebar-variant(@color) {
+    li {
+        a {
+            &:hover {
+                color: @color;
+
+                &:before {
+                    background-color: @color;
+                }
+            }
+        }
+
+        &.active,
+        &.active-locked {
+            > a {
+                border-left-color: @color;
+                color: @color;
+            }
+        }
+    }
+}

@@ -1,3 +1,5 @@
+@import '_mixins';
+
 .panel-rest {
     position: relative;
 
@@ -166,11 +168,10 @@
         }
     }
 }
-
 .rest-sidebar {
-    padding-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 20px 10px 20px 0;
+
+    .sidebar-variant(@brand-secondary);
 
     li {
         a {
@@ -183,11 +184,6 @@
 
             &:hover {
                 font-weight: 500;
-                color: @brand-secondary;
-
-                &:before {
-                    background-color: @brand-secondary;
-                }
             }
         }
 
@@ -199,15 +195,14 @@
             }
         }
 
-        &.active {
+        &.active,
+        &.active-locked {
             > ul.nav {
                 display: block;
             }
 
             > a {
                 font-weight: 600;
-                border-left-color: @brand-secondary;
-                color: @brand-secondary;
             }
         }
     }
