@@ -14,9 +14,15 @@ block menu
     .hidden-print.book-sidebar.rest-sidebar(role='complementary')
         nav
             ul.nav.nav-stacked
-                +bookMenu('/reference/interactive_next/index.html', 'Introduction')
-                    +bookMenu('#introduction', 'Introduction')
+                +bookMenu('/reference/interactive_next/index.html', 'Overview')
                     +bookMenu('#overview', 'Overview')
+                    +bookMenu('#bundles', 'Bundles')
+                    +bookMenu('#quickstart', 'Quickstart')
+                        +bookMenu('#prerequisites', '#0 Prerequisites')
+                        +bookMenu('#create-a-project', '#1 Create a Project')
+                        +bookMenu('#customize', '#2 Customize')
+                        +bookMenu('#publish', '#3 Publish')
+                    +bookMenu('#next-steaps', 'Next Steps')
 
                 +bookMenu('/reference/interactive_next/controls.html', 'Controls')
                     +bookMenu('#but-rly', 'But Really, What is a Control?')
@@ -26,6 +32,7 @@ block menu
                         +bookMenu('#working-with-css', 'Working with CSS')
                         +bookMenu('#conditional-classes', 'Conditional Classes')
                     +bookMenu('#giving-input', 'Giving Input')
+                    +bookMenu('#custom-scenes', 'Custom Scenes')
 
                 +bookMenu('/reference/interactive_next/internationalization.html', 'Internationalization')
                     +bookMenu('#tldr', 'TL;DR')

@@ -208,7 +208,7 @@ function getPugOpts () {
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
-    const dataPipe = $.data(file => {
+    const dataPipe = () => $.data(file => {
         const relative = path.relative('src', file.path);
 
         return {
@@ -221,7 +221,7 @@ module.exports = (gulp, $) => {
 
     gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
-        .pipe(dataPipe)
+        .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
         .pipe(gulp.dest(config.dist.html));
@@ -229,7 +229,7 @@ module.exports = (gulp, $) => {
 
     gulp.task('html-quick', () => {
         return gulp.src(config.src.html)
-        .pipe(dataPipe)
+        .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
         .pipe(gulp.dest(config.dist.html));

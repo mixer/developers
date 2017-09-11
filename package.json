@@ -8,7 +8,7 @@
     "lint:pug": "pug-lint src",
     "lint:json": "gulp lint-json",
     "lint": "npm-run-all --parallel lint:js lint:pug lint:json",
-    "test": "run run lint",
+    "test": "npm run lint",
     "build": "gulp",
     "rebuild": "gulp recompile",
     "start": "http-server -p 8000 dist",

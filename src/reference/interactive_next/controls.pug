@@ -67,3 +67,19 @@ block reference
     p Input is given by calling #[code this.control.giveInput] inside the class. It takes an object which must have an #[code event] property, and can contain arbitrary other data. Using our previous HelloWorldControl example, let's turn that into a button that sends an event with the viewer's username whenever they press it:
 
     +highlightFile('javascript', 'reference/interactive_next/controls/hello-give-input.jsx')
+
+    h2#custom-scenes Custom Scenes
+
+    p The launchpad provides a #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Scene.tsx') basic scene] out of the box, but you are free to add your own scenes, or customize or replace it!
+
+    p Say you had some specific scene, the #[code leaderboard], for which you wanted to have some scene-level logic or styling applied. Like controls, scenes are decorated with the #[code @Mixer.Scene] decorator. There can be one scene defined as the default, and other scene classes that can be used instead for specific scene names.
+
+    p Let's define that leaderboard scene. We'll extend the default scene and add a title over our controls:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/scene-01.jsx')
+
+    p Like controls, you need to pass it into the #[code register()] function:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/scene-register.jsx')
+
+    p And that's it! Whenever the #[code leaderboard] scene is registered, it'll use your custom class and show #[code And the winners are...].
