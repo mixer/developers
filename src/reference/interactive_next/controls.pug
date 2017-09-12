@@ -10,6 +10,8 @@ block reference
 
     p The standard set of custom controls is built upon #[a(href='https://preactjs.com/') Preact], a super lightweight framework that takes care of the dirty work for you. The controls are written in #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a superset of JavaScript which gives you the option of adding type annotations to your code. We encourage you to use TypeScript's features if you're comfortable with it or feeling intrepid, but for simplicity's sake examples here will leave out type annotations.
 
+    .alert.alert-info If you haven't already, #[a(href='/reference/interactive_next/index.html#quickstart') create a new project] and follow along with this guide!
+
     h2#but-rly But Really, What is a Control?
 
     p When thinking about controls, it's important to remember that there are two consumers: the web frontend as seen by viewers and the Interactive Studio as seen by other developers and some streamers. You are free to only focus on the viewers if you don't need to use the Studio and don't intend to share your integration with other developers. But, keeping this duality in mind is important for understanding the considerations around which controls are designed.
@@ -44,9 +46,19 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/controls/style-example-01.jsx')
 
-    h3#working-with-css Working with CSS
+    h3#static-styles Static Styles
 
-    p CSS is compiled using the #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/Style.tsx'): code RuleSet] class. This provides a simple, convenient way to translate JavaScript objects into CSS properties. Let's make some CSS:
+    p CSS can be written in plain stylesheets which are included in your control bundle. In the launchpad project, you'll see that there is a #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/style.scss'): code style.scss] file that serves as an entry point, and imports other stylesheets that contain rules for buttons and joysticks.
+
+    p If you haven't used CSS before, check out Mozilla's #[a(href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS') Introduction to CSS].
+
+    p If you know your way around already, you'll notice that the stylesheets are written in #[a(href='http://sass-lang.com/') Sass]. Sass is a preprocessor that adds useful new features on top of CSS, which you can take advantage of if you'd like to.
+
+    h3#styles-in-javascript Styles in JavaScript
+
+    p Often, you'll want to programmatically apply styles based on some JavaScript state, like in the example in the #[a(href='#layout') Layout] section above. In that example, we created an inline style rule manually, but doing this for lots of rules becomes ugly and burdensome.
+
+    p We provide a simple way to create styles from JavaScript objecting using the #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/Style.tsx'): code RuleSet] class. This provides a simple, convenient way to translate JavaScript objects into CSS properties. Let's make some CSS:
 
     +highlightFile('javascript', 'reference/interactive_next/controls/style-example-02.jsx')
 
@@ -83,3 +95,5 @@ block reference
     +highlightFile('javascript', 'reference/interactive_next/controls/scene-register.jsx')
 
     p And that's it! Whenever the #[code leaderboard] scene is registered, it'll use your custom class and show #[code And the winners are...].
+
+    p Like controls, you can also define and access #[code @Mixer.Input] properties on scenes.
