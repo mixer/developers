@@ -1,11 +1,6 @@
 extends ./page.pug
 
-block title
-    | Controls | Interactive Reference | Mixer Developers
-
 block reference
-    h1 Controls
-
     p Controls are the constructs by which users can give input to your game. They exist in scenes and have a free-form set of properties that can be used to modify their behavior or appearance.
 
     p The standard set of custom controls is built upon #[a(href='https://preactjs.com/') Preact], a super lightweight framework that takes care of the dirty work for you. The controls are written in #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a superset of JavaScript which gives you the option of adding type annotations to your code. We encourage you to use TypeScript's features if you're comfortable with it or feeling intrepid, but for simplicity's sake examples here will leave out type annotations.

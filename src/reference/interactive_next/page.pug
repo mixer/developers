@@ -1,55 +1,79 @@
 extends ../book_layout.pug
 include ../../mixins.pug
 
-block title
-    | Interactive Reference | Mixer Developers
+block bookName
+    | Custom Controls
 
-block navbar
-    .navbar-wrapper
-        .container
-            nav.navbar.navbar-inverse: +navbar()
-            h1 Interactive Reference Documentation
+block bookPages
+    -
+        var pages = {
+            index: {
+                name: 'Overview',
+                sections: {
+                    bundles: 'Bundles',
+                    quickstart: {
+                        name: 'Quickstart',
+                        sections: {
+                            prerequisites: '#0 Prerequisites',
+                            'create-a-project': '#1 Create a Project',
+                            customize: '#2 Customize',
+                            publish: '#3 Publish',
+                        },
+                    },
+                    'next-steps': 'Next Steps',
+                },
+            },
+            controls: {
+                name: 'Controls',
+                sections: {
+                    'but-rly': 'But Really, What is a Control?',
+                    inputs: 'Inputs',
+                    'styling-and-positioning': {
+                        name: 'Styling & Positioning',
+                        sections: {
+                            layout: 'Layout',
+                            'static-styles': 'Static Styles',
+                            'styles-in-javascript': 'Styles in JavaScript',
+                            'conditional-classes': 'Conditional Classes',
+                        },
+                    },
+                    'giving-input': 'Giving Input',
+                    'custom-scenes': 'Custom Scenes',
+                },
+            },
 
-block menu
-    .hidden-print.book-sidebar.rest-sidebar(role='complementary')
-        nav
-            ul.nav.nav-stacked
-                +bookMenu('/reference/interactive_next/index.html', 'Overview')
-                    +bookMenu('#overview', 'Overview')
-                    +bookMenu('#bundles', 'Bundles')
-                    +bookMenu('#quickstart', 'Quickstart')
-                        +bookMenu('#prerequisites', '#0 Prerequisites')
-                        +bookMenu('#create-a-project', '#1 Create a Project')
-                        +bookMenu('#customize', '#2 Customize')
-                        +bookMenu('#publish', '#3 Publish')
-                    +bookMenu('#next-steaps', 'Next Steps')
+            internationalization: {
+                name: 'Internationalization',
+                sections: {
+                    tldr: 'TL;DR',
+                    'writing-translations': 'Writing Translations',
+                    'using-translations': 'Using Translations',
+                },
+            },
 
-                +bookMenu('/reference/interactive_next/controls.html', 'Controls')
-                    +bookMenu('#but-rly', 'But Really, What is a Control?')
-                    +bookMenu('#inputs', 'Inputs')
-                    +bookMenu('#styling-and-positioning', 'Styling & Positioning')
-                        +bookMenu('#layout', 'Layout')
-                        +bookMenu('#static-styles', 'Static Styles')
-                        +bookMenu('#styles-in-javascript', 'Styles in JavaScript')
-                        +bookMenu('#conditional-classes', 'Conditional Classes')
-                    +bookMenu('#giving-input', 'Giving Input')
-                    +bookMenu('#custom-scenes', 'Custom Scenes')
+            'best-practices': {
+                name: 'Best Practices',
+                sections: {
+                    'test-across-platforms': 'Test Across Platforms',
+                    'use-internationalizations': 'Use Internationalization',
+                },
+            },
 
-                +bookMenu('/reference/interactive_next/internationalization.html', 'Internationalization')
-                    +bookMenu('#tldr', 'TL;DR')
-                    +bookMenu('#writing-translations', 'Writing Translations')
-                    +bookMenu('#using-translations', 'Using Translations')
+            authoring: {
+                name: 'Authoring Bundles',
+                sections: {
+                    'local-development': 'Local Development',
+                    'initial-e2e': 'Initial End-to-End',
+                    'final-testing': 'Final Testing & Publishing',
+                },
+            },
 
-                +bookMenu('/reference/interactive_next/best-practices.html', 'Best Practices')
-                    +bookMenu('#test-across-platforms', 'Test Across Platforms')
-                    +bookMenu('#use-internationalizations', 'Use Internationalization')
-
-                +bookMenu('/reference/interactive_next/authoring.html', 'Authoring Bundles')
-                    +bookMenu('#local-development', 'Local Development')
-                    +bookMenu('#initial-e2e', 'Initial End-to-End')
-                    +bookMenu('#final-testing', 'Final Testing & Publishing')
-
-                +bookMenu('/reference/interactive_next/writing-clients.html', 'Writing SDKs')
-                    +bookMenu('#state-model', 'State Model')
-                    +bookMenu('#talking-to-interactive', 'Talking to Interactive')
-                    +bookMenu('#receiving-input', 'Receiving Input')
+            'writing-clients': {
+                name: 'Writing SDKs',
+                sections: {
+                    'state-model': 'State Model',
+                    'talking-to-interactive': 'Talking to Interactive',
+                    'receiving-input': 'Receiving Input',
+                },
+            },
+        };

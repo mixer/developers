@@ -213,6 +213,7 @@ module.exports = (gulp, $) => {
 
         return {
             filePath: relative,
+            fileBasename: path.basename(file.path, path.extname(file.path)),
             urlPath: `/${relative.slice(0, -4).split(path.sep).join('/')}.html`,
         };
     });

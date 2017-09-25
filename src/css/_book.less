@@ -1,7 +1,6 @@
 @import '_mixins';
 
 .book {
-
     &-primary {
         background: #fff;
 
@@ -36,17 +35,6 @@
 
         .sidebar-variant(#000);
 
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50vw;
-            height: 100vw;
-            z-index: -1;
-            background: #F4F4F4;
-        }
-
         @media (max-width: @screen-md-min) {
             display: block;
             position: relative !important;
@@ -60,6 +48,50 @@
                 width: 100vw;
                 height: auto;
             }
+        }
+    }
+
+    &-nav {
+        padding: 8px;
+        border: 1px solid @gray-lighter;
+        width: 7em;
+        text-align: center;
+
+        &:hover {
+            background: @gray-lighter;
+        }
+
+        &-next {
+            align-self: flex-end;
+        }
+    }
+
+    &-page-title {
+        display: flex;
+        align-items: center;
+        margin: (@grid-gutter-width * 1.5) 0;
+
+        h1 {
+            flex-grow: 1;
+            text-align: center;
+            margin: 0;
+        }
+    }
+
+    &-page-footer {
+        .bar-transition-top(5px);
+
+        display: flex;
+        align-items: center;
+        padding-top: @grid-gutter-width;
+        margin-top: @grid-gutter-width;
+        position: relative;
+        border-top: 2px solid @gray-lighter;
+
+        span {
+            flex-grow: 1;
+            text-align: center;
+            color: #999;
         }
     }
 }

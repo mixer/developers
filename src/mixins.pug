@@ -58,12 +58,44 @@ mixin oauthLinks(scopes)
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
 
-mixin bookMenu(pathOrHash, name)
-    - var isActive = pathOrHash == urlPath;
+mixin bookPageTitle(pages)
+    = pages.hasOwnProperty(fileBasename) ? pages[fileBasename].name : fileBasename
+
+mixin bookPageNav(location, page, isTopLevel=true)
+    -
+        const isActive = fileBasename === location;
+
+        if (typeof page === 'string') {
+            page = { name: page };
+        }
+        if (isTopLevel) {
+            location = `./${location}.html`;
+        } else {
+            location = `#${location}`;
+        }
 
     li(class=isActive ? 'active-locked' : '')
-        a(href=pathOrHash)= name
+        a(href=location)= page.name
 
-        if block && (isActive || pathOrHash.startsWith('#'))
+        if page.sections
             ul.nav.nav-stacked
-                block
+                each section, hash in page.sections
+                    +bookPageNav(hash, section, false)
+
+mixin bookPrevArrow(pages)
+    -
+        const keys = Object.keys(pages);
+        const index = keys.indexOf(fileBasename);
+
+    if index > 0
+        a.book-nav.book-nav-prev(href=`./${keys[index - 1]}.html` title=pages[keys[index - 1]].name)
+            | &larr; Previous
+
+mixin bookNextArrow(pages)
+    -
+        const keys = Object.keys(pages);
+        const index = keys.indexOf(fileBasename);
+
+    if index < keys.length - 1
+        a.book-nav.book-nav-prev(href=`./${keys[index + 1]}.html` title=pages[keys[index + 1]].name)
+            | Next &rarr;
