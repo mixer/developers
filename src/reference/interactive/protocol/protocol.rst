@@ -592,6 +592,12 @@ setBandwidthThrottle |Server Method|
 
 This method may be called on the server to set throttling for certain server-to-client method calls, such as ``giveInput``, which could become problematic in very high-traffic scenarios. It implements a `leaky bucket algorithm <https://en.wikipedia.org/wiki/Leaky_bucket>`_; the client specifies the total bucket capacity in bytes and its drain rate in bytes per second. The ``params`` contains a map of method names to their throttle rules. Throttling previously enabled on a method can be disabled by setting it to `null`.
 
+Additionally you may configure a global throttle by specifying ``*``, this will operate on all methods.
+
+By default a global throttle is configured with the following settings:
+- ``capacity`` - 3840
+- ``drainRate`` - 1280
+
 .. code-block:: js
 
   {
