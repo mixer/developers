@@ -1,6 +1,9 @@
 mixin highlightFile(language, file)
     +highlightStr(language, readFile(file).toString())
 
+mixin highlightJson(obj)
+    +highlightStr('json', JSON.stringify(obj, null, 3))
+
 mixin highlightStr(language, str)
     pre
         code(class=language)
@@ -31,24 +34,6 @@ mixin bsTabs(name, tabs)
     if block
         .tab-content
             block
-    //- script(type='text/javascript').
-    //-     function hashUpdate() {
-    //-         var tab = $('.nav-tabs a[href="#' + location.hash.substr(1) + '"]');
-    //-         tab.tab('show');
-    //-         var rawEl = tab.get(0);
-    //-         rawEl.scrollIntoView();
-    //-     }
-    //-     addEventListener('hashchange', hashUpdate);
-    //-     $(function() {
-    //-         if (location.hash !== '') {
-    //-             hashUpdate();
-    //-         }
-
-    //-         // Change hash for page-reload
-    //-         $('.nav-tabs > li > a').on('shown.bs.tab', function (e) {
-    //-             history.pushState( null, null, $(this).attr('href') );
-    //-         });
-    //-     });
 
 mixin bsTabItem(parent, name)
     -
@@ -72,3 +57,45 @@ mixin oauthLinks(scopes)
         $(function () {
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
+
+mixin bookPageTitle(pages)
+    = pages.hasOwnProperty(fileBasename) ? pages[fileBasename].name : fileBasename
+
+mixin bookPageNav(location, page, isTopLevel=true)
+    -
+        const isActive = fileBasename === location;
+
+        if (typeof page === 'string') {
+            page = { name: page };
+        }
+        if (isTopLevel) {
+            location = `./${location}.html`;
+        } else {
+            location = `#${location}`;
+        }
+
+    li(class=isActive ? 'active-locked' : '')
+        a(href=location)= page.name
+
+        if page.sections
+            ul.nav.nav-stacked
+                each section, hash in page.sections
+                    +bookPageNav(hash, section, false)
+
+mixin bookPrevArrow(pages)
+    -
+        const keys = Object.keys(pages);
+        const index = keys.indexOf(fileBasename);
+
+    if index > 0
+        a.book-nav.book-nav-prev(href=`./${keys[index - 1]}.html` title=pages[keys[index - 1]].name)
+            | &larr; Previous
+
+mixin bookNextArrow(pages)
+    -
+        const keys = Object.keys(pages);
+        const index = keys.indexOf(fileBasename);
+
+    if index < keys.length - 1
+        a.book-nav.book-nav-prev(href=`./${keys[index + 1]}.html` title=pages[keys[index + 1]].name)
+            | Next &rarr;
