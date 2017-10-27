@@ -36,58 +36,58 @@ block tutorialContent
                 li.
                     Create a #[a(href='https://docs.npmjs.com/cli/init') new project] with npm.
                 li.
-                    Run #[code npm i -S beam-client-node]
+                    Run #[code npm install --save beam-client-node ws]
             h3 Writing the Code
             p.
-                Our Node implementation uses Bluebird promises, you can find out more about them #[a(href='http://bluebirdjs.com/docs/api-reference.html') here]. For this tutorial we'll also be using some ES2015 concepts. If you're new to ES2015 there's a great guide #[a(href='https://babeljs.io/docs/learn-es2015/') here] on the changes.
+                Our Node implementation uses Bluebird promises; you can find out more about them #[a(href='http://bluebirdjs.com/docs/api-reference.html') here]. For this tutorial we'll also be using some ES2015 concepts. If you're new to ES2015, there's a great guide #[a(href='https://babeljs.io/docs/learn-es2015/') here] on the changes.
             p.
                 Before we can connect to the chat servers, we must authenticate
                 ourselves with the backend.
                 In our example we are going to use an implicit OAuth token for authentication. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1.js')
             p.
-                The result will look something like this in it you can see an array of chat servers that we can connect to within the #[code endpoint] array.:
+                The result will look something like this. You can see an array of chat servers that we can connect to within the #[code endpoints] array:
             +highlightFile('javascript', 'tutorials/code/node/chatbot/1_response.txt')
             p.
-                Next we will use this response to connect to the chat server, Let's write a #[code createChatSocket()] function and connect to chat.
+                Next we will use this response to connect to the chat server. Let's write a #[code createChatSocket()] function and connect to chat.
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2.js')
             p.
                 Running this code will now connect you to chat and you'll see something like this in the console. The JSON object on the 3rd line is the chat message packet your bot sent to the server when it connected.
 
             +highlightFile('javascript', 'tutorials/code/node/chatbot/2_response.txt')
             p.
-                Now that we have a chat connection with authentication working we can add the rest of the bot code. When a user joins the channel it will greet them. If a user types #[code !ping] into chat then it will response with their name and "PONG!". To do this we'll re-write parts of the #[code createChatSocket()] function. The final code is below, check it out!
+                Now that we have a chat connection with authentication working, we can add the rest of the bot code. When a user joins the channel, it will greet them. If a user types #[code !ping] into chat, it will response with their name and "PONG!". To do this, we'll re-write parts of the #[code createChatSocket()] function. The final code is below; check it out!
             +highlightFile('javascript', 'tutorials/code/node/chatbot/3.js')
         +bsTabItem('chatbot_guide', 'java')
             h3 Prerequisites
             include ./java_prereqs.pug
             h3 Project Setup
             p.
-                Setup a standard project for your environment and include
+                Set up a standard project for your environment and include
                 #[a(href='https://github.com/mixer/beam-client-java') beam-client-java]
-                as a dependancy.
+                as a dependency.
             include ./snippets/java/chat_project_manager.pug
             h3 Writing the Code
             p.
                 Let's start by creating a Main class for our tutorial and importing required libraries. We'll also instantiate a #[code MixerAPI] object with an implicit OAuth token. The required scopes are #[code chat:connect chat:chat].
             +highlightFile('java', 'tutorials/code/java/chatbot/1.java')
             p.
-                Next we need to get a reference to a #[code MixerChat] object that we can connect to. To do this we'll login, using the details from above and use the #[code MixerUser] object to get their #[code MixerChannel]. We can then pass this to the #[code ChatService] to get a #[code MixerChatConnectable] object. This object allows us to connect to chat!
+                Next we need to get a reference to a #[code MixerChat] object that we can connect to. To do this we'll log in using the details from above, and use the #[code MixerUser] object to get their #[code MixerChannel]. We can then pass this to the #[code ChatService] to get a #[code MixerChatConnectable] object. This object allows us to connect to chat!
             +highlightFile('java', 'tutorials/code/java/chatbot/2.java')
             p.
-                Now we need to connect and authenticate with an #[code AuthenticateMessage]. As this is sent asyncronously we'll need to wait for it to finish before we can send anything to chat. Our #[code ReplyHandler] takes care of that.
+                Now we need to connect and authenticate with an #[code AuthenticateMessage]. As this is sent asynchronously, we'll need to wait for it to finish before we can send anything to chat. Our #[code ReplyHandler] takes care of that.
             +highlightFile('java', 'tutorials/code/java/chatbot/3.java')
 
             p.
-                With authencation and connection out of the way we just need to hookup the greet event and the #[code !ping] command. The greet event is setup by registering an #[code EventHandler] for the #[code UserJoinEvent].
+                With authentication and connection out of the way, we just need to hook up the greet event and the #[code !ping] command. The greet event is set up by registering an #[code EventHandler] for the #[code UserJoinEvent].
             +highlightFile('java', 'tutorials/code/java/chatbot/4.java')
 
             p.
-                The last thing to do is to setup the #[code !ping] command. This is sent on a #[code IncomingMessageEvent] and can be setup in much the same way.
+                The last thing to do is to set up the #[code !ping] command. We will listen for #[code IncomingMessageEvent] and check whether the message we receive starts with #[code !ping].
             +highlightFile('java', 'tutorials/code/java/chatbot/5.java')
 
             p.
-                Putting everything together into one file you get a completed ping-pong Java Mixer Bot!
+                Putting everything together into one file, you get a completed ping-pong Java Mixer Bot!
             +highlightFile('java', 'tutorials/code/java/chatbot/6.java')
 
         +bsTabItem('chatbot_guide', 'raw')
