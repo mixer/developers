@@ -1,27 +1,29 @@
-const BeamClient = require('beam-client-node');
-const BeamSocket = require('beam-client-node/lib/ws');
+const Mixer = require('beam-client-node');
+const ws = require('ws');
 
 let userInfo;
 
-const client = new BeamClient();
+const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
 
-// With OAuth we don't need to login, the OAuth Provider will attach
+// With OAuth we don't need to log in. The OAuth Provider will attach
 // the required information to all of our requests after this call.
-client.use('oauth', {
+client.use(new Mixer.OAuthProvider(client, {
     tokens: {
         access: 'AUTH_TOKEN',
         expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
     },
-});
+}));
 
-// Get's the user we have access to with the token
+// Gets the user that the Access Token we provided above belongs to.
 client.request('GET', `users/current`)
 .then(response => {
     console.log(response.body);
+
     // Store the logged in user's details for later refernece
     userInfo = response.body;
+
     // Returns a promise that resolves with our chat connection details.
-    return client.chat.join(response.body.channel.id);
+    return new Mixer.ChatService(client).join(response.body.channel.id);
 })
 .then(response => {
     const body = response.body;
@@ -29,23 +31,23 @@ client.request('GET', `users/current`)
     return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
 })
 .catch(error => {
-    console.log('Something went wrong:', error);
+    console.error('Something went wrong.');
+    console.error(error);
 });
 
-
 /**
- * Creates a beam chat socket and sets up listeners to various chat events.
+ * Creates a Mixer chat socket and sets up listeners to various chat events.
  * @param {number} userId The user to authenticate as
  * @param {number} channelId The channel id to join
- * @param {any} endpoints An endpoints array from a beam.chat.join call.
- * @param {any} authkey An authentication key from a beam.chat.join call.
+ * @param {string[]} endpoints An array of endpoints to connect to
+ * @param {string} authkey An authentication key to connect with
  * @returns {Promise.<>}
  */
 function createChatSocket (userId, channelId, endpoints, authkey) {
-    const socket = new BeamSocket(endpoints).boot();
+    const socket = new Mixer.Socket(ws, endpoints).boot();
 
-    // You don't need to wait for the socket to connect before calling methods,
-    // we spool them and run them when connected automatically!
+    // You don't need to wait for the socket to connect before calling
+    // methods. We spool them and run them when connected automatically.
     socket.auth(channelId, userId, authkey)
     .then(() => {
         console.log('You are now authenticated!');
@@ -53,18 +55,20 @@ function createChatSocket (userId, channelId, endpoints, authkey) {
         return socket.call('msg', ['Hello world!']);
     })
     .catch(error => {
-        console.log('Oh no! An error occurred!', error);
+        console.error('Oh no! An error occurred.');
+        console.error(err);
     });
 
-    // Listen to chat messages, note that you will also receive your own!
+    // Listen for chat messages. Note you will also receive your own!
     socket.on('ChatMessage', data => {
         console.log('We got a ChatMessage packet!');
         console.log(data);
-        console.log(data.message); // lets take a closer look
+        console.log(data.message); // Let's take a closer look
     });
 
-    // Listen to socket errors, you'll need to handle these!
+    // Listen for socket errors. You will need to handle these here.
     socket.on('error', error => {
-        console.error('Socket error', error);
+        console.error('Socket error');
+        console.error(error);
     });
 }
