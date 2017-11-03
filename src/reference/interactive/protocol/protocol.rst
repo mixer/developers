@@ -332,6 +332,8 @@ Error Codes
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4022 | The channel is not online. (Participant socket only)                                              | Initial Connection               |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
+| 4024 | Invalid broadcast scope provided.                                                                 | ``broadcastEvent``               |
++------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4099 | Bad user input.                                                                                   | ``giveInput``                    |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 
@@ -595,8 +597,9 @@ This method may be called on the server to set throttling for certain server-to-
 Additionally you may configure a global throttle by specifying ``*``, this will operate on all methods.
 
 By default a global throttle is configured with the following settings:
-- ``capacity`` - 3840
-- ``drainRate`` - 1280
+
+ - ``capacity`` - 332160 bytes (30 megabits)
+ - ``drainRate`` - 1310720 bytes (10 megabits)
 
 .. code-block:: js
 
@@ -657,6 +660,10 @@ This method exposes statistics for the number of dropped and sent packets as a r
         "onParticipantJoin": {
           "inserted": 0,
           "rejected": 5983
+        }
+        "*": {
+          "inserted": 361356,
+          "rejected": 0
         }
       },
       "error": null,
@@ -1194,6 +1201,75 @@ The server SHALL call this method when a group is updated. This SHALL NOT be cal
     },
     "discard": true
   }
+
+broadcastEvent |Server Method|
+''''''''''''''''''''''''''''''
+
+This method is provided to allow the game client to fire one-off events to connected participants. The method takes a list of zero or more scopes to fire the event into, and raw JSON data to emit. The possible scopes are:
+
+ - ``everyone`` fires the event to all connected participants;
+ - ``group:<ID>`` fires the event to all participants in the group identified by the ``<ID>``;
+ - ``scene:<ID>`` fires the event to all participants in the scene identified by the ``<ID>``;
+ - ``participant:<UUID>`` fires the event to a single participant with the sessionID of ``<UUID>``.
+
+For example, this method will broadcast the data ``{"hello":"world!"}`` to everyone in the ``default`` group and participant ``4ae538ac-6718-45e7-b12f-d12813428983``:
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "broadcastEvent",
+    "params": {
+      "scope": [
+        "group:default",
+        "participant:4ae538ac-6718-45e7-b12f-d12813428983"
+      ],
+      "data": {
+        "hello": "world!"
+      }
+    },
+    "discard": true
+  }
+
+In this case, participants would see a method call like:
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "event",
+    "params": {
+      "hello": "world!"
+    },
+    "discard": true
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": null,
+      "error": null,
+      "id": 123
+    }
+
+- An example server response given if the scope is invalid:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": null,
+      "error": {
+        "code": 4024,
+        "message": "Invalid broadcast scope \"foo\"."
+      },
+      "id": 123
+    }
 
 Scene Setup
 ^^^^^^^^^^^
@@ -2193,6 +2269,12 @@ code_test.go
 
 Changelog
 ---------
+
+1.4.1 (2017-10-20)
+''''''''''''''''''
+
+ - Added and documented global throtting.
+ - Added the ability to fire one-off events to clients via ``broadcastEvent``.
 
 1.4.0 (2017-07-03)
 ''''''''''''''''''
