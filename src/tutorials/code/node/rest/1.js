@@ -1,5 +1,5 @@
 'use strict';
 
-const Beam = require('beam-client-node');
+const Mixer = require('beam-client-node');
 
-const beam = new Beam();
+const client = new Mixer.Client(new Mixer.DefaultRequestRunner());

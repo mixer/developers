@@ -19,7 +19,7 @@ client.request('GET', `users/current`)
 .then(response => {
     console.log(response.body);
 
-    // Store the logged in user's details for later refernece
+    // Store the logged in user's details for later reference
     userInfo = response.body;
 
     // Returns a promise that resolves with our chat connection details.
@@ -28,7 +28,7 @@ client.request('GET', `users/current`)
 .then(response => {
     const body = response.body;
     console.log(body);
-    // TODO: Connect to chat.
+    // TODO: Connect to chat, we'll do this in the next tutorial step :)!
 })
 .catch(error => {
     console.error('Something went wrong.');
