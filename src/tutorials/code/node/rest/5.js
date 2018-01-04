@@ -2,7 +2,7 @@
 
 const Mixer = require('beam-client-node');
 
-const client = new Mixer.Client();
+const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
 
 const channelName = process.argv[2];
 
