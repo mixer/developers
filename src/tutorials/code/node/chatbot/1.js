@@ -15,7 +15,7 @@ client.use(new Mixer.OAuthProvider(client, {
 }));
 
 // Gets the user that the Access Token we provided above belongs to.
-client.request('GET', `users/current`)
+client.request('GET', 'users/current')
 .then(response => {
     console.log(response.body);
 
