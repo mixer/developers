@@ -15,7 +15,7 @@ client.use(new Mixer.OAuthProvider(client, {
 }));
 
 // Gets the user that the Access Token we provided above belongs to.
-client.request('GET', `users/current`)
+client.request('GET', 'users/current')
 .then(response => {
     console.log(response.body);
 
@@ -56,7 +56,7 @@ function createChatSocket (userId, channelId, endpoints, authkey) {
     })
     .catch(error => {
         console.error('Oh no! An error occurred.');
-        console.error(err);
+        console.error(error);
     });
 
     // Listen for chat messages. Note you will also receive your own!
