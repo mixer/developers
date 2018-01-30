@@ -5,7 +5,7 @@ const run = (page) => {
         for (let i = 0; i < res.body.length; i++) {
             const channel = res.body[i];
             if (channel.viewersTotal <= viewers) {
-                console.log(`Your rank on Beam is ${rank}!`);
+                console.log(`Your rank on Mixer is ${rank}!`);
                 return;
             }
 
