@@ -53,6 +53,9 @@ block reference
         #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log]
         on #[a(href='https://mixer.com' target='_blank') mixer.com].
 
+    h4#introduction__liveloading_limits Limits
+    p A single IP address can subscribe to up to 1,000,000 events. Beyond this number you will need multiple IP Addresses to receive events.
+
     h3#introduction__clients Clients
     p A number of clients already support Constellation. Try them out for a jump start into Constellation.
     ul
@@ -139,10 +142,11 @@ block reference
         li #[code 4107] - You do not have access to subscribe to that livesubscribe event
         li #[code 4108] - You are already subscribed to that livesubscribe event (during livesubscribe)
         li #[code 4109] - You are not subscribed to that livesubscribe event (in response to a liveunsubscribe #[a(href='#packets_method') method])
+        li #[code 4110] - You cannot make more subscriptions (in response to a livesubscribe #[a(href='#packets_method') method]) see #[a(href='#introduction__liveloading_limits') liveloading limits]
     h2#methods Methods
     h3#methods_livesubscribe livesubscribe
     p.
-        A livesubscribe method allows users to subscribe to #[a(href='#events_live_events') liveloading events].
+        A livesubscribe method allows users to subscribe to #[a(href='#events_live_events') liveloading events]. The number of events you can subscribe to is limited please see #[a(href='#introduction__liveloading_limits') liveloading limits]
 
     +highlightStr('json','{"type": "method", "method": "livesubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
     ul
