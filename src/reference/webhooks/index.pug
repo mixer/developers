@@ -73,6 +73,7 @@ block reference
         py: 'Python',
         cs: 'C#',
         go: 'Go',
+        php: 'PHP',
     })
         +bsTabItem('verify_guide', 'js')
             +highlightFile('js', 'reference/webhooks/verify.js.txt')
@@ -82,6 +83,8 @@ block reference
             +highlightFile('go', 'reference/webhooks/verify.go')
         +bsTabItem('verify_guide', 'cs')
             +highlightFile('csharp', 'reference/webhooks/verify.cs')
+        +bsTabItem('verify_guide', 'php')
+            +highlightFile('csharp', 'reference/webhooks/verify.php')
 
     p Here's an example of a full, signed request, that you can use to validate that your code works. The secret used for this request is #[code verysecret].
 
