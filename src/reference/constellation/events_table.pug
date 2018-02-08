@@ -21,3 +21,21 @@ mixin liveEventsTable(showWhereRequiresAuth)
                             if data.example
                                 p
                                     a(href=`#example_${name.replace(/\W/g, '_')}`) View example
+
+    for data, name in liveEvents
+        if data.example
+            .modal.fade(tabindex='0' id=`example_${name.replace(/\W/g, '_')}`)
+                .modal-dialog.modal-lg
+                    .modal-content
+                        .modal-header
+                            button.close(type='button' data-dismiss='modal' aria-hidden='true')!= '&times'
+                            h4.modal-title
+                                span.text-primary(style='font-weight:300') Example
+                                | &nbsp;
+                                span= name
+                        .modal-body
+                            code
+                                if typeof data.example === 'object'
+                                    +highlightStr('json', JSON.stringify(data.example, ' ', 2))
+                                else
+                                    = data.example

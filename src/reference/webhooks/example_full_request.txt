@@ -1,0 +1,10 @@
+HTTP/1.1 POST
+Host: test.mixer.com:8888
+Content-Type: application/json; charset=utf-8
+Poker-Nth-retry: 0
+Poker-Hook-Id: 6cd6fa9f-b9a5-45b6-bdf0-412fe7859dad
+Poker-Signature: sha384=5EB3E48ED381446210D527AA1D88D9A5F36C840DD088665F35BEA51D3FA429837430E81973835774CC0AE69EEDE6AAE7
+Content-Length: 183
+Connection: Keep-Alive
+
+{"event":"channel:314:update","id":"96445358-d5b1-417e-a9ac-57f1cb001916","payload":{"broacastId":"9976edaf-c327-4560-a1cb-89425cb1131f"},"sentAt":"2018-02-08T03:28:06.8605874+00:00"}

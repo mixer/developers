@@ -83,6 +83,10 @@ block reference
         +bsTabItem('verify_guide', 'cs')
             +highlightFile('csharp', 'reference/webhooks/verify.cs')
 
+    p Here's an example of a full, signed request, that you can use to validate that your code works. The secret used for this request is #[code verysecret].
+
+    +highlightFile('http', 'reference/webhooks/example_full_request.txt')
+
     h3#request_retries Request Retries
 
     p If your server does not return a #[code 2xx] response code, Mixer will try to send the hook to you again for several minutes before giving up. If your endpoint consistently fails, your webhook may be automatically disabled. Currently, this can happen when either:
