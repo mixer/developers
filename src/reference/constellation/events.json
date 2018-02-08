@@ -545,6 +545,7 @@
     },
     "user:{id}:notify": {
         "description": "Sent when the user receives a new notification. Notifications of the same type will always follow the same structure. This event requires authentication.",
+        "requiresAuth": true,
         "payload": {
             "type": "Notification",
             "description": "The new notification."

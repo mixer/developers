@@ -201,7 +201,7 @@ mixin method(method, resource)
                                                         h5.title
                                                             +simpleTypeHeading(key, item)
                                                         +simpleType(key, item, true)
-                                        for response, key in securityScheme.describedBy.responses
+                                        for response, key in (securityScheme.describedBy.responses || [])
                                             h3: +statusCode(response.code)
                                             | !{marked(response.description)}
 
