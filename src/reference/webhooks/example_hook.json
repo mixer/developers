@@ -1,0 +1,8 @@
+{
+    "event": "channel:314:broadcast",
+    "payload": {
+      "broadcastId": "9976edaf-c327-4560-a1cb-89425cb1131f"
+    },
+    "sentAt": "2018-02-07T01:36:30.5109036+00:00",
+    "id": "7ddc8489-5afd-401d-83cc-49ea95fc9bba"
+  }

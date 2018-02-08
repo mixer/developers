@@ -1,0 +1,8 @@
+const crypto = require('crypto');
+
+function isRequestValid(req, secret, body) {
+    const hmac = crypto.createHmac('SHA384', secret);
+    hmac.update(body);
+    const digest = hmac.digest('hex').toUpperCase();
+    return req.headers['x-poker-signature'] === `sha384=${digest}`;
+}

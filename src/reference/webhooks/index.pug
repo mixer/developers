@@ -1,0 +1,105 @@
+extends ../reference_layout.pug
+include ../constellation/events_table.pug
+
+block title
+    | Webhook Reference | Mixer Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Webhook Reference
+block menu
+    .hidden-print.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                li: a(href='#quick_details') Quick Details
+                li: a(href='#registing_an_event') Registering an Event
+                li: a(href='#receiving_an_event') Receiving an Event
+                li: a(href='#request_signing') Request Signing
+                li: a(href='#request_retries') Request Retries
+                li: a(href='#webhook_management') Webhook Management
+                li: a(href='#events') Available Events
+block reference
+    .page-header
+        h2#quick_details Quick details:
+        p You can set up webhooks to have Mixer call your web service when something interesting happens. You'll need to head to the #[a(href='https://mixer.com/lab/oauth' target='_blank') OAuth Clients] page on the dev lab and register a client with a secret key. You'll use this to register webhooks.
+
+        .alert.alert-info Want a more event-driven approach? Check out #[a(href='/reference/constellation/index.html') Constellation], our websocket-based pubsub service.
+
+    h2#registing_an_event Registering an Event
+
+    p You can register an event by calling #[a(href='/rest.html#hooks_post'): code POST /hooks] with some details about what you want to subscribe to:
+
+    ul
+        li #[code events] should be a list of #[a(href='#registing_an_event') available events] you want to receive;
+        li #[code kind] must be set to #[code web] (this is required as we may choose to deliver hooks by carrier pigeon, in future iterations);
+        li #[code url] should be the web address you want us to hit when the event happens;
+        li you can optionally pass a #[code secret] string we'll use for signing requests to you, see #[a(href='#request_signing') Request Signing].
+
+    p You'll also need to include your OAuth client ID in the #[code Client-ID] header, and your secret key in the #[code Authorization] header, in the form #[code Secret somelongstring]. All together, this is what a curl request to subscribe to the Mixer channel's broadcast events would look like:
+
+    +highlightFile('bash', 'reference/webhooks/curl_request.sh')
+
+    h2#receiving_an_event Receiving an Event
+
+    p Mixer will make a POST request to the URL you provide. The body will look something like this:
+
+    +highlightFile('json', 'reference/webhooks/example_hook.json')
+
+    ul
+        li #[code event] is the name of the event you're getting;
+        li #[code payload] is the data of the event, as described in the #[a(href='#events') Available Events] section;
+        li #[code sentAt] is the time the event was originally sent;
+        li #[code id] is a unique identifier for this event sent to you.
+
+    p Mixer guarantees "at least once" delivery, meaning that if there's a failure somewhere along the line, you might get one event multiple times. In these scenarios, you can use the event #[code id] to deduplicate, if you need to.
+
+    p The request you get will also contain several headers:
+
+    ul
+        li #[code Poker-Nth-Retry] is the number of times we have tried before this request to deliver the event to you;
+        li #[code Poker-Hook-Id] is the webhook that's triggering this call to you;
+        li #[code Poker-Signature] is the signature of the request body, see #[a(href='#request_signing') Request Signing].
+
+    h3#request_signing Request Signing
+
+    p If you provide a #[code secret] string, Mixer will sign requests sent to you. This can be useful to prevent adversaries who may stumble upon or otherwise discover your APIs from triggering fake events; the secret string is shared only between Mixer and yourself.
+
+    p Mixer will use this as the key in a SHA384 HMAC to sign the body of the request, and you can check our computation. Here's how you would do it in several programming languages, if you have the raw request #[code body] as a string and your #[code secret] key:
+
+    +bsTabs('verify_guide', {
+        js: 'Node',
+        py: 'Python',
+        cs: 'C#',
+        go: 'Go',
+    })
+        +bsTabItem('verify_guide', 'js')
+            +highlightFile('js', 'reference/webhooks/verify.js.txt')
+        +bsTabItem('verify_guide', 'py')
+            +highlightFile('py', 'reference/webhooks/verify.py')
+        +bsTabItem('verify_guide', 'go')
+            +highlightFile('go', 'reference/webhooks/verify.go')
+        +bsTabItem('verify_guide', 'cs')
+            +highlightFile('csharp', 'reference/webhooks/verify.cs')
+
+    h3#request_retries Request Retries
+
+    p If your server does not return a #[code 2xx] response code, Mixer will try to send the hook to you again for several minutes before giving up. If your endpoint consistently fails, your webhook may be automatically disabled. Currently, this can happen when either:
+
+    ul
+        li 1000 requests in a row to your endpoint fail, or;
+        li no requests succeed at least a week, and we sent at least 10 requests.
+
+    p These conditions are subject to change, but for the most part, if your service has a least one "9" of availability, you don't need to worry. You can always check the status of a webhook, given its ID, by hitting #[a(href='/rest.html#hooks__hookId__get'): code GET /hooks/{hookId}].
+
+    h2#webhook_management Webhook Management
+
+    p We provide several APIs you can use to view and disable your registered webhook. You can read more about them in our API docs #[a(href='/rest.html#hooks') here]!
+
+    h2#events Available Events
+    p The following live events are available to subscribe to.
+
+    +liveEventsTable(false)
+
+    include ../../snippets/help.pug

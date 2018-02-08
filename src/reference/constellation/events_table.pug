@@ -1,0 +1,23 @@
+include ../../rest/type.pug
+
+mixin liveEventsTable(showWhereRequiresAuth)
+    table.table
+        thead
+            tr
+                th Event
+                th Description
+        tbody
+            for data, name in liveEvents
+                if !data.requiresAuth || showWhereRequiresAuth
+                    tr
+                        td(style='white-space:nowrap;'): code= name
+                        td
+                            div!= marked(data.description)
+                            if data.payload
+                                strong Payload:&nbsp;
+                                small
+                                    +typeNameString({ type: data.payload.type, required: true })
+                                +simpleType('', data.payload, true)
+                            if data.example
+                                p
+                                    a(href=`#example_${name.replace(/\W/g, '_')}`) View example
