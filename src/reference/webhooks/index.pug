@@ -84,7 +84,7 @@ block reference
         +bsTabItem('verify_guide', 'cs')
             +highlightFile('csharp', 'reference/webhooks/verify.cs')
         +bsTabItem('verify_guide', 'php')
-            +highlightFile('csharp', 'reference/webhooks/verify.php')
+            +highlightFile('php', 'reference/webhooks/verify.php')
 
     p Here's an example of a full, signed request, that you can use to validate that your code works. The secret used for this request is #[code verysecret].
 
@@ -96,7 +96,7 @@ block reference
 
     ul
         li 1000 requests in a row to your endpoint fail, or;
-        li no requests succeed at least a week, and we sent at least 10 requests.
+        li no requests succeed for at least a week, and we send at least 10 requests.
 
     p These conditions are subject to change, but for the most part, if your service has a least one "9" of availability, you don't need to worry. You can always check the status of a webhook, given its ID, by hitting #[a(href='/rest.html#hooks__hookId__get'): code GET /hooks/{hookId}].
 
