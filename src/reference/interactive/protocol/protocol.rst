@@ -26,10 +26,10 @@ The client establishes a connection to the client over a websocket, as described
 When a connection is established to the server, the channel enters a "staging" mode, and after the client signals that it's ready it enters interactive mode where clients are able to connect and controls appear below the Mixer channel.. The channel remains in interactive mode until the connection terminates. Authentication context is preserved throughout the lifetime of the socket.
 
 .. figure:: img/state-diagram.pdf
-   :width: 75%
-   :align: middle
+  :width: 75%
+  :align: middle
 
-   Channel state diagram
+  Channel state diagram
 
 For clients unable to set headers when initializing a websocket handshake the client MAY include them as query string parameters. Like request headers, the keys SHALL be case-insensitive.
 
@@ -129,8 +129,8 @@ An alternative flow is available to interactive applications to avoid the need f
  5. The response will include an ``access_token``, which you should send in the Authorization header when you connect to Interactive, prefixed with ``Bearer `` per standard OAuth behavior. In the above example, the client would then connect to Interactive and present the header ``Authorization: Bearer pHktaORPcQGejnz48rJQdDWh1AJpevsTWnvKrZW5z2...``
 
 .. figure:: img/simplified-oauth.pdf
-   :width: 100%
-   :align: middle
+  :width: 100%
+  :align: middle
 
   Overview of the mechanics of the alternative OAuth flow.
 
@@ -682,6 +682,60 @@ The server SHALL call the ``hello`` method when the connection is authenticated 
     "id": 123,
     "method": "hello",
     "params": null,
+    "discard": true
+  }
+
+
+updateWorld |Server Method|
+'''''''''''''''''''''''''''
+
+Updates the top-level world state of the session.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "updateWorld",
+    "params": {
+      "priority": 0,
+      "world": {
+        "isOnGlobalCooldown": false,
+        "everythingIsAwesome": true
+      }
+    }
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": {
+        "scenes": [ /* an array of Scene objects */ ]
+        "isOnGlobalCooldown": false,
+        "everythingIsAwesome": true
+      },
+      "error": null,
+      "id": 123
+    }
+
+onWorldUpdate |Optional Client Method|
+''''''''''''''''''''''''''''''''''''''
+
+The server SHALL call this method when the top-level world state is updated.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "onWorldUpdate",
+    "params": {
+      "scenes": [/* an array of Scene objects */]
+      /* additional user-defined properties */
+    },
     "discard": true
   }
 
@@ -2269,6 +2323,11 @@ code_test.go
 
 Changelog
 ---------
+
+1.4.2 (2018-02-13)
+''''''''''''''''''
+
+ - Added world update and change methods.
 
 1.4.1 (2017-10-20)
 ''''''''''''''''''
