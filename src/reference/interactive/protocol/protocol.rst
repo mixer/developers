@@ -26,10 +26,10 @@ The client establishes a connection to the client over a websocket, as described
 When a connection is established to the server, the channel enters a "staging" mode, and after the client signals that it's ready it enters interactive mode where clients are able to connect and controls appear below the Mixer channel.. The channel remains in interactive mode until the connection terminates. Authentication context is preserved throughout the lifetime of the socket.
 
 .. figure:: img/state-diagram.pdf
-   :width: 75%
-   :align: middle
+  :width: 75%
+  :align: middle
 
-   Channel state diagram
+  Channel state diagram
 
 For clients unable to set headers when initializing a websocket handshake the client MAY include them as query string parameters. Like request headers, the keys SHALL be case-insensitive.
 
@@ -129,8 +129,8 @@ An alternative flow is available to interactive applications to avoid the need f
  5. The response will include an ``access_token``, which you should send in the Authorization header when you connect to Interactive, prefixed with ``Bearer `` per standard OAuth behavior. In the above example, the client would then connect to Interactive and present the header ``Authorization: Bearer pHktaORPcQGejnz48rJQdDWh1AJpevsTWnvKrZW5z2...``
 
 .. figure:: img/simplified-oauth.pdf
-   :width: 100%
-   :align: middle
+  :width: 100%
+  :align: middle
 
   Overview of the mechanics of the alternative OAuth flow.
 
@@ -331,6 +331,8 @@ Error Codes
 | 4021 | A different interactive session is already running for the channel.                               | Initial Connection               |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4022 | The channel is not online. (Participant socket only)                                              | Initial Connection               |
++------+---------------------------------------------------------------------------------------------------+----------------------------------+
+| 4024 | Invalid broadcast scope provided.                                                                 | ``broadcastEvent``               |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4099 | Bad user input.                                                                                   | ``giveInput``                    |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
@@ -597,8 +599,9 @@ This method may be called on the server to set throttling for certain server-to-
 Additionally you may configure a global throttle by specifying ``*``, this will operate on all methods.
 
 By default a global throttle is configured with the following settings:
-- ``capacity`` - 3840
-- ``drainRate`` - 1280
+
+ - ``capacity`` - 332160 bytes (30 megabits)
+ - ``drainRate`` - 1310720 bytes (10 megabits)
 
 .. code-block:: js
 
@@ -660,6 +663,10 @@ This method exposes statistics for the number of dropped and sent packets as a r
           "inserted": 0,
           "rejected": 5983
         }
+        "*": {
+          "inserted": 361356,
+          "rejected": 0
+        }
       },
       "error": null,
       "id": 123
@@ -677,6 +684,60 @@ The server SHALL call the ``hello`` method when the connection is authenticated 
     "id": 123,
     "method": "hello",
     "params": null,
+    "discard": true
+  }
+
+
+updateWorld |Server Method|
+'''''''''''''''''''''''''''
+
+Updates the top-level world state of the session.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "updateWorld",
+    "params": {
+      "priority": 0,
+      "world": {
+        "isOnGlobalCooldown": false,
+        "everythingIsAwesome": true
+      }
+    }
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": {
+        "scenes": [ /* an array of Scene objects */ ]
+        "isOnGlobalCooldown": false,
+        "everythingIsAwesome": true
+      },
+      "error": null,
+      "id": 123
+    }
+
+onWorldUpdate |Optional Client Method|
+''''''''''''''''''''''''''''''''''''''
+
+The server SHALL call this method when the top-level world state is updated.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "onWorldUpdate",
+    "params": {
+      "scenes": [/* an array of Scene objects */]
+      /* additional user-defined properties */
+    },
     "discard": true
   }
 
@@ -1188,6 +1249,75 @@ The server SHALL call this method when a group is updated. This SHALL NOT be cal
     },
     "discard": true
   }
+
+broadcastEvent |Server Method|
+''''''''''''''''''''''''''''''
+
+This method is provided to allow the game client to fire one-off events to connected participants. The method takes a list of zero or more scopes to fire the event into, and raw JSON data to emit. The possible scopes are:
+
+ - ``everyone`` fires the event to all connected participants;
+ - ``group:<ID>`` fires the event to all participants in the group identified by the ``<ID>``;
+ - ``scene:<ID>`` fires the event to all participants in the scene identified by the ``<ID>``;
+ - ``participant:<UUID>`` fires the event to a single participant with the sessionID of ``<UUID>``.
+
+For example, this method will broadcast the data ``{"hello":"world!"}`` to everyone in the ``default`` group and participant ``4ae538ac-6718-45e7-b12f-d12813428983``:
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "broadcastEvent",
+    "params": {
+      "scope": [
+        "group:default",
+        "participant:4ae538ac-6718-45e7-b12f-d12813428983"
+      ],
+      "data": {
+        "hello": "world!"
+      }
+    },
+    "discard": true
+  }
+
+In this case, participants would see a method call like:
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "event",
+    "params": {
+      "hello": "world!"
+    },
+    "discard": true
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": null,
+      "error": null,
+      "id": 123
+    }
+
+- An example server response given if the scope is invalid:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": null,
+      "error": {
+        "code": 4024,
+        "message": "Invalid broadcast scope \"foo\"."
+      },
+      "id": 123
+    }
 
 Scene Setup
 ^^^^^^^^^^^
@@ -2302,6 +2432,16 @@ Changelog
 
  - Remove the ``meta`` property from resources, instead allow custom properties to be set anywhere. Note that changes are made via JSON Merge Patch and elaborate on the conflict resolution algorithm.
  - Added documentation for file management endpoints.
+
+1.4.2 (2018-02-13)
+''''''''''''''''''
+ - Added world update and change methods.
+
+1.4.1 (2017-10-20)
+''''''''''''''''''
+
+ - Added and documented global throtting.
+ - Added the ability to fire one-off events to clients via ``broadcastEvent``.
 
 1.4.0 (2017-07-03)
 ''''''''''''''''''

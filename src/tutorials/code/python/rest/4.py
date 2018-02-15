@@ -32,5 +32,5 @@ viewers = channel_response.json()['viewersTotal']
 print("You have {} viewers...".format(viewers))
 
 rank = channels_with_more_viewers(viewers)
-print("Your rank on Beam is {}!".format(rank))
+print("Your rank on Mixer is {}!".format(rank))
 
