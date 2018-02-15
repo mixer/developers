@@ -1,5 +1,13 @@
 include ./resource.pug
 .row
+    .col-md-3
+        .hidden-print.rest-sidebar(role='complementary' style='padding:1px')
+            h3 Endpoints
+            nav
+                ul.nav.nav-stacked
+                    if rest
+                        for r in rest.resources
+                            li: a(href=`#${r.uniqueId}`)= r.relativeUri
     .col-md-9(role='main')
         .page-header
             p Mixer provides an HTTP API that can be used either with cookies or #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://mixer.com/api/v1], and all paths listed here are appended to that.
@@ -78,12 +86,3 @@ include ./resource.pug
                                     a(href=`#${parentType}`)= parentType
                     .panel-body
                         +typeDetails(name)
-
-    .col-md-3
-        .hidden-print.rest-sidebar(role='complementary' style='padding:1px')
-            h3 Endpoints
-            nav
-                ul.nav.nav-stacked
-                    if rest
-                        for r in rest.resources
-                            li: a(href=`#${r.uniqueId}`)= r.relativeUri
