@@ -1,0 +1,12 @@
+{
+    "deactivationReason": null,
+    "events": [
+      "channel:314:broadcast"
+    ],
+    "id": "875829e3-52c5-4976-a053-2861d8c3bc79",
+    "isActive": true,
+    "kind": "web",
+    "url": "https://dev.mixer.com/onHook",
+    "expiresAt": "2018-05-17T00:30:06.1751718+00:00",
+    "renewUrl": "https://mixer.com/api/v1/hooks/875829e3-52c5-4976-a053-2861d8c3bc79/renew"
+  }

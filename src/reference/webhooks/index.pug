@@ -18,7 +18,7 @@ block menu
                 li: a(href='#receiving_an_event') Receiving an Event
                 li: a(href='#request_signing') Request Signing
                 li: a(href='#request_retries') Request Retries
-                li: a(href='#webhook_management') Webhook Management
+                li: a(href='#limits_and_renewals') Limits and Renewals
                 li: a(href='#events') Available Events
 block reference
     .page-header
@@ -100,9 +100,15 @@ block reference
 
     p These conditions are subject to change, but for the most part, if your service has a least one "9" of availability, you don't need to worry. You can always check the status of a webhook, given its ID, by hitting #[a(href='/rest.html#hooks__hookId__get'): code GET /hooks/{hookId}].
 
-    h2#webhook_management Webhook Management
+    h2#limits_and_renewals Limits and Renewals
 
-    p We provide several APIs you can use to view and disable your registered webhook. You can read more about them in our API docs #[a(href='/rest.html#hooks') here]!
+    p We have a per-account limit on the number of webhooks you may register. Right now, the limit is #[strong: code#js-webhook-limit loading]. Because webhooks are a new system for Mixer, we're ramping up the limits gradually over time. Starting at 00:00:00 2018-02-17 UTC, all developers were given a base limit of 100,000 webhooks. This limit is increased by 50,000 every seven days afterwards, to a maximum of 3,000,000.
+
+    p By default, webhooks expire after 90 days unless they're renewed using #[a(href='/rest.html#hooks__hookId__renew_post'): code POST /hooks/{hookId}/renew]. The exact renewal date is returned in the webhook after it's created, for example:
+
+    +highlightFile('json', 'reference/webhooks/example_registered.json')
+
+    p We provide several other APIs you can use to manage your registered webhooks. You can read more about them in our API docs #[a(href='/rest.html#hooks') here].
 
     h2#events Available Events
     p The following live events are available to subscribe to.
@@ -110,3 +116,11 @@ block reference
     +liveEventsTable(false)
 
     include ../../snippets/help.pug
+
+    script.
+        (function() {
+            const start = Date.parse('2018-02-12T00:00:00.000Z');
+            const steps = Math.floor((Date.now() - start) /  (1000 * 60 * 60 * 24 * 7));
+            const limit = Math.min(3000000, 100000 + steps * 50000);
+            document.getElementById('js-webhook-limit').innerText = limit;
+        })()
