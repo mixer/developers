@@ -648,13 +648,6 @@
               "meta": {
                 "censored": true
               }
-            },
-            "recipientFilter": {
-              "roles": [
-                "Mod",
-                "Owner",
-                "Staff"
-              ]
             }
           }
         }
