@@ -11,14 +11,9 @@ block navbar
 block menu
     .hidden-print.rest-sidebar(role='complementary')
         nav
-            ul.nav.nav-stacked
+            ul.nav.nav-stacked.expanded
                 include ./menu.pug
 block reference
-    br
-    .alert.alert-info
-        p.
-            Looking for Interactive 1 docs? Find them #[a(href='/reference/interactive1/index.html') here].
-
     h2#introduction Introduction
 
     p Mixer Interactive enables viewers, also known as participants, to directly control the environment in and around streamer’s broadcasts by interacting with user interface controls. When a broadcast has interactivity enabled, controls appear beneath the video on the viewer’s screen. These controls dynamically change according to live events and update in response to different situations that occur within the broadcast.
@@ -26,6 +21,174 @@ block reference
     p Developers and producers can create interactive experiences which can run as a part of a game, entirely as a standalone application, or as a tool. These experiences are then used by broadcasters to make their broadcasts interactive.
 
     p When a viewer interacts with the controls, their input is sent directly to the experience, allowing the developers to see exactly who is interacting and what they are doing. This level of engagement allows for the creation of truly unique and interactive experiences that let viewers and broadcasters experience Mixer broadcasts on a whole new level.
+
+    h2#getting-started Getting Started
+
+    p Interested in making an Interactive Project? Let's get started!
+
+    h3#prerequisites Prerequisites
+    p Before you begin, we recommend that you have:
+
+    ul
+        li #[a(href='https://watchbeam.zendesk.com/hc/en-us/articles/208104776-Creating-an-Account' target='_blank') A Mixer user account]
+        li Some knowledge of programming, unless you're using an existing Game Client or Interactive Application
+        li An awesome idea or existing code base or game to work from
+
+    h3#choosing-an-sdk-environment Choose a SDK
+
+    p If you're making a Game Client from scratch, you'll need to use an Interactive SDK.
+
+    table.table
+        tr
+            th Environment
+            th Repository / Download
+            th Documentation
+            th Description
+        tr
+            td Typescript, Node.js & Browsers
+            td #[a(href='https://github.com/mixer/interactive-node' target='_blank') GitHub]
+            td #[a(href='https://mixer.github.io/interactive-node' target='_blank') API Reference]
+            td Great for creating Interactive tools and utilities. Suitable for beginners.
+        tr
+            td C++
+            td #[a(href='https://github.com/mixer/interactive-cpp' target='_blank') GitHub]
+            td
+                span #[a(href='/reference/interactive/cplusplus/index.html' target='_blank') API Reference]
+                br
+                span #[a(href='https://aka.ms/MixerCPPDocs' target='_blank') Docs & Getting Started]
+            td Add Mixer Interactive features directly into a C++ Game.
+        tr
+            td Unity
+            td #[a(href='https://www.assetstore.unity3d.com/en/#!/content/88585') Asset Store]
+            td
+                span #[a(href='/reference/interactive/csharp/index.html' target='_blank') API Reference]
+                br
+                span #[a(href='https://aka.ms/MixerUnityDocs' target='_blank') Docs & Getting Started]
+            td Add Mixer Interactive features into a game created using Unity. Also great for quickly prototyping an Interactive Idea.
+        tr
+            td Unreal Engine 4
+            td #[a(href='https://github.com/mixer/interactive-unreal-plugin' target='_blank') GitHub]
+            td #[a(href='https://aka.ms/MixerUnrealDocs' target='_blank') Documentation and Getting Started]
+            td Add Mixer Interactive features into a game created using Unreal Engine 4.
+        tr
+            td Java
+            td #[a(href='https://github.com/mixer/interactive-java' target='_blank') GitHub]
+            td #[a(href='https://mixer.github.io/interactive-java' target='_blank') API Reference]
+            td Add Mixer interactive to your Java project.
+
+    p Download the appropriate SDK that your project needs from the repository and create a new project in your favorite IDE.
+
+    h3#creating-an-interactive-project Create a new Interactive Project
+
+    p Interactive projects are created and configured in the #[a(href='https://mixer.com/lab' target='_blank') Developer Lab].
+
+    p Go to the #[a(href='https://mixer.com/lab' target='_blank') Developer Lab] and click on the #[strong plus] button to create a new project.
+
+    .figure
+        img(src='/img/reference/interactive/studio/createNewProject.png' alt='Screenshot showing the location of the create new project button')
+    p.caption Screenshot shows the location of the Create new project button.
+
+    p You'll then be prompted to enter a name for your project. Enter a suitable name for your project.
+
+    p After creating the project, you can still modify your project using the editor.
+
+    h3#configure-build-publish-the-project Configure, build, and publish the project
+    p The project editor contains tabs where each tab is a step in the creation of your project. Use the project editor to configure, build, and publish your project.
+    .figure
+        img(src='/img/reference/interactive/studio/editorTabs.png' alt='studio editor tabs')
+
+    p The editor consists of these four tabs:
+    ul
+        li Info - Edit the project name and metadata
+        li Build - Configure Scenes and Controls
+        li Code - Hook your Game Client up to the Project and start coding
+        li Publish - Submit your project for review by the Mixer team.
+
+    h3#the-info-step Info
+    p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
+    p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can contact you if they need help or want to report an issue.
+    p During the pre-publish review process, the Mixer team examines your project more closely. We use this information to gain an understanding of what your project does, so be as thorough as possible.
+
+    h3#the-build-step Build
+
+    p The build step is where you design your scenes and controls for your project. The interface is divided up into three sections:
+    ul
+        li Scenes
+        li Controls
+        li Grid
+
+    h4#scenes-area Scenes section
+
+    p This is where you'll manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select a specific scene that you would like to manage controls for.
+
+    .figure
+        img(src='/img/reference/interactive/studio/scenes.png' alt='studio scenes')
+
+    h4#controls-area Controls section
+
+    p This is where you'll manage the controls in your project. You can create, rename, change the type (button or joystick), adjust spark cost, or delete controls here.
+
+    .figure
+        img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
+
+    h4#grid-area Grid section
+
+    p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
+
+    p To add a control to the grid, click and drag the control from the Controls section on to the Grid section. Once the control has been added to the grid you have the ability to resize, reposition, or remove the control.
+
+    p For more detail on the configuration of the controls on the scene, the #[code View JSON] option in the top right of the grid section will display the relevant JSON for the scene.
+    p Once you are finished building your scenes/controls, press the Save button in the top right of the grid section.
+
+    .figure
+        img(src='/img/reference/interactive/studio/grid_with_controls.png' alt='studio grid')
+
+    h3#the-code-step Code
+    p The code step is to help you complete the code portion of your project. This is usually done after you have set up the scenes and controls. This is also where you can grab the #[code Project Version ID] which is displayed in the center of the screen.
+
+    p You will need to write your own Game Client to connect to the Interactive service. For SDK downloads, documentation, and samples, go to #[a(href='#choosing-an-sdk-environment') Choose a SDK].
+
+    h3#publish-step Publish
+    p The final step in the studio is Publish. Publish allows you to share your project with everyone on Mixer.
+
+    p To help you decide whether your Interactive project is ready for publishing, these are some questions to ask:
+
+    ul
+        li Is your project something that everyone would use?
+        li Is your project ready for every Mixer broadcaster to have access to?
+        li Have you filled in the Info tab with #[strong detailed] installation and setup instructions?
+
+    p If you’ve answered no to any of the questions above, you should #[strong not] publish your project yet. If you would like to have a small group of users to be able to access it, consider #[a(href='#sharing-your-project') sharing] your project instead.
+
+    h4#publishing-flow Understand the Publishing Flow
+    .figure
+        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio publish process')
+    p A Project starts off as a draft. In this state, you are free to edit, test, and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
+
+    p When you've decided to publish your project, go to the Publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to click on the Submit button.
+    p Once you've submitted your project, the Interactive review team at Mixer is notified, and we will begin the review process. While a project is in review, you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
+    p After a review is conducted, you'll be notified whether your project is accepted for publishing or not. If your project is not accepted for publishing, it goes back to the draft state with feedback from the team, detailing what needs to change so that your project can be successfully published.
+    p Once your project is accepted for publishing, we can start discussing the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
+
+    h3#sharing-your-project Sharing an Interactive Project
+    p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are the only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
+
+    p To manage a project's share settings, click the Share icon on the top right of the editor, as shown in the screenshot below.
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
+    p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
+
+    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast.
+
+    h4#share-codes Share Codes
+    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who want to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
+    h4#explicit-sharing Explicit Sharing
+
+    p The third option, "Only allow specific users to play until published", is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
+    .figure
+        img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
     h2#overview Overview
 
@@ -159,171 +322,6 @@ block reference
     .figure
         img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
     p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
-
-    h2#getting-started Getting Started
-
-    p Interested in making an Interactive Project? Let's get started!
-
-    h3#prerequisites Prerequisites
-    p Before you begin, we recommend that you have:
-
-    ul
-        li A Mixer user account
-        li Some knowledge of programming, unless you're using an existing Game Client or Interactive Application
-        li An awesome idea
-
-    h3#choosing-an-sdk-environment Choose a SDK
-
-    p If you're making a Game Client from scratch, you'll need to use an Interactive SDK.
-
-    table.table
-        tr
-            th Environment
-            th Repository / Download
-            th Documentation
-            th Description
-        tr
-            td Typescript, Node.js & Browsers
-            td #[a(href='https://github.com/mixer/interactive-node' target='_blank') GitHub]
-            td #[a(href='https://mixer.github.io/interactive-node' target='_blank') Reference Docs]
-            td Great for creating Interactive tools and utilities. Suitable for beginners.
-        tr
-            td C++
-            td #[a(href='https://github.com/mixer/interactive-cpp' target='_blank') GitHub]
-            td #[a(href='/reference/interactive/cplusplus/index.html' target='_blank') Reference Docs]
-            td Add Mixer Interactive features directly into a C++ Game.
-        tr
-            td Unity
-            td #[a(href='https://www.assetstore.unity3d.com/en/#!/content/88585') Asset Store]
-            td
-                span #[a(href='/reference/interactive/csharp/index.html' target='_blank') Reference Docs]
-                br
-                span #[a(href='https://github.com/mixer/interactive-unity-plugin/wiki/Getting-started' target='_blank') Getting Started]
-            td Add Mixer Interactive features into a game created using Unity and also good for quick prototyping.
-        tr
-            td Unreal Engine 4
-            td #[a(href='https://github.com/mixer/interactive-unreal-plugin' target='_blank') GitHub]
-            td #[a(href='https://github.com/mixer/interactive-unreal-plugin/wiki' target='_blank') Getting Started]
-            td Add Mixer Interactive features into a game created using Unreal Engine 4.
-        tr
-            td Java
-            td #[a(href='https://github.com/mixer/interactive-java' target='_blank') GitHub]
-            td #[a(href='https://mixer.github.io/interactive-java' target='_blank') Reference Docs]
-            td Add Mixer interactive to your Java project.
-
-    p Download the appropriate SDK that your project needs from the repository and create a new project in your favorite IDE.
-
-    h3#creating-an-interactive-project Create a new Interactive Project
-
-    p Interactive projects are created and configured in the #[a(href='https://mixer.com/lab' target='_blank') Developer Lab].
-
-    p Go to the #[a(href='https://mixer.com/lab' target='_blank') Developer Lab] and click on the #[strong plus] button to create a new project.
-
-    .figure
-        img(src='/img/reference/interactive/studio/createNewProject.png' alt='Screenshot showing the location of the create new project button')
-    p.caption Screenshot shows the location of the Create new project button.
-
-    p You'll then be prompted to enter a name for your project. Enter a suitable name for your project.
-
-    p After creating the project, you can still modify your project using the editor.
-
-    h3#configure-build-publish-the-project Configure, build, and publish the project
-    p The project editor contains tabs where each tab is a step in the creation of your project. Use the project editor to configure, build, and publish your project.
-    .figure
-        img(src='/img/reference/interactive/studio/editorTabs.png' alt='studio editor tabs')
-
-    p The editor consists of these four tabs:
-    ul
-        li Info - Edit the project name and metadata
-        li Build - Configure Scenes and Controls
-        li Code - Hook your Game Client up to the Project and start coding
-        li Publish - Submit your project for review by the Mixer team.
-
-    h3#the-info-step Info
-    p The info step is your opportunity to describe your project and provide potential users with all the information they need to get up and running.
-    p It is important to describe what your project does and how to install it in a clear and concise way so that users understand what you have developed and how to use it. Be sure to include some information on how users can contact you if they need help or want to report an issue.
-    p During the pre-publish review process, the Mixer team examines your project more closely. We use this information to gain an understanding of what your project does, so be as thorough as possible.
-
-    h3#the-build-step Build
-
-    p The build step is where you design your scenes and controls for your project. The interface is divided up into three sections:
-    ul
-        li Scenes
-        li Controls
-        li Grid
-
-    h4#scenes-area Scenes section
-
-    p This is where you'll manage the scenes for your project. Scenes can be created, renamed, or deleted here. You can also select a specific scene that you would like to manage controls for.
-
-    .figure
-        img(src='/img/reference/interactive/studio/scenes.png' alt='studio scenes')
-
-    h4#controls-area Controls section
-
-    p This is where you'll manage the controls in your project. You can create, rename, change the type (button or joystick), adjust spark cost, or delete controls here.
-
-    .figure
-        img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
-
-    h4#grid-area Grid section
-
-    p The grid is how you specify the layout of your controls for the scene. There are three different layouts for which you can set the look of the scene: small (mobile phones), medium (tablets), and large (desktops). These different layouts are indicated by icons in the upper left area of the grid section.
-
-    p To add a control to the grid, click and drag the control from the Controls section on to the Grid section. Once the control has been added to the grid you have the ability to resize, reposition, or remove the control.
-
-    p For more detail on the configuration of the controls on the scene, the #[code View JSON] option in the top right of the grid section will display the relevant JSON for the scene.
-    p Once you are finished building your scenes/controls, press the Save button in the top right of the grid section.
-
-    .figure
-        img(src='/img/reference/interactive/studio/grid_with_controls.png' alt='studio grid')
-
-    h3#the-code-step Code
-    p The code step is to help you complete the code portion of your project. This is usually done after you have set up the scenes and controls. This is also where you can grab the #[code Project Version ID] which is displayed in the center of the screen.
-
-    p You will need to write your own Game Client to connect to the Interactive service. For SDK downloads, documentation, and samples, go to #[a(href='#choosing-an-sdk-environment') Choose a SDK].
-
-    h3#publish-step Publish
-    p The final step in the studio is Publish. Publish allows you to share your project with everyone on Mixer.
-
-    p To help you decide whether your Interactive project is ready for publishing, these are some questions to ask:
-
-    ul
-        li Is your project something that everyone would use?
-        li Is your project ready for every Mixer broadcaster to have access to?
-        li Have you filled in the Info tab with #[strong detailed] installation and setup instructions?
-
-    p If you’ve answered no to any of the questions above, you should #[strong not] publish your project yet. If you would like to have a small group of users to be able to access it, consider #[a(href='#sharing-your-project') sharing] your project instead.
-
-    h4#publishing-flow Understand the Publishing Flow
-    .figure
-        img(src='/img/reference/interactive/studio/PublishProcess.svg' alt='studio publish process')
-    p A Project starts off as a draft. In this state, you are free to edit, test, and share it with other users. Many projects don't leave the draft state. It's perfectly ok not to publish your project.
-
-    p When you've decided to publish your project, go to the Publish tab in the interactive studio. It will perform some checks on the project to ensure that it meets some basic requirements before allowing you to click on the Submit button.
-    p Once you've submitted your project, the Interactive review team at Mixer is notified, and we will begin the review process. While a project is in review, you won't be able to edit the project. A Mixer representative may also reach out to you with questions.
-    p After a review is conducted, you'll be notified whether your project is accepted for publishing or not. If your project is not accepted for publishing, it goes back to the draft state with feedback from the team, detailing what needs to change so that your project can be successfully published.
-    p Once your project is accepted for publishing, we can start discussing the actual launch date; when you would like to make your project available for all Mixer users in the Interactive Store.
-
-    h3#sharing-your-project Sharing an Interactive Project
-    p By default, only the owner can use the project in a broadcast. This means that when you create a project, you are the only person who can broadcast the project. However, if you'd like other Mixer broadcasters to stream it, you have several options.
-
-    p To manage a project's share settings, click the Share icon on the top right of the editor, as shown in the screenshot below.
-    .figure
-        img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
-    p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
-
-    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast.
-
-    h4#share-codes Share Codes
-    p The second, "Anyone with the versionId and code can play", option generates a share code. This code can be handed out to broadcasters who want to use the project in their broadcasts. These broadcasters, provide it to the Game Client which can then gain access to use the project.
-    .figure
-        img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
-    h4#explicit-sharing Explicit Sharing
-
-    p The third option, "Only allow specific users to play until published", is explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
-    .figure
-        img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
 
     h2#protocol-overview Protocol Overview
 
