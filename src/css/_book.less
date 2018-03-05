@@ -1,0 +1,97 @@
+@import '_mixins';
+
+.book {
+    &-primary {
+        background: #fff;
+
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+
+        p {
+            font-size: 1.1em;
+            line-height: 2em;
+        }
+
+        figure {
+            margin: @grid-gutter-width 0;
+            text-align: center;
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        figure figcaption {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            line-height: 2em;
+            margin-top: 1em;
+        }
+    }
+
+    &-sidebar {
+        position: relative;
+
+        .sidebar-variant(#000);
+
+        @media (max-width: @screen-md-min) {
+            display: block;
+            position: relative !important;
+            top: 0 !important;
+            width: auto !important;
+
+            &::before {
+                left: @grid-gutter-width / -2;
+                top: -@grid-gutter-width;
+                bottom: @grid-gutter-width / -2;
+                width: 100vw;
+                height: auto;
+            }
+        }
+    }
+
+    &-nav {
+        padding: 8px;
+        border: 1px solid @gray-lighter;
+        width: 7em;
+        text-align: center;
+
+        &:hover {
+            background: @gray-lighter;
+        }
+
+        &-next {
+            align-self: flex-end;
+        }
+    }
+
+    &-page-title {
+        display: flex;
+        align-items: center;
+        margin: (@grid-gutter-width * 1.5) 0;
+
+        h1 {
+            flex-grow: 1;
+            text-align: center;
+            margin: 0;
+        }
+    }
+
+    &-page-footer {
+        .bar-transition-top(5px);
+
+        display: flex;
+        align-items: center;
+        padding-top: @grid-gutter-width;
+        margin-top: @grid-gutter-width;
+        position: relative;
+        border-top: 2px solid @gray-lighter;
+
+        span {
+            flex-grow: 1;
+            text-align: center;
+            color: #999;
+        }
+    }
+}

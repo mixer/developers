@@ -1,0 +1,79 @@
+extends ../book_layout.pug
+include ../../mixins.pug
+
+block bookName
+    | Custom Controls
+
+block bookPages
+    -
+        var pages = {
+            index: {
+                name: 'Overview',
+                sections: {
+                    bundles: 'Bundles',
+                    quickstart: {
+                        name: 'Quickstart',
+                        sections: {
+                            prerequisites: '#0 Prerequisites',
+                            'create-a-project': '#1 Create a Project',
+                            customize: '#2 Customize',
+                            publish: '#3 Publish',
+                        },
+                    },
+                    'next-steps': 'Next Steps',
+                },
+            },
+            controls: {
+                name: 'Controls',
+                sections: {
+                    'but-rly': 'But Really, What is a Control?',
+                    inputs: 'Inputs',
+                    'styling-and-positioning': {
+                        name: 'Styling & Positioning',
+                        sections: {
+                            layout: 'Layout',
+                            'static-styles': 'Static Styles',
+                            'styles-in-javascript': 'Styles in JavaScript',
+                            'conditional-classes': 'Conditional Classes',
+                        },
+                    },
+                    'giving-input': 'Giving Input',
+                    'custom-scenes': 'Custom Scenes',
+                },
+            },
+
+            internationalization: {
+                name: 'Internationalization',
+                sections: {
+                    tldr: 'TL;DR',
+                    'writing-translations': 'Writing Translations',
+                    'using-translations': 'Using Translations',
+                },
+            },
+
+            'best-practices': {
+                name: 'Best Practices',
+                sections: {
+                    'test-across-platforms': 'Test Across Platforms',
+                    'use-internationalizations': 'Use Internationalization',
+                },
+            },
+
+            authoring: {
+                name: 'Authoring Bundles',
+                sections: {
+                    'local-development': 'Local Development',
+                    'initial-e2e': 'Initial End-to-End',
+                    'final-testing': 'Final Testing & Publishing',
+                },
+            },
+
+            'writing-clients': {
+                name: 'Writing SDKs',
+                sections: {
+                    'state-model': 'State Model',
+                    'talking-to-interactive': 'Talking to Interactive',
+                    'receiving-input': 'Receiving Input',
+                },
+            },
+        };

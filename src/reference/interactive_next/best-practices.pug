@@ -1,0 +1,16 @@
+extends ./page.pug
+
+block reference
+    h2#test-across-platforms Test Across Platforms
+
+    p With desktop computers as the primary development tools, it's easy to forget that most viewers aren't on desktop. Xbox and mobile viewers account for large chunks of the streaming audience. The miix development server provides some basic tools to test on various screen sizes and resolutions, and we recommend that you also test using different browsers and different devices once your private bundle is uploaded to Mixer.
+
+    p For more information about the testing and development process, see our #[a(href='/reference/interactive_next/authoring.html') Authoring guide].
+
+    h2#use-internationalizations Use Internationalization
+
+    p Most people don't speak your native language, so most of your potential viewers or players won't either! Internationalizing your controls is an easy win to help reach the largest possible audience. Even if you don't have translated strings initially, using the #[code &lt;Translate /&gt;] is useful so that translations will be a drop-in later.
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/translation-demo.jsx')
+
+    p You can read more in our #[a(href='/reference/interactive_next/internationalization.html') Internationalization guide].
