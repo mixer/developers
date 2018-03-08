@@ -126,7 +126,7 @@ block reference
 
     h4#controls-area Controls section
 
-    p This is where you'll manage the controls in your project. You can create, rename, change the type (button or joystick), adjust spark cost, or delete controls here.
+    p This is where you'll manage the controls in your project. You can create, rename, change the type, adjust properties, or delete controls here.
 
     .figure
         img(src='/img/reference/interactive/studio/controls.png' alt='studio controls')
@@ -253,6 +253,23 @@ block reference
 
     p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with the controls within the Project, that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to events and interactive input to change the controls that are displayed to participants.
 
+    h2#sparks Sparks
+
+    h3#what-are-sparks What are Sparks?
+
+    p Sparks are Mixer's virtual currency. Participants earn them while watching or participating in broadcasts everywhere on Mixer.
+
+    h3#spark-transactions Spark Transactions
+    .figure
+        img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
+    p.caption Diagram of a spark transaction's life cycle, showing its transition between states.
+
+    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
+
+    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been converted into the expected action associated with the button press before deducting sparks from their balance.
+
+    p Note that deducted sparks are #[strong not] transferred to the broadcaster.
+
     h2#interactive-experience-structure Interactive Experience Structure
 
     p An Interactive experience contains hierarchical structure of various elements.
@@ -291,7 +308,7 @@ block reference
     p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
     h3#controls Controls
-    p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently two types of controls - Buttons and Joysticks. Additional control types may be added in the future.
+    p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently a variety of types of controls including Buttons, Joysticks, Labels, & Textboxes. Additional control types may be added in the future.
 
     h4#buttons Buttons
 
@@ -300,6 +317,8 @@ block reference
     ul
         li #[code mousedown] event is sent when a button is pressed by a participant
         li #[code mouseup] event is sent when a button is released by a participant
+        li #[code keydown] event is sent when the key (specified via key code on the button) is pressed by a participant
+        li #[code keyup] event is sent when the key (specified via key code on the button) is released by a participant
 
     .figure
         img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
@@ -307,28 +326,21 @@ block reference
 
     p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
 
-    p Buttons are customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
+    p Buttons are highly customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
     ol(style='list-style-type: decimal')
         li Text displayed on the button
         li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
         li Width of the progress bar, which is displayed at the bottom of a button
         li Disabled state - Buttons which are disabled cannot be interacted with
         li Cooldown duration - Prevents interaction until it expires
-
-    h5#what-are-sparks What are Sparks?
-
-    p Sparks are Mixer's virtual currency. Participants earn them while watching or participating in broadcasts everywhere on Mixer.
-
-    h5#spark-transactions Spark Transactions
-    .figure
-        img(src='/img/reference/interactive/TransactionLifecycle.svg' alt='Diagram of a transaction\'s life cycle')
-    p.caption Diagram of a spark transaction's life cycle, showing its transition between states.
-
-    p When a button with a spark cost is pressed, it creates a transaction. To deduct sparks from a participant, a #[a(href='#the-game-client') Game Client] must #[code capture] the transaction. If a transaction remains uncaptured for 5 minutes, it automatically expires, and the cost associated with the transaction is not deducted from the participant's spark balance.
-
-    p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been converted into the expected action associated with the button press before deducting sparks from their balance.
-
-    p Note that deducted sparks are #[strong not] transferred to the broadcaster.
+        li Key code - A keyboard key assignment to a button
+        li Tooltip displayed when hovering over the button
+        li Color of the background on the button
+        li Color of the border on the button
+        li Accent color applied to the cooldown spinner and progress bar
+        li Focus Color applied to the border when focusing
+        li Color of the text display on the button
+        li Size of the text display on the button
 
     h4#joysticks Joysticks
 
@@ -340,6 +352,45 @@ block reference
     .figure
         img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
     p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
+
+    h4#labels Labels
+
+    p Labels are controls which can be used to display instructions and visually group controls together. As an example, a scene with buttons that either hurt or heal the player can have each section clearly labeled respectively above the buttons.
+
+    .figure
+        img(src='/img/reference/interactive/label.png' alt='Sample label control that is bold and italicized.')
+    p.caption Sample label control that is bold and italicized.
+
+    p Labels are customizable. These label properties can be edited from both the Interactive Studio and a Game Client:
+    ol(style='list-style-type: decimal')
+        li Text displayed in the label
+        li Size of the text in the label
+        li Color of the text in the label
+        li Whether the label is underlined
+        li Whether the label is italicized
+        li Whether the label is bold
+
+    h4#textboxes Textboxes
+
+    p Textboxes are controls which can be used to get text input from participants. #[a(href='#the-gameclient') Game Clients] receive events when participants either type or submit the text.
+
+    ul
+        li #[code change] event is sent when the participant types in the textbox (This is not sent if the button has a submit button)
+        li #[code submit] event is sent when the participant submits the textbox
+
+    .figure
+        img(src='/img/reference/interactive/textbox.png' alt='Sample textbox control asking participants to enter their pet\'s name, costing 10 sparks to submit.')
+    p.caption Sample textbox control asking participants to enter their pet's name, costing 10 sparks to submit.
+
+    p Textboxes are customizable. These textbox properties can be edited from both the Interactive Studio and a Game Client:
+    ol(style='list-style-type: decimal')
+        li Placeholder text display inside the textbox
+        li Text displayed in the submit button associated with the textbox
+        li Whether the textbox is multiline
+        li Whether the textbox has a submit button
+        li Disabled state - Textboxes which are disabled cannot be interacted with
+        li Cooldown duration - Prevents interaction until it expires
+        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
 
     h2#protocol-overview Protocol Overview
 
