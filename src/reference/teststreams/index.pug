@@ -1,0 +1,58 @@
+extends ../reference_layout.pug
+
+block title
+    | Test Streams | Mixer Developers
+
+block navbar
+    .navbar-wrapper
+        .container
+            nav.navbar.navbar-inverse: +navbar()
+            h1 Test Streams
+block menu
+    .hidden-print.rest-sidebar(role='complementary')
+        nav
+            ul.nav.nav-stacked
+                li: a(href='#introduction') Introduction
+                li: a(href='#applying') Applying for Test Stream Access
+                li: a(href='#enabling') Enabling Test Stream Mode
+                li: a(href='#controlling') Controlling Access
+                li: a(href='#best-practices') Best Practices
+block reference
+
+    h2#introduction Introduction
+
+    p Test streams allow you to broadcast your content in private. This means if you are working on an unannounced game or just want to try out some new streaming settings then you can use test streams to broadcast without anyone being able to see your content or broadcast.
+
+    h2#applying Applying for Test Stream Access
+    p Test Streams are is currently released to a limited audience. You can apply to use test streams with the following steps:
+    ol
+        li Visit the Mixer Developer Lab
+        li Click the Test Streams tab
+        li Fill out the displayed form and click Send Request
+    p Once the form is filled in it will be reviewed by Mixer staff who will notify you when the feature is enabled.
+
+    h2#enabling Enabling Test Stream Mode
+
+    p Once you've been granted access, to enable test stream mode:
+    ol
+        li Open the settings pane by clicking your profile picture in the upper, right of the mixer.com website.
+        li Go to Manage Channel in the Setting pane.
+        li In the Test Streams section, toggle Enable Test Mode.
+        li Once you have enabled test stream mode you will see a bar on the top whenever you broadcast.
+        li This bar will also contain a link you can share with others to view your stream.
+
+    .figure
+        img(src='/img/reference/teststreams/enable.png' alt='Picture showing how to enable test streams')
+
+    p Once you have enabled test streams for an account, it is enabled for every broadcast, across all devices. You don't need to enable test streams for each device you broadcast from. There is one, global setting applied to the account.
+
+    h2#controlling Controlling Access
+    p Whilst in test stream mode there are two ways to grant viewers access to view your test stream.
+    ol
+        li By Making them a moderator in the channel - Moderators of your channel can see your test streams
+        li By Sharing out the access key link - At the top of your channel page whilst streaming in test stream mode is a banner which has a link in it. You can give this link out and those with the link will be able to access your test stream. This link resets for every stream.
+
+    h2#best-practices Best Practices
+    ul
+        li Use the #[code /clear] command at the end of the stream to clear chat
+        li Keep your access key / link secure. If you need to reset it, restart the broadcast to generate a new one.
