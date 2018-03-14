@@ -1,5 +1,10 @@
 mixin highlightFile(language, file)
-    +highlightStr(language, readFile(file).toString())
+    +highlightStr(
+        language,
+        readFile(file)
+            .toString()
+            /* Removes eslinst-disable or global definition comments in source files */
+            .replace(/\/\*\W+(eslint-disable|global)((?!\*\/).)*\*\/\s*/ig, ''))
 
 mixin highlightJson(obj)
     +highlightStr('json', JSON.stringify(obj, null, 3))

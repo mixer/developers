@@ -9,46 +9,79 @@ block bookPages
         var pages = {
             index: {
                 name: 'Overview',
+                 sections: {
+                    'dive-in': 'Dive In!',
+                    components: {
+                        name: 'Custom Control Components',
+                        sections: {
+                            projects: 'Projects',
+                            bundles: 'Bundles',
+                            controls: 'Controls',
+                            summary: 'Summary'
+                        },
+                    },
+
+                },
+            },
+            'quickstart-preact': {
+                name: 'Getting Started with Preact',
                 sections: {
-                    bundles: 'Bundles',
+                    introduction: 'Introduction',
                     quickstart: {
                         name: 'Quickstart',
                         sections: {
-                            prerequisites: '#0 Prerequisites',
-                            'create-a-project': '#1 Create a Project',
-                            customize: '#2 Customize',
-                            publish: '#3 Publish',
-                        },
+                            login: 'Login',
+                            prerequisites: 'Prerequisites',
+                            'create-a-project': 'Create a Project',
+                            customize: 'Customize',
+                            iterate: 'Iterate',
+                            'next-steps': 'Next Steps',
+                        }
                     },
-                    'next-steps': 'Next Steps',
-                },
-            },
-            controls: {
-                name: 'Controls',
-                sections: {
-                    'but-rly': 'But Really, What is a Control?',
-                    inputs: 'Inputs',
-                    'styling-and-positioning': {
-                        name: 'Styling & Positioning',
+                    preactControls: {
+                        name: 'Preact Controls',
                         sections: {
-                            layout: 'Layout',
-                            'static-styles': 'Static Styles',
-                            'styles-in-javascript': 'Styles in JavaScript',
-                            'conditional-classes': 'Conditional Classes',
+                            'but-rly': 'But Really, What is a Control?',
+                            inputs: 'Inputs',
+                            'styling-and-positioning': {
+                                name: 'Styling & Positioning',
+                                sections: {
+                                    layout: 'Layout',
+                                    'static-styles': 'Static Styles',
+                                    'styles-in-javascript': 'Styles in JavaScript',
+                                    'conditional-classes': 'Conditional Classes',
+                                },
+                            },
+                            'giving-input': 'Giving Input',
+                            'custom-scenes': 'Custom Scenes',
                         },
                     },
-                    'giving-input': 'Giving Input',
-                    'custom-scenes': 'Custom Scenes',
+                    internationalization: {
+                        name: 'Internationalization',
+                        sections: {
+                            tldr: 'TL;DR',
+                            'writing-translations': 'Writing Translations',
+                            'using-translations': 'Using Translations',
+                        },
+                    },
                 },
             },
-
-            internationalization: {
-                name: 'Internationalization',
+            'quickstart-html': {
+                name: 'Getting Started with HTML',
                 sections: {
-                    tldr: 'TL;DR',
-                    'writing-translations': 'Writing Translations',
-                    'using-translations': 'Using Translations',
-                },
+                    'html-introduction': 'Introduction',
+                    'html-quickstart': {
+                        name: 'Quickstart',
+                        sections: {
+                            'html-prerequisites': 'Prerequisites',
+                            'html-create-a-project': 'Create a Project',
+                            'html-launch': 'Launch',
+                            'html-make-changes': 'Make a Change',
+
+                        }
+                    },
+                    'html-next-steps': 'Next Steps'
+                }
             },
 
             'best-practices': {
@@ -63,8 +96,8 @@ block bookPages
                 name: 'Authoring Bundles',
                 sections: {
                     'local-development': 'Local Development',
-                    'initial-e2e': 'Initial End-to-End',
-                    'final-testing': 'Final Testing & Publishing',
+                    'e2e': 'End-to-End Testing',
+                    'final-testing': 'Final Touches & Publishing',
                 },
             },
 
