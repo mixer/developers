@@ -11,7 +11,7 @@ block navbar
 block menu
     .hidden-print.rest-sidebar(role='complementary')
         nav
-            ul.nav.nav-stacked.expanded
+            ul.nav.nav-stacked
                 include ./menu.pug
 block reference
     h2#introduction Introduction
@@ -148,44 +148,6 @@ block reference
 
     p You will need to write your own Game Client to connect to the Interactive service. For SDK downloads, documentation, and samples, go to #[a(href='#choosing-an-sdk-environment') Choose a SDK].
 
-    h3#sharing-your-project Sharing an Interactive Project
-    p By default, only the owner of a project can use the project in a broadcast or access it from their SDK.
-
-    p This means that if you created the project, then you are the only person who can broadcast the project. Other users will receive a #[code 4020] Error code with the message: #[code The interactive version is not found, or you do not have access to it.]
-
-    p This is in place in order to protect your project from access by unauthorized users.
-
-    p If you'd like other users and developers to be able to use your project then you have several options, which are managed in the project's share settings.
-
-    p To open these settings, click the Share icon on the top right of the Studio, as shown in the screenshot below.
-    .figure
-        img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
-    p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
-
-    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast until it is published. If you haven't opened these settings before then this will be the selected option.
-
-    h4#share-codes Share Codes
-    p The second, "Anyone with the versionId and code can play", option generates a share code. Share codes can be saved within your SDK's configuration and stored within your project's source control system and built into any in development builds of your project. Using this option allows for anyone in your team to easily work on the project.
-
-    p You can also optionally give out this share code to smaller audiences to test or trial your project. If you do this you'll have to create a user interface or command within your game or application that can take this Share Code and pass it to your SDK of choice as a part of the SDK initialization.
-
-    p Once a share code has been set it is very important to not change the radio button in this setting screen. If you do it will delete the share code and potentially lock other users or members of your team out from the project.
-
-    p Once a project has been #[a(href='#publishing-flow') published], you will not need the share code anymore. At this point #[strong any] Mixer user will have access to the project. Please ensure you go through the publishing process before your application or game is shipped to the public.
-
-    .figure
-        img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
-
-    h4#explicit-sharing Explicit Sharing
-
-    p The third option, "Only allow specific users to play until published", is called explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
-
-    p The user #[strong must] have a Mixer User account for you to be able to share it with them. You can use this setting to share a project with a limited audience or with members of your team.
-
-    p Changing this setting will #[strong delete] the list of authorized Mixer Users.
-    .figure
-        img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
-
     h3#publish-step Publish
     p The final step in the studio is Publish. Publish allows you to share your project with everyone on Mixer.
 
@@ -253,6 +215,77 @@ block reference
 
     p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with the controls within the Project, that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to events and interactive input to change the controls that are displayed to participants.
 
+    h2#project-access Managing Project Access
+
+    p By default, only the owner of an Interactive project can use the project in a broadcast, access it from and SDK or make edits to it within the Interactive Studio. The goal of this restriction is to protect your project and ideas from access by unauthorized users. Mixer provides several options to expand project access to different groups of people in order to let them use the project or edit it.
+
+    h3#sharing-your-project Sharing an Interactive Project
+    p By default you are the only person who can broadcast the project. Other users will receive a #[code 4020] Error code with the message: #[code The interactive version is not found, or you do not have access to it]
+
+    p If you'd like other users and developers to be able to use your project then you have several options, which are managed in the project's share settings.
+
+    p To open these settings, click the Share icon on the top right of the Studio, as shown in the screenshot
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareButton.png' alt='studio share button')
+    p You'll be presented with a dialog with three options. #[strong Changing the sharing settings of a project will delete any previous share settings]
+
+    p The first option, "Nobody can play this game until published", is the default. Selecting this option allows only the project owner to use the project in a broadcast until it is published. If you haven't opened these settings before then this will be the selected option.
+
+    h4#share-codes Share Codes
+    p The second, "Anyone with the versionId and code can play", option generates a share code. Share codes can be saved within your SDK's configuration and stored within your project's source control system and built into any in development builds of your project. Using this option allows for anyone in your team to easily work on the project.
+
+    p You can also optionally give out this share code to smaller audiences to test or trial your project. If you do this you'll have to create a user interface or command within your game or application that can take this Share Code and pass it to your SDK of choice as a part of the SDK initialization.
+
+    p Once a share code has been set it is very important to not change the radio button in this setting screen. If you do it will delete the share code and potentially lock other users or members of your team out from the project.
+
+    p Once a project has been #[a(href='#publishing-flow') published], you will not need the share code anymore. At this point #[strong any] Mixer user will have access to the project. Please ensure you go through the publishing process before your application or game is shipped to the public.
+
+    .figure
+        img(src='/img/reference/interactive/studio/share/shareCode.png' alt='studio share code')
+
+    h4#explicit-sharing Explicit Sharing
+
+    p The third option, "Only allow specific users to play until published", is called explicit sharing. It lets you share the project with named Mixer users. Only users in the list can use the project. To share a project with a specific user, search for their username in the search box and then click "Add".
+
+    p The user #[strong must] have a Mixer User account for you to be able to share it with them. You can use this setting to share a project with a limited audience or with members of your team.
+
+    p Changing this setting will #[strong delete] the list of authorized Mixer Users.
+    .figure
+        img(src='/img/reference/interactive/studio/share/explicitSharing.png' alt='studio explicit sharing')
+
+    h3#project-editors Adding Project Editors
+
+    p If you'd like other members of your team to be able to edit your Interactive project in the Interactive Studio then you should add them as a Project Editor. You can do this by clicking the project editors button in the studio.
+
+    .figure
+        img(src='/img/reference/interactive/studio/editors/button.png' alt='Project editors studio button')
+
+    p In the dialog that opens you can search for other Mixer users and add them to your project as an editor. Once added you can also remove them.
+
+    .figure
+        img(src='/img/reference/interactive/studio/editors/add.png' alt='Adding a project editor')
+
+    p Users added to this dialog will see your project in the project list of the studio. They can then edit the project as though they owned it.
+
+    .figure
+        img(src='/img/reference/interactive/studio/editors/list.png' alt='Project list with a project the user can edit')
+
+    h3#access-best-practices Project Access Best Practices
+
+    h4#best-sharing Project Sharing
+    ul
+        li Use Explicit sharing for very small audiences.
+        li Use Share Codes when your audience grows larger.
+        li Include your share code into your project's version control system. This way it'll be shared with anyone working on the project.
+        li Avoid changing your share code after one is in use. This will potentially lock out other people on your team.
+        li Before releasing your Game, #[a(href='#publish-step') Publish your project].
+
+    h4#best-editors Project Editors
+    ul
+        li Create your project on an account for your Studio for example: "Mixer". This will make it look more professional when published.
+        li Add your Team's developers as Editors.
+        li Regularly review the editor list to ensure correct permissions.
+
     h2#sparks Sparks
 
     h3#what-are-sparks What are Sparks?
@@ -281,6 +314,46 @@ block reference
     p This mechanism allows the #[a(href='#the-gameclient') Game Client] to decide whether sparks should be deducted from a participant. This feature is a great way to ensure that input from a participant has been converted into the expected action associated with the button press before deducting sparks from their balance.
 
     p Note that deducted sparks are #[strong not] transferred to the broadcaster.
+
+    h2#scale Scale Considerations
+
+    p When developing an Interactive experience it is very important to consider scale as a factor. Your experience might work perfectly for a small test stream where you and your team try some features out but Mixer broadcasts are different. You need to ensure that your experience scales for more public broadcasts. You should aim to think about 4 levels of Scale:
+
+    ul
+        li Small Broadcasts - Less than 100 Viewers
+        li Medium Broadcasts - 100 - 1000 Viewers
+        li Large Broadcasts - 1000+ Viewers
+        li Events - Potentially 10s or hundreds of thousands of viewers
+
+    p When thinking about these levels its important to ask yourself 3 questions:
+    ul
+        li Is it fun?
+        li Is it balanced?
+        li Does it make sense?
+
+    p Additionally, Special considerations need to be made for Events, if you're planning a large scale event that uses Interactivity please reach out and #[a(href='mailto:mixerdevinfo@microsoft.com') contact us].
+
+    p Mixer's interactive platform has several features that can help you deal with Scale.
+
+    h3#scale-throttling Throttling
+    p For each event Mixer sends you from the Mixer Interactive Service you can set a bandwidth throttle. Bandwidth throttles control how fast data comes down from our service. Bandwidth throttles operate on a #[a(href='https://en.wikipedia.org/wiki/Leaky_bucket' target='_blank') leaky bucket algorithm], and you can set various properties on the throttles to finely tweak how and when data comes down to your GameClient.
+    ul
+        li #[code capacity] - How much data in bytes the throttle can hold before data is lost.
+        li #[code drainRate] - How fast the data drains from the bucket.
+
+    p You can also set the capacity to 0 which would effectively disable this event from reaching you.
+
+    p For an example of how this might be used consider a very large viewership Broadcast whose interactivity does not rely on the events sent when a participant joins the interactive session. You could turn these off which would prevent a lot of bandwidth as large amounts of users left and joined the stream.
+
+    p Refer to your #[a(href='#choosing-an-sdk-environment') chosen SDK], for documentation on how to set a bandwidth throttle on a particular event.
+
+    // TODO: I know this is very basic but we can link to SDK docs when they exist. Right now calling it out is still a huge benefit.
+
+    h3#scale-testing Testing
+
+    // TODO: This is a rubbish rubbish section, We need to do this as a feature item Playbooks V2 anyone? Its here to encourage people to talk to us though.
+
+    p If you'd like to test your Experience at scale then our team can help. We can work with you to arrange a test session with some of our team or even one of our Partnered broadcasters. Additionally we have some internal testing tools that we can work with your team to run against a test build of your game. If you'd like to find out more please #[a(href='mailto:mixerdevinfo@microsoft.com') reach out at to us].
 
     h2#interactive-experience-structure Interactive Experience Structure
 
