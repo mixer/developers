@@ -5,8 +5,8 @@ block reference
 
     ol
         li #[a(href='#local-development') Local development], iterating on custom Interactive bundles on your own computer;
-        li #[a(href='#initial-e2e') Initial end-to-end testing], connecting to your controls from your local computer with a game client connected to the Mixer server;
-        li #[a(href='#final-testing') Final testing and publishing], running your controls in production and publishing them.
+        li #[a(href='#initial-e2e') End-to-end testing], connecting to your controls from your local computer with a game client connected to the Mixer server;
+        li #[a(href='#final-testing') Final touches and publishing], running your controls in production and publishing them.
 
     h2#local-development Local Development
 
@@ -16,7 +16,7 @@ block reference
 
     p This will start the development server and open your web browser. On the left-hand side of the page, you'll see a control schema, which controls the display and positioning of controls.
 
-    // todo(connor4312): add a screenshot
+    img(src='/img/reference/interactive/miix/miixOverview.png' alt='Overview of miix editor showing various sections')
 
     p This is the state "tree" that's created when placing controls in the Interactive Studio, and is what is modified when your game client calls protocol methods like #[code createScene], #[code updateControl], #[code deleteControl], and so on. There are several other tabs which let you edit what the controls "see" as the currently connected participant, and the groups.
 
@@ -24,7 +24,7 @@ block reference
 
     p There are also controls on the editor to allow you to simulate how your controls look on different displays, reload the control frame, enter full screen mode, connect to production, and more. Look around!
 
-    h2#initial-e2e Initial End-To-End
+    h2#e2e End-To-End Testing
 
     p You've got some controls built and ready to test out, fantastic! Let's run the upload command to bundle and save the files to Mixer:
 
@@ -36,7 +36,7 @@ block reference
 
     p Head back to your local development server, and hit the rocket button in the upper right-hand corner. After a moment or two, your local set of Interactive controls will now be connected to your channel! You can continue making changes to your local files; the controls will automatically reload and reconnect to your game client when you do. This lets you test your bundle end-to-end, with an iteration time of under a second!
 
-    h2#final-testing Final Testing &amp; Publishing
+    h2#final-testing Final Touches &amp; Publishing
 
     p If you've been testing your controls using the local development server, go ahead and run one last #[code miix upload] and try out your controls on the Mixer website. Once you publish a version of your control bundle, you won't be able to modify it!
 
