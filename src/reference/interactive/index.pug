@@ -215,6 +215,128 @@ block reference
 
     p Participants are viewers of a live stream. They are Mixer users watching a broadcast in a broadcaster's channel. When they join the channel, they are connected to the interactive session. They are provided with the controls within the Project, that they can use to affect the broadcast. A #[a(href='#the-gameclient') Game Client] can react to events and interactive input to change the controls that are displayed to participants.
 
+    h2#interactive-experience-structure Interactive Experience Structure
+
+    p An Interactive experience contains hierarchical structure of various elements.
+
+    p These elements are:
+    ul
+        li Scenes
+        li Controls
+        li Groups
+        li Participants
+
+    .figure
+        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Diagram showing the Relationship between elements in the interactive hierarchy.')
+
+    p.caption Diagram showing the relationship between elements in the interactive hierarchy.
+
+    h3#scenes Scenes
+
+    p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. The grid's layout determines how the controls are displayed to participants.
+
+    p The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene. It controls which scenes (and controls) are shown to which participants throughout the session. Scenes are used to group controls together in a coherent fashion that is meaningful to the experience.
+
+    p For example, in an adventure game, you might have a "Battle" scene displayed when a broadcaster's game character is in battle; a "Field" scene displayed when the character is walking around in the game world.
+
+    p All #[a(href='#an-interactive-project') Interactive Projects] have a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client], all participants and #[a(href='#groups') groups] are shown the default scene.
+
+    p The #[a(href='#the-gameclient') Game Client] can change the scene that a participant sees by updating the #[a(href='#groups') group] they belong to.
+
+    h3#groups Groups
+    p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
+
+    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create an "Allies" group and an "Adversaries" group.
+
+    p The "Allies" group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the "Adversaries" group could spawn traps or monsters to try to get in the way of winning - using their controls.
+
+    p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
+
+    h3#controls Controls
+    p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently a variety of types of controls including Buttons, Joysticks, Labels, & Textboxes. Additional control types may be added in the future.
+
+    h4#buttons Buttons
+
+    p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
+
+    ul
+        li #[code mousedown] event is sent when a button is pressed by a participant
+        li #[code mouseup] event is sent when a button is released by a participant
+        li #[code keydown] event is sent when the key (specified via key code on the button) is pressed by a participant
+        li #[code keyup] event is sent when the key (specified via key code on the button) is released by a participant
+
+    .figure
+        img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
+    p.caption Sample button control which costs the participant one spark if they click on it.
+
+    p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
+
+    p Buttons are highly customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
+    ol(style='list-style-type: decimal')
+        li Text displayed on the button
+        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
+        li Width of the progress bar, which is displayed at the bottom of a button
+        li Disabled state - Buttons which are disabled cannot be interacted with
+        li Cooldown duration - Prevents interaction until it expires
+        li Key code - A keyboard key assignment to a button
+        li Tooltip displayed when hovering over the button
+        li Color of the background on the button
+        li Color of the border on the button
+        li Accent color applied to the cooldown spinner and progress bar
+        li Focus Color applied to the border when focusing
+        li Color of the text display on the button
+        li Size of the text display on the button
+
+    h4#joysticks Joysticks
+
+    p Joysticks are circular controls positioned within a scene that participants can click and drag. Moving a joystick sends an input event down to the Game Client with the coordinates of the joystick relative to its center. Joystick coordinates range between #[code -1 and 1].
+    .figure
+        img(src='/img/reference/interactive/joystick.png' alt='A joystick display to a participant.')
+    p.caption An idle joystick displayed to a participant. Its coordinates are #[code 0, 0].
+
+    .figure
+        img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
+    p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
+
+    h4#labels Labels
+
+    p Labels are controls which can be used to display instructions and visually group controls together. As an example, a scene with buttons that either hurt or heal the player can have each section clearly labeled respectively above the buttons.
+
+    .figure
+        img(src='/img/reference/interactive/label.png' alt='Sample label control that is bold and italicized.')
+    p.caption Sample label control that is bold and italicized.
+
+    p Labels are customizable. These label properties can be edited from both the Interactive Studio and a Game Client:
+    ol(style='list-style-type: decimal')
+        li Text displayed in the label
+        li Size of the text in the label
+        li Color of the text in the label
+        li Whether the label is underlined
+        li Whether the label is italicized
+        li Whether the label is bold
+
+    h4#textboxes Textboxes
+
+    p Textboxes are controls which can be used to get text input from participants. #[a(href='#the-gameclient') Game Clients] receive events when participants either type or submit the text.
+
+    ul
+        li #[code change] event is sent when the participant types in the textbox (This is not sent if the button has a submit button)
+        li #[code submit] event is sent when the participant submits the textbox
+
+    .figure
+        img(src='/img/reference/interactive/textbox.png' alt='Sample textbox control asking participants to enter their pet\'s name, costing 10 sparks to submit.')
+    p.caption Sample textbox control asking participants to enter their pet's name, costing 10 sparks to submit.
+
+    p Textboxes are customizable. These textbox properties can be edited from both the Interactive Studio and a Game Client:
+    ol(style='list-style-type: decimal')
+        li Placeholder text display inside the textbox
+        li Text displayed in the submit button associated with the textbox
+        li Whether the textbox is multiline
+        li Whether the textbox has a submit button
+        li Disabled state - Textboxes which are disabled cannot be interacted with
+        li Cooldown duration - Prevents interaction until it expires
+        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
+
     h2#project-access Managing Project Access
 
     p By default, only the owner of an Interactive project can use the project in a broadcast, access it from and SDK or make edits to it within the Interactive Studio. The goal of this restriction is to protect your project and ideas from access by unauthorized users. Mixer provides several options to expand project access to different groups of people in order to let them use the project or edit it.
@@ -349,133 +471,16 @@ block reference
 
     // TODO: I know this is very basic but we can link to SDK docs when they exist. Right now calling it out is still a huge benefit.
 
-    h3#scale-testing Testing
+    h3#scale-testing Scale Testing
 
     // TODO: This is a rubbish rubbish section, We need to do this as a feature item Playbooks V2 anyone? Its here to encourage people to talk to us though.
 
     p If you'd like to test your Experience at scale then our team can help. We can work with you to arrange a test session with some of our team or even one of our Partnered broadcasters. Additionally we have some internal testing tools that we can work with your team to run against a test build of your game. If you'd like to find out more please #[a(href='mailto:mixerdevinfo@microsoft.com') reach out at to us].
 
-    h2#interactive-experience-structure Interactive Experience Structure
+    h3#design Interactive Game Design
+    p It is important to factor Interactivity directly into your game design and we'd love to help out with that. To start with you can checkout our #[a(href='/reference/interactive/design.pdf') Game Design with Mixer] booklet.
 
-    p An Interactive experience contains hierarchical structure of various elements.
-
-    p These elements are:
-    ul
-        li Scenes
-        li Controls
-        li Groups
-        li Participants
-
-    .figure
-        img(src='/img/reference/interactive/InteractiveHierarchy.svg' alt='Diagram showing the Relationship between elements in the interactive hierarchy.')
-
-    p.caption Diagram showing the relationship between elements in the interactive hierarchy.
-
-    h3#scenes Scenes
-
-    p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. The grid's layout determines how the controls are displayed to participants.
-
-    p The #[a(href='#the-gameclient') Game Client] can add or remove controls from a scene. It controls which scenes (and controls) are shown to which participants throughout the session. Scenes are used to group controls together in a coherent fashion that is meaningful to the experience.
-
-    p For example, in an adventure game, you might have a "Battle" scene displayed when a broadcaster's game character is in battle; a "Field" scene displayed when the character is walking around in the game world.
-
-    p All #[a(href='#an-interactive-project') Interactive Projects] have a default scene. Without any intervention from the #[a(href='#the-gameclient') Game Client], all participants and #[a(href='#groups') groups] are shown the default scene.
-
-    p The #[a(href='#the-gameclient') Game Client] can change the scene that a participant sees by updating the #[a(href='#groups') group] they belong to.
-
-    h3#groups Groups
-    p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
-
-    p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create an "Allies" group and an "Adversaries" group.
-
-    p The "Allies" group is provided with controls that gives them the ability to heal the character that the broadcaster is controlling or grant buffs to increase their chance of winning. Alternatively, the "Adversaries" group could spawn traps or monsters to try to get in the way of winning - using their controls.
-
-    p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
-
-    h3#controls Controls
-    p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently a variety of types of controls including Buttons, Joysticks, Labels, & Textboxes. Additional control types may be added in the future.
-
-    h4#buttons Buttons
-
-    p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
-
-    ul
-        li #[code mousedown] event is sent when a button is pressed by a participant
-        li #[code mouseup] event is sent when a button is released by a participant
-        li #[code keydown] event is sent when the key (specified via key code on the button) is pressed by a participant
-        li #[code keyup] event is sent when the key (specified via key code on the button) is released by a participant
-
-    .figure
-        img(src='/img/reference/interactive/button.png' alt='Sample button control which costs the participant one spark if they click on it.')
-    p.caption Sample button control which costs the participant one spark if they click on it.
-
-    p Developers can use buttons to enable participants to vote, cause in-game actions to happen, or control in-game entities.
-
-    p Buttons are highly customizable. These button properties can be edited from both the Interactive Studio and a Game Client:
-    ol(style='list-style-type: decimal')
-        li Text displayed on the button
-        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
-        li Width of the progress bar, which is displayed at the bottom of a button
-        li Disabled state - Buttons which are disabled cannot be interacted with
-        li Cooldown duration - Prevents interaction until it expires
-        li Key code - A keyboard key assignment to a button
-        li Tooltip displayed when hovering over the button
-        li Color of the background on the button
-        li Color of the border on the button
-        li Accent color applied to the cooldown spinner and progress bar
-        li Focus Color applied to the border when focusing
-        li Color of the text display on the button
-        li Size of the text display on the button
-
-    h4#joysticks Joysticks
-
-    p Joysticks are circular controls positioned within a scene that participants can click and drag. Moving a joystick sends an input event down to the Game Client with the coordinates of the joystick relative to its center. Joystick coordinates range between #[code -1 and 1].
-    .figure
-        img(src='/img/reference/interactive/joystick.png' alt='A joystick display to a participant.')
-    p.caption An idle joystick displayed to a participant. Its coordinates are #[code 0, 0].
-
-    .figure
-        img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
-    p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
-
-    h4#labels Labels
-
-    p Labels are controls which can be used to display instructions and visually group controls together. As an example, a scene with buttons that either hurt or heal the player can have each section clearly labeled respectively above the buttons.
-
-    .figure
-        img(src='/img/reference/interactive/label.png' alt='Sample label control that is bold and italicized.')
-    p.caption Sample label control that is bold and italicized.
-
-    p Labels are customizable. These label properties can be edited from both the Interactive Studio and a Game Client:
-    ol(style='list-style-type: decimal')
-        li Text displayed in the label
-        li Size of the text in the label
-        li Color of the text in the label
-        li Whether the label is underlined
-        li Whether the label is italicized
-        li Whether the label is bold
-
-    h4#textboxes Textboxes
-
-    p Textboxes are controls which can be used to get text input from participants. #[a(href='#the-gameclient') Game Clients] receive events when participants either type or submit the text.
-
-    ul
-        li #[code change] event is sent when the participant types in the textbox (This is not sent if the button has a submit button)
-        li #[code submit] event is sent when the participant submits the textbox
-
-    .figure
-        img(src='/img/reference/interactive/textbox.png' alt='Sample textbox control asking participants to enter their pet\'s name, costing 10 sparks to submit.')
-    p.caption Sample textbox control asking participants to enter their pet's name, costing 10 sparks to submit.
-
-    p Textboxes are customizable. These textbox properties can be edited from both the Interactive Studio and a Game Client:
-    ol(style='list-style-type: decimal')
-        li Placeholder text display inside the textbox
-        li Text displayed in the submit button associated with the textbox
-        li Whether the textbox is multiline
-        li Whether the textbox has a submit button
-        li Disabled state - Textboxes which are disabled cannot be interacted with
-        li Cooldown duration - Prevents interaction until it expires
-        li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
+    p If you've got a cool idea for Mixer and your game please also #[a(href='mailto:mixerdevinfo@microsoft.com') reach out to our team], we'd be happy to discuss ways to make your game awesome with Mixer.
 
     h2#protocol-overview Protocol Overview
 
