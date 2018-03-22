@@ -1,0 +1,130 @@
+extends ./page.pug
+
+block reference
+    h2#game-clients Game Clients
+
+    p In interactive, a #[em game client] refers to an application that runs on a streamers computer and powers the experience. Game clients can be any application, but typically take the form of an actual game that is sending state information to Mixer viewers that allows them to interact.
+
+    h2#custom-data Sending Custom Data
+
+    p With custom controls it's now possible to send custom data between your custom controls and your game client. You can send in two directions: from the custom control to the game client, and from the game client to the custom control.
+
+    h3#from-custom-control Sending data from a custom control
+
+    p Custom controls have the ability to send custom data back to a game client using the miix SDK. Sending data from a custom control is done using the #[code giveInput] method of the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol].
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/data-from-custom-control.js')
+
+    p The only required parameter in a #[code giveInput] message is the #[code controlID] which tells the game client which control in the scene received input. For this to work ensure that you have a control with the id #[code my-control], such as:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/example-scenes.json')
+
+    p Aside from the #[code controlID] parameter you can set any field on a giveInput call, including nested objects.
+
+    h3#from-game-client Sending data from a game client
+
+    p There are two ways to send data from a game client to a custom control. #[strong Meta properties] provide a way to send data that is attached to objects in the interactive protocol and is immediately available to newly connected participants. #[strong Events] provide a simple way to send ephemeral events that get delivered instantaneously to participants, but do not get sent to participants that join after the event is sent.
+
+    h4#meta-properties Sending data using meta properties
+
+    p The interactive protocol defines a number of objects that are sent to new clients that connect:
+
+    ul
+        li Scenes
+        li Controls
+        li Groups
+        li Participants
+
+    .alert.alert-info Note that participants are persisted for the duration a participant is connected. Once a participant disconnects their meta properties are deleted.
+
+    p Setting a meta property on an object is as easy as defining it. You'll receive a participant object similar to the following upon connecting:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/example-participant.json')
+
+    p You can then set custom properties and use the matching #[code update*] method for the object you are setting properties on. In this case, you would use #[code updateParticipant] to set the following:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/example-participant-meta.json')
+
+    p The custom data will be sent to the respective participant in an #[code onParticipantUpdate] event. Likewise, if you set custom data on a scene, control, or group, an update event will be sent to the participants that need to see the update.
+
+    p Once you've set a property you can later delete it by setting it to #[code null] with an update event (e.g. #[code onParticipantUpdate]):
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/example-participant-meta-unset.json')
+
+    p Here are examples of data you could set on each object type:
+
+    ul
+        li Participant
+            ul
+                li A participants individual score in a game, to be displayed in the custom control
+        li Scene
+            ul
+                li The name of the map that participants are interacting with
+        li Group
+            ul
+                li The name of the group of players (e.g. #[code "Red Team"])
+        li Control
+            ul
+                li A custom visual property such as color
+
+    p You can of course go way beyond just those!
+
+    h4#events Sending data using events
+
+    p It is sometimes convenient to send a packet of data at an instant in time rather than attach a property to an object that persists. Interactive allows you to send an event using the #[code broadcastEvent] method:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/example-broadcast-event.json')
+
+    p Note that you may include more than one scope, which specifies who should receive the event. You can specify things like: #[code group:default] or #[code participant:e1fefc78-d4cc-4c69-b2d9-b36ed5c52893]. For more information see the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol reference].
+
+    h2#tutorial Custom Data Tutorial
+    p Now that we've covered the ways to send custom data between your custom controls and game client, lets walk through a simple example using the #[a(href='https://github.com/mixer/interactive-node-samples/tree/master/minimal-game-client') minimal game client]. Although this sample is written in typescript #[a(href='/reference/interactive/index.html#choosing-an-sdk-environment') Mixer provides SDKs] in many languages and environments to plug into your game.
+
+    p In this example we'll create a custom control that allows users to move the the Hello World text to the location of their choosing by clicking on the video overlay. The custom control will send the location of the click on the video to the game client, which will then update the location of the title and send it out to all connected participants.
+
+    h2#setup Setup the Project
+
+    p First, clone the Mixer samples project and install the dependencies:
+
+    pre: code.
+        git clone https://github.com/mixer/interactive-node-samples
+        cd interactive-node-samples/minimal-game-client'
+        npm i
+
+    p Next, follow the instructions in the README to add the #[code applicationId] and #[code versionId] to the #[code mixerauth.json] file. Once that's done verify that everything works by running #[code npm run start]. The application will prompt you to enter a shortcode on Mixer to authenticate, and then should connect to your channel without error.
+
+    h2#send-mouse-clicks Send data from a custom control
+
+    p Now that we have a game client connected, it's time to send some data from the custom control to the game client. We'll make a simple UI where viewers can click on a location in the video and the position of the mouse click will be relayed to the game client. To get started, open up your quickstart project and add the following to the bottom of the #[code initMixer()] function:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-click-event.js')
+
+    p This sets up a click listener so that when the participant clicks on the overlay we can send the coordinates of the click down to the game. Now save and run the quickstart project (using #[code npm run start]), and then connect the miix editor to interactive. Now when you click on the overlay element over the video you should see the events in the output of the game client:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/sample-event-receive.txt')
+
+    h2#send-image-position Sending the title position
+
+    p Next we need to handle updates to the location of the title on the game client and inform other connected clients when the location changes. Open the minimal game client project and add the following to the start of the #[code goLive()] function, which is called when the game client has setup it's scenes and is ready to start.
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/go-live-method.js')
+
+    p This sets up a listener for the #[code click] event we're sending from the custom control. When that event is received we set a meta property on the overlay called #[code titlePosition] which the custom control will use to position the title.
+
+    h2#handle-updates Handle control updates
+
+    p Next we need to handle the event the game client sends with the title position. Go back to the custom control source and add the following to the #[code initMixer()] function, before calling #[code mixer.isLoaded()]:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-update-1.js')
+
+    p This method sets up a listener for the #[code handleControlUpdate] event which occurs whenever the game client updates the title position on the overlay control. When it receives that event it sets the position of the title to where the last user clicked.
+
+    p Restart your game client, go to miix, and connect to interactive. You should now be able to click on the overlay atop the video and see the title element move around. Nice!
+
+    h2#initial-state Handling initial state
+
+    p One of the advantages of using meta properties is that they exist in the interactive protocol - so new participants that are just joining get the full state of the game. But if you reload the page right now you might be surprised to see that the title is in the default position - not where you expect it to be. Why? Because we haven't handled the scene create and update events! Go back to your custom control and add the following just below the #[code handleControlUpdate] event handler:
+
+    +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-update-2.js')
+
+    p This now properly handles the #[code onSceneCreate] event which is what fires when interactive initially loads, and the #[code onSceneUpdate] event which fires when a scene is updated. You should now be able to go back to miix and reload to your hearts content knowing that each time you connect to interactive you (and other participants) will get the latest position of the title.

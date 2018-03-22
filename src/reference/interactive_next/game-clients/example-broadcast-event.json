@@ -1,0 +1,10 @@
+{
+    "scope": [
+        "group:default"
+    ],
+    "data": {
+        "my-custom-object": {
+            "with": "custom data"
+        }
+    }
+}
