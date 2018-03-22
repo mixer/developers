@@ -11,7 +11,7 @@ block reference
 
     p You first need to #[a(href='https://nodejs.org/en/download/, target=_blank') install Node.js] on your computer. This lets you run our build scripts and tools. You'll also need a decent code editor. We recommend #[a(href='https://code.visualstudio.com/' target='_blank') Visual Studio Code] as a powerful editor with great JavaScript support out-of-the-box.
 
-    p After Node.js is installed, run the following command to install the miix command line tool:
+    p After Node.js is installed open your favorite terminal (PowerShell or CMD on Windows, terminal on OSX/Linux) and run the following command to install the miix command line tool:
 
     pre: code npm install -g miix-cli
 
@@ -23,9 +23,9 @@ block reference
 
     pre: code miix quickstart #[span.project-name my-project] html
 
-    p This will automatically download the contents of the default bundle from its #[a(href='https://github.com/mixer/interactive-html-starter' target='_blank') Github repo] and install its local dependencies.
+    p This will prompt you for the name of your project, a description, a license, and some keywords. If you don't want to enter these values right now you can just hit Enter for each question to accept the defaults. Once the questions are answered miix will download the html starter from its #[a(href='https://github.com/mixer/interactive-html-starter' target='_blank') Github repo] and install dependencies.
 
-    p It'll create a subdirectory with your project name, let's jump in there!
+    p It'll create a subdirectory with your project name (#[span.project-name my-project]), let's jump in there!
 
     pre: code cd #[span.project-name my-project]
 
@@ -45,8 +45,8 @@ block reference
 
     p #[code mixer.display.moveVideo(...)] tells Mixer to move the video container so that it is 50 pixels from the edges of the stage. One of the coolest things you can do from a custom control is resize the video to make the experience you want!
 
-    p #[code mixer.socket.call('giveInput', ...)] activates whenever you click on the "Hello World" text. This method sends a #[code giveInput] message down to the game client. We'll talk more about that later.
-        ul: li: strong TODO: Link to the section on sending data to the game client.
+    p #[code mixer.socket.call('giveInput', ...)] activates whenever you click on the "Hello World" text. This method sends a #[code giveInput] message down to the game client. To learn more about sending messages between a control and the game client, check out the #[a(href='/reference/interactive_next/game-clients.html') game client communication documentation].
+
     p #[code mixer.isLoaded()] tells Mixer that your control has loaded. It's best to do this when you're finished setting up and loading in any images or scripts. Viewers on Mixer won't see your control until #[code isLoaded()] is called.
 
     p In summary, we position the video on the stage, setup a handler to send custom data back to the game, and then tell Mixer the control is ready to be seen by the world.
@@ -59,11 +59,11 @@ block reference
 
     p Let's talk strategy: our goal will be to place a semi-transparent #[code div] completely covering the real position of the video, independant of the size of the browser window or the aspect ratio of the video source. To do that, we're going to use the #[code position()] api which provides a handy observable for the real position of the video. Whenever that updates, we'll move our #[code div] so that it aligns with the video position.
 
-    p To start, let's add our #[code div] to the #[code index.html]:
+    p To start, we need an element to overlay on top of the video. We'll add an overlay #[code div] to #[code index.html] by replacing the file contents with the following:
 
     +highlightFile('html', 'reference/interactive_next/quickstart-html/make-a-change-01.html')
 
-    p Next, we need to setup the handler for when the window position changes. Add the #[code handleVideoResized()] function to the end of #[code scripts.js]:
+    p Next, we need to setup the handler for when the window position changes that moves and resizes the div to the correct location on the video. Add the #[code handleVideoResized()] function to the end of #[code scripts.js]:
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/make-a-change-02.js')
 
@@ -75,8 +75,12 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/make-a-change-04.js')
 
-    p That's it! Go back to the miix editor in your browser (likely at https://localhost:8080) and you should see the overlay being positioned properly. Try changing the emulated device size in miix and watch your overlay resize automatically.
+    p That's it! Go back to the miix editor in your browser (likely at http://localhost:8080) and you should see the overlay being positioned properly. Try changing the emulated device size in miix and watch your overlay resize automatically.
 
     h3#html-next-steps Next Steps
 
-    p: strong TODO: Next steps
+    ul
+        li Read more about #[a(href='/reference/interactive_next/game-clients.html') sending data between a custom control and a game client]
+        li Check out the #[a(href='/reference/interactive_next/best-practices.html') best practices for building custom control experiences]
+        li Learn about #[a(href='/reference/interactive_next/authoring.html') authoring custom control bundles] for when you're ready to go big with your integration
+        li Ask questions and get help #[a(href='https://gitter.im/Mixer/developers') on Gitter]
