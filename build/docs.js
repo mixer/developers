@@ -197,7 +197,7 @@ function filterRaml (node) {
         if (embargo && new Date(embargo).getTime() > now) {
             return;
         }
-        if (annotations && annotations.internal) {
+        if (!config.includeInternal && annotations && annotations.internal) {
             return;
         }
         const newSubNode = filterRaml(subNode);
