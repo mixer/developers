@@ -1,6 +1,9 @@
 # Whether the resulting build should be minified, or not.
 minify: false
 
+# include internal APIs
+includeInternal: false
+
 # Source and corresponding destination paths for resources. You should
 # probably not change these unless you know what you're doing:
 src:
