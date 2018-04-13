@@ -5,7 +5,8 @@
       "arguments": [
         "The **channel ID** of the channel you are joining.",
         "The **user ID** of the user you are connecting as. This can be omitted if you are connecting anonymously.",
-        "The **authorization key** retrieved from a request to our REST API, as explained in the [Connection](#chat__connection) section. This can be omitted if you are connecting anonymously."
+        "The **authorization key** retrieved from a request to our REST API, as explained in the [Connection](#chat__connection) section. This can be omitted if you are connecting anonymously.",
+        "(The **test stream access key** used to join the channel. This final argument is completely optional, and should only be provided if you wish to join a channel actively in a Test Stream.)"
       ],
       "examples": [
         {
@@ -35,7 +36,7 @@
           }
         },
         {
-          "description": "Authenticating anonymously",
+          "description": "Authenticating anonymously.",
           "data": {
             "request": {
               "type": "method",
@@ -74,7 +75,32 @@
               "error": {
                 "code": 1,
                 "message": "UNOTFOUND",
-                "stacktrace": [],
+                "stacktrace": "",
+                "data": {}
+              },
+              "id": 0
+            }
+          }
+        },
+        {
+          "description": "Attempting to join a channel currently in Test Stream mode with an invalid or missing access key.",
+          "data": {
+            "request": {
+              "type": "method",
+              "method": "auth",
+              "arguments": [
+                12345,
+                12345,
+                "authkey"
+              ],
+              "id": 0
+            },
+            "response": {
+              "type": "reply",
+              "error": {
+                "code": 1,
+                "message": "UACCESS",
+                "stacktrace": "",
                 "data": {}
               },
               "id": 0
@@ -796,7 +822,7 @@
       }
     },
     "UserTimeout": {
-      "description": "Sent only to a user when they are timed out.",
+      "description": "Sent only to a user when they are timed out. The duration provided is measured in milliseconds.",
       "example": {
         "type": "event",
         "event": "UserTimeout",
