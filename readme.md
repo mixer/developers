@@ -13,7 +13,6 @@ Project used to generate contents of the [Developer Documentation](https://dev.m
 ### Getting Setup
 1. Clone this repository
 1. Run `npm i`
-1. Install http-server globally with `npm i -g http-server`
 1. Do an initial build with `npm run build`
 1. Setup the watcher, this will rebuild stuff as you work with `npm run watch`
 1. In another window run: `npm run start` this will start a local copy of the developer site
