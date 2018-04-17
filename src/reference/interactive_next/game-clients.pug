@@ -11,7 +11,7 @@ block reference
 
     h3#from-custom-control Sending data from a custom control
 
-    p Custom controls have the ability to send custom data back to a game client using the miix SDK. Sending data from a custom control is done using the #[code giveInput] method of the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol].
+    p Custom controls have the ability to send custom data back to a game client using the CDK Standard Library Methods. Sending data from a custom control is done using the #[code giveInput] method of the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol].
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/data-from-custom-control.js')
 
@@ -99,7 +99,7 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-click-event.js')
 
-    p This sets up a click listener so that when the participant clicks on the overlay we can send the coordinates of the click down to the game. Now save and run the quickstart project (using #[code npm run start]), and then connect the miix editor to interactive. Now when you click on the overlay element over the video you should see the events in the output of the game client:
+    p This sets up a click listener so that when the participant clicks on the overlay we can send the coordinates of the click down to the game. Now save and run the quickstart project (using #[code npm run start]), and then connect the CDK to interactive. Now when you click on the overlay element over the video you should see the events in the output of the game client:
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/sample-event-receive.txt')
 
@@ -119,7 +119,7 @@ block reference
 
     p This method sets up a listener for the #[code handleControlUpdate] event which occurs whenever the game client updates the title position on the overlay control. When it receives that event it sets the position of the title to where the last user clicked.
 
-    p Restart your game client, go to miix, and connect to interactive. You should now be able to click on the overlay atop the video and see the title element move around. Nice!
+    p Restart your game client, go to the CDK, and connect to interactive. You should now be able to click on the overlay atop the video and see the title element move around. Nice!
 
     h2#initial-state Handling initial state
 
@@ -127,4 +127,4 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-update-2.js')
 
-    p This now properly handles the #[code onSceneCreate] event which is what fires when interactive initially loads, and the #[code onSceneUpdate] event which fires when a scene is updated. You should now be able to go back to miix and reload to your hearts content knowing that each time you connect to interactive you (and other participants) will get the latest position of the title.
+    p This now properly handles the #[code onSceneCreate] event which is what fires when interactive initially loads, and the #[code onSceneUpdate] event which fires when a scene is updated. You should now be able to go back to the CDK and reload to your hearts content knowing that each time you connect to interactive you (and other participants) will get the latest position of the title.

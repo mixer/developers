@@ -8,48 +8,22 @@ block reference
     p With both of these tools combined Custom Control development can be a blast. We recommend these tools to develop your custom controls. If you'd rather try out plain HTML & Javascript you can also try that with our #[a(href='#') HTML Guide].
 
     h2#quickstart Quickstart
+    - var prefix = 'preact';
+    include ./installing-cdk-1.pug
 
-    h3#prerequisites Prerequisites
+    img(src='/img/reference/interactive/cdk/cdkPreact.png' alt='Screenshot, showing the Preact template selected')
 
-    p You first need to #[a(href='https://nodejs.org/en/download/, target=_blank') install Node.js] on your computer. This lets you run our build scripts and tools. You'll also need a decent code editor. We recommend #[a(href='https://code.visualstudio.com/' target='_blank') Visual Studio Code] as a powerful editor with great JavaScript support out-of-the-box.
+    p The final step is to choose your Starter Template, for this guide choose the Preact template.
 
-    p After Node.js is installed, run the following command to install the miix command line tool:
-
-    pre: code npm install -g miix-cli
-
-    p miix is the tool you'll use for creating, building, and uploading bundles to Mixer.
-
-    h3#login Login
-
-    p In order for some parts of miix to work such as uploading or publishing you need to login to the tool with your Mixer user account.
-
-    pre: code miix login
-
-    p This will guide you through the login process.
-
-    h3#create-a-project Create a Project
-
-    p Open your command line in the folder you'd like to work in, then run the quickstart command:
-
-    pre: code miix quickstart #[span.project-name my-project]
-
-    p This will automatically download the contents of the Preact Starter bundle from its #[a(href='https://github.com/mixer/interactive-launchpad' target='_blank') Github repo] and install its local dependencies.
-
-    p It'll also create a subdirectory with your project name, let's jump in there!
-
-    pre: code cd #[span.project-name my-project]
+    include ./installing-cdk-2.pug
 
     h3#customize Customize
 
-    p Run the following command to boot up the local development server:
-
-    pre: code npm start
-
-    p This will automatically start a local web server and open your browser, where you can now see the built-in controls are laid out. Feel free to open the directory in your favorite editor and start poking around! The controls will automatically update and reload whenever you edit a file.
+    p Now that everything is running, it is time to open the directory for your project in your favorite editor and start poking around! The controls will automatically update and reload within the CDK whenever you edit a file.
 
     h3#iterate Iterate
 
-    p Now that you're all setup its time to iterate on your custom controls and build the experience you are looking for. Continue editing files locally within your favorite editor and preview the changes live within the Browser Window. You don't need to upload or publish your custom controls until you're happy with them.
+    p Now that you're all setup its time to iterate on your custom controls and build the experience you are looking for. Continue editing files locally within your favorite editor and preview the changes live within the CDK. You don't need to upload or publish your custom controls until you're happy with them, everything can be done locally using the CDK to preview and test your changes.
 
     p When you're ready, checkout our #[a(href='authoring.html') Authoring Bundles section] for more about the bundling authoring and the publication / upload process.
 
@@ -66,7 +40,7 @@ block reference
 
     p When thinking about controls, it's important to remember that there are two consumers: the web frontend as seen by viewers and the Interactive Studio as seen by other developers and some streamers. You are free to only focus on the viewers if you don't need to use the Studio and don't intend to share your integration with other developers. But, keeping this duality in mind is important for understanding the considerations around which controls are designed.
 
-    p In the Preact Custom Control framework, an Interactive control is "just" a class, that happens to be decorated with #[code @Mixer.Control]. The decorator registers the class internally and it is also examined by the #[code miix] command line tool to allow the control to be edited and placed in the Studio. We also provide a useful base component, #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Control.tsx'): code &lt;PreactControl /&gt;].
+    p In the Preact Custom Control framework, an Interactive control is "just" a class, that happens to be decorated with #[code @Mixer.Control]. The decorator registers the class internally and it is also examined by the CDK during the upload process, to allow the control to be edited and placed in the Studio. We also provide a useful base component, #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Control.tsx'): code &lt;PreactControl /&gt;].
 
     +highlightFile('javascript', 'reference/interactive_next/controls/basic.jsx')
 
@@ -80,7 +54,7 @@ block reference
 
     p Inputs can be defined on scenes and controls. These are class properties that are settable from the GUI of the Studio, and they must be decorated with #[code @Mixer.Input] decorator. Input types are restricted to what the GUI is able to provide.
 
-    p All JavaScript primitive types&mdash;numbers, strings, booleans&mdash;are able to be provided and can be inferred automatically. For other types, you must specify them manually. You can find a full list of available input kinds #[a(href='https://github.com/mixer/miix-std/blob/6ad36f167fef3a641273858aec6aba5366e40fd5/src/decoration.ts#L106-L133') here]. For example:
+    p All JavaScript primitive types&mdash;numbers, strings, booleans&mdash;are able to be provided and can be inferred automatically. For other types, you must specify them manually. You can find a full list of available input kinds #[a(href='https://github.com/mixer/cdk-std/blob/6ad36f167fef3a641273858aec6aba5366e40fd5/src/decoration.ts#L106-L133') here]. For example:
 
     +highlightFile('javascript', 'reference/interactive_next/controls/hello-inputs.jsx')
 

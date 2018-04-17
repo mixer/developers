@@ -6,42 +6,22 @@ block reference
     p Writing with pure HTML and JavaScript is the fastest and easiest way to get started building rich custom control experiences for Mixer. We'll cover setting up a project, making some changes, and running it on Mixer.
 
     h2#html-quickstart Quickstart
+    - var prefix = 'html';
+    include ./installing-cdk-1.pug
 
-    h3#html-prerequisites Prerequisites
+    img(src='/img/reference/interactive/cdk/cdkHTML.png' alt='Screenshot, showing the HTML template selected')
 
-    p You first need to #[a(href='https://nodejs.org/en/download/, target=_blank') install Node.js] on your computer. This lets you run our build scripts and tools. You'll also need a decent code editor. We recommend #[a(href='https://code.visualstudio.com/' target='_blank') Visual Studio Code] as a powerful editor with great JavaScript support out-of-the-box.
+    p The final step is to choose your Starter Template, for this guide choose the #[a(href='https://github.com/mixer/interactive-html-starter' target='_blank') HTML template].
 
-    p After Node.js is installed open your favorite terminal (PowerShell or CMD on Windows, terminal on OSX/Linux) and run the following command to install the miix command line tool:
+    include ./installing-cdk-2.pug
 
-    pre: code npm install -g miix-cli
+    p Once everything has been completed, The CDK will show you the HTML Starter in a preview State within its UI. Each time you make changes to your custom control code it will detect this change and update the preview to show you the new output.
 
-    p miix is the tool you'll use for creating, building, and uploading bundles to Mixer.
+    p If you haven't done already, you should now open your new project in your favorite code editor. We're now ready to take a look at some code.
 
-    h3#html-create-a-project Create a Project
-
-    p Open your command line in the folder you'd like to work in, then run the quickstart command:
-
-    pre: code miix quickstart #[span.project-name my-project] html
-
-    p This will prompt you for the name of your project, a description, a license, and some keywords. If you don't want to enter these values right now you can just hit Enter for each question to accept the defaults. Once the questions are answered miix will download the html starter from its #[a(href='https://github.com/mixer/interactive-html-starter' target='_blank') Github repo] and install dependencies.
-
-    p It'll create a subdirectory with your project name (#[span.project-name my-project]), let's jump in there!
-
-    pre: code cd #[span.project-name my-project]
-
-    h3#html-launch Launch
-
-    p Run the following command to boot up the local development server:
-
-    pre: code npm start
-
-    p This will start the #[strong miix editor] and open your browser, where you should now see the barebones HTML starter. The miix editor will serve as your development environment - allowing you to make changes and instantly see them reflected in a simulated Mixer window. Every time you save a file miix reloads your control.
-
-    p Now that you've got your development environment setup, let's look at what's going on in #[code scripts.js]:
+    p Let's look at what's going on in #[code scripts.js]:
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/basic.js')
-
-    p Let's break the interesting bits down:
 
     p #[code mixer.display.moveVideo(...)] tells Mixer to move the video container so that it is 50 pixels from the edges of the stage. One of the coolest things you can do from a custom control is resize the video to make the experience you want!
 
@@ -75,7 +55,9 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/make-a-change-04.js')
 
-    p That's it! Go back to the miix editor in your browser (likely at http://localhost:8080) and you should see the overlay being positioned properly. Try changing the emulated device size in miix and watch your overlay resize automatically.
+    p That's it! Go back to the CDK and you should see the overlay being positioned properly.
+
+    p You can try changing the emulated device to see how your changes look on different devices. To do this, open the view menu at the top of the CDK and select "Device Emulation". In the panel that opens, try changing the device to a Phone or tablet and watch your overlay resize automatically.
 
     h3#html-next-steps Next Steps
 
