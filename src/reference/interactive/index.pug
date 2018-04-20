@@ -231,7 +231,7 @@ block reference
 
     p.caption Diagram showing the relationship between elements in the interactive hierarchy.
 
-    h3#scenes Scenes
+    h2#scenes Scenes
 
     p A scene is a named collection of controls. Within a scene, controls are arranged on a grid. The grid's layout determines how the controls are displayed to participants.
 
@@ -243,7 +243,7 @@ block reference
 
     p The #[a(href='#the-gameclient') Game Client] can change the scene that a participant sees by updating the #[a(href='#groups') group] they belong to.
 
-    h3#groups Groups
+    h2#groups Groups
     p Individual participants can be segmented into groups. Participants within a group all see the same Scene and contribute input to the controls that are part of that scene. #[a(href='#the-gameclient') Game Clients] can create and update groups any time, including changing the scene that the group is set to see. A participant can only be a member of one group at any time.
 
     p Groups can be used to create team-based experiences where groups compete to achieve a goal within the experience. Using an adventure game again as an example, you could create an "Allies" group and an "Adversaries" group.
@@ -252,10 +252,10 @@ block reference
 
     p Participants always start out in the default group but #[a(href='#the-gameclient') Game Clients] can re-assign participants into any group.
 
-    h3#controls Controls
+    h2#controls Controls
     p A control is an interactive element in a user interface within a scene. #[a(href='#participants') Participants] can interact with the control using touch, keyboard, mouse, or controller. There are currently a variety of types of controls including Buttons, Joysticks, Labels, & Textboxes. Additional control types may be added in the future.
 
-    h4#buttons Buttons
+    h3#buttons Buttons
 
     p A button is a rectangular, interactive control within a scene. #[a(href='#the-gameclient') Game Clients] receive events when participants interact with a button.
 
@@ -287,7 +287,7 @@ block reference
         li Color of the text display on the button
         li Size of the text display on the button
 
-    h4#joysticks Joysticks
+    h3#joysticks Joysticks
 
     p Joysticks are circular controls positioned within a scene that participants can click and drag. Moving a joystick sends an input event down to the Game Client with the coordinates of the joystick relative to its center. Joystick coordinates range between #[code -1 and 1].
     .figure
@@ -298,7 +298,7 @@ block reference
         img(src='/img/reference/interactive/joystickCoordinates.svg' alt='An illustration of the coordinate system for joysticks.')
     p.caption An illustration of the coordinate system for joysticks. The top left is #[code -1, -1] and the bottom right is #[code 1, 1].
 
-    h4#labels Labels
+    h3#labels Labels
 
     p Labels are controls which can be used to display instructions and visually group controls together. As an example, a scene with buttons that either hurt or heal the player can have each section clearly labeled respectively above the buttons.
 
@@ -315,7 +315,7 @@ block reference
         li Whether the label is italicized
         li Whether the label is bold
 
-    h4#textboxes Textboxes
+    h3#textboxes Textboxes
 
     p Textboxes are controls which can be used to get text input from participants. #[a(href='#the-gameclient') Game Clients] receive events when participants either type or submit the text.
 
