@@ -3,19 +3,19 @@ extends ./page.pug
 block reference
     p Custom controls is a feature for Mixer Interactive that allows you to create Interactive experiences for Mixer viewers and streamers. Unlike our standard controls and prefabs, such as the button and joystick, this allow you to create rich and engaging experiences with effectively limitless customizability!
 
-    p The magic here is that with custom controls you can completely change the look, behavior and feel of Interactive Experiences through developing your own controls from scratch, or by using some of our standard controls as a base. Controls are written in HTML, JavaScript and CSS which are then uploaded and served from Mixer's infrastructure at no cost to you. When combined with a Game Client in your Game or Application, they allow for a truly unique and customized experience that can fit the look and feel of your brand and ideas.
+    p The magic here is that with custom controls you can completely change the look, behavior and feel of Interactive Experiences by developing your own controls from scratch, or by using some of our standard controls as a base. Controls are written in HTML, JavaScript, and CSS which are then uploaded and served from Mixer's infrastructure at no cost to you. When combined with a Game Client in your Game or Application, they allow for a truly unique and customized experience that can fit the look and feel of your brand and ideas.
 
     h2#dive-in Looking to Dive in?
     p If you're looking to dive straight into writing custom control experiences then you have two choices:
     ul
-        li #[a(href='preact.html') Use Preact] - Leverage the power of Preact, TypeScript and our Existing Controls to get started quickly.
-        li #[a(href='html.html') Use HTML] - Start from scratch, use your favorite UI Library or Draw your Interactivity directly using a HTML Canvas.
+        li #[a(href='quickstart-preact.html') Use Preact] - Leverage the power of Preact, TypeScript and our Existing Controls to get started quickly.
+        li #[a(href='quickstart-html.html') Use HTML] - Start from scratch, use your favorite UI Library or Draw your Interactivity directly using a HTML Canvas.
 
     p You can also continue reading for an Overview on how the components of Custom Controls work.
 
     h2#components Custom Control Components
 
-    p Custom Controls relies on several key components that work together to deliver an Interactive Experience on Mixer.
+    p Custom Controls rely on several key components that work together to deliver an Interactive Experience on Mixer.
 
     h3#projects Projects
 
@@ -37,7 +37,7 @@ block reference
 
     p Controls are interactive elements within an Interactive experience such as a Button, Joystick or even a MiniMap. They allow users to give inputs and receive data from your Game or Application. They exist within scenes of an Interactive experience and have a free-form set of properties that can be used to modify their behavior or appearance. They can also send inputs and data to your Game Client which can in turn send data back to update the control's appearance or behavior.
 
-    p All of Mixer's standard controls and experiences such as Share your Controller are actually built using Custom Controls. They use #[a(href='https://preactjs.com/') Preact], a super lightweight framework that takes care of the dirty work for you, and #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a super set of JavaScript which gives you the option of adding type annotations to your code.
+    p All of Mixer's standard controls and experiences such as Share your Controller are built using Custom Controls. They use #[a(href='https://preactjs.com/') Preact], a super lightweight framework that takes care of the dirty work for you, and #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a super set of JavaScript which gives you the option of adding type annotations to your code.
 
     p For more information on Mixer's Standard Controls, checkout #[a(href='../interactive/index.html#controls') the documentation for them].
 

@@ -78,12 +78,12 @@ function randomArray (array) {
 }
 
 function projectName () {
-    return `${randomArray(adverbs)}-${randomArray(adjectives)}-${randomArray(nouns)}`;
+    return randomArray(adverbs) + '-' + randomArray(adjectives) + '-' + randomArray(nouns);
 }
 
 window.addEventListener('load', function () {
     var name = projectName();
-    Array.prototype.slice.call(document.querySelectorAll('.project-name')).forEach(el => {
+    Array.prototype.slice.call(document.querySelectorAll('.project-name')).forEach(function (el) {
         el.textContent = name;
     });
 });
