@@ -3,6 +3,7 @@ include ../mixins.pug
 
 block append scripts
     +oauthLinks('chat:connect chat:chat chat:bypass_slowchat')
+    +clientIdLinks()
 
 block title
     | Chatbot Tutorial | Mixer Developers

@@ -1,5 +1,8 @@
 extends ./tutorial_layout.pug
 
+block append scripts
+    +clientIdLinks()
+
 block title
     | REST Tutorial | Mixer Developers
 
@@ -99,10 +102,10 @@ block tutorialContent
 
             p Unfortunately we don't have a client library built for Python but, don't worry, the API is still super simple to use with the wonderful #[a(href='https://github.com/kennethreitz/requests' target='_blank') requests] package. Go ahead and fire of #[code pip install requests] if you don't already have it installed.
 
-            p First off, lets import what we need and make a login request to the API. We'll use #[code requests.Session] since we may want to expand this app later and the session cookie created when we log in.
+            p First off, let's import what we need and make a login request to the API.
             +highlightFile('python','./tutorials/code/python/rest/1.py')
 
-            p After authenticating we'll get back a HTTP response that includes #[a(href='/rest.html#User') a bunch of details] about the user. We'll print out how many viewers the have on their channel.
+            p We'll get back a HTTP response that includes #[a(href='/rest.html#Channel') a bunch of details] about the channel. We'll print out how many viewers they have on their channel.
 
             +highlightFile('python','./tutorials/code/python/rest/2.py')
 

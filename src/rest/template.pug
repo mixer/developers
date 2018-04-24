@@ -10,7 +10,7 @@ include ./resource.pug
                             li: a(href=`#${r.uniqueId}`)= r.relativeUri
     .col-md-9(role='main')
         .page-header
-            p Mixer provides an HTTP API that can be used either with cookies or #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://mixer.com/api/v1], and all paths listed here are appended to that.
+            p Mixer provides an HTTP API that can be used with #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://mixer.com/api/v1], and all paths listed here are appended to that.
 
             .alert.alert-info If you want some more help about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
 
@@ -19,10 +19,24 @@ include ./resource.pug
         include ../tutorials/rest_intro.pug
 
         p If you want some more information about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
+
+        h2(id='authentication') Authentication
+
+        p To get started, please accept the Developer Agreement and create an OAuth Application from our #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. For more information, please see #[a(href='https://aka.ms/mixerdevagreementkb' target='_blank') this support article].
+
+        p Once you have created an application, you must either:
+
+        ul
+            li Authenticate as a user through OAuth (by sending an #[code Authorization] header with your request). Please see our #[a(href='/reference/oauth/index.html') OAuth Reference] for details.
+            li Or, you can make unauthenticated requests by sending a #[code Client-ID] header with the Client ID of an application created within the #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. Our official SDKs add this header; please see our #[a(href='/tutorials/rest.html') REST API tutorial] for examples.
+
+        .alert.alert-warning
+            p Requests that do not pass either an #[code Authorization] or #[code Client-ID] header will receive an #[code X-Warning] header. After #[strong 21st May 2018], these requests will be rejected.
+
         h2(id='rate_limiting') Rate Limiting
         p.
-            In order to guarantee API stability there are a few rate limits in place,
-            all endpoints that are rate limited have their #[code bucket] noted below.
+            In order to guarantee API stability there are a few rate limits in place.
+            All endpoints that are rate limited have their #[code bucket] noted below.
         p Here is a list of all rate limiting buckets and their attributes.
         table.table.table-condensed
             caption Each endpoint can be called #[code Request Count] times per #[code Time Interval].
@@ -39,18 +53,6 @@ include ./resource.pug
                             td= name
                             td= bucket.max
                             td= bucket.interval/1000
-        h2(id='csrf') CSRF Tokens
-        p.
-            Mixer's REST API requires the use of CSRF Tokens when using cookie-base authentication.
-        p.
-            CSRF tokens are alphanumeric strings issued by the server and are included in the X-CSRF-Token header in responses. They are used to authorize requests and are bound a specific session cookie. They are invalidated after the session expires and may be invalidated at any point prior to the session expiration.
-
-        p.
-            CSRF tokens must be passed to the server in the X-CSRF-Token header when making requests which use cookie-based authentication. Failing to pass a valid CSRF token will cause the request to return in a #[code 461 CSRF Token Invalid] response. The server will include an X-CSRF-Token header in the response, which contains a CSRF token that the client can use to retry the request.
-        a(href='#csrfExample' data-toggle='collapse') Example
-        #csrfExample.collapse
-            .well
-                +highlightFile('text','./rest/csrf.txt')
 
         include ../snippets/help.pug
         h2 Endpoints

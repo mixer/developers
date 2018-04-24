@@ -72,3 +72,9 @@ mixin oauthLinks(scopes)
         $(function () {
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
+
+mixin clientIdLinks()
+    script.
+        $(function () {
+            oauthUtils.registerClientIdClickHandler();
+        });

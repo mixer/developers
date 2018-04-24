@@ -1,17 +1,18 @@
-import pro.beam.api.BeamAPI;
-import pro.beam.api.http.SortOrderMap;
-import pro.beam.api.resource.channel.BeamChannel;
-import pro.beam.api.response.channels.ShowChannelsResponse;
-import pro.beam.api.services.impl.ChannelsService;
+import com.mixer.api.MixerAPI;
+import com.mixer.api.http.SortOrderMap;
+import com.mixer.api.resource.channel.MixerChannel;
+import com.mixer.api.response.channels.ShowChannelsResponse;
+import com.mixer.api.services.impl.ChannelsService;
 
 import java.util.concurrent.ExecutionException;
 
 public class Tutorial {
-    public static BeamAPI beam;
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        beam = new BeamAPI();
+    public static MixerAPI mixer;
 
-        BeamChannel channel = beam.use(ChannelsService.class).findOneByToken(args[0]).get();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        mixer = new MixerAPI("CLIENT_ID");
+
+        MixerChannel channel = mixer.use(ChannelsService.class).findOneByToken(args[0]).get();
 
         int viewers = channel.viewersTotal;
         System.out.format("You have %d total viewers...\n", viewers);
@@ -23,9 +24,9 @@ public class Tutorial {
     public static int run(int page, int viewers, int rank) throws ExecutionException,InterruptedException {
         ShowChannelsResponse channels = getChannelsPage(page);
         for (int i = 0; i < channels.size(); i++) {
-            BeamChannel channel = channels.get(i);
+            MixerChannel channel = channels.get(i);
             if (channel.viewersTotal <= viewers) {
-                System.out.format("Your rank on beam is %d!\n", rank);
+                System.out.format("Your rank on Mixer is %d!\n", rank);
                 return rank;
             }
             System.out.format("Your rank is at least %d...\n", rank);
@@ -36,6 +37,6 @@ public class Tutorial {
     public static ShowChannelsResponse getChannelsPage(int page) throws ExecutionException,InterruptedException  {
         SortOrderMap<ShowChannelsResponse.Attributes, ShowChannelsResponse.Ordering> map = new SortOrderMap<>();
         map.put(ShowChannelsResponse.Attributes.VIEWERS_TOTAL, ShowChannelsResponse.Ordering.DESCENDING);
-        return beam.use(ChannelsService.class).show(map,page,100).get();
+        return mixer.use(ChannelsService.class).show(map,page,100).get();
     }
 }

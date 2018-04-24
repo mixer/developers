@@ -41,10 +41,10 @@ block reference
     .page-header
         h2#introduction Introduction
     p.
-        Constellation is a daemon whose purpose is to unite all stateful functions of mixer.com. One of its main features is liveloading, allwoing you to subscribe to events.
+        Constellation is a daemon whose purpose is to unite all stateful functions of mixer.com. One of its main features is liveloading, allowing you to subscribe to events.
 
     h3#introduction__liveloading Liveloading
-    p Liveloading is an event system on Mixer. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href='#events_live_events') Events] to recieve them.
+    p Liveloading is an event system on Mixer. When models update, users follow channels, or anything else happens that clients might want to be aware of an event is sent. Users must subscribe to #[a(href='#events_live_events') Events] to receive them.
     p Pro tip: you can view liveloading in-action by #[a(href='http://blittle.github.io/chrome-dev-tools/network/websockets.html' target='_blank') viewing your websocket log] on #[a(href='https://mixer.com' target='_blank') mixer.com].
 
     .alert.alert-info Want us to call you instead? Check out our #[a(href='/reference/webhooks/index.html') Webhooks] system!
@@ -70,7 +70,7 @@ block reference
 
     h2#session Session
     p.
-        Users authenticate to Constellation by sending their existing cookies or authentication details in socket headers. No external API are endpoints needed.
+        Users authenticate to Constellation by sending authentication details in socket headers. No external API are endpoints needed.
     p.
         Users remain connected to Constellation throughout their session. During the session, they may subscribe to events happening on the site and get notifications when those events occur.
 
@@ -78,15 +78,18 @@ block reference
     p.
         Constellation is based on JSON-RPC with additional support for an event system. Initially a user connects to #[strong constellation.mixer.com] with a standard WebSocket connection. Aside from standard websocket headers, the following headers may also be passed:
     ul
-        li #[code cookie]: may contain the Mixer session cookie. Its presence will cause Constellation to attempt to authenticate the user.
         li #[code authorization]: may contain an OAuth Bearer token to authenticate with for 3rd party apps, rather than using a cookie. This will indicate to Constellation that the user is a bot.
+        li #[code client-id]: may contain the Client ID of an OAuth application created in the #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. This should be passed if you do not wish to authenticate.
         li
             p.
                 #[code x-sec-websocket-protocol]: if set to cnstl-gzip, Constellation may choose to send websocket frames down as binary, gzipped JSON rather than plain text. Passing this is generally handled by websocket clients themselves, and are usually configured by specifying a preferred subprotocol.
-
             p.
                 The client may detect gzipped frames by the fact that they are binary messages and begin with the magic bytes 0x1f and 0x8b as the first and second payload byte, respectively.
         li #[code x-is-bot]: this must be set to true if the client is an automated bot rather than a human user and you are not using an authorization header. Failure to set this may cause the account to be banned.
+    p.
+        All headers may instead be passed as query parameters if necessary.
+    .alert.alert-warning
+        p Users connecting to Constellation must connect with either the #[code Authorization] header or #[code Client-ID] header.
     h2#packets Packets
     p.
         There are three packet types: #[a(href='#packets_method') method], #[a(href='#packets_reply') reply], and #[a(href='#packets_event') event]. These are sent over the websocket as JSON encoded messages. Messages to the client may be gzipped if x-supports-gzip was passed in the headers, messages sent to Constellation are always allowed to be gzipped.
@@ -138,11 +141,11 @@ block reference
         li #[code 4107] - You do not have access to subscribe to that livesubscribe event
         li #[code 4108] - You are already subscribed to that livesubscribe event (during livesubscribe)
         li #[code 4109] - You are not subscribed to that livesubscribe event (in response to a liveunsubscribe #[a(href='#packets_method') method])
-        li #[code 4110] - You cannot make more subscriptions (in response to a livesubscribe #[a(href='#packets_method') method]) see #[a(href='#introduction__liveloading_limits') liveloading limits]
+        li #[code 4110] - You cannot make more subscriptions (in response to a livesubscribe #[a(href='#packets_method') method]). See #[a(href='#introduction__liveloading_limits') liveloading limits].
     h2#methods Methods
     h3#methods_livesubscribe livesubscribe
     p.
-        A livesubscribe method allows users to subscribe to #[a(href='#events_live_events') liveloading events]. The number of events you can subscribe to is limited please see #[a(href='#introduction__liveloading_limits') liveloading limits]
+        A livesubscribe method allows users to subscribe to #[a(href='#events_live_events') liveloading events]. The number of events you can subscribe to is limited; please see #[a(href='#introduction__liveloading_limits') liveloading limits]
 
     +highlightStr('json','{"type": "method", "method": "livesubscribe", "params": {"events": ["user:1:update", "channel:1:followed"]}, "id": 42}')
     ul
@@ -169,7 +172,7 @@ block reference
     ul
         li #[code events] is an array of events to unsubscribe from. Note that if you are not subscribed to one or more of the events, no error is returned.
     p.
-        A liveunsubcribe reply looks like the following:
+        A liveunsubscribe reply looks like the following:
     +highlightStr('json','{"type": "reply", "result": null, "error": null, "id": 42}')
     h3#methods_ping ping
     p.

@@ -2,6 +2,7 @@ import requests
 import sys
 
 s = requests.Session()
+s.headers.update({'Client-ID': 'CLIENT_ID'})
 
 def channels_with_more_viewers(viewers):
     """Returns the number of channels that have more than `viewers` viewers.

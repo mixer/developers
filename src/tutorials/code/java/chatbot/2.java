@@ -1,5 +1,5 @@
 //...
-BeamUser user = beam.use(UsersService.class).getCurrent().get();
-BeamChat chat = beam.use(ChatService.class).findOne(user.channel.id).get();
-BeamChatConnectable chatConnectable = chat.connectable(beam);
+MixerUser user = mixer.use(UsersService.class).getCurrent().get();
+MixerChat chat = mixer.use(ChatService.class).findOne(user.channel.id).get();
+MixerChatConnectable chatConnectable = chat.connectable(mixer);
 //...
