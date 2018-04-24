@@ -15,7 +15,7 @@ node {
             sh 'npm run build -s'
             sh 'mv dist external'
         }
-        stage("Build") {
+        stage("Build internal") {
             sh 'npm run build:internal -s'
             sh 'mv dist internal'
         }
