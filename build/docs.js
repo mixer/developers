@@ -8,6 +8,7 @@ const _ = require('lodash');
 const Bluebird = require('bluebird');
 const del = require('del');
 
+const argv = require('yargs').argv;
 const fs = Bluebird.promisifyAll(require('fs'));
 const childProcess = Bluebird.promisifyAll(require('child_process'));
 
@@ -213,9 +214,11 @@ function filterRaml (node) {
 /**
  * Makes the raml object more usable.
  * @param  {RAMLJSONObject} ramlObj
+ * @param  {boolean} internal Build an internal version of the docs without filter.
  */
-function enhanceRamlObj (ramlObj) {
-    const newRaml = filterRaml(ramlObj);
+function enhanceRamlObj (ramlObj, internal = false) {
+    // Only filter if it's not an internal build
+    const newRaml = internal ? ramlObj : filterRaml(ramlObj);
     fixupDisplayVersion(newRaml);
     traverseResources(newRaml);
     newRaml.types = transverseTypes(newRaml.types);
@@ -255,7 +258,7 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            const tree = enhanceRamlObj(api.expand().toJSON());
+            const tree = enhanceRamlObj(api.expand().toJSON(), argv.internal || false);
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)
