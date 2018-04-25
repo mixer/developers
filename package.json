@@ -10,7 +10,7 @@
     "lint": "npm-run-all --parallel lint:js lint:pug lint:json",
     "test": "npm run lint",
     "build": "gulp",
-    "build:internal": "gulp --internal",
+    "build:internal": "gulp internal",
     "rebuild": "gulp recompile",
     "start": "http-server -p 8000 dist",
     "watch": "gulp watch"
@@ -58,8 +58,7 @@
     "npm-run-all": "^4.0.2",
     "pug-lint": "^2.2.2",
     "raml-1-parser": "^0.2.33",
-    "sticky-kit": "^1.1.3",
-    "yargs": "^11.0.0"
+    "sticky-kit": "^1.1.3"
   },
   "optionalDependencies": {
     "@mcph/beam-common": "^5.0.7"

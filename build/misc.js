@@ -205,9 +205,10 @@ function getPugOpts () {
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
-module.exports = (gulp, $) => {
+module.exports = (gulp, $, flags) => {
     const dataPipe = () => $.data(file => {
         const relative = path.relative('src', file.path);
 
@@ -272,5 +273,9 @@ module.exports = (gulp, $) => {
             }
             fs.writeFileSync(file, `${transformed}\n`);
         });
+    });
+
+    gulp.task('set-internal', () => {
+        flags.internal = true;
     });
 };
