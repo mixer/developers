@@ -1,5 +1,7 @@
 properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactNumToKeepStr: '5', numToKeepStr: '5']]])
 
+def isMaster = env.BRANCH_NAME == "master"
+
 node {
     try {
         stage("Checkout") {
@@ -26,12 +28,14 @@ node {
             archiveArtifacts artifacts: "git-commit-id, build-id, external/**/*, internal/**/*", fingerprint: false
         }
         stage("Deploy internal") {
-            ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: true, publishers: [
-                [
-                    configName: 'mixerdocs_test',
-                    transfers: [ [removePrefix: 'internal', sourceFiles: 'internal/**/*', excludes: ''] ]
+            if (isMaster) {
+                ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: true, publishers: [
+                    [
+                        configName: 'internal_doc_site',
+                        transfers: [ [removePrefix: 'internal', sourceFiles: 'internal/**/*', excludes: ''] ]
+                    ]
                 ]
-            ]
+            }
         }
         currentBuild.result = "SUCCESS"
     } catch(e) {
