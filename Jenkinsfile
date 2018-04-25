@@ -4,6 +4,7 @@ node {
     try {
         stage("Checkout") {
             checkout scm
+            sh 'echo malm'
         }
         stage("Install") {
             sh 'npm install'
