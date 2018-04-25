@@ -24,6 +24,15 @@ node {
             writeFile file: 'build-id', text: env.BUILD_NUMBER
             archiveArtifacts artifacts: "git-commit-id, build-id, external/**/*, internal/**/*", fingerprint: false
         }
+        stage("Deploy internal") {
+            ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: true, publishers: [
+                [
+                    configName: 'mixerdocs_test',
+                    verbose: true,
+                    transfers: [ [removePrefix: 'internal', sourceFiles: 'internal/**/*', excludes: ''] ]
+                ]
+            ]
+        }
         currentBuild.result = "SUCCESS"
     } catch(e) {
         currentBuild.result = "FAILURE"
