@@ -4,6 +4,7 @@ node {
     try {
         stage("Checkout") {
             checkout scm
+            sh 'rm -rf internal external'
         }
         stage("Install") {
             sh 'npm install'
@@ -28,7 +29,6 @@ node {
             ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: true, publishers: [
                 [
                     configName: 'mixerdocs_test',
-                    verbose: true,
                     transfers: [ [removePrefix: 'internal', sourceFiles: 'internal/**/*', excludes: ''] ]
                 ]
             ]
