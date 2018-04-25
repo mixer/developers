@@ -1,3 +1,5 @@
+@import '_mixins';
+
 .panel-rest {
     position: relative;
 
@@ -41,7 +43,7 @@
         list-style-type: none;
 
         + li {
-            border-top: 1px solid #eee;
+            border-top: 1px solid @gray-lighter;
         }
     }
 
@@ -103,7 +105,7 @@
 
 .rest-endpoint {
     font-size: 1.1em;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid @gray-lighter;
     cursor: pointer;
 
     td:first-child {
@@ -123,7 +125,7 @@
     }
 
     &:hover {
-        background: #eee;
+        background: @gray-lighter;
     }
 
     &-method {
@@ -166,11 +168,10 @@
         }
     }
 }
-
 .rest-sidebar {
-    padding-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 20px 10px 20px 0;
+
+    .sidebar-variant(@brand-secondary);
 
     .expanded {
         ul.nav {
@@ -189,11 +190,6 @@
 
             &:hover {
                 font-weight: 500;
-                color: @brand-secondary;
-
-                &:before {
-                    background-color: @brand-secondary;
-                }
             }
         }
 
@@ -212,8 +208,6 @@
             }
             > a {
                 font-weight: 600;
-                border-left-color: @brand-secondary;
-                color: @brand-secondary;
             }
         }
     }

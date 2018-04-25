@@ -1,0 +1,1 @@
+<<< {"type":"method","method":"giveInput","params":{"participantID":"eb6baf2b-ba96-49d6-a3ea-7d76a42198e1","input":{"controlID":"overlay","event":"click","position":{"x":0.6435868331441543,"y":0.3217821782178218}}},"id":0,"seq":11,"discard":true}
