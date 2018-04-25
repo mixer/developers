@@ -6,13 +6,18 @@ const config = require('config');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
-require('./build/docs')(gulp, $);
-require('./build/misc')(gulp, $);
-require('./build/css')(gulp, $);
+const flags = {
+    internal: false,
+};
+
+require('./build/docs')(gulp, $, flags);
+require('./build/misc')(gulp, $, flags);
+require('./build/css')(gulp, $, flags);
 
 const defaultTasks = ['html', 'js', 'css', 'images'];
 
 gulp.task('default', defaultTasks);
+gulp.task('internal', ['set-internal', ...defaultTasks]);
 gulp.task('recompile', ['html-quick', 'js', 'css', 'images']);
 
 gulp.task('watch', () => {

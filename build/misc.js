@@ -205,9 +205,10 @@ function getPugOpts () {
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
-module.exports = (gulp, $) => {
+module.exports = (gulp, $, flags) => {
     gulp.task('html', ['html-raml']);
 
     gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
@@ -260,5 +261,9 @@ module.exports = (gulp, $) => {
             }
             fs.writeFileSync(file, `${transformed}\n`);
         });
+    });
+
+    gulp.task('set-internal', () => {
+        flags.internal = true;
     });
 };

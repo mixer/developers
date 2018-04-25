@@ -8,7 +8,6 @@ const _ = require('lodash');
 const Bluebird = require('bluebird');
 const del = require('del');
 
-const argv = require('yargs').argv;
 const fs = Bluebird.promisifyAll(require('fs'));
 const childProcess = Bluebird.promisifyAll(require('child_process'));
 
@@ -230,9 +229,10 @@ function enhanceRamlObj (ramlObj, internal = false) {
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
-module.exports = (gulp) => {
+module.exports = (gulp, $, flags) => {
     gulp.task('backend-clone', () => getRepo('git@github.com:mixer/backend.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
@@ -258,7 +258,7 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            const tree = enhanceRamlObj(api.expand().toJSON(), argv.internal || false);
+            const tree = enhanceRamlObj(api.expand().toJSON(), flags.internal);
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)
