@@ -1,4 +1,4 @@
-import * as Mixer from '@mcph/cdk-std';
+import * as Mixer from '@mixer/cdk-std';
 import { h } from 'preact';
 
 import { PreactControl } from './alchemy/preact';
