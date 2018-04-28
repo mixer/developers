@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# authenticate with backend
-# hush progress
-# we send json as content type
-# a json body as payload
-# and store the cookies in a jar!
-userInfo=$(curl -X POST \
+# request user details
+userInfo=$(curl \
 -s \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer AUTH_TOKEN"
+-H "Authorization: Bearer AUTH_TOKEN" \
 https://mixer.com/api/v1/users/current )
 
 # jq . <<< $userInfo # use for inspection of data
