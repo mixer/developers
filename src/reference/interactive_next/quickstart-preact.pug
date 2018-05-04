@@ -1,0 +1,181 @@
+extends ./page.pug
+
+block reference
+    h2#introduction Introduction
+
+    p Mixer's standard set of controls (Button, Joystick, etc.) are built with #[a(href='https://preactjs.com/') Preact], a super lightweight library for interacting with the DOM, and #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a superset of JavaScript which gives you the option of adding type annotations to your code.
+
+    p With both of these tools combined Custom Control development can be a blast. We recommend these tools to develop your custom controls. If you'd rather try out plain HTML & Javascript you can also try that with our #[a(href='#') HTML Guide].
+
+    h2#quickstart Quickstart
+    - var prefix = 'preact';
+    include ./installing-cdk-1.pug
+
+    img(src='/img/reference/interactive/cdk/cdkPreact.png' alt='Screenshot, showing the Preact template selected')
+
+    p The final step is to choose your Starter Template, for this guide choose the Preact template.
+
+    include ./installing-cdk-2.pug
+
+    h3#customize Customize
+
+    p Now that everything is running, it is time to open the directory for your project in your favorite editor and start poking around! The controls will automatically update and reload within the CDK whenever you edit a file.
+
+    h3#iterate Iterate
+
+    p Now that you're all setup its time to iterate on your custom controls and build the experience you are looking for. Continue editing files locally within your favorite editor and preview the changes live within the CDK. You don't need to upload or publish your custom controls until you're happy with them, everything can be done locally using the CDK to preview and test your changes.
+
+    p When you're ready, checkout our #[a(href='authoring.html') Authoring Bundles section] for more about the bundling authoring and the publication / upload process.
+
+    h2#next-steps Next Steps
+
+    ul
+        li Learn how to create and modify custom controls #[a(href='#preactControls') here]
+        li Read more about writing Interactive game clients #[a(href='/reference/interactive.html') here]
+        li Ask questions and get help #[a(href='https://gitter.im/Mixer/developers') on Gitter]
+
+    h2#preactControls Preact Controls
+
+    h3#but-rly But Really, What is a Control?
+
+    p When thinking about controls, it's important to remember that there are two consumers: the web frontend as seen by viewers and the Interactive Studio as seen by other developers and some streamers. You are free to only focus on the viewers if you don't need to use the Studio and don't intend to share your integration with other developers. But, keeping this duality in mind is important for understanding the considerations around which controls are designed.
+
+    p In the Preact Custom Control framework, an Interactive control is "just" a class, that happens to be decorated with #[code @Mixer.Control]. The decorator registers the class internally and it is also examined by the CDK during the upload process, to allow the control to be edited and placed in the Studio. We also provide a useful base component, #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Control.tsx'): code &lt;PreactControl /&gt;].
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/basic.jsx')
+
+    p After you create your custom control, you should pass it into the #[a(href='https://github.com/mixer/interactive-launchpad/blob/e6af46a9a78cbd671bb8844764f0839f76c4708f/src/index.tsx#L13'): code register()] function.
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/basic-register.jsx')
+
+    h2#inputs Inputs
+
+    .alert.alert-info If you don't intend to allow your integration to be editable in the studio, you can skip this section entirely.
+
+    p Inputs can be defined on scenes and controls. These are class properties that are settable from the GUI of the Studio, and they must be decorated with #[code @Mixer.Input] decorator. Input types are restricted to what the GUI is able to provide.
+
+    p All JavaScript primitive types&mdash;numbers, strings, booleans&mdash;are able to be provided and can be inferred automatically. For other types, you must specify them manually. You can find a full list of available input kinds #[a(href='https://github.com/mixer/cdk-std/blob/6ad36f167fef3a641273858aec6aba5366e40fd5/src/decoration.ts#L106-L133') here]. For example:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/hello-inputs.jsx')
+
+    p From your game client, you can set properties that #[i aren't] statically-defined inputs. If you do, you can access them by calling #[code this.control.get('myCustomProperty')] anywhere in your class.
+
+    h2#styling-and-positioning Styling &amp; Positioning
+
+    p The custom control framework provides a simple, effective means to add CSS styles and classes to your Preact components. On top of this, there are two layout engines that control where exactly controls are positioned. The Interactive Studio's editing experience is built to these layout engines, and if you're curious to take a look at them you can find the source #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Layout.tsx') here].
+
+    h3#layout Layout
+
+    p The important part is that whatever styles the layout engine chooses for a control, it will be passed into the control and accessible in #[code this.props.style] within the class. You then, generally, want to pass these styles into a wrapper element around your content. Let's modify our example to do that:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/style-example-01.jsx')
+
+    h3#static-styles Static Styles
+
+    p CSS can be written in plain stylesheets which are included in your control bundle. In the launchpad project, you'll see that there is a #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/style.scss'): code style.scss] file that serves as an entry point, and imports other stylesheets that contain rules for buttons and joysticks.
+
+    p If you haven't used CSS before, check out Mozilla's #[a(href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS') Introduction to CSS].
+
+    p If you know your way around already, you'll notice that the stylesheets are written in #[a(href='http://sass-lang.com/') Sass]. Sass is a preprocessor that adds useful new features on top of CSS, which you can take advantage of if you'd like to.
+
+    h3#styles-in-javascript Styles in JavaScript
+
+    p Often, you'll want to programmatically apply styles based on some JavaScript state, like in the example in the #[a(href='#layout') Layout] section above. In that example, we created an inline style rule manually, but doing this for lots of rules becomes ugly and burdensome.
+
+    p We provide a simple way to create styles from JavaScript objecting using the #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/Style.tsx'): code RuleSet] class. This provides a simple, convenient way to translate JavaScript objects into CSS properties. Let's make some CSS:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/style-example-02.jsx')
+
+    p You can combine sets of rules together. This is quite helpful if you want to add your own styles to what's inherited from the layout engine in #[code this.props.style]. Say we wanted to apply that #[code color] CSS rule to the #[em entire] container...
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/style-example-03.jsx')
+
+    h3#conditional-classes Conditional Classes
+
+    p We also provide a helper to conditionally apply classes to an element. Let's make the button have the class #[code is-awesome] only when the input #[code awesome] is true.
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/style-example-04.jsx')
+
+    h2#giving-input Giving Input
+
+    p Control input events are also quite free-form. The Interactive server attaches special logic to certain actions, such as creating Spark transactions on buttons with a cost, but you're free to do pretty much whatever you want here.
+
+    p Input is given by calling #[code this.control.giveInput] inside the class. It takes an object which must have an #[code event] property, and can contain arbitrary other data. Using our previous HelloWorldControl example, let's turn that into a button that sends an event with the viewer's username whenever they press it:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/hello-give-input.jsx')
+
+    h2#custom-scenes Custom Scenes
+
+    p The launchpad provides a #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Scene.tsx') basic scene] out of the box, but you are free to add your own scenes, or customize or replace it!
+
+    p Say you had some specific scene, the #[code leaderboard], for which you wanted to have some scene-level logic or styling applied. Like controls, scenes are decorated with the #[code @Mixer.Scene] decorator. There can be one scene defined as the default, and other scene classes that can be used instead for specific scene names.
+
+    p Let's define that leaderboard scene. We'll extend the default scene and add a title over our controls:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/scene-01.jsx')
+
+    p Like controls, you need to pass it into the #[code register()] function:
+
+    +highlightFile('javascript', 'reference/interactive_next/controls/scene-register.jsx')
+
+    p And that's it! Whenever the #[code leaderboard] scene is registered, it'll use your custom class and show #[code And the winners are...].
+
+    p Like controls, you can also define and access #[code @Mixer.Input] properties on scenes.
+
+    h2#internationalization Internationalization
+
+    p Internationalization is a important next step to take to ensure that your Interactive integration is accessible to all streamers and viewers; there are more people who in the world who don't speak your native language than those who do! Custom controls provide interntionalization as a first-class citizen.
+
+    h3#tldr TL;DR
+
+    p You have a folder `locales` that contain JSON files for various locales. These map string "keys" to their translations. For example, an `en-us.json` file can contain:
+
+    +highlightJson({ clickMe: 'Click Me' })
+
+    p You can get the appropriate translation in a Preact control using the #[code &lt;Translate /&gt;] component:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/translation-demo.jsx')
+
+    h3#writing-translations Writing Translations
+
+    p In the default custom control template, you'll find a folder called #[code locales]. In this folder is a bunch of JSON documents. The names of these documents, like #[code en-us.json], correspond to a language. The general form for what a locale string "is" is formally defined in #[a(href='http://www.ietf.org/rfc/bcp/bcp47.txt') BCP47] but, for the most part, they take the form of #[code language-dialect].
+
+    pre.
+        $ ls locales
+        en-us.json
+        en-gb.json
+        zh.json
+
+    p Inside each file is a map of keys to translated text. There's nothing special about the keys, they're just what you use to reference the translation. For example:
+
+    h5 en-us.json
+
+    +highlightJson({ clickMe: 'Click Me' })
+
+    h5 zh.json
+
+    +highlightJson({ clickMe: '点击这个' })
+
+    p Now, whenever you translate the string #[code clickMe], it'll show the right text.
+
+    h4 Advanced Syntax
+
+    p Under the hood, we use the ICU Message Syntax powered by Format.js. Format.js has an #[a(href='https://formatjs.io/guides/message-syntax/') excellent guide] for details about its syntax. In ICU messages you can easil;y define interpolations and plural forms, and format numbers, times, dates, and ordinals.
+
+    p Also, when we parse JSON, we actually parse it as #[a(href='https://github.com/json5/json5') JSON5]. This extends standard JSON formatting by adding features such as multiline strings&mdash;especially useful for those complex ICU rules! For example, here's how you could tell the user how main points they have:
+
+    +highlightFile('js', 'reference/interactive_next/internationalization/plural-example.json')
+
+    h3#using-translations Using Translations
+
+    p The right locale for the current user is automatically pulled by the #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/Locales.ts'): code Locales] class, and provided by the fairly simple #[a(href='https://github.com/mixer/interactive-launchpad/blob/master/src/alchemy/preact/Translate.tsx'): code &lt;Translate /&gt;] component. This component is probably what you'll be using in most of your code, you should rarely if ever need to touch the Locales class directly.
+
+    p You should pass it a #[code string] property to specify what key it should translate by. For example, to translate the "clickMe" string above, you can do something along these lines:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/translation-demo.jsx')
+
+    p Any other properties you pass in will be give to the translator to interpolate. Going back to that plural example, here's how you could create a score counter:
+
+    +highlightFile('javascript', 'reference/interactive_next/internationalization/score-counter-demo.jsx')
+
+    p If the #[code string] you pass into interpolate doesn't exist in the localization, it will be printed without modification.

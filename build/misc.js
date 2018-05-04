@@ -214,13 +214,25 @@ function getPugOpts () {
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
-module.exports = (gulp, $) => {
+module.exports = (gulp, $, flags) => {
+    const dataPipe = () => $.data(file => {
+        const relative = path.relative('src', file.path);
+
+        return {
+            filePath: relative,
+            fileBasename: path.basename(file.path, path.extname(file.path)),
+            urlPath: `/${relative.slice(0, -4).split(path.sep).join('/')}.html`,
+        };
+    });
+
     gulp.task('html', ['html-raml']);
 
     gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
+        .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
         .pipe(gulp.dest(config.dist.html));
@@ -228,6 +240,7 @@ module.exports = (gulp, $) => {
 
     gulp.task('html-quick', () => {
         return gulp.src(config.src.html)
+        .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
         .pipe(gulp.dest(config.dist.html));
@@ -269,5 +282,9 @@ module.exports = (gulp, $) => {
             }
             fs.writeFileSync(file, `${transformed}\n`);
         });
+    });
+
+    gulp.task('set-internal', () => {
+        flags.internal = true;
     });
 };

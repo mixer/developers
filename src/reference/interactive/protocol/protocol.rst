@@ -343,7 +343,9 @@ Synchronization
 
 The state of users, controls, and scenes can be changed by both the client and the mediator in response to aggregations via various update calls. These updates have a ``priority`` value, and each packet set has a ``seq`` property for ordering purposes. Whenever a property on a resource is changed, it's tagged with the requester's priority and sequence number.
 
-This information is used for conflict control. Take a set of changes :math:`A` and a new incoming set of changes :math:`B`. For every property that conflicts:
+Changes are applied via the `JSON Merge Patch <https://tools.ietf.org/html/rfc7386>`_ algorithm, and when properties changed they're applied deeply in the object. That is, changing a property ``foo`` from another primitive to an object or vise versa will be considered a change on ``foo`` itself, but updating a deep property in ``foo`` will only be considered a change on that deeply nested property, not ``foo`` itself.
+
+These tags are used for conflict control, providing a means to make property updates deterministic when multiple consumers are updating them. Take a set of changes :math:`A` and a new incoming set of changes :math:`B`. For every property that conflicts:
 
  - If :math:`B.sequenceNumber > A.sequenceNumber`, then apply :math:`A`'s change;
  - If :math:`B.sequenceNumber < A.sequenceNumber`, then pick the change with the greater priority value;
@@ -742,7 +744,7 @@ The server SHALL call this method when the top-level world state is updated.
 Participants & Groups
 ^^^^^^^^^^^^^^^^^^^^^
 
-The Participant object returned from many methods in this section contains the following properties. Settable properties are tagged, see the `Synchronization <#synchronization>`_ section for further details.
+The Participant object returned from many methods in this section contains the following properties. Like all resources, you can define and set custom properties on the participants and groups. Settable properties are tagged, see the `Synchronization <#synchronization>`_ section for further details.
 
 - ``sessionID``, a unique string identifier for the user in this session. It's used for all participant identification internally, and should be viewed as an opaque token.
 - ``userID``, indicating the user ID on Mixer. This is an unsigned integer and does not vary.
@@ -752,7 +754,6 @@ The Participant object returned from many methods in this section contains the f
 - ``connectedAt``, the unix milliseconds timestamp when the user connected.
 - ``disabled`` (settable), a boolean set to true if the user's input as been disabled.
 - ``groupID`` (settable), a string referencing the group the user belongs to.
-- ``meta`` is a map of custom properties; you can use this to attach custom metadata to users which will be visible to custom controls. The ``value``s of these are permitted to be any valid JSON.
 
 .. code-block:: js
 
@@ -765,10 +766,7 @@ The Participant object returned from many methods in this section contains the f
     "connectedAt": 1484763846242,
     "disabled": false,
     "groupID": "default",
-    "meta": {
-      "is_awesome": {
-        "value": true
-      }
+    "is_awesome": true // a custom property
     }
   }
 
@@ -945,11 +943,7 @@ The patch SHALL either be applied for all participants and properties or fail; i
         {
           "sessionID": "505cfe7c-123f-40e7-8c78-754103d16531",
           "groupID": "red_team",
-          "meta": {
-            "is_awesome": {
-              "value": false
-            }
-          }
+          "is_awesome": false
         }
       ]
     }
@@ -1242,7 +1236,7 @@ The server SHALL call this method when a group is deleted.
 onGroupUpdate |Optional Client Method|
 ''''''''''''''''''''''''''''''''''''''
 
-The server SHALL call this method when a group is updated. This SHALL NOT be called when a participant within the group is updated, only when an attribute of the group (e.g. a ``meta`` property or the ``sceneID``) has changed.
+The server SHALL call this method when a group is updated. This SHALL NOT be called when a participant within the group is updated, only when an attribute of the group (e.g. a custom property or the ``sceneID``) has changed.
 
 .. code-block:: js
 
@@ -1328,12 +1322,12 @@ In this case, participants would see a method call like:
 Scene Setup
 ^^^^^^^^^^^
 
-Although scenes and controls can be created via our interactive studio, the game client also has full control over their display and can manipulate them at runtime. Each control is identified uniquely by its ID, a UTF-8 string.
+Although scenes and controls can be created via our interactive studio, the game client also has full control over their display and can manipulate them at runtime. Each control is identified uniquely by its ID, a UTF-8 string.  Like all resources, you can define and set custom properties on the scenes in addition to those described here.
 
 Built-In Controls
 '''''''''''''''''
 
-The following are a list of built in controls, which can be serialized as JSON into Control objects. Certain properties are static, intrinsic properties of the control, and cannot be modified. These are marked as as "not settable". Like Participants, controls have a ``meta`` property which you can use to annotate them with custom data.
+The following are a list of built in controls, which can be serialized as JSON into Control objects. Certain properties are static, intrinsic properties of the control, and cannot be modified. These are marked as as "not settable". Like all resources, you can define and set custom properties on the controls in addition to those described here.
 
 - Buttons
 
@@ -1373,6 +1367,27 @@ The following are a list of built in controls, which can be serialized as JSON i
 
     Disables the control.
 
+  - ``gamepadButton: number``
+
+    The gamepad button to bind this control to. Most controllers have some variation of this button mapping:
+
+        0. A
+        1. B
+        2. X
+        3. Y
+        4. Left bumper
+        5. Right bumper
+        6. Left trigger (button will fire when it's half way depressed)
+        7. Right trigger (button will fire when it's half way depressed)
+        8. Back
+        9. Start
+        10. Left joystick press
+        11. Right joystick press
+        12. D-pad up
+        13. D-pad down
+        14. D-pad left
+        15. D-pad right
+
   - ``Position[]: An array of position objects``
     Contains an array of position objects as described in `Control Positioning`.
 
@@ -1401,6 +1416,10 @@ The following are a list of built in controls, which can be serialized as JSON i
   - ``disabled: bool``
 
     Disables the control.
+
+  - ``gamepadJoystick: number``
+
+    The gamepad joystick to bind this control to. Most controllers have two joysticks, so ``gamepadJoystick`` should be set to 0 or 1, or left undefined to not bind it.
 
   - ``Position[]: An array of position objects``
     Contains an array of position objects as described in `Control Positioning`.
@@ -1475,12 +1494,10 @@ Creates new scenes. The sceneIDs can be any valid UTF-8 sequence of characters. 
               "cost": 0,
               "progress": 0.25,
               "disabled": false,
-              "meta": {
-                "glow": {
-                  "value": {
-                    "color": "#f00",
-                    "radius": 10
-                  }
+              "glow": {
+                "value": {
+                  "color": "#f00",
+                  "radius": 10
                 }
               }
             }
@@ -1636,12 +1653,10 @@ The patch SHALL either be applied for all scenes and properties or fail; in no c
               "cost": 0,
               "progress": 0.25,
               "disabled": false,
-              "meta": {
-                "glow": {
-                  "value": {
-                    "color": "#f00",
-                    "radius": 10
-                  }
+              "glow": {
+                "value": {
+                  "color": "#f00",
+                  "radius": 10
                 }
               }
             }
@@ -1732,7 +1747,7 @@ The server SHALL call this method when a scene is deleted.
 onSceneUpdate |Optional Client Method|
 ''''''''''''''''''''''''''''''''''''''
 
-The server SHALL call this method when a scene is updated. This SHALL NOT be called when a control within the scene is updated, only when an attribute of the scene (i.e. a ``meta`` property) has changed.
+The server SHALL call this method when a scene is updated. This SHALL NOT be called when a control within the scene is updated, only when an attribute of the scene (i.e. a custom property) has changed.
 
 .. code-block:: js
 
@@ -1867,11 +1882,7 @@ The patch SHALL either be applied for all controls and properties or fail; in no
         {
           "controlID": "win_the_game_btn",
           "disabled": true,
-          "meta": {
-            "glow": {
-              "value": false
-            }
-          }
+          "glowing": true
         }
       ]
     }
@@ -2095,7 +2106,6 @@ giveInput |Client Method|
       "id": 123
     }
 
-
 Spark Transactions
 ^^^^^^^^^^^^^^^^^^
 
@@ -2160,6 +2170,99 @@ Calling capture SHALL cause the server to attempt to deduct a spark transaction 
       },
       "id": 123
     }
+
+File Storage
+^^^^^^^^^^^^
+
+With the advent of Custom Controls, the Interactive service provides secure session-bound storage for files. Total file size is limited and the storage is cleared immediately when the game client disconnects.
+
+uploadFile |Server Method|
+''''''''''''''''''''''''''
+
+Authorizes a file upload. The client MUST call this method with a relative ``path`` the file should be stored at, and the server MUST with a fully qualified URL where the file upload can be made and a token to be provided in the ``Authorization`` header of the upload.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "uploadFile",
+    "params": {
+      "path": "images/map-tile-001.jpg"
+    }
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": {
+        "url": "https://example.com/yoGPaWs95WuY1wHr/images/map-tile-001.jpg",
+        "authorization": "pQsWjRFrdgj06EWF"
+      },
+      "error": null,
+      "id": 123
+    }
+
+  To see how to upload a file, see the `Upload Endpoint <#upload-endpoint>`_ section.
+
+
+deleteFile |Server Method|
+''''''''''''''''''''''''''
+
+Removes a previously uploaded file from storage. If the file does not exist, the server SHALL NOT return an error. The server SHALL remove the file's size from the client's storage quota.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "deleteFile",
+    "params": {
+      "path": "images/map-tile-001.jpg"
+    }
+  }
+
+- A successful reply:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": null,
+      "error": null,
+      "id": 123
+    }
+
+Upload Endpoint
+'''''''''''''''
+
+In order to upload the contents of a file previously requested in the ``uploadFile`` method, the client MAY may a ``POST`` request to the return URL and MUST include the returned token in the ``Authorization`` header as well as an appropriate ``Content-Length`` header. For example, to upload the map tile given in uploadFile's example, one might use the following cURL command:
+
+.. code-block:: bash
+
+  cat map-tile-001.jpg | \
+    curl -XPOST https://example.com/yoGPaWs95WuY1wHr/images/map-tile-001.jpg \
+    -H Authorization:pQsWjRFrdgj06EWF
+
+The server MAY choose to accept alternative content encodings, such as ``gzip`` and ``lz4``. If the client chooses to use one of these encoding, it MUST include an appropriate ``Content-Encoding`` header and an ``X-Total-Length`` header which includes the size of the uncompressed payload. If we wanted to upload a gzipped version of the map tile above, we could do something like this:
+
+.. code-block:: bash
+
+  cat map-tile-001.jpg | gzip | \
+    curl -XPOST https://example.com/yoGPaWs95WuY1wHr/images/map-tile-001.jpg \
+    -H Authorization:pQsWjRFrdgj06EWF \
+    -H Content-Encoding:gzip \
+    -H X-Total-Length:`cat map-tile-001.jpg | wc -c`
+
+The server SHALL return:
+
+ - ``400 Bad Request`` response if an ``Content-Length`` header is not provided, an ``X-Total-Length`` header where the ``Content-Encoding`` is included an not an empty string or ``identity``, or an unsupported ``Content-Encoding`` is provided;
+ - ``403 Forbidden`` response if the client is not authorized to upload a file to the requested location;
+ - ``413 Payload Too Large`` if the client's storage quota is smaller than the file size;
+ - ``200 OK`` otherwise.
 
 Appendix
 --------
@@ -2324,9 +2427,14 @@ code_test.go
 Changelog
 ---------
 
-1.4.2 (2018-02-13)
+1.5.0 (2017-09-14)
 ''''''''''''''''''
 
+ - Remove the ``meta`` property from resources, instead allow custom properties to be set anywhere. Note that changes are made via JSON Merge Patch and elaborate on the conflict resolution algorithm.
+ - Added documentation for file management endpoints.
+
+1.4.2 (2018-02-13)
+''''''''''''''''''
  - Added world update and change methods.
 
 1.4.1 (2017-10-20)

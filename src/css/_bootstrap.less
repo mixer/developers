@@ -266,3 +266,18 @@
         font-size: 13px;
     }
 }
+
+.site-content {
+    h4, h5, h6 {
+        font-weight: normal;
+    }
+}
+
+a > code {
+    color: @link-color;
+}
+
+a:hover > code {
+    color: @link-hover-color;
+    background: fade(@code-bg, 8%)
+}

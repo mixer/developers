@@ -213,9 +213,11 @@ function filterRaml (node) {
 /**
  * Makes the raml object more usable.
  * @param  {RAMLJSONObject} ramlObj
+ * @param  {boolean} internal Build an internal version of the docs without filter.
  */
-function enhanceRamlObj (ramlObj) {
-    const newRaml = filterRaml(ramlObj);
+function enhanceRamlObj (ramlObj, internal = false) {
+    // Only filter if it's not an internal build
+    const newRaml = internal ? ramlObj : filterRaml(ramlObj);
     fixupDisplayVersion(newRaml);
     traverseResources(newRaml);
     newRaml.types = transverseTypes(newRaml.types);
@@ -227,9 +229,10 @@ function enhanceRamlObj (ramlObj) {
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
-module.exports = (gulp) => {
+module.exports = (gulp, $, flags) => {
     gulp.task('backend-clone', () => getRepo('git@github.com:mixer/backend.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
@@ -255,7 +258,7 @@ module.exports = (gulp) => {
             throw error;
         })
         .then(api => {
-            const tree = enhanceRamlObj(api.expand().toJSON());
+            const tree = enhanceRamlObj(api.expand().toJSON(), flags.internal);
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)

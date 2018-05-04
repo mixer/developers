@@ -1,0 +1,46 @@
+extends ./page.pug
+
+block reference
+    p We try to provide the best experience for creating awesome Interactive integrations from inception to massive popularity. This can be broken down into a couple phases:
+
+    ol
+        li #[a(href='#local-development') Local development], iterating on custom Interactive bundles on your own computer;
+        li #[a(href='#initial-e2e') End-to-end testing], connecting to your controls from your local computer with a game client connected to the Mixer server;
+        li #[a(href='#final-testing') Final touches and publishing], running your controls in production and publishing them.
+
+    h2#local-development Local Development
+
+    p The CDK, automatically builds and displays your controls as you edit them in real time. Just leave the CDK open and work on your files locally.
+
+    p On the left-hand side of the CDK, you'll see a control schema, which controls the display and positioning of controls.
+
+    img(src='/img/reference/interactive/cdk/cdkOverview.png' alt='Overview of CDK showing various sections')
+
+    p This is the state "tree" that's created when placing controls in the Interactive Studio, and is what is modified when your game client calls protocol methods like #[code createScene], #[code updateControl], #[code deleteControl], and so on. There are several other tabs which let you edit what the controls "see" as the currently connected participant, and the groups.
+
+    p You can edit this state tree and see your controls update in real time, and as you edit the local source files the CDK will automatically recompile and update your controls. You can open a Developer Tools window by clicking the dev tools button just above the control preview. This allows you to view errors and debug source code. #[a(href='https://developer.chrome.com/devtools') Here] is great introduction to using the Developer Tools.
+
+    p There are also controls on the editor to allow you to simulate how your controls look on different displays, reload the control frame, enter full screen mode, connect to production, and more. Look around!
+
+    h2#e2e End-To-End Testing
+
+    p You've got some controls built and ready to test out, fantastic! Let's get those running on your Mixer channel for some End to End Testing. You'll need a couple of things in place before doing this:
+
+    ul
+        li You'll need an Interactive Project to Link the Controls to. If you haven't created one, go ahead and create a version on the  #[a(href='https://mixer.com/i/studio' target='_blank') Interactive Studio].
+        li You'll need an Interactive Game Client to process your inputs. If you need help creating a game client, check out our reference #[a(href='/reference/interactive/index.html#getting-started') here].
+        li If you're project is unreleased you should put your channel in #[a(href='/reference/teststreams/index.html') Test Stream Mode] at this time.
+
+    p Armed with both of these items you can get started with End to End Testing. To do this click the "Run" menu and then "On my Channel Page". This process will prompt you to link your Control bundle to an Interactive Project you can select any Project you have on your Mixer Account.
+
+    p The CDK will then save your controls and bundle them up as a private bundle on Mixer. Only you will be able to use this bundle and assign it to Interactive Projects.
+
+    p Once your controls are uploaded, go ahead and connect your game client to your Mixer channel. You'll now see the controls active when you visit your channel on Mixer. You #[em could] bundle and re-upload your controls whenever you want to test out changes, but there's a better way!
+
+    p Head back to the CDK, and re-vist the run menu. This time select "Run on my Computer". This time the controls will load in the CDK preview area and will be connected to our Interactive Service. Connect your Game Client as before and you'll be able to send events and interact with your controls all from the comfort of your own Computer. Every time you edit the files they'll reload and reconnect to the interactive service. Using this method you can develop your controls very quickly and easily.
+
+    h2#final-testing Final Touches &amp; Publishing
+
+    p Once you're happy with your controls and your integration into your Application or Game you should upload the control bundle once more. You can do this using the Run menu again or you can select the "Build and upload controls" option in the drop down menu shown when you click your project's name in the top right. This will ensure that your controls are all up to date and on Mixer.
+
+    p Once done you should #[a(href='/reference/interactive/index.html#publish-step') publish your Interactive Project] and let the world experience your unique and fully customized Interactive Experience!

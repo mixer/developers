@@ -7,6 +7,7 @@ const path = require('path');
  * Registers a task that compiles
  * @param  {Gulp} gulp
  * @param  {Object} $ plugin loader
+ * @param  {Object} flags additional build flags
  * @return {Stream}
  */
 module.exports = (gulp, $) => {
