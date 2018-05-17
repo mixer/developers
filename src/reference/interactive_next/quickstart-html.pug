@@ -11,11 +11,11 @@ block reference
 
     img(src='/img/reference/interactive/cdk/cdkHTML.png' alt='Screenshot, showing the HTML template selected')
 
-    p The final step is to choose your Starter Template, for this guide choose the #[a(href='https://github.com/mixer/interactive-html-starter' target='_blank') HTML template].
+    p Next, you will be asked to choose your Starter Template. For this guide choose, the #[a(href='https://github.com/mixer/cdk-html-starter' target='_blank') HTML template].
 
     include ./installing-cdk-2.pug
 
-    p Once everything has been completed, The CDK will show you the HTML Starter in a preview State within its UI. Each time you make changes to your custom control code it will detect this change and update the preview to show you the new output.
+    p Once everything has been completed, the CDK will show you the HTML Starter in a preview State within its UI. Each time you make changes to your custom control code it will detect this change and update the preview to show you the new output.
 
     p If you haven't done already, you should now open your new project in your favorite code editor. We're now ready to take a look at some code.
 
@@ -37,17 +37,17 @@ block reference
 
     .alert.alert-info Automatically resizing and adjusting to the size of the browser is called #[em responsive development] and is very important in building custom controls. You can read more in our #[a(href='/reference/interactive_next/best-practices.html') best practices].
 
-    p Let's talk strategy: our goal will be to place a semi-transparent #[code div] completely covering the real position of the video, independant of the size of the browser window or the aspect ratio of the video source. To do that, we're going to use the #[code position()] api which provides a handy observable for the real position of the video. Whenever that updates, we'll move our #[code div] so that it aligns with the video position.
+    p Let's talk strategy: our goal will be to place a semi-transparent #[code div] completely covering the real position of the video, independant of the size of the browser window or the aspect ratio of the video source. To do that, we're going to use the #[code position()] API, which provides a handy observable for the real position of the video. Whenever that updates, we'll move our #[code div] so that it aligns with the video position.
 
     p To start, we need an element to overlay on top of the video. We'll add an overlay #[code div] to #[code index.html] by replacing the file contents with the following:
 
     +highlightFile('html', 'reference/interactive_next/quickstart-html/make-a-change-01.html')
 
-    p Next, we need to setup the handler for when the window position changes that moves and resizes the div to the correct location on the video. Add the #[code handleVideoResized()] function to the end of #[code scripts.js]:
+    p Next, we need to setup the handler for when the window position changes that moves and resizes the #[code div] to the correct location on the video. Add the #[code handleVideoResized()] function to the end of #[code scripts.js]:
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/make-a-change-02.js')
 
-    p Lastly, let's tie it all together. At the top of the #[code initMixer()] function add the following, which subscribes our handler function for updates and does the initial positioning of the overlay.
+    p Lastly, let's tie it all together. At the top of the #[code initMixer()] function, add the following. This will subscribe our handler function to updates and does the initial positioning of the overlay.
 
     +highlightFile('javascript', 'reference/interactive_next/quickstart-html/make-a-change-03.js')
 
@@ -64,5 +64,5 @@ block reference
     ul
         li Read more about #[a(href='/reference/interactive_next/game-clients.html') sending data between a custom control and a game client]
         li Check out the #[a(href='/reference/interactive_next/best-practices.html') best practices for building custom control experiences]
-        li Learn about #[a(href='/reference/interactive_next/authoring.html') authoring custom control bundles] for when you're ready to go big with your integration
+        li Learn about #[a(href='/reference/interactive_next/workflow.html') testing and publishing custom control bundles] for when you're ready to go big with your integration
         li Ask questions and get help #[a(href='https://gitter.im/Mixer/developers') on Gitter]

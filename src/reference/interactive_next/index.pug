@@ -26,8 +26,8 @@ block reference
     p The collection of HTML, CSS and JavaScript that you develop when creating a Custom Controls experience is called an Interactive #[strong Bundle], and project versions can be assigned to load a specific Bundle.
 
     figure
-        img(src='/img/reference/interactive/controls/project-heirarchy.svg' alt='studio share button')
-        figcaption The project "My Awesome Project" has three versions. Two we've assigned to the default bundle (called the #[code interactive-launchpad]) and for version 2.0 we've created a custom bundles.
+        img(src='/img/reference/interactive/controls/project-heirarchy.svg' alt='Diagram showing the project hierarchy')
+        figcaption The project "My Awesome Project" has three versions. Two we've assigned to the default bundle (called the #[code interactive-launchpad]) and for version 2.0 we've created a custom bundle.
 
     p Bundles themselves can have multiple bundle versions. Bundles are initially created privately, accessible only to you. Once you decide to "publish" a bundle version to make it public, you won't be able to modify it. This ensures that you don't break users who are relying on released versions of your bundles.
 
@@ -37,10 +37,10 @@ block reference
 
     p Controls are interactive elements within an Interactive experience such as a Button, Joystick or even a MiniMap. They allow users to give inputs and receive data from your Game or Application. They exist within scenes of an Interactive experience and have a free-form set of properties that can be used to modify their behavior or appearance. They can also send inputs and data to your Game Client which can in turn send data back to update the control's appearance or behavior.
 
-    p All of Mixer's standard controls and experiences such as Share your Controller are built using Custom Controls. They use #[a(href='https://preactjs.com/') Preact], a super lightweight framework that takes care of the dirty work for you, and #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html') TypeScript], a super set of JavaScript which gives you the option of adding type annotations to your code.
+    p All of Mixer's standard controls and experiences such as Share your Controller are built using Custom Controls. They use #[a(href='https://preactjs.com/' target='_blank') Preact], a super lightweight framework that takes care of the dirty work for you, and #[a(href='https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html' target='_blank') TypeScript], a superset of JavaScript which gives you the option of adding type annotations to your code.
 
-    p For more information on Mixer's Standard Controls, checkout #[a(href='../interactive/index.html#controls') the documentation for them].
+    p For more information on Mixer's Standard Controls, check out #[a(href='../interactive/index.html#controls') the documentation for them].
 
     h3#summary Summary
 
-    p In summary, when a streamer goes Interactive with a version of your Interactive Project, Mixer will lookup the linked bundle for this version and load it onto the streamers channel page for any viewers watching. They'll be connected through Mixer to your Game or Application where you can start receiving inputs and data to change and enhance a streamer's game or broadcast.
+    p In summary, when a streamer goes Interactive with a version of your Interactive Project, Mixer will look up the linked bundle for this version and load it onto the streamer's channel page for any viewers watching. They'll be connected through Mixer to your Game or Application where you can start receiving inputs and data to change and enhance a streamer's game or broadcast.
