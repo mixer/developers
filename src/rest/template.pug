@@ -31,7 +31,7 @@ include ./resource.pug
             li Or, you can make unauthenticated requests by sending a #[code Client-ID] header with the Client ID of an application created within the #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. Our official SDKs add this header; please see our #[a(href='/tutorials/rest.html') REST API tutorial] for examples.
 
         .alert.alert-warning
-            p Requests that do not pass either an #[code Authorization] or #[code Client-ID] header will receive an #[code X-Warning] header. After #[strong 21st May 2018], these requests will be rejected.
+            p You must ensure your requests include either an #[code Authorization] or #[code Client-ID] header.
 
         h2(id='rate_limiting') Rate Limiting
         p.
