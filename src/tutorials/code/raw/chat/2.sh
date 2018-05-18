@@ -3,7 +3,7 @@
 chatJoinInfo=$(curl \
 -s \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer AUTH_TOKEN"
+-H "Authorization: Bearer AUTH_TOKEN" \
 https://mixer.com/api/v1/chats/$channelId )
 
 wsServer=$(jq -r .endpoints[0] <<< $chatJoinInfo)
