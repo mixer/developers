@@ -346,7 +346,7 @@ block reference
         li #[code always] mouse move events are sent on hover and during mousedown
         li #[code never] never send mouse move events.  You will still receive click events.
 
-    p You can also adjust mouse move event throttling.  The #[code moveThrottle] will prohibit move events from sending but only every provided millisecond.  It is suggested to have some limit here, but 0 (no throttling) is allowed.  The default is 50ms.
+    p You can also adjust mouse move event throttling.  The #[code moveThrottle] duration, given in milliseconds, will throttle movement events sent to the game client.  The default is 50ms.
 
     h3#more-customization Looking for More Customization?
 
