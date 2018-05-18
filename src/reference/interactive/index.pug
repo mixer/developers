@@ -337,6 +337,17 @@ block reference
         li Cooldown duration - Prevents interaction until it expires
         li Spark cost (For more info about sparks, see #[a(href='#what-are-sparks') What are Sparks?])
 
+    h3#mouse Mouse
+
+    p Mouse input allows you to get mouse events over video.  The mouse input control is pretty simplistic.  You can subscribe to receive mouse move on:
+
+    ul
+        li #[code mousedown] (default) - this will only send mouse move events during a mousedown event
+        li #[code always] mouse move events are sent on hover and during mousedown
+        li #[code never] never send mouse move events.  You will still receive click events.
+
+    p You can also adjust mouse move event throttling.  The #[code moveThrottle] duration, given in milliseconds, will throttle movement events sent to the game client.  The default is 50ms.
+
     h3#more-customization Looking for More Customization?
 
     p If you're looking for more customization and more options for your interactive controls then checkout our new #[a(href='/reference/interactive_next/index.html') Custom Controls] feature. It lets you create awesome experiences that are 100% custom and written in HTML, JavaScript and CSS.
