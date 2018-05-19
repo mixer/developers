@@ -3,7 +3,7 @@ extends ./page.pug
 block reference
     h2#game-clients Game Clients
 
-    p In interactive, a #[em game client] refers to an application that runs on a streamers computer and powers the experience. Game clients can be any application, but typically take the form of an actual game that is sending state information to Mixer viewers that allows them to interact.
+    p In interactive, a #[em game client] refers to an application that runs on a streamer's computer and powers the experience. Game clients can be any application, but typically take the form of an actual game that is sending state information to Mixer viewers that allows them to interact.
 
     h2#custom-data Sending Custom Data
 
@@ -15,7 +15,7 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/data-from-custom-control.js')
 
-    p The only required parameter in a #[code giveInput] message is the #[code controlID] which tells the game client which control in the scene received input. For this to work ensure that you have a control with the id #[code my-control], such as:
+    p The only required parameter in a #[code giveInput] message is the #[code controlID] which tells the game client which control in the scene received input. For this to work, ensure that you have a control with the id #[code my-control], such as:
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/example-scenes.json')
 
@@ -56,7 +56,7 @@ block reference
     ul
         li Participant
             ul
-                li A participants individual score in a game, to be displayed in the custom control
+                li A participant's individual score in a game, to be displayed in the custom control
         li Scene
             ul
                 li The name of the map that participants are interacting with
@@ -78,7 +78,7 @@ block reference
     p Note that you may include more than one scope, which specifies who should receive the event. You can specify things like: #[code group:default] or #[code participant:e1fefc78-d4cc-4c69-b2d9-b36ed5c52893]. For more information see the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol reference].
 
     h2#tutorial Custom Data Tutorial
-    p Now that we've covered the ways to send custom data between your custom controls and game client, lets walk through a simple example using the #[a(href='https://github.com/mixer/interactive-node-samples/tree/master/minimal-game-client') minimal game client]. Although this sample is written in typescript #[a(href='/reference/interactive/index.html#choosing-an-sdk-environment') Mixer provides SDKs] in many languages and environments to plug into your game.
+    p Now that we've covered the ways to send custom data between your custom controls and game client, let's walk through a simple example using the #[a(href='https://github.com/mixer/interactive-node-samples/tree/master/minimal-game-client') minimal game client]. Although this sample is written in TypeScript, #[a(href='/reference/interactive/index.html#choosing-an-sdk-environment') Mixer provides SDKs] in many languages and environments to plug into your game.
 
     p In this example we'll create a custom control that allows users to move the the Hello World text to the location of their choosing by clicking on the video overlay. The custom control will send the location of the click on the video to the game client, which will then update the location of the title and send it out to all connected participants.
 
@@ -88,10 +88,10 @@ block reference
 
     pre: code.
         git clone https://github.com/mixer/interactive-node-samples
-        cd interactive-node-samples/minimal-game-client'
-        npm i
+        cd interactive-node-samples/minimal-game-client
+        npm install
 
-    p Next, follow the instructions in the README to add the #[code applicationId] and #[code versionId] to the #[code mixerauth.json] file. Once that's done verify that everything works by running #[code npm run start]. The application will prompt you to enter a shortcode on Mixer to authenticate, and then should connect to your channel without error.
+    p Next, follow the instructions in the README to add the #[code applicationId] and #[code versionId] to the #[code mixerauth.json] file. Once that's done, verify that everything works by running #[code npm run start]. The application will prompt you to enter a shortcode on Mixer to authenticate, and then should connect to your channel without error.
 
     h2#send-mouse-clicks Send data from a custom control
 
@@ -127,4 +127,4 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/tutorial/handle-update-2.js')
 
-    p This now properly handles the #[code onSceneCreate] event which is what fires when interactive initially loads, and the #[code onSceneUpdate] event which fires when a scene is updated. You should now be able to go back to the CDK and reload to your hearts content knowing that each time you connect to interactive you (and other participants) will get the latest position of the title.
+    p This now properly handles the #[code onSceneCreate] event which is what fires when interactive initially loads, and the #[code onSceneUpdate] event which fires when a scene is updated. You should now be able to go back to the CDK and reload to your heart's content knowing that each time you connect to interactive you (and other participants) will get the latest position of the title.
