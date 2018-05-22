@@ -41,7 +41,7 @@ block reference
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/example-participant.json')
 
-    p You can then set custom properties and use the matching #[code update*] method for the object you are setting properties on. In this case, you would use #[code updateParticipant] to set the following:
+    p You can then set custom properties and use the matching #[code update*] method for the object you are setting properties on. In this case, pass the following data in the participant array in a call to #[code updateParticipants]:
 
     +highlightFile('javascript', 'reference/interactive_next/game-clients/example-participant-meta.json')
 
@@ -78,7 +78,7 @@ block reference
     p Note that you may include more than one scope, which specifies who should receive the event. You can specify things like: #[code group:default] or #[code participant:e1fefc78-d4cc-4c69-b2d9-b36ed5c52893]. For more information see the #[a(href='/reference/interactive/protocol/protocol.pdf') interactive protocol reference].
 
     h2#tutorial Custom Data Tutorial
-    p Now that we've covered the ways to send custom data between your custom controls and game client, let's walk through a simple example using the #[a(href='https://github.com/mixer/interactive-node-samples/tree/master/minimal-game-client') minimal game client]. Although this sample is written in TypeScript, #[a(href='/reference/interactive/index.html#choosing-an-sdk-environment') Mixer provides SDKs] in many languages and environments to plug into your game.
+    p Now that we've covered the ways to send custom data between your custom controls and game client, let's walk through a simple example using the #[a(href='https://github.com/mixer/interactive-node-samples/tree/master/minimal-game-client') minimal game client]. Although this sample is written in JavaScript, #[a(href='/reference/interactive/index.html#choosing-an-sdk-environment') Mixer provides SDKs] in many languages and environments to plug into your game.
 
     p In this example we'll create a custom control that allows users to move the the Hello World text to the location of their choosing by clicking on the video overlay. The custom control will send the location of the click on the video to the game client, which will then update the location of the title and send it out to all connected participants.
 
