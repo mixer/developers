@@ -300,6 +300,13 @@
             "totalMonths": 3
         }
     },
+    "channel:{id}:directPurchased": {
+        "description": "Sent when a user uses direct purchase to buy a title on a Streamer's Channel.",
+        "payload": {
+            "type":"Object",
+            "description":"An empty JSON Object for now"
+        }
+    },
     "channel:{id}:update": {
         "description": "Sent when the channel model is changed.",
         "payload": {
