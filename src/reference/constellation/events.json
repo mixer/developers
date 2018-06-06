@@ -304,8 +304,11 @@
         "description": "Sent when a user uses direct purchase to buy a title on a Streamer's Channel.",
         "payload": {
             "type":"Object",
-            "description":"An empty JSON Object for now"
-        }
+            "description":"A JSON object containing the title of the game sold."
+        },
+	"example": {
+            "gameTitle": "Dark Souls III"
+	}
     },
     "channel:{id}:update": {
         "description": "Sent when the channel model is changed.",
