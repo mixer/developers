@@ -6,7 +6,9 @@ Carina.WebSocket = ws;
 const channelId = 1234;
 
 const ca = new Carina({
-    clientId: 'CLIENT_ID',
+    queryString: {
+        'Client-ID': 'CLIENT_ID',
+    },
     isBot: true,
 }).open();
 
