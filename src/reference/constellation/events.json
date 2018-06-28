@@ -303,17 +303,17 @@
     "channel:{id}:directPurchased": {
         "description": "Sent when a user uses direct purchase to buy a title on a Streamer's Channel.",
         "payload": {
-            "type":"Object",
-	    "properties": {
-	        "gameTitle": {
-		    "type": "string",
-		    "description": "The title of the game sold"
-		}
-	    }
+            "type":"object",
+    	    "properties": {
+    	        "gameTitle": {
+        		    "type": "string",
+        		    "description": "The title of the game sold"
+        		}
+    	    }
         },
-	"example": {
+    	"example": {
             "gameTitle": "Dark Souls III"
-	}
+    	}
     },
     "channel:{id}:update": {
         "description": "Sent when the channel model is changed.",
