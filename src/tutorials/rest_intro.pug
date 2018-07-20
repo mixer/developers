@@ -6,6 +6,7 @@ ul
     li #[code GET] looks something up, as we've said
     li #[code POST] creates something
     li #[code PUT] updates something
+    li #[code PATCH] patch something
     li #[code DELETE] destroys something
 
 p On our RESTful API, you make requests by calling #[code VERB https://mixer.com/api/v1/resources]. We'll abbreviate this as #[code VERB /resources] from now on. For instance, to create a new user, you would call #[code POST /users] (the endpoints are always plural). If you want to operate on a particular user object, you would append their ID to that URL, such as #[code GET /users/344] to return information about user ID #[code 344].
