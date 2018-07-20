@@ -60,7 +60,7 @@ block tutorialContent
                 li.
                     Create a #[a(href='https://docs.npmjs.com/cli/init' target='_blank') new project] with npm.
                 li.
-                    Run #[code npm i -S beam-client-node beam-interactive-node robotjs]
+                    Run #[code npm i -S @mixer/client-node beam-interactive-node robotjs]
             h3 Usage
             p.
                 Let's start by importing all of the modules which we'll need and define
@@ -70,7 +70,7 @@ block tutorialContent
             +highlightFile('javascript','./tutorials/code/node/interactive/1.js')
             p.
                 To connect to Mixer Interactive we need to authenticate as our user specified above
-                using  #[code beam-client-node] we'll use an implicit OAuth token to do this. The required scopes are #[code interactive:robot:self].
+                using  #[code @mixer/client-node] we'll use an implicit OAuth token to do this. The required scopes are #[code interactive:robot:self].
                 Once authenticated we're asking the api to join a channel as a robot with #[code beam.game.join].
                 We'll use the response from this to create a robot in the next step.
             +highlightFile('javascript','./tutorials/code/node/interactive/2.js')
