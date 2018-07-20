@@ -63,6 +63,12 @@ mixin oauthLinks(scopes)
             oauthUtils.registerOAuthClickHandler('#{scopes}');
         });
 
+mixin clientIdLinks()
+    script.
+        $(function () {
+            oauthUtils.registerClientIdClickHandler();
+        });
+
 mixin bookPageTitle(pages)
     = pages.hasOwnProperty(fileBasename) ? pages[fileBasename].name : fileBasename
 

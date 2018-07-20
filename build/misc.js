@@ -89,8 +89,17 @@ function getLocals () {
         bsTabs: {},
         highlight: (lang, str) => {
             if (lang === 'text') return str;
-            return highlight.highlight(lang, str).value
-                .replace('AUTH_TOKEN', '<a class="auth-token">Click here to get your Token!</a>');
+            return highlight
+                .highlight(lang, str)
+                .value
+                .replace(
+                    'AUTH_TOKEN',
+                    '<a class="token auth-token">Click here to get your Token!</a>'
+                )
+                .replace(
+                    'CLIENT_ID',
+                    '<a class="token client-id">Click here to get your Client ID!</a>'
+                );
         },
         readFile: (file) => fs.readFileSync(path.join(__dirname, '../src', file)),
 

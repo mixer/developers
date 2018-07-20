@@ -1,1 +1,6 @@
-const ca = new Carina({ isBot: true }).open();
+const ca = new Carina({
+    queryString: {
+        'Client-ID': 'CLIENT_ID',
+    },
+    isBot: true,
+}).open();

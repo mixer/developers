@@ -86,6 +86,11 @@
                 oauthUtils.openImplicitOAuthWindow(scopes);
             });
         },
+        registerClientIdClickHandler: function () {
+            $('.client-id').off('click').on('click', function () {
+                oauthUtils.popupCenter('https://mixer.com/lab/keypopup');
+            });
+        },
     };
 
     window.oauthUtils = oauthUtils;

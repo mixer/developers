@@ -1,17 +1,17 @@
-import pro.beam.api.BeamAPI;
-import pro.beam.api.http.SortOrderMap;
-import pro.beam.api.resource.BeamUser;
-import pro.beam.api.resource.channel.BeamChannel;
-import pro.beam.api.response.channels.ShowChannelsResponse;
-import pro.beam.api.services.impl.ChannelsService;
-import pro.beam.api.services.impl.UsersService;
+import com.mixer.api.MixerAPI;
+import com.mixer.api.http.SortOrderMap;
+import com.mixer.api.resource.MixerUser;
+import com.mixer.api.resource.channel.MixerChannel;
+import com.mixer.api.response.channels.ShowChannelsResponse;
+import com.mixer.api.services.impl.ChannelsService;
+import com.mixer.api.services.impl.UsersService;
 
 import java.util.concurrent.ExecutionException;
 
 public class Tutorial {
-    public static BeamAPI beam;
+    public static MixerAPI mixer;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        beam = new BeamAPI();
+        mixer = new MixerAPI("CLIENT_ID");
     }
 }
