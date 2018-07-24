@@ -754,7 +754,7 @@ The Participant object returned from many methods in this section contains the f
 - ``connectedAt``, the unix milliseconds timestamp when the user connected.
 - ``disabled`` (settable), a boolean set to true if the user's input as been disabled.
 - ``groupID`` (settable), a string referencing the group the user belongs to.
-- ``anonymous``, a boolean set to true if the user is not signed in.
+- ``anonymous``, a boolean set to true if the user is not signed in. When true, userID will be 0.
 
 .. code-block:: js
 
