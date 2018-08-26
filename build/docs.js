@@ -240,7 +240,7 @@ module.exports = (gulp, $, flags) => {
         if (config.backendRamlPath) {
             docPath = path.join(config.backendRamlPath, 'index.raml');
         } else {
-            docPath = path.join(config.src.tmp, 'index.raml');
+            docPath = path.join(config.src.tmp, 'raml/index.raml');
         }
         return ramlParser().loadApi(docPath, {
             rejectOnErrors: true,
