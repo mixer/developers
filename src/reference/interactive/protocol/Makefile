@@ -1,5 +1,5 @@
 RST_SRC = $(wildcard *.rst)
-VERSION=1.5.0
+VERSION=1.6.0
 RST_GEN = $(RST_SRC:.rst=.pdf)
 
 all: $(RST_GEN)

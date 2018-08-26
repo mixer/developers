@@ -2429,6 +2429,13 @@ code_test.go
 Changelog
 ---------
 
+1.6.0 (2018-09-25)
+''''''''''''''''''
+
+ - Added documentation for our default throttling limits on all methods and how to change them
+ - Added Custom Control documentation, Including custom properties, File handling and world state
+ - Added anonymous user information
+
 1.5.0 (2017-09-14)
 ''''''''''''''''''
 
