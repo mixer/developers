@@ -233,14 +233,14 @@ function enhanceRamlObj (ramlObj, internal = false) {
  * @return {Stream}
  */
 module.exports = (gulp, $, flags) => {
-    gulp.task('backend-clone', () => getRepo('git@github.com:mixer/backend.git', 'master'));
+    gulp.task('backend-clone', () => getRepo('git@github.com:mixer/raml.git', 'master'));
 
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
         if (config.backendRamlPath) {
             docPath = path.join(config.backendRamlPath, 'index.raml');
         } else {
-            docPath = path.join(config.src.tmp, 'backend/doc/raml/index.raml');
+            docPath = path.join(config.src.tmp, 'index.raml');
         }
         return ramlParser().loadApi(docPath, {
             rejectOnErrors: true,
