@@ -334,6 +334,9 @@ Error Codes
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4024 | Invalid broadcast scope provided.                                                                 | ``broadcastEvent``               |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
+| 4025 | Sent in a close frame, indicating the game client was purposefully                                | *                                |
+|      | terminated and should not try to reconnect.                                                       |                                  |
++------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4099 | Bad user input.                                                                                   | ``giveInput``                    |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 
@@ -921,6 +924,75 @@ Iterating over the list in pseudo-code might look something like the following:
         "participants": [ /* an array of Participant objects */ ],
         "total": 4912,
         "hasMore": true
+      },
+      "error": null,
+      "id": 123
+    }
+
+getParticipantsByMixerID |Server Method|
+''''''''''''''''''''''''''''''''''''''''
+
+This method allows the client to retrieve participant objects using their Mixer ID. The server SHALL return a mapping of requested IDs to Participant objects. All requested IDs SHALL be present in the response, mapping either to a Participant object or ``null`` if no user with the specified ID is currently connected to the integration.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "getParticipantsByMixerID",
+    "params": {
+      "userIDs": [123, 456]
+    }
+  }
+
+- A successful reply in which the user ID ``123`` is connected, but the user ``456`` is not:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": {
+        "users": {
+            "123": { /* a Participant object */ },
+            "456": null
+          }
+        }
+      },
+      "error": null,
+      "id": 123
+    }
+
+getParticipantsBySessionID |Server Method|
+''''''''''''''''''''''''''''''''''''''''''
+
+This method allows the client to retrieve participant objects using their Session ID. The server SHALL return a mapping of requested IDs to Participant objects. All requested IDs SHALL be present in the response, mapping either to a Participant object or ``null`` if no user with the specified ID is currently connected to the integration.
+
+.. code-block:: js
+
+  {
+    "type": "method",
+    "id": 123,
+    "method": "getParticipantsBySessionID",
+    "params": {
+      "sessionIDs": [
+        "13b4775e-7c22-4367-b5a9-7a195930a9ee",
+        "d585ba1a-8117-4753-a7ca-a82717d0ca59"
+      ]
+    }
+  }
+
+- A successful reply in which the first user ID is connected, but the second is not:
+
+  .. code-block:: js
+
+    {
+      "type": "reply",
+      "result": {
+        "users": {
+            "13b4775e-7c22-4367-b5a9-7a195930a9ee": { /* a Participant object */ },
+            "d585ba1a-8117-4753-a7ca-a82717d0ca59": null
+          }
+        }
       },
       "error": null,
       "id": 123
@@ -2428,6 +2500,13 @@ code_test.go
 
 Changelog
 ---------
+
+1.7.0 (2018-08-28)
+''''''''''''''''''
+
+ - Added new ``getParticipantsByMixerID`` method
+ - Added new ``getParticipantsBySessionID`` method
+ - Added new ``4025 Purposeful Close`` error code.
 
 1.6.0 (2018-09-25)
 ''''''''''''''''''
