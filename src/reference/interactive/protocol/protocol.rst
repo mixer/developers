@@ -334,7 +334,12 @@ Error Codes
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4024 | Invalid broadcast scope provided.                                                                 | ``broadcastEvent``               |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
-| 4025 | Sent in a close frame, indicating the game client was purposefully                                | *                                |
+| 4025 | Sent in the close frame if the participant can no longer                                          | *                                |
+|      | access the session (e.g. they were banned).                                                       |                                  |
++------+---------------------------------------------------------------------------------------------------+----------------------------------+
+| 4026 | Sent to anonymous users who click a button which requires sparks.                                 | ``giveInput``                    |
++------+---------------------------------------------------------------------------------------------------+----------------------------------+
+| 4027 | Sent in a close frame, indicating the game client was purposefully                                | *                                |
 |      | terminated and should not try to reconnect.                                                       |                                  |
 +------+---------------------------------------------------------------------------------------------------+----------------------------------+
 | 4099 | Bad user input.                                                                                   | ``giveInput``                    |
@@ -2506,7 +2511,7 @@ Changelog
 
  - Added new ``getParticipantsByMixerID`` method
  - Added new ``getParticipantsBySessionID`` method
- - Added new ``4025 Purposeful Close`` error code.
+ - Added error codes ``4025`` through ``4027``.
 
 1.6.0 (2018-09-25)
 ''''''''''''''''''
