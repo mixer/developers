@@ -83,7 +83,7 @@ function getLocals () {
             csharp: require('../src/reference/interactive/csharp/data.json').api,
         },
         rest: restDoc,
-        beConfig: wrappedRequire('./tmp/backend/config/default.js'),
+        beConfig: wrappedRequire('../src/backendConfig.js'),
         permissions,
         permissionKeys,
         bsTabs: {},
