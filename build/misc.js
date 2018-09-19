@@ -76,10 +76,6 @@ function getLocals () {
         log: console.log,
         marked,
         libraries: require('./tmp/libraries'), // eslint-disable-line import/no-unresolved
-        cClients: {
-            cpp: require('../src/reference/interactive/cplusplus/data.json').api,
-            csharp: require('../src/reference/interactive/csharp/data.json').api,
-        },
         rest: restDoc,
         beConfig: wrappedRequire('../src/backendConfig.js'),
         permissions,
