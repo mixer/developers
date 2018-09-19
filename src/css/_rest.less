@@ -4,6 +4,10 @@
     .panel-body {
         background-color: @body-bg;
     }
+    .panel-heading {
+        background-color: lighten(@body-bg,10);
+        color: @text-color;
+    }
     position: relative;
 
     .panel-reference {
@@ -128,7 +132,7 @@
     }
 
     &:hover {
-        background: @gray-lighter;
+        background: lighten(@body-bg, 10%);
     }
 
     &-method {
