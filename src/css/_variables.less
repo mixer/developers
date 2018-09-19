@@ -13,6 +13,9 @@
 @gray:                   lighten(@gray-base, 33.5%); // #555
 @gray-light:             lighten(@gray-base, 46.7%); // #777
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+.bg-danger {
+    background-color:#4b0000;
+}
 
 @brand-primary:         #536dfe;
 @brand-secondary:       #461b64;
@@ -27,14 +30,14 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #fff;
+@body-bg:               #2B3244;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            #F0F2F7;
 
 //** Global textual link color.
-@link-color:            lighten(@brand-primary, 5%);
+@link-color:            #00C6F2;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      darken(@link-color, 10%);
 //** Link hover decoration.
 @link-hover-decoration: transparent;
 
@@ -120,7 +123,7 @@
 //** Background color used for `.table-striped`.
 @table-bg-accent:               #f9f9f9;
 //** Background color used for `.table-hover`.
-@table-bg-hover:                #f5f5f5;
+@table-bg-hover:                lighten(@body-bg, 20%);
 @table-bg-active:               @table-bg-hover;
 
 //** Border color for table and cell borders.
