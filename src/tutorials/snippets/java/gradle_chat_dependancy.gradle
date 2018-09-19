@@ -1,3 +1,0 @@
-dependencies {
-    compile "com.mixer:api:6.0.0-SNAPSHOT"
-}

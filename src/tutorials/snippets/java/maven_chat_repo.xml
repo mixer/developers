@@ -1,6 +1,0 @@
-<repositories>
-  <repository>
-    <id>beam-snapshots</id>
-    <url>https://maven.mixer.com/content/repositories/snapshots/</url>
-  </repository>
-</repositories>

@@ -1,4 +1,0 @@
-dependencies {
-    compile "pro.beam:api:3.0.3-SNAPSHOT"
-    compile "pro.beam:interactive:1.5.1-SNAPSHOT"
-}

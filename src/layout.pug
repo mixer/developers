@@ -61,48 +61,5 @@ html
             .site-content
                 block content
 
-        block footer
-            footer.site-footer
-                .container
-                    .col-lg-2.col-md-3.col-xs-6
-                        h3 Mixer
-                        ul
-                            li: a(href='https://mixer.com' target='_blank') Home
-                            li: a(href='https://mixer.com/browse/all' target='_blank') Browse
-                            li: a(href='https://mixer.com/about/story' target='_blank') About
-                            li: a(href='https://mixer.com/contact' target='_blank') Contact Us
-
-                    .col-lg-2.col-md-3.col-xs-6
-                        h3 Social
-                        ul
-                            li: a(href='https://twitter.com/WatchMixer' target='_blank') Twitter
-                            li: a(href='https://github.com/mixer' target='_blank') GitHub
-                            li: a(href='https://gitter.im/Mixer/developers' target='_blank') Gitter.im
-                            li: a(href='https://facebook.com/WatchMixer' target='_blank') Facebook
-
-                    .col-lg-2.col-md-3.col-xs-6
-                        h3 Network
-                        ul
-                            li: a(href='https://mixer.com' target='_blank') mixer.com
-                            li: a(href='https://blog.mixer.com/' target='_blank') Blog
-                            li: a(href='https://feedback.mixer.com/forums/382521-lazers-and-shiny-things/category/174978-developer-ecosystem' target='_blank') Feedback
-                            li: a(href='https://discord.gg/mixer' target='_blank') Discord
-
-                    .col-lg-2.col-md-3.col-xs-6
-                        h3 Legal
-                        ul
-                            li: a(href='/legal/attributions.html') Attributions
-                            li: a(href='/legal/developer-agreement.html') Developer Agreement
-                            li: a(href='https://mixer.com/about/privacy' target='_blank') Privacy Policy
-                            li: a(href='https://mixer.com/about/tos' target='_blank') Terms of Service
-                            li: a(href='https://mixer.com/about/dmca' target='_blank') DMCA/Abuse
-
-                    .col-sm-4.visible-lg-block
-                        a.footer-logo(href='https://mixer.com' target='_blank')
-                            img(src='/img/footer-logo.png' alt='Mixer Logo')
-
-                    .clearfix
-                    .copyright Copyright Microsoft. #[a(href='https://github.com/mixer/developers/issues/new' target='_blank') Spot an issue]?
-
         block scripts
             +scripts()
