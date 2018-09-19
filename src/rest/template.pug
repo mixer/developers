@@ -9,52 +9,6 @@ include ./resource.pug
                         for r in rest.resources
                             li: a(href=`#${r.uniqueId}`)= r.relativeUri
     .col-md-9(role='main')
-        .page-header
-            p Mixer provides an HTTP API that can be used with #[a(href='/reference/oauth/index.html') OAuth]. The base API URL is #[code https://mixer.com/api/v1], and all paths listed here are appended to that.
-
-            .alert.alert-info If you want some more help about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
-
-        h3 Side note: REST APIs
-
-        include ../tutorials/rest_intro.pug
-
-        p If you want some more information about talking to our REST API, check out our #[a(href='/tutorials/rest.html') REST Tutorial].
-
-        h2(id='authentication') Authentication
-
-        p To get started, please accept the Developer Agreement and create an OAuth Application from our #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. For more information, please see #[a(href='https://aka.ms/mixerdevagreementkb' target='_blank') this support article].
-
-        p Once you have created an application, you must either:
-
-        ul
-            li Authenticate as a user through OAuth (by sending an #[code Authorization] header with your request). Please see our #[a(href='/reference/oauth/index.html') OAuth Reference] for details.
-            li Or, you can make unauthenticated requests by sending a #[code Client-ID] header with the Client ID of an application created within the #[a(href='https://mixer.com/lab/oauth' target='_blank') Developer Lab]. Our official SDKs add this header; please see our #[a(href='/tutorials/rest.html') REST API tutorial] for examples.
-
-        .alert.alert-warning
-            p You must ensure your requests include either an #[code Authorization] or #[code Client-ID] header.
-
-        h2(id='rate_limiting') Rate Limiting
-        p.
-            In order to guarantee API stability there are a few rate limits in place.
-            All endpoints that are rate limited have their #[code bucket] noted below.
-        p Here is a list of all rate limiting buckets and their attributes.
-        table.table.table-condensed
-            caption Each endpoint can be called #[code Request Count] times per #[code Time Interval].
-            thead
-                tr
-                    th Name
-                    th Request Count
-                    th Time Interval (in Seconds)
-            tbody
-                if beConfig
-                    - orderered = orderObject(beConfig.ratelimit.buckets)
-                    for bucket, name in orderered
-                        tr
-                            td= name
-                            td= bucket.max
-                            td= bucket.interval/1000
-
-        include ../snippets/help.pug
         h2 Endpoints
         if rest
             for resource in orderObject(rest.resources)
