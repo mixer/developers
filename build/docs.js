@@ -233,7 +233,12 @@ function enhanceRamlObj (ramlObj, internal = false) {
  * @return {Stream}
  */
 module.exports = (gulp, $, flags) => {
-    gulp.task('backend-clone', () => getRepo('git@github.com:mixer/raml.git', 'master'));
+    gulp.task('backend-clone', () => {
+        if (config.backendRamlPath) {
+            return;
+        }
+        return getRepo('git@github.com:mixer/raml.git', 'master')
+    });
 
     gulp.task('backend-doc', ['backend-clone'], () => {
         let docPath;
