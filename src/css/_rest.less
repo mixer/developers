@@ -1,7 +1,29 @@
 @import '_mixins';
 @rest-border-color:darken(@body-bg,10%);
 @rest-active-background: lighten(@body-bg,10);
+.alert {
+    color: #FFF;
+}
+.alert-warning {
+    background:#e99e08;
+    border: none;
+    border-left: 20px groove #b87d06;
+}
+.alert-danger {
+    border:none;
+    border-left: 20px groove #bb1e29;
+    background: #DD2F3B;
+}
+small {
+    color: #adadad !important;
+}
+blockquote {
+    border-color: @rest-border-color;
+}
 .panel-default {
+    border-color: @rest-border-color;
+}
+.modal-header {
     border-color: @rest-border-color;
 }
 .modal-content {
@@ -60,7 +82,7 @@
         list-style-type: none;
 
         + li {
-            border-top: 1px solid @gray-lighter;
+            border-top: 1px solid @rest-border-color;
         }
     }
 
