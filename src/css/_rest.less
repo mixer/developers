@@ -3,6 +3,10 @@
 .panel-default {
     border-color: @rest-border-color;
 }
+.modal-content {
+    background-color: @body-bg;
+}
+
 .panel-rest {
     .panel-body {
         border-color: @rest-border-color;
@@ -262,5 +266,15 @@
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
+    }
+}
+.nav-tabs {
+    border-color: @rest-border-color;
+    li.active {
+        a,a:focus {
+            border-color: @rest-border-color;
+            background-color: lighten(@body-bg,10);
+            color: #8698fe;
+        }
     }
 }
