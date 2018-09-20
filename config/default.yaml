@@ -4,6 +4,8 @@ minify: false
 # include internal APIs
 includeInternal: false
 
+backendRamlPath: D:/dev/raml
+
 # Source and corresponding destination paths for resources. You should
 # probably not change these unless you know what you're doing:
 src:

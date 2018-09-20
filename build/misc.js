@@ -224,7 +224,7 @@ module.exports = (gulp, $, flags) => {
 
     gulp.task('html', ['html-raml']);
 
-    gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
+    gulp.task('html-raml', ['backend-doc'], () => {
         return gulp.src(config.src.html)
         .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))

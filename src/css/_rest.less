@@ -1,12 +1,17 @@
 @import '_mixins';
-
+@rest-border-color:darken(@body-bg,10%);
+.panel-default {
+    border-color: @rest-border-color;
+}
 .panel-rest {
     .panel-body {
+        border-color: @rest-border-color;
         background-color: @body-bg;
     }
     .panel-heading {
         background-color: lighten(@body-bg,10);
         color: @text-color;
+        border-color: @rest-border-color;
     }
     position: relative;
 
@@ -112,7 +117,7 @@
 
 .rest-endpoint {
     font-size: 1.1em;
-    border-bottom: 1px solid @gray-lighter;
+    border-bottom: 1px solid darken(@body-bg,5%);
     cursor: pointer;
 
     td:first-child {
@@ -197,6 +202,8 @@
 
             &:hover {
                 font-weight: 500;
+                background-color: lighten(@body-bg, 10%);
+                color:#FFF;
             }
         }
 
@@ -215,6 +222,8 @@
             }
             > a {
                 font-weight: 600;
+                color: #8698fe;
+                border-color: #8698fe;
             }
         }
     }

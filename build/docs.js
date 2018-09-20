@@ -235,7 +235,7 @@ function enhanceRamlObj (ramlObj, internal = false) {
 module.exports = (gulp, $, flags) => {
     gulp.task('backend-clone', () => getRepo('git@github.com:mixer/raml.git', 'master'));
 
-    gulp.task('backend-doc', ['backend-clone'], () => {
+    gulp.task('backend-doc', [], () => {
         let docPath;
         if (config.backendRamlPath) {
             docPath = path.join(config.backendRamlPath, 'index.raml');
@@ -262,37 +262,6 @@ module.exports = (gulp, $, flags) => {
             fs.writeFileSync(
                 path.join(config.src.tmp, 'raml-doc.json'),
                 JSON.stringify(tree)
-            );
-        });
-    });
-
-    gulp.task('pull-client-repos', () => {
-        const todo = require('./libraries')
-        .map(lib => {
-            return fetch(`https://api.github.com/repos/${lib.name}`)
-            .then(response => {
-                if (response.status !== 200) {
-                    throw new Error(
-                        `Errorful response getting ${lib.name}: ${response.statusText}`
-                    );
-                }
-                return response.json();
-            })
-            .then(json => ({
-                language: lib.language,
-                official: lib.official,
-                name: lib.alias || lib.name.split('/').pop(),
-                updatedAt: new Date(json.pushed_at).toDateString(),
-                stars: json.stargazers_count,
-                url: json.html_url,
-            }));
-        });
-
-        return Promise.all(todo)
-        .then(result => {
-            fs.writeFileSync(
-                path.join(config.src.tmp, 'libraries.json'),
-                JSON.stringify(_.sortBy(result, 'language'), null, '   ')
             );
         });
     });
