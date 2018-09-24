@@ -76,7 +76,7 @@ mixin printType(type)
             typeLink = type.slice(0,-2);
         }
     if rest && rest.types[typeLink]
-        a(href=`/index.html#${typeLink}`)= type
+        a(href=`#${typeLink}`)= type
     else
         = type
 mixin typeExample(type)
