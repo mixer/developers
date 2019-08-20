@@ -1,3 +1,5 @@
+//add option to change to multiple themes
+
 'use strict';
 
 const path = require('path');
