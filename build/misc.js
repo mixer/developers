@@ -43,7 +43,7 @@ function wrappedRequire (filePath) {
  */
 function getPermissions () {
     try {
-        return require('@mcph/beam-common').permissions;
+        return require('@mixer/beam-common').permissions;
     } catch (err) {
         if (err.code === 'MODULE_NOT_FOUND') {
             // eslint-disable-next-line no-console
