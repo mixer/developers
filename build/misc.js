@@ -267,7 +267,7 @@ module.exports = (gulp, $, flags) => {
         .pipe(gulp.dest(config.dist.js));
     });
 
-    gulp.task('lint-json', () => {
+    gulp.task('lint-json', (done) => {
         const files = [
             'src/reference/chat/data.json',
             'src/reference/interactive/cplusplus/data.json',
@@ -282,6 +282,9 @@ module.exports = (gulp, $, flags) => {
             }
             fs.writeFileSync(file, `${transformed}\n`);
         });
+
+        // Have to do this for some gulp 4 reason
+        done();
     });
 
     gulp.task('set-internal', () => {
