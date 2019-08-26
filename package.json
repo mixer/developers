@@ -61,6 +61,6 @@
     "sticky-kit": "^1.1.3"
   },
   "optionalDependencies": {
-    "@mcph/beam-common": "^5.0.7"
+    "@mixer/beam-common": "^6.9.7"
   }
 }
