@@ -10,7 +10,7 @@ node {
         }
         stage("Install") {
             sh 'npm install'
-            sh 'npm install @mcph/beam-common@^5.0.7'
+            sh 'npm install @mcph/beam-common@5.0.7'
         }
         stage("Lint") {
             sh 'npm run lint -s'
