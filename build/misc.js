@@ -287,7 +287,10 @@ module.exports = (gulp, $, flags) => {
         done();
     });
 
-    gulp.task('set-internal', () => {
+    gulp.task('set-internal', (done) => {
         flags.internal = true;
+
+        // Have to do this for some gulp 4 reason
+        done();
     });
 };
