@@ -228,15 +228,15 @@ module.exports = (gulp, $, flags) => {
         };
     });
 
-    gulp.task('html', ['html-raml']);
-
-    gulp.task('html-raml', ['backend-doc', 'pull-client-repos'], () => {
+    gulp.task('html-raml', gulp.series(['backend-doc', 'pull-client-repos'], () => {
         return gulp.src(config.src.html)
         .pipe(dataPipe())
         .pipe($.pug(getPugOpts()))
         .pipe($.if(config.minify, $.minifyHtml()))
         .pipe(gulp.dest(config.dist.html));
-    });
+    }));
+
+    gulp.task('html', gulp.series(['html-raml']));
 
     gulp.task('html-quick', () => {
         return gulp.src(config.src.html)

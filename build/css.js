@@ -46,11 +46,11 @@ module.exports = (gulp, $) => {
      *   - minify in production
      *   - output
      */
-    gulp.task('css', ['iconfont'], () => {
+    gulp.task('css', gulp.series(['iconfont'], () => {
         return gulp.src(config.src.css)
         .pipe($.less())
         .pipe($.autoprefixer())
         .pipe($.if(config.minify, $.cleanCss()))
         .pipe(gulp.dest(config.dist.css));
-    });
+    }));
 };
